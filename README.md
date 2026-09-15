@@ -4,7 +4,7 @@ O AUTOINSTALL (Nickname: AI) é um conjunto de ferramentas que facilitam a elabo
 
 Com o AI é possível efetuar os traçados de tubulações de forma otimizada, efetuar cálculos de dimensionamento de caixas de inspeção, inserir fiação elétrica automaticamente, dimensionar quadros de distribuição, inserir bibliotecas de detalhes nos desenhos em AutoCAD, etc.
 
-Definição dos Comandos
+# DEFINICAO DOS COMANDOS
 
 1) K00C0.LSP - C:APTO - Rotina para indicacao do apartamento
 2) K01C0.LSP - C:C2P - Rotina para desenho de coluna de esgoto por dois pontos
@@ -124,8 +124,7 @@ Definição dos Comandos
 116) K73C0.LSP - C:HTUB - Rotina p/ tracado da tubulacao hidraulica
 117) K74C0.LSP - C:LISMAT - Rotina p/ levantamento de material
 118) K75C0.LSP - C:ISOBLK - Rotina p/ criacao das vistas isometricas do desenho
-119) K76C0.LSP - C:EVERDT/C:RESTDT - Rotina de verificacao de erro na insercao dos eletrodutos de
-eletrica
+119) K76C0.LSP - C:EVERDT/C:RESTDT - Rotina de verificacao de erro na insercao dos eletrodutos de eletrica
 120) K77C0.LSP - C:EADJUST - Rotinas p/ ajuste dos arquivos de eletrica (fiacao)
 121) K78C0.LSP - C:HINSERT - Rotinas p/ insercao de blocos com elevacao
 122) K79C0.LSP - C:DETBLK - Rotina p/ criacao para criar detalhes da planta baixa
@@ -164,6 +163,40 @@ eletrica
 155) K9DC0.LSP - C:SP2PL - Rotina para converter uma SPLINE em PLYNE
 156) K9EC0.LSP - C:PLOTDET - Rotina para impressao automatica do arquivo de detalhes Requisitos do Sistema
 
-Cliente:
+# REQUISITOS DE SISTEMA
+
 Microsoft Windows 7, 8, 8.1 e 10
+
 AutoCAD 2015, 2016, 2017 e 2018
+
+# EMPRESAS PARCEIRAS
+
+TLMV Consultoria e Sistemas EIRELI - CNPJ: 03.999.590/0001-04 - Empresa de Serviços de Tecnologia e Engenharia - Único Sócio e Engenheiro (Autor - 100%): Luiz Marcio Faria de Aquino Viana, Pós-D.Sc. - Engenheiro Eletricista com Ênfase em Engenharia de Sistemas e Computação
+
+AQ Projetos de Instalações Ltda - CNPJ: 31.270.077/0001-05 - Empresa Especialista em Projetos de Instalações Prediais - Único Sócio: José Luiz de Aquino Viana - Engenheiro Eletricista
+
+# CONTATO
+
+CONTACT ME, IF YOU NEED HELP OR HAVE ANY QUESTIONS ABOUT THIS WORK!
+
+Luiz Marcio Faria de Aquino Viana,Pós-D.Sc.
+
+E-mail: luiz.marcio.viana@gmail.com
+
+Phone: +55-21-99983-7207 - WhatsApp: +55-21-95911-5253
+
+# NOTES
+
+The AI - AutoINSTALL is distributed under MIT License, to permit to others developers create comertial or non-comertial products and be beneficied by my efforty and dedication to this work.
+
+    Enjoy!
+
+# Released under MIT License
+
+Copyright (c) 2025-2026 Luiz Marcio Faria de Aquino Viana, Post-D.Sc. (COPPE/UFRJ in 2002 and 2022).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
