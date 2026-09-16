@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Autodesk\AutoCAD 2016\acad.exe</StartProgram>
+    <StartWorkingDirectory>C:\Program Files\Autodesk\AutoCAD 2016\</StartWorkingDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerAttach>false</LocalDebuggerAttach>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommand>C:\Program Files\Autodesk\AutoCAD 2016\acad.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>C:\ACADAPPL\AI7_2014\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerCommandArguments>/nologo /product MAP /language "en-US" /p AI7</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+</Project>

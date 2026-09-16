@@ -1,0 +1,4 @@
+LIBRARY "aci_base"
+EXPORTS
+    acrxEntryPoint PRIVATE
+    acrxGetApiVersion PRIVATE

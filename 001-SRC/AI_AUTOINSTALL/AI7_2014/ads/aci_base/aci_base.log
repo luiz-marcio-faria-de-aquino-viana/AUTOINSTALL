@@ -1,0 +1,86 @@
+﻿Build started 11/09/2016 23:08:31.
+     1>Project "C:\ACADAPPL\AI7_2014\ads\aci_base\aci_base.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\ObjectARX 2016\inc-x64" /I"C:\ObjectARX 2016\inc" /Zi /nologo /W3 /WX- /Od /D _DEBUG /D WIN32 /D _WINDOWS /D _UNICODE /D UNICODE /D _VC80_UPGRADE=0x0600 /D _WINDLL /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug/" /Fd".\Debug/vc110.pdb" /Gd /TP /errorReport:prompt aci_base.cpp aci_def.cpp aci_err.cpp aci_fil.cpp aci_filter.cpp aci_il.cpp aci_net.cpp aci_rbf.cpp aci_str.cpp aci_tools.cpp aci_xl.cpp
+         aci_base.cpp
+         aci_def.cpp
+     1>aci_def.cpp(108): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(317) : see declaration of 'wcsncpy'
+         aci_err.cpp
+         aci_fil.cpp
+     1>aci_fil.cpp(37): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+     1>aci_fil.cpp(51): warning C4244: '=' : conversion from 'intptr_t' to 'long', possible loss of data
+     1>aci_fil.cpp(73): warning C4244: '=' : conversion from 'intptr_t' to 'long', possible loss of data
+     1>aci_fil.cpp(76): warning C4996: 'wcsicmp': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _wcsicmp. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(407) : see declaration of 'wcsicmp'
+     1>aci_fil.cpp(114): warning C4996: '_wfopen': This function or variable may be unsafe. Consider using _wfopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(587) : see declaration of '_wfopen'
+     1>aci_fil.cpp(123): warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+     1>aci_fil.cpp(130): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+     1>aci_fil.cpp(132): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+     1>aci_fil.cpp(160): warning C4996: '_wcsupr': This function or variable may be unsafe. Consider using _wcsupr_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(355) : see declaration of '_wcsupr'
+     1>aci_fil.cpp(161): warning C4996: '_wcsupr': This function or variable may be unsafe. Consider using _wcsupr_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(355) : see declaration of '_wcsupr'
+     1>aci_fil.cpp(168): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(279) : see declaration of 'wcscat'
+         aci_filter.cpp
+     1>aci_filter.cpp(73): warning C4101: 'resb' : unreferenced local variable
+         aci_il.cpp
+     1>aci_il.cpp(50): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
+     1>aci_il.cpp(62): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\conio.h(131) : see declaration of 'getch'
+     1>aci_il.cpp(81): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
+         aci_net.cpp
+     1>aci_net.cpp(21): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+     1>aci_net.cpp(34): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+         aci_rbf.cpp
+     1>aci_rbf.cpp(90): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+     1>aci_rbf.cpp(181): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+         aci_str.cpp
+         aci_tools.cpp
+     1>aci_tools.cpp(115): warning C4101: 'rscode' : unreferenced local variable
+     1>aci_tools.cpp(117): warning C4101: 'str' : unreferenced local variable
+     1>aci_tools.cpp(218): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+         aci_xl.cpp
+     1>aci_xl.cpp(19): warning C4996: '_wgetenv': This function or variable may be unsafe. Consider using _wdupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdlib.h(682) : see declaration of '_wgetenv'
+     1>aci_xl.cpp(19): warning C4996: 'wcsicmp': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _wcsicmp. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(407) : see declaration of 'wcsicmp'
+     1>aci_xl.cpp(42): warning C4996: '_wfopen': This function or variable may be unsafe. Consider using _wfopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(587) : see declaration of '_wfopen'
+     1>aci_xl.cpp(48): warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+     1>aci_xl.cpp(113): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(288) : see declaration of 'wcscpy'
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"aci_base.arx" /INCREMENTAL /NOLOGO rxapi.lib acdb20.lib acad.lib acge20.lib ac1st20.lib acapp.lib accore.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /DEF:"aci_base.def" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug/aci_base.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug/aci_base.lib" /MACHINE:X64 /DLL .\Debug/aci_base.obj
+         .\Debug/aci_def.obj
+         .\Debug/aci_err.obj
+         .\Debug/aci_fil.obj
+         .\Debug/aci_filter.obj
+         .\Debug/aci_il.obj
+         .\Debug/aci_net.obj
+         .\Debug/aci_rbf.obj
+         .\Debug/aci_str.obj
+         .\Debug/aci_tools.obj
+         .\Debug/aci_xl.obj
+            Creating library .\Debug/aci_base.lib and object .\Debug/aci_base.exp
+     1>aci_base.exp : warning LNK4070: /OUT:aci_base.dll directive in .EXP differs from output filename 'aci_base.arx'; ignoring directive
+     1>rxapi.lib(libinit.obj) : warning LNK4099: PDB 'rxapi_cl.pdb' was not found with 'rxapi.lib(libinit.obj)' or at 'C:\ACADAPPL\AI7_2014\ads\aci_base\Debug\rxapi_cl.pdb'; linking object as if no debug info
+         aci_base.vcxproj -> C:\ACADAPPL\AI7_2014\ads\aci_base\aci_base.arx
+     1>Done Building Project "C:\ACADAPPL\AI7_2014\ads\aci_base\aci_base.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:14.92
