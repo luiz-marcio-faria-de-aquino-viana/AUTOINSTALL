@@ -1,0 +1,13 @@
+
+                         A U T O I N S T A L L  R2.26
+                        ==============================
+
+                Copyright (C) 1991,96 by Luiz Marcio F A Viana
+
+
+
+-- Index --
+
+XL       = Rotina p/carga e descriptografia dos programas
+IL       = Rotina p/listar os refletores disponiveis (lumens)
+FILESEA  = Rotina de utilitarios p/acesso a disco
