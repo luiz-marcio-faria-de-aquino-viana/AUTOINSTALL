@@ -1,0 +1,104 @@
+
+;;
+;; K47C0.lsp
+;; Copyright (C) 1997 by Luiz Marcio F A Viana, 10/28/97
+;;
+
+;; lockf(): funcao que assegura a exclusao mutua no compartilhamento dos desenhos
+(defun lockf(/ f file_name cpu usr)
+
+  (if (null (setq usr (getenv "usr")))   (setq usr "USR_UNKNOW"))
+  (if (null (setq cpu (getenv "micro"))) (setq cpu "CPU_UNKNOW"))
+
+  (setq file_name (strcat (getvar "dwgname") ".lck"))
+
+  (if (not (findfile file_name))
+    (progn
+      (if (setq f (open file_name "w"))
+        (progn
+          (write-line "AI3.00 Lock File" f)
+          (write-line (strcat
+                        (substr (rtos (getvar "cdate") 2 2) 3 2) "/"
+                        (substr (rtos (getvar "cdate") 2 2) 5 2) "/"
+                        (substr (rtos (getvar "cdate") 2 2) 7 2)
+                      ) ; end strcat
+                      f
+          ) ; end write-line
+          (write-line (strcat cpu ", " usr) f)
+          (setq f (close f))
+          (setq #LOCK "DISABLE")
+        ) ; end progn
+        (set #LOCK "ENABLE")
+      ) ; end if
+    ) ; end progn
+    (progn
+      (if (= (verf) (strcat cpu ", " usr))
+        (progn
+          (prompt "\n\n* ATENCAO *\nRestaurado arquivo de acesso")
+          (setq #LOCK "DISABLE")
+        ) ; end progn
+        (progn
+          (prompt (strcat "\n\n* ATENCAO *\nArquivo em uso por = " (verf)))
+          (setq #LOCK "ENABLE")
+        ) ; end progn
+      ) ; end if
+    ) ; end progn
+  ) ; end if
+  (princ)
+) ; end function
+
+(defun verf(/ s f file_name)
+  (setq file_name (strcat (getvar "dwgname") ".lck"))
+  (if (findfile file_name)
+    (progn
+      (prompt "\nRequerendo acesso... ")
+      (while (null (setq f (open file_name "r"))) (prompt "."))
+      (read-line f)
+      (read-line f)
+      (setq s (read-line f))
+      (setq f (close f))
+    ) ; end progn
+  ) ; end if
+  (if s s "")
+) ; end function
+
+(defun unlockf(/ f file_name)
+  (setq file_name (strcat (getvar "dwgname") ".lck"))
+  (if (= (verf) (strcat (getenv "xCADR11") ", " (getenv "USR")))
+    (command "del" file_name)
+  ) ; end if
+  (princ)
+) ; end function
+
+(defun c:vlock(/ f file_name)
+  (prompt (strcat "\nArquivo em uso por = " (verf)))
+  (princ)
+) ; end defun
+
+(defun c:unlock()
+  (initget "Yes No")
+  (if (= (getkword "\nDeseja REALMENTE ABRIR o arquivo <No>? ") "No")
+    (if (setq f (open file_name "w"))
+      (progn
+        (write-line "AI2.25 Lock File" f)
+        (write-line (strcat
+                      (substr (rtos (getvar "cdate") 2 2) 3 2) "/"
+                      (substr (rtos (getvar "cdate") 2 2) 5 2) "/"
+                      (substr (rtos (getvar "cdate") 2 2) 7 2)
+                    ) ; end strcat
+                    f
+        ) ; end write-line
+        (write-line (strcat (getenv "xCADR11") ", " (getenv "USR")) f)
+        (setq f (close f))
+        (setq #LOCK "DISABLE")
+      ) ; end progn
+      (progn
+        (set #LOCK "ENABLE")
+        (prompt "\n* ATENCAO *\nNao foi possivel abrir o arquivo")
+      ) ; end progn
+    ) ; end if
+  ) ; end if
+  (princ)
+) ; end function
+
+(princ)
