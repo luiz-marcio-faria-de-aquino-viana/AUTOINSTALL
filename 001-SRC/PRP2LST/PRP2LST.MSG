@@ -1,0 +1,48 @@
+%%BEGIN=MSG_01
+                                P R P 2 L S T
+  ____________________________________________________________________________
+         UTILITARIO DE IMPRESSAO PARA SER UTILIZADO COM O AUTOCAD.
+         DESENVOLVIDO PARA ATENDER AOS QUE NECESSITAM IMPRIMIR
+         DESENHOS EM DIMENSOES SUPERIORES AS DA IMPRESSORA.
+  ____________________________________________________________________________
+    comando:   PRINTC -f[arqvFonte] -o[arqvDest] -d[resolucao] -r[range]
+
+    -fxxxx    (obrigatoria) define o arquivo fonte que sera impresso
+              (obs: a extensao atribuida pelo utilitario sera .prp).
+
+    -oxxxx    a atribuicao desta opcao na linha de comando faz com
+              que a saida seja armazenada em um arquivo no disco.
+
+    -rxx..xx  a inclusao desta linha, atribui um range de arquivos
+              para impressao ex: -raa..bb (imprime os arquivos
+              arqvFont+aa, arqvFont+ab, arqvFont+ba, arqvFont+bb)
+  ____________________________________________________________________________
+       duvidas adicionais ligue:  >>>>>FAST>PLOT>  tel: 220-2479/240-7555
+%%END
+
+%%BEGIN=MSG_02
+  ____________________________________________________________________________
+
+
+                    АБВллллл                    ллллл
+              АААБББВВВл                   л     л   л л           л
+        АААААБББББВВВВВл     ллл    лллл ллллл   л   л л    ллл  ллллл
+  АААААААБББББББВВВВВВВллл  л   л  л       л     лллл  л   л   л   л
+        АААААБББББВВВВВл    л   л   ллл    л     л     л   л   л   л
+              АААБББВВВл    л   л      л   л     л     л   л   л   л
+                    АБВл     ллллл лллл     лл   л      лл  ллл     лл
+
+                   ФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФ
+                     S E R V I C O S   D E   P L O T A G E M
+
+
+                       R PEDRO LESSA, 35 - GRUPO 1201/1207
+                       CASTELO         RIO DE JANEIRO - RJ
+
+                                        TEL/FAX.: 220-2479
+                                                  240-7555
+
+
+
+  ____________________________________________________________________________
+%%END

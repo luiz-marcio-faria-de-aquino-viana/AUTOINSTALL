@@ -1,0 +1,149 @@
+
+
+ Start  Stop   Length Name                   Class
+ 00000H 00C96H 00C97H LUMBAT_CODE            BC_CODE
+ 00CA0H 00CA0H 00000H LUMBAT_IPLINE          BC_CODE
+ 00CA0H 00CA0H 00000H LUMBAT_LNFILE          BC_CODE
+ 00CA0H 00CA0H 00000H LUMBAT_FNAME           BC_CODE
+ 00CA0H 00CA0H 00000H CSEG                   CODESG
+ 00CA0H 00CA0H 00000H SHELL                  CODESG
+ 00CA0H 08E40H 081A1H CODE                   CODE
+ 08E50H 099E1H 00B92H _TEXT                  CODE
+ 099F0H 09AF5H 00106H RUN_CODE               CODE
+ 09B00H 09BBFH 000C0H BC_ICN_CODE            INIT_CODE
+ 09BC0H 09BC2H 00003H BC_IDS_CODE            INIT_CODE
+ 09BD0H 0A147H 00578H INIT_CODE              INIT_CODE
+ 0A150H 0A150H 00000H DSEG                   DATASG
+ 0A150H 0A150H 00000H ULSEG                  DATASG
+ 0A150H 0A150H 00000H COMMON                 BLANK
+ 0A150H 0A150H 00000H CONST                  CONST
+ 0A150H 0A150H 00000H DATA                   DATA
+ 0A150H 0A555H 00406H _DATA                  DATA
+ 0A556H 0ACE6H 00791H _BSS                   DATA
+ 0ACE8H 0B0D7H 003F0H CONST                  DATA
+ 0B0D8H 1B07FH 0FFA8H BC_DATA                BC_VARS
+ 1B080H 1B080H 00000H BC_FT                  BC_SEGS
+ 1B080H 1B13FH 000C0H BC_CN                  BC_SEGS
+ 1B140H 1B142H 00003H BC_DS                  BC_SEGS
+ 1B150H 1B34FH 00200H STACK                  STACK
+
+ Origin   Group
+ 0A15:0   DGROUP
+Fixup overflow near 0010 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 27AH
+  frame seg DSEG, target seg BC_FT, target offset 0000
+Fixup overflow near 0020 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 27EH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 000C in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 284H
+  frame seg DSEG, target seg BC_DS, target offset 0000
+Fixup overflow near 004A in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 333H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 005C in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 340H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0002 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 388H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0006 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 38DH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 006E in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 452H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0076 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 45BH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 002E in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 4D1H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0034 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 4D6H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 021E in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 784H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0230 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 796H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0242 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 7A3H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 003C in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 7F5H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0046 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 7FAH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0254 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 8A1H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 025E in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 8AAH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0276 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 8BCH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 027E in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 8C5H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0072 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 923H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0078 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 928H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0084 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 92DH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 02D9 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 9D2H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0346 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset A18H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0438 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset CDAH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 04AF in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset DC8H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 04F1 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset DFBH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0525 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset EC5H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0544 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset EDCH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0562 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset EF3H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 058E in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset F12H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 05AE in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset FBFH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 05CD in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset FD6H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 060E in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset FF4H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0661 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 10D9H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0666 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 10DEH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 067D in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 10F0H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 069A in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 11A9H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 06B8 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 11C5H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 06E4 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 11E9H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0701 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 1200H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 07BD in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 13BFH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 07C2 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 13C4H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 07D9 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 13D6H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0811 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 1499H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0816 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 149EH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0846 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 14C1H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 084B in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 14C6H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 08A2 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 158EH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 08A7 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 1593H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 08BE in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 15A5H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0A3F in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 190FH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0A65 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 192FH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0A85 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 194BH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0B11 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 1B2DH
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 0B19 in segment LUMBAT_CODE in LUMBAT.OBJ(LUMBAT) offset 1B36H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+Fixup overflow near 00B8 in segment BC_ICN_CODE in LUMBAT.OBJ(LUMBAT) offset 1BA8H
+  frame seg DSEG, target seg BC_CN, target offset 0000
+
+Program entry point at 0000:0030
