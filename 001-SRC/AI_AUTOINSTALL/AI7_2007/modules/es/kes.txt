@@ -1,0 +1,11 @@
+ARQUIVO		DESCRICAO					FUNCOES
+===============	=============================================== ================
+kes00c0		rotina de desenho de bujao			c:ai_es_bujao
+===============	===============================================	================
+kes01c0		rotina de desenho de tubo operculado		c:ai_es_to
+===============	===============================================	================
+kes01c0		obtencao do  ralo sifonado a                    45dc:ai_es_to
+===============	===============================================	================
+
+
+funcao para obtencao do ponto de entrada no ralo sifonado a 45d
