@@ -1,0 +1,1129 @@
+
+***Buttons
+$s=osnap
+;
+***pop1
+Setup
+[Load SETup]^c^c^p$p1=* (progn (initget "Yes No")+
+(if (/= (getkword "Executar SETup (Yes/No)? ") "No")+
+(progn (prompt "^JCarregando... ")(loadf "k1bc0")(c:setup)))(princ))
+Yes
+No
+[~--]
+[Reset Layers]^C^CSCRIPT LAYER
+[Reset Vars]^C^CSCRIPT SETVAR
+[~--]
+[Regiao de Trabalho (AutoDWG)]^C^CAD_INSERT
+[Etapa do Projeto (AutoPLOT) ]^C^CAP_ETPPROJ
+
+***pop2
+[Pontos]
+[View Pontos...]^c^c^p$i=pontos $i=*
+[~--]
+[Bico de Chamine]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) inserir g/g02c00 \\
+[Ponto de Gas   ]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) inserir g/g01c00 \\
+
+***pop3
+[Blocks]
+[Xref     ->]^c^c$p3=Xref $p3=*
+[~--]
+[Block]^c^c$p3=* block
+[Wblock]^c^c$p3=* wblock
+[Insert]^c^c$p3=* insert
+[Minsert]^c^c$p3=* minsert
+[~--]
+[LDdet]^c^c^p(progn(if(null C:LDdet)(loadf"K37c0"))(princ)) $p3=* lddet
+[Mkdet]^c^c^p(progn(if(null C:MkDET)(loadf"K05c0"))(princ)) $p3=* mkdet
+[Chdet]^c^c^p(progn(if(null C:chdet)(loadf"k38c0"))(princ)) $p3=* chdet
+?
+[~--]
+[ELetrica]$p3=* EL
+[ESgoto]$p3=* ES
+[Hidraulica]$p3=* H
+[INCendio]$p3=* INC
+[Gas]$p3=* G
+[TExterno]$p3=* TE
+[TInterno]$p3=* TI
+[IEspecial]$p3=* IE
+[AR condicionado]$p3=* AR
+[PC]$p3=* PC
+
+**xref
+[XREF]
+[Split]^c^c^p(progn(if(null c:xfsplit)(loadf"k50c0"))(princ)) xfsplit
+[~--]
+[Load]^c^c^p(progn(if(null c:xfload)(loadf"k51c0"))(princ)) xfload
+[Reload]^c^c^p(progn(if(null c:xfreload)(loadf"k52c0"))(princ)) xfreload
+[Unload]^c^c^p(progn(if(null c:xfunload)(loadf"k60c0"))(princ)) xfunload
+[Path]^c^c^p(progn(if(null c:xfpath)(loadf"k62c0"))(princ)) xfpath
+[~--]
+[IN]^c^c^p(progn(if(null c:xfin)(loadf"k53c0"))(princ)) xfin
+[OUT]^c^c^p(progn(if(null c:xfout)(loadf"k54c0"))(princ)) xfout
+[~--]
+[PRUNE]^c^c^p(progn(if(null c:xfprune)(loadf"k61c0"))(princ)) xfprune
+[~--]
+[Blocks   ->]^c^c$p3=pop3 $p3=*
+
+***pop4
+[Display]
+[Pan]^c^c'pan \\
+[Zoom Dynamic]^c^c'zoom d
+[~--]
+[User View...]
+[View Restore]^c^cview r $i=rview $i=*
+[View Save]^c^cview s $i=sview $i=*
+[~--]
+[Double Screen]^c^c^p(progn(if(null c:dblscr)(loadf"k59c0"))(princ)) dblscr
+[Single Screen]^c^c^p(progn(if(null c:siscr)(loadf"k59c0"))(princ)) siscr
+[~--]
+[Regen]^c^cregen
+[Zoom Extend]^c^czoom e
+[Zoom All]^c^czoom a
+
+**pop5
+[PSPC]
+[Margens]^c^c^ppsmarg $s=x $s=psmarg
+[Carimbos]^c^c^ppscar $s=x $s=pscar
+[~--]
+[Janelas]^c^c^ppswin $s=x $s=pswin
+[~--]
+[PSpace/MSpace]^c^c^p(progn (if (= (getvar"tilemode") 0);+
+(progn (prompt "<Paper Space>") (setvar "tilemode" 1));+
+(progn (prompt "<Model Space>") (setvar "tilemode" 0)));+
+(princ))
+
+***pop6
+[Setings]
+[ORTHO]^o
+[SNAP]^b
+[~--]
+[Box-1]'setvar pickbox 1 'setvar aperture 1
+[Box-3]'setvar pickbox 3 'setvar aperture 3
+[Angbase 0]'setvar angbase 0
+[Angbase]'setvar angbase \
+[Mirrtext ON/OFF]^c^c^p(progn+
+(if (zerop (getvar "mirrtext"))+
+(progn (setvar "mirrtext" 1) (prompt "<Mirrtext on>") (princ))+
+(progn (setvar "mirrtext" 0) (prompt "<Mirrtext off>") (princ))))
+[~--]
+[Drawing Aids...]'ddrmodes
+
+***pop7
+[Layers]
+[Layer]^c^c$s=x $s=layer layer
+[Modify Layer...]'ddlmodes
+[~--]
+[Pick and Set...]^c^c^p(progn(if(null c:ps)(loadf"k3ec0"))(princ)) PS
+[Pick and Freeze...]^c^c^p(progn(if(null c:pf)(loadf"k3ec0"))(princ)) PF
+[Pick and Change...]^c^c^p(progn(if(null c:pch)(loadf"k3ec0"))(princ)) PCH
+[~--]
+[Pick and Erase LAYER...]^c^c^p(progn(if(null c:pe)(loadf"k49c0"))(princ)) PE
+[Pick and Explode PLINES...]^c^c^p(progn(if(null c:plexpl)(loadf"k4dc0"))(princ)) PLEXPL
+[~--]
+[ARQtetura Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "ARQ-")
+[Formas Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "F-")
+[ELetrica Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "EL-")
+[ESgoto Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "ES-")
+[Hidraulica Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "H-")
+[Gas Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "G-")
+[TExterno Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "TE-")
+[TInterno Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "TI-")
+[IEspecial Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "IE-")
+[AR condicionado Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "AR-")
+[~--]
+[Freeze Inst]^c^clayer s 0 f arq-* f el-* f es-* f h-* f g-* f te-* f ti-* f ie-* f ar-* ;
+[Thaw Inst]^c^clayer s 0 t arq-* t el-* t es-* t h-* t g-* t te-* t ti-* t ie-* t ar-* ;
+[~--]
+[Freeze All]^c^clayer s 0 f * t 0 ;
+[Thaw All]^c^clayer s 0 t * ;
+
+***pop8
+[Menus]
+[Arquitetura]^c^clayer t arq-*  menu ARQmenu
+[Formas]^c^clayer t f-*  menu Fmenu
+[ELetrica]^c^clayer t el-*  menu ELmenu
+[ESgoto]^c^clayer t es-*  menu ESmenu
+[Hidraulica]^c^clayer t h-*  menu Hmenu
+[INCendio]^c^clayer t inc-*  menu INCmenu
+[Gas]^c^clayer t g-*  menu Gmenu
+[TExterno]^c^clayer t te-*  menu TEmenu
+[TInterno]^c^clayer t ti-*  menu TImenu
+[IEspecial]^c^clayer t ie-*  menu IEmenu
+[AR condicionado]^c^clayer t ar-*  menu ARmenu
+[~--]
+[AutoCAD]^c^c^p$p8=* (progn+
+(initget "Yes No")+
+(if (/= (getkword "Executar menu do AutoCAD (Yes/No)? ") "No")+
+(progn (prompt "^J--- Carregando menu ACAD... ---") (command "menu" "ACAD"))+
+(princ)+
+))
+Yes
+No
+
+***pop9
+[Inquiry]
+[Area]^c^carea $p9=*
+[ entity]entity $p9=*
+[ add]add $p9=*
+[ subtract]subtract $p9=*
+[~--]
+[Distance]^c^cdist \\
+[Time]^c^cTime
+[~--]
+[List]^c^clist auto
+[~--]
+[Conta Blocos]^c^c^p(progn(if(null c:numblk)(loadf"k66c0"))(princ)) numblk
+[~--]
+[(VModif) Quem fez?]^c^c^p(progn(if(null c:vmodif)(loadf"k56c0"))(princ)) vmodif
+[(Vlog)  Quem mexeu?]^c^c^p(progn(if(null c:VLog)(loadf"k28c0"))(princ)) vlog
+[(VLock) Quem ta usando?]^c^c^p(progn(if(null c:vlock)(loadf"k47c0"))(princ)) vlock
+[~--]
+[Lista DirInfo]^c^c^p(progn(if(null c:info)(loadf"k3dc0"))(princ)) info
+[~--]
+[Calcula Custo]^c^c^p(progn(if(null c:custo)(loadf"k48c0"))(princ)) custo
+
+***pop10
+[Utility]
+[Save]^c^csave
+[End]^c^cend
+[~--]
+[Quit]^c^cquit $p10=*
+Yes
+No
+[~--]
+[PRintC]^c^c^p(progn(if(null c:PRintC)(loadf"k3Ac0"))(princ)) printc
+[PLoter]^c^c^p(progn(if(null c:PLoter)(loadf"k15c0"))(princ)) ploter
+[~--]
+[dPRint]^c^c^p(progn(if(null c:dPRint)(loadf"k3Bc0"))(princ)) dprint
+[mPRint]^c^c^p(progn(if(null c:mPRint)(loadf"k40c0"))(princ)) mprint
+[~--]
+[dFax]^c^c^p(progn(if(null c:dFax)(loadf"k41c0"))(princ)) dfax
+[Send Fax]^c^c^p(progn(if(null c:Fax)(loadf"k42c0"))(princ)) fax
+[Fax Log]^c^c^p(progn(if(null c:Faxlog)(loadf"k43c0"))(princ)) faxlog
+[~--]
+[Lotus]^c^clotus
+[Texto In]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) (progn(if(null c:imptxt)(loadf"k39c0"))(princ)) imptxt $s=x $s=imptxt
+[~--]
+[Xtree]^c^cxtree
+
+***icon
+**pontos
+[PONTOS]
+[g(b_chmine)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) inserir g/g02c00 \\
+[g(pto_gas) ]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) inserir g/g01c00 \\
+[ LINE]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) line
+[ EXIT]^c^c
+
+**hatch1
+[Select Hatch Pattern]
+[ Previous/User]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch
+[acad(ansi31)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi31
+[acad(ansi32)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi32
+[acad(ansi34)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi34
+[acad(ansi35)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi35
+[acad(ansi33)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi33
+[acad(ansi36)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi36
+[acad(ansi37)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi37
+[acad(ansi38)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch ansi38
+[acad(box)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch box
+[acad(brass)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch brass
+[acad(brick)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch brick
+[acad(clay)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch clay
+[acad(cork)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch cork
+[ Next]$i=hatch2 $i=*
+[ Exit]^c^c
+
+**hatch2
+[Select Hatch Pattern]
+[acad(cross)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch cross
+[acad(dash)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch dash
+[acad(dolmit)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch dolmit
+[acad(dots)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch dots
+[acad(earth)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch earth
+[acad(escher)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch escher
+[acad(flex)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch flex
+[acad(grass)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch grass
+[acad(grate)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch grate
+[acad(hex)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch hex
+[acad(honey)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch honey
+[acad(hound)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch hound
+[acad(insul)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch insul
+[acad(line)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch line
+[ Next]$i=hatch3 $i=*
+[ Exit]^c^c
+
+**hatch3
+[Select Hatch Pattern]
+[acad(mudst)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch mudst
+[acad(net)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch net
+[acad(net3)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch net3
+[acad(plast)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch plast
+[acad(plasti)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch plasti
+[acad(sacncr)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch sacncr
+[acad(square)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch square
+[acad(stars)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch stars
+[acad(steel)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch steel
+[acad(swamp)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch swamp
+[acad(trans)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch trans
+[acad(triang)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch triang
+[acad(zigzag)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch zigzag
+[acad(angle)]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch angle
+[ Beginning]$i=hatch1 $i=*
+[ Exit]^c^c
+
+**rview
+[User View Restore...]
+[view-1]view-1
+[view-2]view-2
+[view-3]view-3
+[view-4]view-4
+[view-5]view-5
+[view-6]view-6
+[view-7]view-7
+[view-8]view-8
+[ Exit]^c^c
+
+**sview
+[User View Save...]
+[view-1]view-1 mslide view-1
+[view-2]view-2 mslide view-2
+[view-3]view-3 mslide view-3
+[view-4]view-4 mslide view-4
+[view-5]view-5 mslide view-5
+[view-6]view-6 mslide view-6
+[view-7]view-7 mslide view-7
+[view-8]view-8 mslide view-8
+[ Exit]^c^c
+
+***Screen
+**S
+[ Gmenu]
+[* * * *]
+[Tubos]^c^c^p(progn(if(/=(getvar"clayer")"G-TB_TETO")(command"layer" "m" "G-tb_teto" ""))(princ)) $s=x $s=Tubos ^ppline \w ^p(/ 15.0 #und)  
+[Prumadas]^c^c$s=x $s=prum
+
+
+[DRAW]^c^c$s=x $s=dr
+[Textos]^c^c$s=x $s=text ^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) dtext
+[Carimbos]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) carimbo G
+
+
+[Copy]^c^ccopy auto
+[CopyMult]^c^ccopy \ m
+[Erase]^c^cerase auto
+[Extend]^c^cextend auto
+[UniLine]^c^c^p(progn(if(null c:uniline)(loadf"k64c0"))(princ)) uniline
+[Move]^c^cmove auto
+[Trim]^c^ctrim auto
+[ZOOM_W]'zoom w \\
+[ZOOM_P]'zoom p
+[_EDIT_]^c^c$s=ed
+**Osnap
+[ OSNAP ]^c^cosnap
+[* * * *]
+[CENter]center $s=
+[ENDpoint]endpoint $s=
+[INSert]insert $s=
+[INTersec]intersec $s=
+[MIDpoint]midpoint $s=
+[NEArest]nearest $s=
+[NODe]node $s=
+[PERpend]perpend $s=
+[QUAdrant]quadrant $s=
+[QUICK,]quick, ^Z
+[TANgent]tangent $s=
+[NONE]none $s=
+[45gr]^p(45gr) ^pnear $s=
+[PARallel]^p(paralela) ^pnear $s=
+[*CANCEL*]^c^c$s=
+[REDRAW]'redraw $s=
+[U:]^c^cu $s=
+[Redo:]^c^credo $s=
+[_LAST_]$s=
+**X
+[MAINMENU]$s=s
+[* * * *]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ZOOM_W]'zoom w
+[ZOOM_P]'zoom p
+[_EDIT_]^c^c$s=ed
+**Line 3
+[LINE]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) line 
+
+[continue]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) line ;
+close
+undo
+.x
+.y
+**Offset 3
+[OFFSET]^c^coffset
+[OFFCHG]^C^COFFCHG
+
+through
+
+[  2.5 cm]^p(/ 25.0 #und)
+[  5   cm]^p(/ 50.0 #und)
+[ 10   cm]^p(/ 100.0 #und)
+[ 15   cm]^p(/ 150.0 #und)
+[ 20   cm]^p(/ 200.0 #und)
+[ 25   cm]^p(/ 250.0 #und)
+[ 30   cm]^p(/ 300.0 #und)
+[ 40   cm]^p(/ 400.0 #und)
+[ 50   cm]^p(/ 500.0 #und)
+[100   cm]^p(/ 1000.0 #und)
+[125   cm]^p(/ 1250.0 #und)
+**Copy 3
+[COPY]^c^ccopy
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+multiple
+**Erase 3
+[ERASE]^c^cerase
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+[OOPS]^c^coops
+**Extend 3
+[EXTEND]^c^cextend
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Trim 3
+[TRIM]^c^ctrim
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**dr 3
+[ARC]$s=x $s=arc
+[CIRCLE]$s=x $s=circle
+[ Donut]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) donut
+[ELLIPSE]$s=x $s=ellipse ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) ellipse
+[HATCH]$s=x $s=hatch ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch
+[LINE]$s=x $s=line ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) line
+[OFFSET]^c^c$s=x $s=offset offset \$s=s
+[ Pline]$s=x $s=pline ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) pline
+[ Point]$s=x $s=point ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) point
+[ Sketch]$s=x $s=sketch ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) sketch
+[ Solid]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) solid
+
+[APTO]$s=x $s=apto ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) (progn(if(null c:Apto)(loadf"k00c0"))(princ)) apto
+[TEXT]$s=x $s=text
+[SERIE]$s=x $s=serie ^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) (progn(if(null c:serie)(loadf"k3fc0"))(princ)) serie
+**Serie 3
+[SERIE]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) serie
+
+Micro
+Normal
+Super
+
+Yes
+**Apto 3
+[APTO]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) apto
+
+[Apto 01]01
+[     02]02
+[     03]03
+[     04]04
+[     05]05
+[     06]06
+[     07]07
+[     08]08
+**Arc 3
+[ARC]
+
+[3-point]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \\drag
+[S,C,E]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \c \drag
+[S,C,A]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \c \a drag
+[S,C,L]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \c \l drag
+[S,E,A]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \e \a
+[S,E,R]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \e \r
+[S,E,D]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc \e \d drag
+[C,S,E]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc c \\drag
+[C,S,A]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc c \\a drag
+[C,S,L]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc c \\l drag
+[Contin:]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) arc ;drag
+**Circle 3
+[CIRCLE]
+
+[CEN,RAD]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) circle \drag
+[CEN,DIA]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) circle \d
+[2 point]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) circle 2p \drag
+[3 point]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) circle 3p \\drag
+[TTR]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) circle ttr
+**Ellipse 3
+[ELLIPSE]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) ellipse
+
+[Center]C
+Rotation
+Iso
+Diameter
+**Hatch 3
+[HATCH]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) hatch
+[hatch...]^c^c$i=hatch1 $i=*
+?
+
+u
+u,o
+u,i
+yes
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Pline 3
+[PLINE]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) pline
+
+[Arc]arc $s=x $S=PARC
+Close
+Halfwid
+Length
+Undo
+Width
+**PARC 3
+[POLYARC]
+
+[angle]$s=x $S=PARCANG A
+[CEnter]$s=x $S=PARCEN CE
+[tanDir]D \DRAG
+[Radius]$s=x $S=PARCRAD R
+[2nd PT]S \DRAG
+[CLose]$s=x $S=PLINE CLOSE
+
+undo
+
+[contline]$s=x $S=PLINE L
+
+[PLINE]$s=x $S=PLINE ^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) pline
+**PARCANG 3
+[ANGLE]
+
+[center]$s=x $S=PARC Center drag
+[radius]$s=x $S=PARC R \
+[drag]$s=x $S=PARC drag
+**PARCEN 3
+[CENTER]
+
+[angle]$s=x $S=PARC A drag
+[length]$s=x $S=PARC L drag
+[drag]$s=x $S=PARC drag
+**PARCRAD 3
+[RADIUS]
+
+[angle]A \drag $s=x $S=PARC A \drag
+[drag]$s=x $S=PARC drag
+**Point 3
+[POINT]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) point
+
+.x
+.y
+
+[Complex]
+[Points]
+[example:]^c^cvslide points
+[remove]^c^credraw
+[example]^c^credraw
+[Pdmode:]'setvar pdmode
+[Pdsize:]'setvar pdsize
+**sketch 3
+[SKETCH]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) sketch
+
+connect
+erase
+record
+
+[exit]x
+quit
+
+[------]
+[SKPOLY:]'setvar skpoly 1
+[SKLINE:]'setvar skpoly 0
+[------]
+**Text 3
+[DTEXT:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) dtext
+[Centered]C
+Middle
+Right
+
+[Micro]^p(* 1.5 #scl)
+[Normal]^p(* 2.0 #scl)
+[Super]^p(* 4.0 #scl)
+
+[LEADER:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) (progn(if(null c:leader)(loadf"k0fc0"))(princ)) leader
+[INDICDR:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) $s=indic i_indic
+
+[ddEdit]^c^c^pddedit
+[ddAtte]^c^c^pddatte
+[ChgTEXT]$s=chgtext ^c^c^p(progn(if(null c:chgtext)(load"k03c0"))(princ)) chgtext auto
+[EdiTEXT]$s=editext ^c^c^p(progn(if(null c:editext)(loadf"k07c0"))(princ)) editext auto
+**Layer 3
+[LAYER]^C^CLAYER
+[?]? *
+
+Make
+[Set]set $s=x $s=lname \$s=x $s=layer
+New
+[On]on $s=x $s=lname \$s=x $s=layer
+[Off]off $s=x $s=lname \$s=x $s=layer
+[Color]color $s=x $s=lacolor \$s=x $s=layer
+[Ltype]ltype $s=x $s=lalt \$s=x $s=layer
+[Freeze]freeze $s=x $s=lname \$s=x $s=layer
+[Thaw]thaw $s=x $s=lname \$s=x $s=layer
+
+[eXit] $s=screen
+**Lacolor 3
+[COLOR]
+[]
+red
+yellow
+green
+cyan
+blue
+magenta
+white
+**Lalt 3
+[LINETYPE]
+[]
+[contin.]CONTINUOUS
+dashed
+hidden
+center
+phantom
+dot
+dashdot
+border
+divide
+**Lname 3
+[Layer 0]0
+
+[ARQ-]
+[Arqttura]ARQ-Arquitetura
+[Textos]ARQ-Textos
+
+[F-]
+[Pl-teto]F-Pl_teto
+[Vg-teto]F-Vg_teto
+[Vg-piso]F-Vg_piso
+[Furacao]F-Furacao
+[Textos]F-Textos
+
+
+
+
+
+
+[next]$s=Lname1
+**Lname1 3
+[EL-]
+[Prumadas]EL-Prumadas
+[Teto]EL-Dt_teto
+[Piso]EL-Dt_Piso
+[Aparente]EL-Dt_Aparente
+[Pontos]EL-Pontos
+[Furacao]EL-Furacao
+[Vigas]EL-Vigas
+[Textos]EL-Textos
+
+
+
+
+
+
+
+
+[previous]$s=Lname
+[next]$s=Lname2
+**Lname2 3
+[ES-]
+[Colunas]ES-Colunas
+[Primario]ES-Primario
+[Secundar]ES-Secundario
+[Ventilac]ES-Ventilacao
+[APluvial]ES-APluvial
+[Bujao]ES-Bujao
+[Pontos]ES-Pontos
+[Furacao]ES-Furacao
+[Vigas]ES-Vigas
+[Textos]ES-Textos
+
+
+
+
+
+
+[previous]$s=lname1
+[next]$s=lname3
+**Lname3 3
+[H-]
+[Colunas]H-Colunas
+[AFria]H-Tb_AFria
+[AQuente]H-Tb_AQuente
+[Incendio]H-Tb_Incendio
+[Pontos]H-Pontos
+[Formas]H-Furacao
+[Vigas]H-Vigas
+[Textos]H-Textos
+
+
+
+
+
+
+
+
+[previous]$s=lname2
+[next]$s=lname4
+**Lname4 3
+[G-]
+[Prumadas]G-Prumadas
+[Teto]G-Tb_teto
+[Piso]G-Tb_piso
+[Pontos]G-Pontos
+[Furacao]G-Furacao
+[Vigas]G-Vigas
+[Textos]G-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=lname3
+[next]$s=lname5
+**Lname5 3
+[TE-]
+[Prumadas]TE-Prumadas
+[Teto]TE-Tb_Teto
+[Piso]TE-Tb_Piso
+[Pontos]TE-Pontos
+[Furacao]TE-Furacao
+[Vigas]TE-Vigas
+[Textos]TE-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=lname4
+[next]$s=lname6
+**Lname6 3
+[TI-]
+[Prumadas]TI-Prumadas
+[Teto]TI-Tb_Teto
+[Piso]TI-Tb_Piso
+[Pontos]TI-Pontos
+[Furacao]TI-Furacao
+[Vigas]TI-Vigas
+[Textos]TI-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=lname5
+[next]$s=lname7
+**Lname7 3
+[IE-]
+[Prumadas]IE-Prumadas
+[Tv/fm]IE-Tvfm
+[Som]IE-Som
+[Circ/tv]IE-Circ_tv
+[Pararaio]IE-Pararaio
+[Pontos]IE-Pontos
+[Furacao]IE-Furacao
+[Vigas]IE-Vigas
+[Textos]IE-Textos
+
+
+
+
+
+
+
+[previous]$s=Lname6
+[next]$s=Lname8
+**Lname8 3
+[AR-]
+[Colunas]AR-Colunas
+[AGelada]AR-AGelada
+[Dutos]AR-Dutos
+[Pontos]AR-Pontos
+[Furacao]AR-Furacao
+[Vigas]AR-Vigas
+[Textos]AR-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=Lname7
+
+**Ed
+[MAINMENU]$s=s
+[* * * *]
+[ Array]$s=x $s=array ^c^carray
+[ Break]$s=x $s=break ^c^cbreak
+[BREAK F]^c^cbreak \f
+[ Chamfer]$s=x $s=chamfer ^c^cchamfer
+[ Change]$s=x $s=change ^c^cchange
+[ChCOPY]$s=x $s=chcopy ^c^c^p(progn(if(null C:chcopy)(loadf"k2ec0"))(princ)) chcopy
+[COPY]$s=x $s=copy ^c^ccopy
+[ERASE]$s=x $s=erase ^c^cerase
+[ Explode]^c^cexplode
+[EXTEND]$s=x $s=extend ^c^cextend
+[ Fillet]$s=x $s=fillet ^c^cfillet
+[MIRROR]$s=x $s=mirror ^c^cmirror
+[MOVE]$s=x $s=move ^c^cmove
+[ Pedit]$s=x $s=pedit ^c^cpedit
+[ Rotate]$s=x $s=rotate ^c^crotate
+[ Scale]$s=x $s=scale ^c^cscale
+[STRETCH]$s=x $s=stretch ^c^cstretch c \\
+[TRIM]$s=x $s=trim trim
+[_LAST_]$s=
+**Array 3
+[ARRAY]^c^carray
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+rectang
+polar
+yes
+no
+**Break 3
+[BREAK]^c^cbreak
+
+first
+@
+
+
+
+
+[BREAK F]^c^cbreak \f
+
+[BREAK 1P]^c^cbreak \f @ @
+[BREAK 2P]^c^cbreak \f \@
+**Chamfer 3
+[CHAMFER]^c^cchamfer
+
+[distance]d \\chamfer
+[dist = 0]d 0 0 chamfer
+
+polyline
+**Change 3
+[CHANGE]^c^cchange
+window
+last
+previous
+crossing
+remove
+add
+undo
+[Color]prop color $s=x $s=chcolor \$s=x $s=change
+[Chroma]^c^cvslide chroma
+[ Restore]^c^credraw
+[Elev]prop elev
+[LAyer]prop layer $s=lname \$s=x $s=change
+[LType]prop lt $s=chlt \$s=x $s=change
+[Thicknes]prop thickness
+**Chcolor 3
+[COLOR]
+
+bylayer
+byblock
+red
+yellow
+green
+cyan
+blue
+magenta
+white
+**Chlt 3
+[LTYPE]
+
+bylayer
+byblock
+
+[contin.]continuous
+dashed
+hidden
+center
+phantom
+dot
+dashdot
+border
+divide
+**Chcopy 3
+[ChCOPY]^c^cchcopy
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+
+[Layers...]$s=lname \$s=x $s=chcopy
+**Stretch 3
+[STRETCH]^c^cstretch c \\
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Fillet 3
+[FILLET]^c^cfillet
+
+[radius]r \fillet
+[rad = 0]r 0 fillet
+
+polyline
+**Mirror 3
+[MIRROR]^c^cmirror
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+yes
+no
+**Move 3
+[MOVE]^c^cmove
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Pedit 3
+[PEDIT]^c^cpedit
+
+close
+open
+join
+width
+[EdVERTEX]E $s=x $s=pverted
+[FitCURVE]Fit
+spline
+DECURVE
+[undo]U
+
+[eXit]X $s=s
+**Pverted 3
+[EdVERTEX]
+
+NEXT
+PREVIOUS
+
+break
+insert
+MOVE
+straight
+width
+tangent
+go
+regen
+[undo]X undo $s=x $s=pedit
+
+[eXit]X $s=x $s=pedit
+**Rotate 3
+[ROTATE]^c^crotate
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+referenc
+**Scale 3
+[SCALE]^c^cscale
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+referenc
+
+**Tubos 3
+[TETO:]^c^c^p(progn(if(/=(getvar"clayer")"G-TB_TETO")(command"layer" "m" "G-tb_teto" ""))(princ)) pline \w ^p(/ 15.0 #und) ;
+[PISO:]^c^c^p(progn(if(/=(getvar"clayer")"G-TB_PISO")(command"layer" "m" "G-tb_piso" ""))(princ)) pline \w ^p(/ 15.0 #und) ;
+
+Undo
+
+[--------]
+[BChamine]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) inserir G02c00 \\
+[PtGas]^c^c^p(progn(if(/=(getvar"clayer")"G-PONTOS")(command"layer" "m" "G-pontos" ""))(princ)) inserir G01c00 \\
+
+[Pontos...]^c^c^p(progn(if(null C:inserir)(loadf"k0bc0"))(princ)) $i=pontos $i=*
+[--------]
+
+[GBox]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) gbox
+**Prum 3
+[PRUMADA:]^c^c^p(progn(if(/=(getvar"clayer")"G-PRUMADAS")(command"layer" "m" "G-prumadas" ""))(princ)) donut 0 ^p(/ 50.0 #und)
+
+
+[--------]
+[SETAS]
+[ P-SOBE]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) (progn(if(null C:p-sobe)(loadf"k12c0"))(princ)) p-sobe
+[ P-PASSA]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) (progn(if(null C:p-passa)(loadf"k11c0"))(princ)) p-passa
+[ P-DESCE]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) (progn(if(null C:p-desce)(loadf"k10c0"))(princ)) p-desce
+
+[LINE:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) line
+[DTEXT:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) dtext c \^p(* 2.0 #scl) 0
+[--------]
+**PSCAR 3
+[PSCAR:]^C^CPSCAR
+
+EL
+ES
+H
+G
+TE
+TI
+IE
+AR
+
+Yes
+No
+**PSWIN 3
+[PSWIN:]^C^CPSWIN
+
+2
+3
+4
+5
+6
+7
+8
+9
+
+Yes
+No
+
+[P/M SPC:]^C^C^P(progn(if(zerop(getvar"tilemode"));+
+(setvar"tilemode" 1)(setvar"tilemode" 0))(princ))
+**PSMARG 3
+[PSMARG:]^C^CPSMARG
+
+A0
+A1
+A2
+A3
+2A2
+2A3
+A1A2
+A2A3
+A3A4
+A2A3A4
+
+Yes
+No
+**IMPTXT 3
+[IMPTXT:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) IMPTXT
+
+Centro
+Direita
+
+
+Micro
+Normal
+Super
+**INDIC 3
+[INDICDR:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) I_INDIC
+
+Circulo
+3
+4
+5
+6
+
+[DDATTE:]^C^CDDATTE
+[LEGENDA:]^c^c^p(progn(if(/=(getvar"clayer")"G-TEXTOS")(command"layer" "m" "G-textos" ""))(princ)) I_LEGENDA
+
+[--------]
+[AUTOINC:]^c^c^p(progn (setq #I_INCR (not #I_INCR));+
+(prompt "^JIncremento automatico do contador = ");+
+(if #I_INCR (prompt "ATIVADO") (prompt "DESATIVADO"))(princ))
+[--------]
+
+
+

@@ -1,0 +1,6570 @@
+
+***Comment  
+           
+        Copyright (C) 1986-1991 by Autodesk, Inc..
+        Version 11.0 for Release 11 (1/16/91)
+           
+        Permission to use, copy, modify, and distribute this software 
+        for any purpose and without fee is hereby granted, provided 
+        that the above copyright notice appears in all copies and that 
+        both that copyright notice and this permission notice appear in 
+        supporting documentation.  This software is provided "as is"
+        without express or implied warranty.
+           
+
+           
+
+
+
+***BUTTONS
+;
+$p1=*
+^C^C
+^B
+^O
+^G
+^D
+^E
+^T
+***AUX1
+;
+$p1=*
+^C^C
+^B
+^O
+^G
+^D
+^E
+^T
+
+***POP1
+[Assist]
+[Help!        ]'?
+[~--]
+[Cancel       ]^C^C
+[~--]
+[Osnap: <mode>]^C^C$p1= $p1=* OSNAP \
+CENter
+[ENDpoint     ]ENDP
+INSert
+[INTersection]INT
+MIDpoint
+NEArest
+NODe
+[PERpendicular]PER
+QUAdrant
+[Quick,<mode> ]QUICK,^Z$p1=*
+TANgent
+NONE
+[~--]
+[FILTERS     >]$p1=filters $p1=*
+
+**filters
+[Filters]
+.X
+.Y
+.Z
+.XY
+.XZ
+.YZ
+[~--]
+[ASSIST >]$p1= $p1=*
+
+***POP2
+**p2draw
+[Draw]
+[Line       ]^C^C$S=X $S=line line
+[Point      ]*^C^C$S=X $S=point point
+[Circle    >]^C^C^P$p2=p2cir $p2=* (if (not c:ct)(defun c:ct ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "CIRCLE" pause pause)+
+(setq *error* m:err m:err nil)(princ)))(princ);ct;\\^P$p2=p2draw
+[Arc       >]^C^C^P$p2=p2arc $p2=* (if (not c:at)(defun c:at ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause pause pause)+
+(setq *error* m:err m:err nil)(princ)))(princ);at;\\\^P$p2=p2draw
+[3D Face    ]^C^C$S=X $S=3dface 3dface
+[~--]
+[Polyline   ]^C^C^P$S=X $S=pline pline
+[3D Poly    ]^C^C$S=X $S=3dpoly 3dpoly
+[Donut      ]^C^Cdonut ;;
+[Ellipse    ]^C^C$S=X $S=ellipse ellipse
+[Polygon    ]^C^C^P$S=X $S=polygon (if (not c:mpg)+
+(defun c:mpg (/ m:err m:ps2 m:pe2 m:pg2 m:pgce)+
+(defun *error* (msg)(setvar "CMDECHO" m:pgce)(setq *error* m:err)(princ));+
+(setq m:err *error* m:pgce (getvar "CMDECHO"));+
+(if (not m:ps)(while (not m:ps2)(terpri)(graphscr)(initget 7)(setq m:ps2+
+(getint "Number of sides: "))(if (or (< m:ps2 3)(> m:ps2 1024))(progn(terpri)+
+(princ "Value must be between 3 and 1024.")(setq m:ps2 nil))));+
+(setq m:ps2 m:ps))(if (not m:pe)(progn(terpri)(initget 1 "Edge")+
+(setq m:pe2 (getpoint "Edge/<Center of polygon>: "))) (if (= m:pe "Center")+
+(progn(terpri)(initget 1)(setq m:pe2 (getpoint "Center of polygon: ")));+
+(setq m:pe2 "Edge")))(if (and(/= m:pe2 "Edge")(not m:pg))(progn(terpri)+
+(initget 1 "Inscribed Circumscribed")(setq m:pg2+
+(getkword "Inscribed in circle/Circumscribed about circle (I/C): ")));+
+(setq m:pg2 m:pg))(setvar "CMDECHO" 1)(if (= m:pe2 "Edge")(progn+
+(command "POLYGON" m:ps2)(terpri)(command "Edge" pause pause))+
+(command "POLYGON" m:ps2 m:pe2 m:pg2 pause))(setvar "CMDECHO" m:pgce);+
+(setq *error* m:err)(princ)))(princ);mpg;^P
+[~--]
+[Insert     ]^C^C^P(if (not c:pinsert)+
+(defun c:pinsert (/ m:err m:ce m:ad1 m:in2 m:i0 m:i1 m:i2)(defun *error* (msg)+
+(setvar"CMDECHO"m:ce)(setvar"ATTDIA"m:ad1)(setq *error* m:err)(princ));+
+(setq m:ce(getvar"CMDECHO")m:ad1(getvar"ATTDIA"))(defun m:in2(m:in2a m:in2b)+
+(princ(strcat(chr 13)(chr 10)m:in2a(if(/= m:in2b pause)(if(/=(type m:in2b)'STR)+
+(rtos m:in2b)(eval m:in2b))(eval " ")))))(if(= m:ibn nil)(setq m:ibn pause));+
+(if(= m:ixs nil)(setq m:ixs pause))(if(= m:iys nil)(setq m:iys pause))+
+(if(= m:ira nil)(setq m:ira pause))(if(= m:izs nil)(setq m:izs m:ixs))+
+(setvar"CMDECHO"0)(setvar"ATTDIA"1)(command"INSERT")(m:in2 "Block name: " m:ibn);+
+(command m:ibn)(m:in2 "Insertion point: " pause)(command pause "XYZ")+
+(if(= m:ixs pause)(progn(initget 2 "C")(setq m:i1(getreal(strcat(chr 13)+
+(chr 10)"X Scale factor <1> / Corner: ")))(if(= m:i1 "C");+
+(progn(initget 9)(setq m:i0(getvar "LASTPOINT")m:i2(getpoint m:i0+
+"Other corner: "))(command (-(car m:i2)(car m:i0))(-(cadr m:i2)(cadr m:i0)))+
+(m:in2 "Z scale factor (default = X): " m:izs)(command m:izs);+
+(m:in2 "Rotation angle <0>: " m:ira)(command m:ira))(progn(if(/=(type m:i1)+
+'REAL)(setq m:i1 1.0))(command m:i1)(m:in2 "Y scale factor (default = X): " m:iys)+
+(command m:iys)(m:in2 "Z scale factor (default = X): " m:izs)(command m:izs);+
+(m:in2 "Rotation angle <0>: " m:ira)(command m:ira))))(progn+
+(m:in2 "X Scale factor <1> / Corner: " m:ixs)(command m:ixs)+
+(m:in2 "Y Scale factor (default = X): " m:iys)(command m:iys);+
+(m:in2 "Z Scale factor (default = X): " m:izs)(command m:izs)+
+(m:in2 "Rotation angle <0>: " m:ira)(command m:ira)))(setvar "CMDECHO" m:ce)+
+(setvar "ATTDIA" m:ad1)(setq *error* m:err)(princ)))(princ);pinsert;^P
+[Xref       ]$S=X $S=XREF ^C^CXREF
+[~--]
+[Surfaces...]$I=surf1 $I=*
+[Objects... ]$I=3dobjects $I=*
+[~--]
+[Dtext      ]^C^C^P(if (not C:DT)+
+(defun C:DT (/ m:err m:s1 m:s2 m:s3 m:tsh m:tv m:b m:sp m:ta0)+
+(setq m:err *error* m:b T)(defun *error* (msg)(setq *error* m:err)(princ));+
+(if (/= (type m:ta) 'STR)(setq m:ta pause))+
+(if (/= (type m:th) 'REAL)(setq m:th pause))+
+(if (/= (type m:tr) 'REAL)(setq m:tr pause));+
+(setq m:tsh (cdr (assoc 40 (tblsearch "STYLE" (getvar"TEXTSTYLE"))))+
+m:tv (logand 4 (cdr (assoc 70 (tblsearch "STYLE" (getvar"TEXTSTYLE"))))))+
+(if (= m:tv 4)(setq m:s1 "Align C" m:s2 " Middle Right";+
+m:sp "Align/Center/Middle/Right:" m:s3 " Justify Style")+
+(setq m:s1 "Align Fit C Middle Right TLeft TCenter TRight "+
+m:s2 "MLeft MCenter MRight BLeft BCenter BRight" m:s3 " Justify Style";+
+m:sp "Align/Fit/Center/Middle/Right/TL/TC/TR/ML/MC/MR/BL/BC/BR: "))+
+(if (= m:ta pause)(progn(initget (strcat m:s1 m:s2 m:s3))(setq m:ta0+
+(getpoint "Justify/Style/<Start point>: ")))(setq m:ta0 m:ta));+
+(if (= m:ta0 "Justify")(progn(initget (strcat m:s1 m:s2))(setq m:ta0+
+(getkword m:sp))))(if (= m:ta0 "Style")(progn (setq m:b nil)+
+(command "DTEXT" "Style")(princ)))(if (= m:ta0 "Align")(progn (setq m:b nil);+
+(command "DTEXT" "Align" pause pause)(princ)))(if (= m:ta0 "Fit")+
+(progn (setq m:b nil)(command "DTEXT" "Fit" pause pause pause)(princ)))+
+(if (= m:ta0 nil)(progn (setq m:b nil)(command "DTEXT" "")(princ)));+
+(if m:b(if(= m:tsh 0.0)(if(=(type m:ta0) 'LIST)(command"DTEXT"m:ta0 m:th m:tr)+
+(command "DTEXT" m:ta0 pause m:th m:tr))(if (= (type m:ta0) 'LIST)+
+(command "DTEXT" m:ta0 m:tr)(command "DTEXT" m:ta0 pause m:tr))));+
+(setq *error* m:err)(princ)))(princ);dt;^P
+[Hatch]^C^C^P$S=X $S=hatch (if (not c:hatchm)(defun c:hatchm (/ m:err m:hp1)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if(/=(type m:hp)'STR)(setq m:hp pause))(if(/=(type m:hs)'STR)(setq m:hs ""));+
+(if(/=(type m:hsc)'REAL)(setq m:hsc pause))(if(/=(type m:hr)'REAL)(setq m:hr +
+pause))(setq m:hp1 (strcat m:hp m:hs))(if (= m:hp "U")(command "HATCH" m:hp1)+
+(if (= m:hp pause)(command "HATCH" pause m:hsc m:hr pause);+
+(command "HATCH" m:hp1 m:hsc m:hr pause)))(setq *error* m:err)(princ)))+
+(princ);hatchm;^P
+[Dim...     ]^C^C$S=X $S=dim DIM $I=drdim $I=*
+
+**p2arc
+[Arc]
+[3-point           ]$p2=p2draw ^C^C^P(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[~--]$p2=p2draw
+[Start, Cen, End   ]$p2=p2draw ^C^C^P(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause "C" pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Start, Cen, Angle ]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause "C" pause "A" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Start, Cen, Length]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause "C" pause "L" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Start, End, Angle ]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause "E" pause "A" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Start, End, Radius]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause "E" pause "R" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Start, End, Dir   ]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" pause "E" pause "D" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Cen, Start, End   ]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" "C" pause pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Cen, Start, Angle ]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" "C" pause pause "A" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[Cen, Start, Length]$p2=p2draw ^P^C^C(defun c:at () +
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "ARC" "C" pause pause "L" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);at;^P
+[~--]$p2=p2draw
+[DRAW             >]$p2=p2draw $p2=*
+
+**p2cir
+[Circle]
+[Cen, Dia]$p2=p2draw ^C^C^P(defun c:ct ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "CIRCLE" pause "DIA" pause)+
+(setq *error* m:err m:err nil)(princ))(princ);ct;^P
+[Cen, Rad]$p2=p2draw ^C^C^P(defun c:ct ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "CIRCLE" pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);ct;^P
+[~--]$p2=p2draw
+[2-Point ]$p2=p2draw ^C^C^P(defun c:ct ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "CIRCLE" "2P" pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);ct;^P
+[3-Point ]$p2=p2draw ^C^C^P(defun c:ct ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "CIRCLE" "3P" pause pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);ct;^P
+[TTR     ]$p2=p2draw ^P^C^C(defun c:ct ()+
+(setq m:err *error*)(defun *error* (msg)(menucmd "p2=p2draw")+
+(setq *error* m:err m:err nil)(princ))(command "CIRCLE" "TTR" pause pause pause)+
+(setq *error* m:err m:err nil)(princ))(princ);ct;^P
+[~--]$p2=p2draw
+[DRAW   >]$p2=p2draw $p2=*
+
+***POP3
+[Modify]
+[Erase    ]*^C^C$S=X $S=erase erase si auto
+[  Oops!  ]^C^Coops
+[Move     ]^C^C$S=X $S=move move
+[Rotate   ]^C^C$S=X $S=rotate rotate
+[Scale    ]^C^C$S=X $S=scale scale
+[Stretch  ]^C^C$S=X $S=stretch stretch crossing
+[Trim     ]^C^C$S=X $S=trim trim auto
+[Extend   ]^C^C$S=X $S=extend extend auto
+[Break    ]^C^C$S=X $S=break break
+[Chamfer  ]^C^C$S=X $S=chamfer chamfer
+[Fillet   ]^C^C$S=X $S=fillet fillet
+[~--]
+[Copy     ]^C^C$S=X $S=copy copy
+[2D Array ]^C^C$S=X $S=array array
+[3D Array ]^C^C^P(if (not c:3darray) (if (not (findfile "3darray.lsp")) +
+(defun c:3darray ()(setq m:err *error*)(defun *error* (msg)+
+(setq *error* m:err m:err nil)(princ))(princ "Cannot find 3darray.lsp ");+
+(terpri) +(princ "It is on the SUPPORT DISK. ")(setq C:3DARRAY nil) +
+(setq *error* m:err m:err nil)(princ))(load "3darray")))(princ);3darray;^P
+[Mirror   ]^C^C$S=X $S=mirror mirror
+[Offset   ]^P^C^C$S=X $S=offset (if (not c:offstm)(defun c:offstm (/ m:err)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if (and (/= (type m:od) 'REAL)(/= m:od pause))(setq m:od "T"))+
+(command "OFFSET" m:od)(princ)))(princ);offstm;^P
+[Divide   ]^P^C^C$S=X $S=divide (if (not c:dividem)(defun c:dividem (/ m:err)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if(/= m:dmby "Yes")(setq m:dmby "No"))(if(/= m:dmba "Yes")(setq m:dmba "No"));+
+(if (/= (type m:dmbn) 'STR)(setq m:dmbn pause))(if (/= (type m:du) 'INT)+
+(setq m:du pause))(if (/= m:dmby "Yes")(command "DIVIDE" pause m:du)+
+(command "DIVIDE" pause "B" m:dmbn m:dmba m:du))(princ)))(princ);dividem;^P
+[Measure  ]^P^C^C$S=X $S=measure (if(not c:measurem)(defun c:measurem(/ m:err)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if(/= m:dmby "Yes")(setq m:dmby "No"))(if(/= m:dmba "Yes")(setq m:dmba "No"));+
+(if (/= (type m:dmbn) 'STR)(setq m:dmbn pause))(if (/= (type m:md) 'REAL)+
+(setq m:md pause))(if (/= m:dmby "Yes")(command "MEASURE" pause m:md)+
+(command "MEASURE" pause "B" m:dmbn m:dmba m:md))(princ)))(princ);measurem;^P
+[~--]
+[PolyEdit ]^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+
+
+***POP4
+**p4disp
+[Display]
+[Redraw           ]'redraw
+[~--]
+[Mview           >]^C^C^P(if(= (getvar "TILEMODE") 1)+
+(command "TILEMODE" "0"))(princ)^P mview $S=X $S=mv $p4=p4mview $p4=*
+[~--]
+[Zoom Window      ]'zoom w
+[Zoom Previous    ]'zoom p
+[Zoom All         ]^C^Czoom a
+[Zoom Dynamic     ]'zoom d
+[Zoom Vmax        ]'zoom v
+[~--]
+[Pan              ]'pan
+[Dview            ]^C^C$S=X $S=DVIEW DVIEW
+[Dview Options... ]^C^C^P(if (not c:dv1) (defun c:dv1 (/ m:err)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ));+
+(if (and (= (getvar "TILEMODE") 0)(= (getvar "CVPORT") 1)) (progn+
+(princ "*** Command not allowed in Paper space ***")(princ));+
+(progn (menucmd "I=DVIEWI")(menucmd "I=*")));+
+(setq *error* m:err)(princ)))(princ);dv1;^P
+[Vpoint 3D...     ]^C^C^P(if (not c:vp1) (defun c:vp1 (/ m:err)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ));+
+(if (and (= (getvar "TILEMODE") 0)(= (getvar "CVPORT") 1)) (progn+
+(princ "*** Command not allowed in Paper space ***")(princ));+
+(progn (menucmd "S=X")(menucmd "S=VPOINT3D")(menucmd "I=3dviews")+
+(menucmd "I=*")))(setq *error* m:err)(princ)))(princ);vp1;^P
+[~--]
+[Plan View (UCS)  ]^C^C^P+
+(if (and (= (getvar "TILEMODE") 0)(= (getvar "CVPORT") 1)) (progn+
+(princ "*** Command not allowed in Paper space ***")(princ));+
+(command "plan" ""))(princ) ^P
+[Plan View (World)]^C^C^P+
+(if (and (= (getvar "TILEMODE") 0)(= (getvar "CVPORT") 1)) (progn+
+(princ "*** Command not allowed in Paper space ***")(princ));+
+(command "plan" "world"))(princ) ^P
+[~--]
+[Shade            ]^C^C$S=X $S=shade
+[Hide             ]^C^C$S=X $S=hide
+
+
+**p4mview
+[Mview]
+[Mspace        ]^C^C$S=X $S=mv Mspace
+[Pspace        ]^C^C$S=X $S=mv Pspace
+[Toggle VP   ^V]^V
+[~--]
+[Mview ON      ]^C^C$S=X $S=mv Mview ON
+[Mview OFF     ]^C^C$S=X $S=mv Mview OFF
+[Mview Hideplot]^C^C$S=X $S=mv Mview Hideplot
+[Mview Fit     ]^C^C$S=X $S=mv Mview Fit
+[Mview 2       ]^C^C$S=X $S=mv2 Mview 2
+[Mview 3       ]^C^C$S=X $S=mv2 Mview 3
+[Mview 4       ]^C^C$S=X $S=mv2 Mview 4
+[~--]
+[Vplayer       ]^C^C$S=X $S=vpla Vplayer
+[~--]
+[DISPLAY      >]$p4=p4disp $p4=*
+
+***POP5
+[Settings]
+[Snap  On/Off   ^B]^B
+[Grid  On/Off   ^G]^G
+[Ortho On/Off   ^O]^O
+[~--]
+[Layer Control... ]'ddlmodes
+[Drawing Tools... ]'ddrmodes
+[Set SysVars      ]'setvar
+[Set Dim Vars...  ]^C^C^P(terpri)(prompt (strcat "Current dimension style: "+
+(setq m:dsty (getvar "DIMSTYLE"))))(princ)^P dim $I=dimset $I=*
+[~--]
+[UCS Control...   ]^C^Cdducs
+[UCS Options...   ]$I=ucs $I=*
+[UCS Previous     ]^C^CUCS P
+[Ucsicon On/Off/OR]^P(if (not m:ucsi)(defun m:ucsi (/ m:err)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(cond ((= (getvar "UCSICON") 1) (setvar "UCSICON" 0));+
+((=(getvar "UCSICON")0)(setvar "UCSICON" 3))(T (setvar "UCSICON" 1)))+
+(princ)))(princ);(m:ucsi);^P
+[~--]
+[Shade Style      ]'shadedge \'shadedif
+
+***POP6
+**p6opt
+[Options]
+[Entity Creation...]'ddemodes
+[~--]
+[2D Polyline Width ]^C^C^P(if (not c:spw)(defun c:spw (/ m:err m:pw m:spw)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)+
+(setvar "CMDECHO" m:spw)(princ))(setq m:spw (getvar "CMDECHO"))(initget 5)+
+(setvar "CMDECHO" 0)(setq m:pw (getdist "Enter default polyline width: "));+
+(command "PLINE" "0,0" "W" m:pw m:pw "0,0" "")(entdel (entlast))+
+(setvar "CMDECHO" m:spw)(setq *error* m:err)(princ)))(princ);spw;^P
+[Polygon Creation  ]^C^C^P(if (not c:pgm)+
+(defun c:pgm (/ m:err m:ps0 m:ps1 m:pe0 m:pe1 m:pg0 m:pg1)(setq m:err *error*)+
+(defun *error* (msg)(setq *error* m:err)(princ))(if (= (type m:ps) 'INT);+
+(setq m:ps0 (itoa m:ps))(setq m:ps0 "."))(while (not m:ps1)(initget 6 ".")+
+(setq m:ps1 (getint+
+(strcat "Number of polygon sides or  .  to prompt each time <" m:ps0 ">: ")));+
+(if (= m:ps1 nil)(setq m:ps1 m:ps))(if (or (= m:ps1 nil) (= m:ps1 "."))+
+(setq m:ps nil m:ps1 T)(if (or (< m:ps1 3) (> m:ps1 1024))(progn (terpri)+
+(princ"Value must be between 3 and 1024.")(terpri)(setq m:ps1 nil));+
+(setq m:ps m:ps1))))(if m:pe (setq m:pe0 m:pe)(setq m:pe0 "."))+
+(initget "Edge Center .")(setq m:pe1 (getkword (strcat +
+"Choose polygon creation mode (Edge/Center) or . to prompt each time <";+
+m:pe0 ">: ")))(if (/= m:pe1 nil)(setq m:pe m:pe1))(if (= m:pe ".")+
+(setq m:pe nil))(if(= m:pe "Center")(progn (if m:pg (setq m:pg0 (substr m:pg 1 1));+
+(setq m:pg0 "."))(initget "Circumscribed Inscribed .")(setq m:pg1 (getkword+
+(strcat"Inscribed in/Circumscribed about circle (I/C) or . to prompt each time <"+
+m:pg0 ">: ")))(if (/= m:pg1 nil)(setq m:pg m:pg1))(if (= m:pg ".");+
+(setq m:pg nil))))(setq *error* m:err)(princ)))(princ);pgm;^P
+[Donut Diameters   ]^P^C^C(defun *error* (msg)(setq *error* m:err)(princ))+
+(princ)(setq oce (getvar "cmdecho"))(setvar "cmdecho" 1)(princ);+
+(command "donut" pause)(progn(setvar "cmdecho" 0)(command pause "") +
+(setvar "cmdecho" oce)(setq *error* m:err)(princ))(princ) ^P
+[~--]
+[INSERT OPTIONS   >]$p6=p6insert $p6=* \$p6=p6opt
+[DTEXT OPTIONS    >]$p6=p6dtext $p6=* \$p6=p6opt
+[HATCH OPTIONS    >]$p6=p6hatch $p6=* \$p6=p6opt
+[~--]
+[Point Size        ]^C^C^P(if (not c:pds)(defun c:pds (/ m:err m:d m:e)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))(initget 6);+
+(setq m:d (rtos (getdist (strcat (chr 13) (chr 10) "Enter new point size <"+
+(rtos (getvar "PDSIZE")) ">: "))))(if (< (getvar "PDSIZE") 0)(setq m:a "P")+
+(setq m:a "A"))(initget "Absolute Percent")(setq m:e (getkword (strcat;+
+(chr 13)(chr 10)"Use value as Absolute size or Percent of screen size (A/P) <"+
+m:a ">:")))(if (= m:e nil)(setq m:e m:a))(if (= (substr m:e 1 1) "P")+
+(setq m:e "-")(setq m:e "+"))(if(= m:d nil)(setq m:d (rtos(getvar "PDSIZE"))));+
+(setvar "PDSIZE" (atof (strcat m:e m:d)))(prompt "New point size is: ")+
+(prin1 (getvar "PDSIZE"))(setq *error* m:er)(princ)))(princ);pds;^P
+[Point Type...     ]^C^C^P(if (not c:pdm)(defun c:pdm+
+(/ m:err m:co m:ce m:ps m:pdm)(setq m:err *error* m:ce (getvar "CMDECHO"))+
+(defun *error* (msg)(setvar"CMDECHO" m:ce)(redraw)(if m:ps(command "MSPACE"));+
+(setq *error* m:err)(princ))(defun m:pdm (/ m:px m:py m:c m:va m:vi m:xa m:ya +
+m:p m:yr m:xr m:lx m:ly m:ct m:sx m:sy m:stx m:sty m:xp m:yp m:xl m:yl)+
+(setq m:co (trans m:co 1 0) m:px (car m:co) m:py (cadr m:co) m:ct 1.3807281;+
+m:c (trans (getvar "VIEWCTR") 1 0) m:va (trans (getvar "VSMAX") 1 0) m:vi+
+(trans (getvar "VSMIN") 1 0) m:xa (- (car m:va) (car m:vi))+
+m:ya (- (cadr m:va) (cadr m:vi)) m:p (/ m:xa m:ya) m:yr (getvar "VIEWSIZE");+
+m:xr (* m:p m:yr) m:lx (- (car m:c)(/ m:xr 2)) m:ly (- (cadr m:c)(/ m:yr 2)))+
+(if (> m:xa (* m:ct m:yr))(setq m:sx (* m:yr m:ct) m:sy m:yr)(setq m:sy+
+(/ m:xr m:ct) m:sx m:xr))  (setq m:stx (/(*(- m:px m:lx) m:ct) m:sx) m:sty;+
+(/ (- m:py m:ly) m:sy) m:xp '((0.165 x) (0.353 0) (0.5545 1) (0.7522 2)+
+(0.95104 3) (1.14981 4) (1.38 x)) m:f T)(foreach x m:xp (if (and (< m:stx;+
+(car x)) m:f)(setq m:f nil m:xl (cadr x))))(setq m:yp '((0.937 x) (0.694 0)+
+(0.523 32) (0.211 64) (0 96)) m:f T)(foreach y m:yp (if (and (> m:sty+
+(car y)) m:f)(setq m:f nil m:yl (cadr y))))(if (and m:xl m:yl (/= m:xl 'x);+
+(/= m:yl 'x))(setvar "PDMODE" (+ m:xl m:yl))(progn (terpri)+
+(prompt "Selection undefined. Point mode unchanged: ")))(princ+
+(getvar "PDMODE")))(setvar "CMDECHO" 0)(if (and (= (getvar "TILEMODE") 0);+
+(/= (getvar "CVPORT")1))(progn(setq m:ps 1)(command "PSPACE")))+
+(command "VSLIDE" "acad(points)")(prompt "Select new point mode <")+
+(prin1 (getvar "PDMODE"))(prompt ">: ");+
+(initget 8 "0 1 2 3 4 32 33 34 35 36 64 65 66 67 78 96 97 98 99 100")+
+(setq m:co(getpoint))(if(=(type m:co)'STR)(setvar"PDMODE"(atoi m:co))(m:pdm))+
+(redraw)(if m:ps(command "MSPACE"))(setq *error* m:er)(setvar"CMDECHO" m:ce);+
+(princ)))(princ);pdm;^P
+[Linetype Scale    ]^C^Cltscale
+[~--]
+[Chamfer Distances ]'chamfera \'chamferb
+[Fillet Radius     ]'filletrad
+[Offset Distance   ]^C^C^P(if (not c:omset)(defun c:omset (/ m:err m:od2)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if (/= (type m:od) 'REAL)(if (= m:od pause)(setq m:od2 ".");+
+(setq m:od "T" m:od2 "T"))(setq m:od2 m:od))(initget 6 "Through .");+
+(setq m:od2 (getreal (strcat (chr 13)(chr 10)+
+"Enter Offset Distance or Through or . to prompt each time <"+
+(if(=(type m:od2) 'REAL)(rtos m:od2)(eval m:od2)) ">: ")))(if(/= m:od2 nil);+
+(setq m:od m:od2))(if (= m:od2 ".")(setq m:od pause))(princ)))(princ);omset;^P
+[Divide Units      ]^C^C^P(if (not c:du)(defun c:du (/ m:err m:du0 m:du1 m:du2)+
+(setq m:err *error* m:du0 T)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if (not m:du)(setq m:du pause))(if (/= (type m:du) 'INT)(setq m:du1 ".");+
+(setq m:du1 m:du))(initget 6 ".")(while m:du0(setq m:du2(getint(strcat(chr 13)+
+(chr 10)"Enter default Number of Units for DIVIDE or . to prompt each time <"+
+(if(= m:du1 ".")(eval m:du1)(itoa m:du1))">: ")))(if(or(and(> m:du2 1);+
+(< m:du2 32768))(= m:du2 ".")(= m:du2 nil))(setq m:du0 nil)(princ(strcat+
+(chr 13)(chr 10)"Value must be between 2 and 32767. "))))(if (= m:du2 nil)+
+(setq m:du1 m:du)(setq m:du1 m:du2))(if(or(= m:du1 ".")(= m:du1 pause));+
+(setq m:du pause)(setq m:du m:du1))(setq *error* m:err)(princ)))(princ);du;^P
+[Measure Distance  ]^C^C^P(if (not c:md)(defun c:md (/ m:err m:md1)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if (not m:md)(setq m:md pause))(if (/= (type m:md) 'REAL)(setq m:md1 ".");+
+(setq m:md1 m:md))(initget 6 ".")(setq m:md1 (getreal(strcat+
+"Enter default Distance for MEASURE or . to prompt each time <"+
+(if (= m:md1 ".")(eval m:md1)(rtos m:md1))">: ")))(if (= m:md1 nil);+
+(setq m:md1 m:md))(if (or (= m:md1 ".")(= m:md1 pause))(setq m:md pause)+
+(setq m:md m:md1))(setq *error* m:err)(princ)))(princ);md;^P
+[  D/M Block Name  ]^C^C^P(if (not c:dmbn)(defun c:dmbn (/ m:err m:dmby2 m:dmbn2 +
+m:dmba2)(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if (/= m:dmby "Yes")(setq m:dmby "No"))(initget "No Yes")(setq m:dmby2;+
+(getkword(strcat "Use Block for DIVIDE or MEASURE? (Y/N) <" m:dmby ">: ")))+
+(if (/= m:dmby2 nil)(setq m:dmby m:dmby2))(if (= m:dmby "Yes")(progn+
+(if (/= (type m:dmbn) 'STR)(setq m:dmbn pause))(if (= m:dmbn pause);+
+(setq m:dmbn2 ".")(setq m:dmbn2 m:dmbn))(setq m:dmbn2(getstring(strcat+
+"Enter Block name to use or . to prompt each time <" m:dmbn2 ">: ")))+
+(if(= m:dmbn2 "")(setq m:dmbn2 m:dmbn))(if (= m:dmbn2 ".")(setq m:dmbn pause);+
+(setq m:dmbn m:dmbn2))(if(/= m:dmba "Yes")(setq m:dmba "No"))(initget "No Yes")+
+(setq m:dmba2(getkword(strcat"Align Block during DIVIDE/MEASURE (Y/N) <"m:dmba+
+">: ")))(if(/= m:dmba2 nil)(setq m:dmba m:dmba2))))(princ)))(princ);dmbn;^P
+[Dimension Style   ]^C^Cdim;restore;?;;
+
+**p6insert
+[Insertion]
+[Block Name    ]^C^C^P(defun c:setins (/ m:err m:si0)(defun *error* (msg)+
+(setq *error* m:err)(princ))(if (and (= (type m:ibn) 'STR) (/= m:ibn pause))+
+(setq m:si0 m:ibn)(setq m:si0 "."))(setq m:si0 (getstring (strcat ;+
+"Enter Block Name to use or  .  to prompt each time <" m:si0 ">: ")))+
+(if(= m:si0 "")(setq m:si0 m:ibn))(if(=(type m:si0)'STR)(setq m:ibn m:si0)+
+(setq m:ibn pause))(if(= m:ibn ".")(setq m:ibn pause))(setq *error* m:err);+
+(princ));setins;^P
+[~--]$p6=p6opt
+[X Scale Factor]^C^C^P(defun c:setins (/ m:err m:si0)(defun *error* (msg)+
+(setq *error* m:err)(princ))(if(=(type m:ixs) 'REAL)(setq m:si0 (rtos m:ixs))+
+(setq m:si0 "."))(initget ".")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter X Scale Factor to use or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:ixs))(if (= (type m:si0) 'REAL)+
+(setq m:ixs m:si0)(setq m:ixs pause))(setq *error* m:err)(princ));setins;^P
+[Y Scale Factor]^C^C^P(defun c:setins (/ m:err m:si0)(defun *error* (msg)+
+(setq *error* m:err)(princ))(if(=(type m:iys) 'REAL)(setq m:si0 (rtos m:iys))+
+(setq m:si0 "."))(initget ". X")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter Y Scale Factor to use (or 'X') or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:iys))(if (= m:si0 "X")+
+(setq m:si0 m:ixs))(if(=(type m:si0)'REAL)(setq m:iys m:si0);+
+(setq m:iys pause))(setq *error* m:err)(princ));setins;^P
+[Z Scale Factor]^C^C^P(defun c:setins (/ m:err m:si0)(defun *error* (msg)+
+(setq *error* m:err)(princ))(if(=(type m:izs) 'REAL)(setq m:si0 (rtos m:izs))+
+(setq m:si0 "."))(initget ". X")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter Z Scale Factor to use (or 'X') or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:izs))(if (= m:si0 "X")+
+(setq m:si0 m:ixs))(if(=(type m:si0)'REAL)(setq m:izs m:si0);+
+(setq m:izs pause))(setq *error* m:err)(princ));setins;^P
+[~--]$p6=p6opt
+[Rotation Angle]^C^C^P(defun c:setins (/ m:err m:si0)(defun *error* (msg)+
+(setq *error* m:err)(princ))(if(=(type m:ira) 'REAL)(setq m:si0 (rtos m:ira))+
+(setq m:si0 "."))(initget ".")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter Rotation Angle to use or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:ira))(if (= (type m:si0) 'REAL)+
+(setq m:ira m:si0)(setq m:ira pause))(setq *error* m:err)(princ));setins;^P
+[~--]$p6=p6opt
+[Set All]^C^C^P(defun c:setins (/ m:err m:si0)(defun *error* (msg)+
+(setq *error* m:err)(princ))(if (and (= (type m:ibn) 'STR) (/= m:ibn pause))+
+(setq m:si0 m:ibn)(setq m:si0 "."))(setq m:si0 (getstring (strcat ;+
+"Enter Block Name to use or  .  to prompt each time <" m:si0 ">: ")))+
+(if(= m:si0 "")(setq m:si0 m:ibn))(if(=(type m:si0)'STR)(setq m:ibn m:si0)+
+(setq m:ibn pause))(if(= m:ibn ".")(setq m:ibn pause))(if(=(type m:ixs)'REAL);+
+(setq m:si0 (rtos m:ixs))(setq m:si0 "."))+
+(initget ".")(terpri)(setq m:si0 (getreal (strcat+
+"Enter X Scale Factor to use or  .  to prompt each time <" m:si0 ">: ")));+
+(if (= m:si0 nil) (setq m:si0 m:ixs))(if (= (type m:si0) 'REAL)(setq m:ixs +
+m:si0)(setq m:ixs pause))(if(=(type m:iys) 'REAL)(setq m:si0 (rtos m:iys))+
+(setq m:si0 "."))(initget ". X")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter Y Scale Factor to use (or 'X') or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:iys))(if (= m:si0 "X")+
+(setq m:si0 m:ixs))(if(=(type m:si0)'REAL)(setq m:iys m:si0);+
+(setq m:iys pause))(if(=(type m:izs) 'REAL)(setq m:si0 (rtos m:izs))+
+(setq m:si0 "."))(initget ". X")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter Z Scale Factor to use (or 'X') or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:izs))(if (= m:si0 "X")+
+(setq m:si0 m:ixs))(if(=(type m:si0)'REAL)(setq m:izs m:si0);+
+(setq m:izs pause))(if(=(type m:ira) 'REAL)(setq m:si0 (rtos m:ira))+
+(setq m:si0 "."))(initget ".")(terpri)(setq m:si0 (getreal (strcat;+
+"Enter Rotation Angle to use or  .  to prompt each time <" m:si0 ">: ")))+
+(if (= m:si0 nil) (setq m:si0 m:ira))(if (= (type m:si0) 'REAL)+
+(setq m:ira m:si0)(setq m:ira pause))(setq *error* m:err)(princ));setins;^P
+[Clear All]^P(setq m:ibn pause m:ixs pause m:iys pause m:izs pause m:ira pause)+
+(terpri)(prompt "INSERT will prompt for ALL options.")(princ);^P
+[~--]$p6=p6opt
+[List Blocks]^C^CINSERT ? \$p6=p6opt
+[~--]$p6=p6opt
+[OPTIONS      >]$p6=p6opt $p6=*
+
+
+**p6dtext
+[DText]
+[Text Font...     ]$P6=p6opt $I=fonts1 $I=*
+[Text Alignment...]$P6=p6opt $I=txtalign $I=*
+[Text Height      ]^C^C^P(if (not c:th)(defun c:th (/ m:err m:th0)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if(/= (type m:th) 'REAL)(setq m:th pause))(if(= m:th pause)(setq m:th0 ".");+
+(setq m:th0 (rtos m:th)))(initget 6 ".")(setq m:th0(getreal(strcat+
+"Enter default text height or . to prompt each time <" m:th0 ">: ")))+
+(if(=(type m:th0) 'REAL)(setq m:th m:th0)(if(= m:th0 ".")(setq m:th pause)));+
+(setq *error* m:err)(prin1)))(princ);th;^P
+[Text Rotation    ]^C^C^P(if (not c:tr)(defun c:tr (/ m:err m:tr0)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(if(/=(type m:tr) 'REAL)(setq m:tr pause))(if (= m:tr pause)(setq m:tr0 ".");+
+(setq m:tr0 (rtos m:tr)))(initget ".")(setq m:tr0(getreal(strcat+
+"Enter default text rotation or . to prompt each time <" m:tr0 ">: ")))+
+(if(=(type m:tr0) 'REAL)(setq m:tr m:tr0)(if(= m:tr0 ".")(setq m:tr pause)));+
+(setq *error* m:err)(prin1)))(princ);tr;^P
+[~--]$p6=p6opt
+[OPTIONS         >]$p6=p6opt $p6=*
+
+**p6hatch
+[Hatch]
+[Hatch Pattern...]$I=hatch1 $I=*
+[Hatch Style...  ]$I=hatchs $I=*
+[Hatch Scale]^C^C^P(if(not c:hsc)(defun c:hsc (/ m:err m:h0)(setq m:err *error*)+
+(defun *error* (msg)(setq *error* m:err)(princ))(if(/= (type m:hsc) 'REAL)+
+(setq m:hsc pause))(if(= m:hsc pause)(setq m:h0 ".");+
+(setq m:h0 (rtos m:hsc)))(initget 6 ".")(setq m:h0 (getreal(strcat+
+"Enter default Hatch scale or . to prompt each time <" m:h0 ">: ")))+
+(if(=(type m:h0) 'REAL)(setq m:hsc m:h0)(if(= m:h0 ".")(setq m:hsc pause)));+
+(setq *error* m:err)(prin1)))(princ);hsc;^P
+[Hatch Angle]^C^C^P(if(not c:hr)(defun c:hr (/ m:err m:h0)(setq m:err *error*)+
+(defun *error* (msg)(setq *error* m:err)(princ))(if(/= (type m:hr) 'REAL)+
+(setq m:hr pause))(if(= m:hr pause)(setq m:h0 ".");+
+(setq m:h0 (rtos m:hr)))(initget ".")(setq m:h0 (getreal(strcat+
+"Enter default Hatch rotation angle or . to prompt each time <" m:h0 ">: ")))+
+(if(=(type m:h0) 'REAL)(setq m:hr m:h0)(if(= m:h0 ".")(setq m:hr pause)));+
+(setq *error* m:err)(prin1)))(princ);hr;^P
+[~--]$p6=p6opt
+[OPTIONS        >]$p6=p6opt $p6=*
+
+
+***POP7
+[Utility]
+[U             ]U
+[Redo          ]^C^CRedo
+[~--]
+[Undo Mark     ]^C^CUndo M
+[Undo Back     ]^C^CUndo B
+[~--]
+[Area          ]^C^C$S=X $S=area area
+[Distance      ]^C^C$S=X $S=dist dist
+[ID Point      ]^P(if(not m:xid)(defun m:xid(/ m:err m:id1)+
+(setq m:err *error*)(defun *error* (msg)(setq *error* m:err)(princ))+
+(initget (+ 8))(setq m:id1 (getpoint "Select point: "))(if m:id1 (princ;+
+(strcat (chr 13)(chr 10)"X:  " (rtos(car m:id1)) "  Y: " (rtos(cadr m:id1))+
+"  Z: " (rtos(caddr m:id1))))(princ "No point selected. "))(princ)))+
+(princ);(m:xid);^P
+[~--]
+[List          ]^C^C$S=X $S=list list
+[Status        ]^C^Cstatus
+[Limits        ]^C^C$S=X $S=limits limits
+[Load LTypes   ]^C^C$S=X $S=ltype linetype l
+[~--]
+[AutoShade...]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd(cond((= G:SVER 20) (if G:RMAN "I=ASRM" "I=AS"))+
+((= G:SVER 11)"I=AS11")(T"")))(menucmd"I=*")(setq m:shmn nil);+
+(princ))(princ))(cond(G:SVER(setq *error* m:err m:err nil)(m:shmn))(T (vmon)+
+(cond((findfile"ashade.lsp")(load"ashade")(setq *error* m:err m:err nil);+
+(if G:SVER(m:shmn)(progn(terpri)(prompt "The file '")+
+(princ (findfile "ashade.lsp"))(prompt "' is incompatible with AutoCAD r11.");+
+(setq m:shmn nil C:CAMERA nil C:LIGHT nil C:CAMVIEW nil C:SCENE nil)(princ))))+
+(T(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq *error* m:err m:err nil m:shmn nil)(princ))))) ^P
+[RenderMan...]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(setq *error* m:err m:err nil)(menucmd"I=RM")(menucmd"I=*"))(progn(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(setq *error* m:err m:err nil)(princ))))(T(setq *error* m:err m:err nil)+
+(menucmd"I=RM")(menucmd"I=*")(princ))) ^P
+
+***POP8
+[File]
+[Save       ]^C^Csave
+[End        ]^C^Cend
+[Quit       ]^C^C$S=X $S=quit quit
+[~--]
+[Files      ]^C^Cfiles
+[Plot       ]^C^Cplot
+[Print      ]^C^Cprplot
+[~--]
+[EXCHANGE  >]$p8=p8xchg $p8=*
+
+**p8xchg
+[Exchange]
+[DXF  In    ]^C^Cdxfin
+[DXB  In    ]^C^Cdxbin
+[IGES In    ]^C^Cigesin
+[~--]
+[Import Text]^C^C^P(if (not c:asctext) (if (not (findfile "asctext.lsp"))+
+(defun C:ASCTEXT () (princ "Cannot find asctext.lsp ")(terpri)+
+(princ "It is on the SAMPLE DISK. ")(setq C:ASCTEXT nil)(princ));+
+(load "asctext")));asctext;^P
+[~--]
+[DXF  Out   ]^C^Cdxfout
+[IGES Out   ]^C^Cigesout
+[Filmroll   ]^C^Cfilmroll
+[~--]
+[FILE      >]$p8= $p8=*
+
+***Comment
+
+        The following AME menus may be called directly by the
+        AME application if it is loaded automatically.  Therefore,
+        for proper operation of AME, it is recommended that these
+        sub-menu names not be changed or deleted.  If it is necessary
+        to delete these menus, AME will continue to operate, but
+        without the benefit of AUI menus.
+
+***POP9
+[Solids]
+[~--           ]
+[   Load AME   ]^C^C^P+
+(defun *error* (msg)(if (= msg "null function")(progn (terpri)+
+(princ "ERROR: AME is not available on this platform.")(princ));+
+(progn(princ msg)(setq *error* m:err m:err nil f nil)(princ))))+
+(cond ((null c:solbox)(princ "Loading AME...")+
+(cond ((setq f (findfile "ame")) (xload f))+
+((setq f (findfile "ame.exp")) (xload f));+
+(T (terpri)(princ "ERROR:  File not found. ")))+
+(if f (progn(terpri)(princ "AutoCAD AME executable loaded. ")+
+(menucmd "p9=p9prim")(menucmd "p9=*")(princ))+
+(progn(terpri)(princ "Unable to load AME executable. ")(princ))));+
+(T (menucmd "p9=p9prim")(menucmd "p9=*")(princ)));^P
+[ Load AMElite ]^C^C^P+
+(defun *error* (msg)(if (= msg "null function") (progn (terpri)+
+(princ "ERROR: AME is not available on this platform.")(princ));+
+(progn(princ msg)(setq *error* m:err m:err nil f nil)(princ))))+
+(cond ((null c:solbox)(princ "Loading AMElite...")+
+(cond ((setq f (findfile "amelite")) (xload f))+
+((setq f (findfile "amelite.exp")) (xload f));+
+(T (terpri)(princ "ERROR:  File not found. ")))+
+(if f (progn(terpri)(princ "AutoCAD AMElite executable loaded. ")+
+(menucmd "p9=p9prim")(menucmd "p9=*")(princ))+
+(progn(terpri)(princ "Unable to load AMElite executable. ")(princ))));+
+(T (menucmd "p9=p9prim")(menucmd "p9=*")(princ)));^P
+[~--           ]
+
+
+**P9Prim
+[Sol-Prim's]
+[Box           ]^C^C$S=X $S=SBOX;Solbox;
+[Cone          ]^C^C$S=X $S=SCONE;Solcone;
+[Cylinder      ]^C^C$S=X $S=SCYL;Solcyl;
+[Sphere        ]^C^C$S=X $S=SSPH;Solsphere;
+[Torus         ]^C^C$S=X $S=STOR;Soltorus;
+[Wedge         ]^C^C$S=X $S=SWEDGE;Solwedge;
+[~--  ]
+[Extrude       ]^C^C$S=X $S=SEXT;Solext;
+[Revolve       ]^C^C$S=X $S=SREV;Solrev;
+[Solidify      ]^C^C$S=X $S=SSOLID;Solidify;
+[~--  ]
+[~]^C^C$P9=P9Prim;$P9=*;
+[MODIFY      >]^C^C$P9=p9Modify;$P9=*;
+[INQUIRY     >]^C^C$P9=p9Inquiry;$P9=*;
+[DISPLAY     >]^C^C$P9=P9Display;$P9=*;
+[UTILITY     >]^C^C$P9=P9Utility;$P9=*;
+
+**P9Modify
+[Sol-Modify]
+[Intersect     ]^C^C$S=X $S=SINT;Solint;
+[Subtract      ]^C^C$S=X $S=SSUB;Solsub;
+[Union         ]^C^C$S=X $S=SUNION;Solunion;
+[~--  ]
+[Chamfer       ]^C^C$S=X $S=SCHAM;solcham;
+[Fillet        ]^C^C$S=X $S=SFILL;solfill;
+[~--  ]
+[Solid Move    ]^C^C$S=X $S=SMOVE;Solmove;
+[Change Prim.  ]^C^C$S=X $S=SCHP;Solchp;
+[Separate      ]^C^C$S=X $S=SSEP;Solsep;
+[~--  ]
+[PRIMITIVES  >]^C^C$P9=P9Prim;$P9=*;
+[~]^C^C$P9=p9Modify;$P9=*;
+[INQUIRY     >]^C^C$P9=p9Inquiry;$P9=*;
+[DISPLAY     >]^C^C$P9=P9Display;$P9=*;
+[UTILITY     >]^C^C$P9=P9Utility;$P9=*;
+
+**P9Inquiry
+[Sol-Inquiry]
+[List Solid    ]^C^C$S=X $S=SLIST;Sollist;
+[Mass Property ]^C^C$S=X $S=SMASSP;Solmassp;
+[Solid Area    ]^C^C$S=X $S=SAREA;Solarea;
+[~--  ]
+[British units ]^C^Csolvar sollength ft;;;solmass lb;;+
+solareau sq ft;;solvolume cu ft;
+[CGS units     ]^C^Csolvar sollength cm;;;solmass gm;;+
+solareau sq cm;;solvolume cu cm;
+[SI units      ]^C^Csolvar sollength m;;;solmass kg;;+
+solareau sq m;;solvolume cu m;
+[~--  ]
+[~]^C^C$P9=p9Inquiry;$P9=*;
+[~]^C^C$P9=p9Inquiry;$P9=*;
+[~]^C^C$P9=p9Inquiry;$P9=*;
+[PRIMITIVES  >]^C^C$P9=P9Prim;$P9=*;
+[MODIFY      >]^C^C$P9=p9Modify;$P9=*;
+[~]^C^C$P9=p9Inquiry;$P9=*;
+[DISPLAY     >]^C^C$P9=P9Display;$P9=*;
+[UTILITY     >]^C^C$P9=P9Utility;$P9=*;
+
+**P9Display
+[Sol-Display]
+[Mesh          ]^C^C$S=X $S=SMESH;Solmesh;
+[Wireframe     ]^C^C$S=X $S=SWIRE;Solwire;
+[~--  ]
+[Copy Feature  ]^C^C$S=X $S=SFEAT;Solfeat;
+[Cut Section   ]^C^C$S=X $S=SSECT;Solsect;
+[Profile       ]^C^C$S=X $S=SPROF;Solprof;
+[~--  ]
+[Set Decomp.   ]^C^CSolvar soldecomp
+[Set Subdiv.   ]^C^CSolvar solsubdiv
+[Set Wire Dens.]^C^CSolvar solwdens
+[~--  ]
+[PRIMITIVES  >]^C^C$P9=P9Prim;$P9=*;
+[MODIFY      >]^C^C$P9=p9Modify;$P9=*;
+[INQUIRY     >]^C^C$P9=p9Inquiry;$P9=*;
+[~]^C^C$P9=P9Display;$P9=*;
+[UTILITY     >]^C^C$P9=P9Utility;$P9=*;
+
+**P9Utility
+[Sol-Utility]
+[Material      ]^C^C$S=X $S=SCHMAT;Solmat;
+[Solvars       ]^C^C$S=X $S=SSOLV;Solvar;
+[SolUCS        ]^C^C$S=X $S=SUCS;Solucs;
+[~--  ]
+[SOL in   .asm ]^C^CSolin;
+[SOL out  .asm ]^C^CSolout;
+[Purge Solids  ]^C^C$S=X $S=SPURGE;Solpurge;
+[~--  ]
+[Unload        ]^C^C^P(if (xunload "ame" nil)+
+(princ (strcat "AME unloaded." (chr 10))))+
+(if (xunload "amelite" nil)(princ "AMElite unloaded."))+
+(menucmd "p9=POP9")(princ);^P
+[AME or AMElite]^C^C^P(if (xunload "ame" nil)+
+(princ (strcat "AME unloaded." (chr 10))))+
+(if (xunload "amelite" nil)(princ "AMElite unloaded."))+
+(menucmd "p9=POP9")(princ);^P
+[~--  ]
+[PRIMITIVES  >]^C^C$P9=P9Prim;$P9=*;
+[MODIFY      >]^C^C$P9=p9Modify;$P9=*;
+[INQUIRY     >]^C^C$P9=p9Inquiry;$P9=*;
+[DISPLAY     >]^C^C$P9=P9Display;$P9=*;
+[~]^C^C$P9=P9Utility;$P9=*;
+
+
+***icon
+**txtalign
+[Select Text Alignment]
+[acad(j-tleft)]^P(setq m:ta "TLeft") ^P
+[acad(j-mleft)]^P(setq m:ta "MLeft") ^P
+[acad(j-start)]^P(setq m:ta "BLeft") ^P
+[acad(j-bleft)]^P(setq m:ta "BLeft") ^P
+[acad(j-tcen)]^P(setq m:ta "TCenter") ^P
+[acad(j-mcen)]^P(setq m:ta "MCenter") ^P
+[acad(j-center)]^P(setq m:ta "C") ^P
+[acad(j-bcen)]^P(setq m:ta "BCenter") ^P
+[acad(j-tright)]^P(setq m:ta "TRight") ^P
+[acad(j-mright)]^P(setq m:ta "MRight") ^P
+[acad(j-right)]^P(setq m:ta "R") ^P
+[acad(j-bright)]^P(setq m:ta "BRight") ^P
+[acad(j-align)]^P(setq m:ta "Aligned") ^P
+[acad(j-fit)]^P(setq m:ta "Fit") ^P
+[ Always Prompt]^P(setq m:ta nil)(princ) ^P
+[ Exit]
+
+**poly
+[Set Polymesh and Polyline Variables]
+[acad(pm-quad)]'surftype 5
+[acad(pm-cubic)]'surftype 6
+[acad(pm-bezr)]'surftype 8
+[acad(pl-quad)]'splinetype 5
+[acad(pl-cubic)]'splinetype 6
+[ Set SPLINESEGS]'splinesegs \
+[ Set SPLFRAME]'splframe \
+[ Set DENSITY]'surfu \'surfv \
+[ Exit]$p3=pop3
+
+**ucs
+[User Coordinate System Options]
+[ Set to World]^C^Cucs world
+[acad(u-left)]^c^c^P(setvar"lastpoint"(trans(getvar"ucsorg")0 1))(princ) +
+ucs 3p \@0,-1,0 @0,0,1 ^P
+[ Set to Screen]^C^Cucs view
+[acad(u-top)]^c^c^P(setvar"lastpoint"(trans(getvar"ucsorg")0 1))(princ) +
+ucs 3p \@1,0,0 @0,1,0 ^P
+[acad(u-front)]^c^c^P(setvar"lastpoint"(trans(getvar"ucsorg")0 1))(princ) +
+ucs 3p \@1,0,0 @0,0,1 ^P
+[acad(u-bottom)]^c^c^P(setvar"lastpoint"(trans(getvar"ucsorg")0 1))(princ) +
+ucs 3p \@1,0,0 @0,-1,0 ^P
+[acad(u-back)]^c^c^P(setvar"lastpoint"(trans(getvar"ucsorg")0 1))(princ) +
+ucs 3p \@-1,0,0 @0,0,1 ^P
+[acad(u-right)]^c^c^P(setvar"lastpoint"(trans(getvar"ucsorg")0 1))(princ) +
+ucs 3p \@0,1,0 @0,0,1 ^P
+[ Exit]
+
+**3DViews
+[Select View Direction]
+[acad(vp-ul)]^C^CVPOINT R;<<135;
+[acad(vp-left)]^C^CVPOINT R;<<180;
+[acad(vp-ll)]^C^CVPOINT R;<<225;
+[acad(blank)]
+[acad(vp-u)]^C^CVPOINT R;<<90;
+[acad(vp-plan)]^C^Cvpoint 0,0,1
+[acad(vp-lo)]^C^CVPOINT R;<<270;
+[acad(blank)]
+[acad(vp-ur)]^C^CVPOINT R;<<45;
+[acad(vp-right)]^C^CVPOINT R;<<0;
+[acad(vp-lr)]^C^CVPOINT R;<<315;
+[acad(blank)]
+[acad(vp-axes)]VPOINT;;
+[acad(hide)]$S=X $S=HIDE
+[ Exit]
+
+**dviewi
+[DVIEW Options]
+[acad(dv-cam)]^C^C(menucmd "S=X")(menucmd "S=DVIEW")+
+(command "Select" pause "Dview" "p" "" "ca" pause pause "")
+[acad(dv-zoom)]^C^C(menucmd "S=X")(menucmd "S=DVIEW")+
+(command "Select" pause "Dview" "p" "" "z" pause "")
+[acad(dv-pan)]^C^C(menucmd "S=X")(menucmd "S=DVIEW")+
+(command "Select" pause "Dview" "p" "" "pa" pause pause "")
+[ Exit]
+
+**3DObjects
+[3D Objects]
+[acad(box3d)]^C^C^P(progn(setq m:err *error*)(prin1))+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:BOX))(C:BOX))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(wedge)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:WEDGE))(C:WEDGE))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(pyramid)]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:PYRAMID))(C:PYRAMID))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(dome)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:DOME))(C:DOME))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(dish)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:DISH))(C:DISH))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(cone)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:CONE))(C:CONE))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(sphere)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:SPHERE))(C:SPHERE))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[acad(torus)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2"))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:TORUS))(C:TORUS))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[ Exit]
+
+**surf1
+[3D Surface Commands]
+[acad(revsurf)]^C^C$S=X $S=3D revsurf
+[acad(rulesurf)]^C^C$S=X $S=3D rulesurf
+[acad(surftab1)]'surftab1 \$I=*
+[acad(tabsurf)]^C^C$S=X $S=3D tabsurf
+[acad(edgesurf)]^C^C$S=X $S=3D edgesurf
+[acad(surftab2)]'surftab2 \$I=*
+[acad(mesh)]^C^C^P(progn(setq m:err *error*)(princ));+
+(defun m:l3d ()(cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn (terpri)(prompt +
+"The file `3d.lsp' was not found in your current search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.")+
+(princ))))(T (princ)))(cond ((not (null C:MESH))(C:MESH))(T (princ)));+
+(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg)+
+(setq *error* m:err m:err nil)(prin1))(m:l3d)(princ) ^P
+[ 3D Objects]$I=3dobjects $I=*
+[ Exit]
+
+**fonts1
+[Select Text Font]
+[acad(romans)]^c^cstyle romans romans
+[acad(romanc)]^c^cstyle romanc romanc
+[acad(italicc)]^c^cstyle italicc italicc
+[acad(romand)]^c^cstyle romand romand
+[acad(romant)]^c^cstyle romant romant
+[acad(italict)]^c^cstyle italict italict
+[acad(monotxt)]^c^cstyle monotxt monotxt
+[ Next]$I=fonts2 $I=*
+[ Exit]
+
+**fonts2
+[Select Text Font]
+[acad(gothice)]^c^cstyle gothice gothice
+[acad(greeks)]^c^cstyle greeks greeks
+[acad(scripts)]^c^cstyle scripts scripts
+[acad(gothicg)]^c^cstyle gothicg gothicg
+[acad(greekc)]^c^cstyle greekc greekc
+[acad(scriptc)]^c^cstyle scriptc scriptc
+[acad(gothici)]^c^cstyle gothici gothici
+[ Next]$I=fonts3 $I=*
+[ Exit]
+
+**fonts3
+[Select Text Font]
+[acad(syastro)]^c^cstyle syastro syastro
+[acad(symath)]^c^cstyle symath symath
+[acad(symusic)]^c^cstyle symusic symusic
+[acad(symap)]^c^cstyle symap symap
+[acad(symeteo)]^c^cstyle symeteo symeteo
+[acad(txt)]^c^cstyle txt txt
+[acad(blank)]
+[ Beginning]$I=fonts1 $I=*
+[ Exit]
+
+**hatch1
+[Select Hatch Pattern - * Not to Scale]
+[ User Defined]^P(setq m:hp "U") ^P
+[acad(ansi31)]^P(setq m:hp "ansi31") ^P
+[acad(ansi32)]^P(setq m:hp "ansi32") ^P
+[acad(ansi34)]^P(setq m:hp "ansi34") ^P
+[acad(ansi35)]^P(setq m:hp "ansi35") ^P
+[acad(ansi33)]^P(setq m:hp "ansi33") ^P
+[acad(ansi36)]^P(setq m:hp "ansi36") ^P
+[acad(ansi37)]^P(setq m:hp "ansi37") ^P
+[acad(ansi38)]^P(setq m:hp "ansi38") ^P
+[acad(ar-b816)]^P(setq m:hp "ar-b816") ^P
+[acad(ar-b816c)]^P(setq m:hp "ar-b816c") ^P
+[acad(ar-b88)]^P(setq m:hp "ar-b88") ^P
+[acad(ar-brelm)]^P(setq m:hp "ar-brelm") ^P
+[acad(ar-brstd)]^P(setq m:hp "ar-brstd") ^P
+[ Next]$I=hatch2 $I=*
+[ Exit]
+
+**hatch2
+[Select Hatch Pattern - * Not to Scale]
+[acad(ar-conc)]^P(setq m:hp "ar-conc") ^P
+[acad(ar-hbone)]^P(setq m:hp "ar-hbone") ^P
+[acad(ar-parq1)]^P(setq m:hp "ar-parq1") ^P
+[acad(ar-rroof)]^P(setq m:hp "ar-rroof") ^P
+[acad(ar-rshke)]^P(setq m:hp "ar-rshke") ^P
+[acad(ar-sand)]^P(setq m:hp "ar-sand") ^P
+[acad(box)]^P(setq m:hp "box") ^P
+[acad(brass)]^P(setq m:hp "brass") ^P
+[acad(brick)]^P(setq m:hp "brick") ^P
+[acad(brstone)]^P(setq m:hp "brstone") ^P
+[acad(clay)]^P(setq m:hp "clay") ^P
+[acad(cork)]^P(setq m:hp "cork") ^P
+[acad(cross)]^P(setq m:hp "cross") ^P
+[acad(dash)]^P(setq m:hp "dash") ^P
+[ Next]$I=hatch3 $I=*
+[ Exit]
+
+**hatch3
+[Select Hatch Pattern - * Not to Scale]
+[acad(dolmit)]^P(setq m:hp "dolmit") ^P
+[acad(dots)]^P(setq m:hp "dots") ^P
+[acad(earth)]^P(setq m:hp "earth") ^P
+[acad(escher)]^P(setq m:hp "escher") ^P
+[acad(flex)]^P(setq m:hp "flex") ^P
+[acad(grass)]^P(setq m:hp "grass") ^P
+[acad(grate)]^P(setq m:hp "grate") ^P
+[acad(hex)]^P(setq m:hp "hex") ^P
+[acad(honey)]^P(setq m:hp "honey") ^P
+[acad(hound)]^P(setq m:hp "hound") ^P
+[acad(insul)]^P(setq m:hp "insul") ^P
+[acad(line)]^P(setq m:hp "line") ^P
+[acad(mudst)]^P(setq m:hp "mudst") ^P
+[acad(net)]^P(setq m:hp "net") ^P
+[ Next]$I=hatch4 $I=*
+[ Exit]
+
+**hatch4
+[Select Hatch Pattern - * Not to Scale]
+[acad(net3)]^P(setq m:hp "net3") ^P
+[acad(plast)]^P(setq m:hp "plast") ^P
+[acad(plasti)]^P(setq m:hp "plasti") ^P
+[acad(sacncr)]^P(setq m:hp "sacncr") ^P
+[acad(square)]^P(setq m:hp "square") ^P
+[acad(stars)]^P(setq m:hp "stars") ^P
+[acad(steel)]^P(setq m:hp "steel") ^P
+[acad(swamp)]^P(setq m:hp "swamp") ^P
+[acad(trans)]^P(setq m:hp "trans") ^P
+[acad(triang)]^P(setq m:hp "triang") ^P
+[acad(zigzag)]^P(setq m:hp "zigzag") ^P
+[acad(angle)]^P(setq m:hp "angle") ^P
+[ Beginning]$I=hatch1 $I=*
+[ Exit]
+
+**hatchs
+[Select Hatch Style]
+[acad(h-normal)]^P(setq m:hs ",N") ^P
+[acad(h-outer)]^P(setq m:hs ",O") ^P
+[acad(h-ignore)]^P(setq m:hs ",I") ^P
+[ Exit]
+
+**drdim
+[Select Dimension Type]
+[acad1(linear)]$I=drlin $I=*
+[acad1(angular)]ANG
+[acad1(ordinate)]$S=X $S=DIMORD $I=drord $I=*
+[acad1(diameter)]$S=X $S=DIMRADIAL DIA
+[acad1(radial)]$S=X $S=DIMRADIAL RAD
+[ Edit Dim...]$S=X $S=FORMAT $I=eddim $I=*
+[acad1(dimcen)]CEN
+[acad1(dimlea)]LEA
+[ Exit]
+
+**drlin
+[Select Linear Dimension]
+[acad1(dimhor)]$S=X $S=DIMLINEAR HOR
+[acad1(dimali)]$S=X $S=DIMLINEAR ALI
+[acad1(blank)]
+[acad1(dimver)]$S=X $S=DIMLINEAR VER
+[acad1(dimrot)]$S=X $S=DIMLINEAR ROT
+[ Previous...]$I=DRDIM $I=*
+[acad1(dimbas)]$S=X $S=DIMLINEAR BASELINE
+[acad1(dimcon)]$S=X $S=DIMLINEAR CONTINUE
+[ Exit]
+
+**drord
+[Select Ordinate Orientation]
+[acad1(dimordx)]ORD;\X
+[acad1(dimorda)]ORD;
+[acad1(dimordy)]ORD;\Y
+[ Exit]
+
+**eddim
+[Select Dimension Edit Command]
+[acad1(dimhomet)]$S=X $S=HOMETEXT HOM
+[acad1(dimnewtx)]$S=X $S=NEWTEXT NEW
+[acad1(blank)]
+[acad1(dimupdat)]$S=X $S=UPDATE UPD
+[acad1(dimoblq)]OBL
+[ Previous...]$I=DRDIM $I=*
+[acad1(dimtrot)]TRO
+[acad1(dimtedit)]$S=X $S=TEDIT TED
+[ Exit]
+
+**dimset
+[Select to Set Dimension Variables]
+[acad1(linear)]$I=DIMLIN $I=*
+[acad1(angular)]$I=DIMANG $I=*
+[acad1(ordinate)]$I=DIMORD1 $I=*
+[acad1(diameter)]$I=DIMDIA $I=*
+[acad1(radial)]$I=DIMRAD $I=*
+[ Dim Style...]$I=DIMSTY $I=*
+[ Dim Globals...]$I=DIMGLO $I=*
+[ Dim Text...]$I=DIMTXT $I=*
+[ Exit]
+
+**dimlin
+[Set Linear Dimension Variables]
+[acad1(linli1)]dimtad off dimtix off dimsoxd off $I=*
+[acad1(linse1n)]dimse1 on $I=*
+[acad1(linexe)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMEXE"))(terpri)+
+(prompt "Set extension line by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMEXE" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Dim Text...]$I=DIMTXT $I=*
+[acad1(linli2)]dimtad off dimtix on dimsoxd off $I=*
+[acad1(linse1f)]dimse1 off $I=*
+[acad1(linexo)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMEXO"))(terpri)+
+(prompt "Set extension line offset by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMEXO" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Dim Globals...]$I=DIMGLO $I=*
+[acad1(linli3)]dimtad off dimtix on dimsoxd on $I=*
+[acad1(linse2n)]dimse2 on $I=*
+[acad1(lindle)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMDLE"))(terpri)+
+(prompt "Set extension line by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMDLE" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Previous...]$I= $I=*
+[acad1(linli4)]dimtad on dimtix on dimsoxd off $I=*
+[acad1(linse2f)]dimse2 off $I=*
+[acad1(lindli)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMDLI"))(terpri)+
+(prompt "Set dim line increment by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMDLI" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P 
+
+**dimang
+[Set Angular Dimension Variables]$I= $I=*
+[acad1(angblk)]$I=DIMBLK $I=*
+[acad1(angtxt)]$I=DIMTXT $I=*
+[acad1(angglo)]$I=DIMGLO $I=*
+[ Exit]
+
+**dimord1
+[Set Ordinate Dimension Variables]
+[acad1(ordtadn)]dimtad on $I=*
+[acad1(ordexo)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMEXO"))(terpri)+
+(prompt "Set extension line offset by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMEXO" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Dim Text...]$I=DIMTXT $I=*
+[acad1(ordtadf)]dimtad off $I=*
+[acad1(ordtvp)]^P(command "dimtad" "off")(princ);+
+(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMTVP"))(terpri)+
+(prompt "Set vertical position of text by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMTVP" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Previous...]$I= $I=*
+[ Dim Blocks...]$I=DIMBLK $I=*
+[ Dim Globals...]$I=DIMGLO $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+
+**dimdia
+[Set Diameter Dimension Variables]
+[acad1(diaa)]dimtix on $I=*
+[ Dim Blocks...]$I=DIMBLK $I=*
+[ Dim Globals...]$I=DIMGLO $I=*
+[acad1(diab)]dimtix off dimtofl off $I=*
+[acad1(diacen)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMCEN"))(terpri)+
+(prompt "Set center mark size by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMCEN" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Previous...]$I= $I=*
+[acad1(diac)]dimtix off dimtofl on $I=*
+[ Dim Text...]$I=DIMTXT $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**dimrad
+[Set Radius Dimension Variables]
+[acad1(radf1)]dimtix on $I=*
+[ Dim Blocks...]$I=DIMBLK $I=*
+[ Dim Globals...]$I=DIMGLO $I=*
+[acad1(radf2)]dimtix off dimtofl off $I=*
+[acad1(radcen)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMCEN"))(terpri)+
+(prompt "Set center mark size by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMCEN" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Previous...]$I= $I=*
+[acad1(radf3)]dimtix off dimtofl on $I=*
+[ Dim Text...]$I=DIMTXT $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**dimglo
+[Set Global Dimension Variables]
+[acad1(gloason)]dimaso on $I=*
+[acad1(gloclrd)]dimclrd \$I=*           
+[acad1(glornd)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMRND"))(terpri)+
+(prompt "Set rounding precision by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMRND" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Dim Text...]$I=DIMTXT $I=*
+[acad1(gloasof)]dimaso off $I=*
+[acad1(gloclre)]dimclre \$I=*           
+[acad1(gloscale)]dimscale \$I=*
+[ Dim Blocks...]$I=DIMBLK $I=*
+[acad1(gloshon)]dimsho on $I=*
+[acad1(gloclrt)]dimclrt \$I=*           
+[acad1(glolfac)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMLFAC"))(terpri)+
+(prompt "Set global scale factor by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMLFAC" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Previous...]$I= $I=*
+[acad1(gloshof)]dimsho off $I=*
+[ Dim Style...]$I=DIMSTY $I=*
+[ Status]status $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**dimblk
+[Set Dimension Block Variables]
+[acad1(blkuah)]dimsah off dimtsz 0 dimblk . $I=*
+[acad1(blkusb)]dimsah on dimblk1 \dimblk2 \$I=*
+[ Previous...]$I= $I=*
+[acad1(blkutm)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMTSZ"))(terpri)+
+(prompt "Set size of ticks by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMTSZ" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[acad1(blkus1)]dimsah on dimtsz 0 dimblk1 \$I=*
+[ Dim Text...]$I=DIMTXT $I=*
+[acad1(blkudt)]dimsah off dimtsz 0 dimblk dot $I=*
+[acad1(blkus2)]dimsah on dimtsz 0 dimblk2 \$I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**dimtxt
+[Set Dimension Text Variables -1-]
+[acad1(txttadn)]dimtad on $I=*
+[acad1(txttohn)]dimtoh on $I=*
+[acad1(txttoln)]dimtol on $I=TOLN $I=*
+[ Previous...]$I= $I=*
+[acad1(txttadf)]dimtad off $I=*
+[acad1(txttohf)]dimtoh off $I=*
+[acad1(txttolf)]dimtol off $I=*
+[ Dim Globals...]$I=DIMGLO $I=*
+[acad1(txttihn)]dimtih on $I=*
+[acad1(txttofln)]dimtofl on $I=*
+[acad1(txtlimn)]dimlim on $I=TOLN $I=*
+[ Next...]$I=dimtxt2 $I=*
+[acad1(txttihf)]dimtih off $I=*
+[acad1(txttoflf)]dimtofl off $I=*
+[acad1(txtlimf)]dimlim off $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**dimtxt2
+[Set Dimension Text Variables -2-]
+[acad1(txtaltn)]dimalt on $I=ALTN $I=*
+[acad1(txtsoxdn)]dimsoxd on $I=*
+[acad1(txtgap)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMGAP"))(terpri)+
+(prompt "Set dist around text by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMGAP" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Original...]$I= $I= $I=*
+[acad1(txtaltf)]dimalt off $I=*
+[acad1(txtsoxdf)]dimsoxd off $I=*
+[acad1(txtgapd)]dimgap 0.09 $I=*
+[ Dim Globals...]$I=DIMGLO $I=*
+[acad1(txttixn)]dimtix off $I=*
+[acad1(txtpostn)]dimpost \$I=*
+[acad1(txtzin)]$I=TXTZIN $I=*
+[ Previous...]$I= $I=*
+[acad1(txttixf)]dimtix on $I=*
+[acad1(txtpostf)]dimpost . $I=*
+[acad1(txtzind)]dimzin 0 $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**toln
+[Set Dimension Tolerance Variables]$I= $I=*
+[acad1(txttp)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMTP"))(terpri)+
+(prompt "Set tolerance limits by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMTP" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[acad1(txttm)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMTM"))(terpri)+
+(prompt "Set tolerance limits by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMTM" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[acad1(txttfac)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMTFAC"))(terpri)+
+(prompt "Set text height scale factor by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMTFAC" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**altn
+[Set Alternate Dimension Text Options]$I= $I=*
+[acad1(txtaltff)]^P(defun dimset (/ m:err m:ce m:ds1 m:ds2)(setq m:err *error* +
+m:ce (getvar"CMDECHO"))(setvar "CMDECHO" 0)(defun *error* (msg)(setq *error* +
+m:err)(command "DIM")(setvar "CMDECHO" m:ce)(princ "Dim: ")(menucmd "I=*");+
+(princ))(command)(setq m:ds1 (getvar "DIMALTF"))(terpri)+
+(prompt "Set alternate measurement by picking or enter value.")(terpri)+
+(setq m:ds2 (getdist (getvar "VIEWCTR")(strcat "Current value: <"(rtos m:ds1);+
+"> New value: ")))(if (= m:ds2 nil)(setq m:ds2 m:ds1))(princ m:ds2)+
+(setvar "DIMALTF" m:ds2)(command "DIM")(setvar "CMDECHO" m:ce)(terpri)+
+(princ "Dim: ")(setq *error* m:err)(menucmd "I=*")(princ))(princ);(dimset);^P
+[acad1(txtapost)]dimapost \$I= $I=*
+[acad1(txtaltd)]dimaltd \$I= $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**txtzin 
+[Set Display of Leading/Trailing Zeros]
+[acad1(txtzin0)]dimzin 0 $I= $I=*
+[acad1(txtzin3)]dimzin 3 $I= $I=*
+[acad1(txtzin12)]^P(if (= (boole 1 4 (getvar "dimzin")) 0)+
+(setvar "dimzin" (+ (getvar "dimzin") 4))) +
+(if (= (boole 1 8 (getvar "dimzin")) 0)+
+(setvar "dimzin" (+ (getvar "dimzin") 8)))(princ) ^P$I= $I=*
+[acad1(txtzin1)]dimzin 1 $I= $I=*
+[acad1(txtzin4)]^P(if (= (boole 1 4 (getvar "dimzin")) 0)+
+(setvar "dimzin" (+ (getvar "dimzin") 4)))(princ) ^P$I= $I=*
+[ Previous...]$I= $I=*
+[acad1(txtzin2)]dimzin 2 $I= $I=*
+[acad1(txtzin8)]^P(if (= (boole 1 8 (getvar "dimzin")) 0)+
+(setvar "dimzin" (+ (getvar "dimzin") 8)))(princ) ^P$I= $I=*
+[ Exit]^P(if (= (getvar "DIMSTYLE") "*UNNAMED")(progn (menucmd "I=DIMSTY2")+
+(menucmd "I=*")) (command))(princ) ^P
+
+**dimsty
+[Dimension Style Options]
+[acad1(styresp)]res;;\^P(setq m:dsty (getvar "DIMSTYLE"))(princ)^P $I=*
+[acad1(styvarp)]var;;\$I=*
+[acad1(stysav)]sav
+[acad1(styresn)]restore;\^P(setq m:dsty (getvar "DIMSTYLE"))(princ)^P $I=*
+[acad1(styvarn)]var ? * \\$I=*
+[ Previous...]$I= $I=*
+[acad1(stylst)]sav ? * ^P(setq m:dsty (getvar "DIMSTYLE"))(command "")+
+(princ "** Press Return to Continue **")(princ) \^P $I= $I=*
+[acad1(styovr)]ove
+[ Exit]
+
+**dimsty2
+[Save Dimvar Changes Before Exit?]$I= $I=*
+[acad1(stynew)]sav ^P
+[ Dimstyle...]^P$I=DIMSTY $I=*
+[acad1(styupd)]^C^C(if(= m:dsty "*UNNAMED")(progn (command"DIM")+
+(prompt (strcat (chr 13)(chr 10) "Cannot update the *UNNAMED dimension style."+
+(chr 13)(chr 10) "Please select another option."))(terpri)(menucmd "I=*");+
+(princ))(progn (command "DIM" "SAV" m:dsty "Y")(princ))) ^P
+[acad1(styno)]
+
+**asrm
+[Select AutoShade Command]
+[ashade(icamera)]^C^C^p$S=X $s=ashc CAMERA ^p
+[ashade(ilightp)]^C^C^p$S=X $s=ashlrm LIGHT \P ^p
+[ashade(ilightd)]^C^C^p$S=X $s=ashlrm LIGHT \D ^p
+[ashade(ilights)]^C^C^p$S=X $s=ashlrm LIGHT \S ^p
+[ashade(ivcamera)]^C^C^p$S=X $s=ashc VCAMERA ^p
+[ashade(ivlightp)]^C^C^p$S=X $s=ashlrm VLIGHT \P ^p
+[ashade(ivlightd)]^C^C^p$S=X $s=ashlrm VLIGHT \D ^p
+[ashade(ivlights)]^C^C^p$S=X $s=ashlrm VLIGHT \S ^p
+[ashade(icamview)]^C^C^p$S=X $s=ash CAMVIEW ^p
+[ashade(ifinish)]^C^C^p$S=X $s=ash FINISH ^p
+[ashade(iscene)]^C^C^p$S=X $s=ash SCENE ^p
+[ashade(ifilmrol)]^C^C^p$S=X $s=ash FILMROLL ^p
+[ DEFAULTS]^C^C^p$S=X $s=defaults DEFAULTS ^p
+[ RMSCAN]^C^C^p$S=X $s=ash RMSCAN ^p$i=*
+[ Exit]^C^C
+
+**as
+[Select AutoShade Command]
+[ashade(icamera)]^C^C^p$S=X $s=ashc CAMERA ^p
+[ashade(ilightp)]^C^C^p$S=X $s=ashl LIGHT \P ^p
+[ashade(ilightd)]^C^C^p$S=X $s=ashl LIGHT \D ^p
+[ashade(blank)]$i=*
+[ashade(ivcamera)]^C^C^p$S=X $s=ashc VCAMERA ^p
+[ashade(ivlightp)]^C^C^p$S=X $s=ashl VLIGHT \P ^p
+[ashade(ivlightd)]^C^C^p$S=X $s=ashl VLIGHT \D ^p
+[ashade(blank)]$i=*
+[ashade(icamview)]^C^C^p$S=X $s=ash CAMVIEW ^p
+[ashade(ifinish)]^C^C^p$S=X $s=ash FINISH ^p
+[ashade(iscene)]^C^C^p$S=X $s=ash SCENE ^p
+[ashade(ifilmrol)]^C^C^p$S=X $s=ash FILMROLL ^p
+[ DEFAULTS]^C^C^p$S=X $s=defaults DEFAULTS ^p
+[ RMSCAN]^C^C^p$S=X $s=ash RMSCAN ^p$i=*
+[ Exit]^C^C
+
+**as11
+[Select AutoShade Command]
+[ashade(icamera)]^C^C^p$S=X $S=ASH11C CAMERA ^p
+[ashade(icamview)]^C^C^p$S=X $S=ASH11 CAMVIEW ^p
+[ashade(ilightp)]^C^C^p$S=X $S=ASH11L LIGHT \P ^p
+[ashade(ilightd)]^C^C^p$S=X $S=ASH11L LIGHT \D ^p
+[ashade(iscene)]^C^C^p$S=X $S=ASH11A SCENE ^p
+[ashade(ifilmrol)]^C^C^p$S=X $S=ASH11A FILMROLL ^p
+[ Exit]^c^c
+
+**rm
+[Select RenderMan Command]
+[ashade(irmsetup)]^C^C^p$S=X $s=RMSETUP RMSETUP ^p
+[ashade(irmprop)]^C^C^p$S=X $s=RMPROP RMPROP ^p
+[ashade(irmattac)]^C^C^p$S=X $s=RMATTACH RMATTACH ^p
+[ashade(irmedit)]^C^C^p$S=X $s=RMEDIT RMEDIT ^p
+[ashade(irmcopy)]^C^C^p$S=X $s=RMCOPY RMCOPY ^p
+[ashade(irmlist)]^C^C^p$S=X $s=RMLIST RMLIST ^p
+[ DEFAULTS]^C^C^p$S=X $s=DEFAULTS DEFAULTS ^p
+[ RMSCAN]^C^C^p$S=X $s=rman RMSCAN ^p$i=*
+[ Exit]^C^C
+
+
+***SCREEN
+**S
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* * * *]$S=OSNAPB
+[BLOCKS]$S=X $S=BL
+[DIM:]$S=X $S=DIM ^C^CDIM
+[DISPLAY]$S=X $S=DS
+[DRAW]$S=X $S=DR
+[EDIT]$S=X $S=ED
+[INQUIRY]$S=X $S=INQ
+[LAYER:]$S=X $S=LAYER ^C^CLAYER
+[MVIEW]$S=X $S=MV
+[PLOT]$S=X $S=PLOT
+[SETTINGS]$S=X $S=SET
+[SOLIDS]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:solbox)(progn (menucmd "S=X")(menucmd "S=SOLLOAD"))+
+(progn (menucmd "S=X")(menucmd "S=SOLIDS")))(princ);^P
+[SURFACES]$S=X $S=3D
+[UCS:]$S=X $S=UCS1 ^C^CUCS
+[UTILITY]$S=X $S=UT
+[ASHADE]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20)  "S=ASH")+
+((= G:SVER 11)"S=ASH11")(T"S=")))(setq m:shmn nil)(princ))(princ))(cond(G:SVER;+
+(setq *error* m:err m:err nil)(m:shmn))(T (vmon)(cond((findfile"ashade.lsp")+
+(load"ashade")(setq *error* m:err m:err nil)(if G:SVER(m:shmn)(progn(terpri);+
+(prompt "The file '") (princ (findfile "ashade.lsp"))+
+(prompt "' is incompatible with AutoCAD r11.");+
+(setq m:shmn nil C:CAMERA nil C:LIGHT nil C:CAMVIEW nil C:SCENE nil)(princ))))+
+(T(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq *error* m:err m:err nil m:shmn nil)(princ))))) ^P
+[RMAN]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMAN"))(progn(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMAN")(setq *error* m:err m:err nil)(princ))) ^P
+[BONUS]$S=X $S=SAMP1
+[SAVE:]^C^CSAVE
+
+
+**HEADER
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* * * *]$S=OSNAPB
+**HEADER0
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* * * *]$S=OSNAPB
+**HEADER1
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 * * *]$S=OSNAPB
+**HEADER2
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* 2 * *]$S=OSNAPB
+**HEADER3
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 2 * *]$S=OSNAPB
+**HEADER4
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* * 3 *]$S=OSNAPB
+**HEADER5
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 * 3 *]$S=OSNAPB
+**HEADER6
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* 2 3 *]$S=OSNAPB
+**HEADER7
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 2 3 *]$S=OSNAPB
+**HEADER8
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* * * 4]$S=OSNAPB
+**HEADER9
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 * * 4]$S=OSNAPB
+**HEADER10
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* 2 * 4]$S=OSNAPB
+**HEADER11
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 2 * 4]$S=OSNAPB
+**HEADER12
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* * 3 4]$S=OSNAPB
+**HEADER13
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 * 3 4]$S=OSNAPB
+**HEADER14
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[* 2 3 4]$S=OSNAPB
+**HEADER15
+[AutoCAD]^C^C^P$S=X $S=S (setq T_MENU 0)(princ) ^P$P1=POP1 $P2=P2DRAW $P4=P4DISP $P6=P6OPT $P8=POP8
+[1 2 3 4]$S=OSNAPB
+**X 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[__LAST__]$S= $S=
+[  DRAW  ]^C^C$S=X $S=DR
+[  EDIT  ]^C^C$S=X $S=ED
+
+**calc1 3
+[  calc  ]^C^C$S=X calc \$S=calc1 
+
+[   +    ]+;
+[   -    ]-;
+[   *    ]*;
+[   /    ]/;
+
+[Clear   ]Clear;
+
+[Memory  ]$S=X m $S=calc2
+
+[Sq root ]s;
+
+[Ypower-x]y;
+
+[Trig    ]$S=X Trig $S=calc3
+
+
+[Exit    ]$S=X Exit $S=s
+**calc2 3
+[calc-Mem]
+
+[   +    ]$S=X + $S=calc1
+[   -    ]$S=X - $S=calc1
+[   *    ]$S=X * $S=calc1
+[   /    ]$S=X / $S=calc1
+
+[Delete  ]$S=X d $S=calc1
+
+[List    ]$S=X l $S=calc1
+
+[Recall  ]$S=X r $S=calc1
+
+[Set     ]$S=X s $S=calc1
+
+
+
+[Exit    ]$S=X exit $S=calc1
+**calc3 3
+
+[Sine    ]$S=X sin $S=calc1
+
+[Cosine  ]$S=X cos $S=calc1
+
+[Tangent ]$S=X tan $S=calc1
+
+[Arctan  ]$S=X Atan $S=calc1
+
+
+
+[Exit    ]$S=X exit $S=calc1
+
+**SAMP1 3
+[ALIAS]^C^C^P(if (not c:alias) (if (not (or (setq al +
+(findfile "sample/alias.lsp")) (setq al (findfile "alias.lsp")))) +
+(defun C:alias () (princ "Cannot find alias.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:alias nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " al " -- Please wait. "))+
+(load al))));(princ) ALIAS ^P
+[ASCTEXT]^C^C^P(if (not c:asctext) (if (not (or (setq as +
+(findfile "sample/asctext.lsp")) (setq as (findfile "asctext.lsp")))) +
+(defun C:asctext () (princ "Cannot find asctext.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:asctext nil)(princ)) +
+(progn(terpri)(princ (strcat "Loading " as " -- Please wait. ")) +
+(load as))))(princ) ASCTEXT ^P
+[ATTREDEF]^C^C^P(if (not c:attredef) (if (not (or (setq att +
+(findfile "sample/attredef.lsp")) (setq att (findfile "attredef.lsp")))) +
+(defun C:attredef () (princ "Cannot find attredef.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:attredef nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " att " -- Please wait. "))+
+(load att))))(princ) ATTREDEF ^P
+[AXROT]^C^C^P(if (not c:axrot) (if (not (or (setq ax +
+(findfile "sample/axrot.lsp")) (setq ax (findfile "axrot.lsp")))) +
+(defun C:axrot () (princ "Cannot find axrot.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:axrot nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " ax " -- Please wait. "))+
+(load ax))))(princ) AXROT ^P
+[CALC]^C^C^P(if (not c:calc) (if (not (or (setq ca +
+(findfile "sample/calc.lsp")) (setq ca (findfile "calc.lsp")))) +
+(defun C:calc () (princ "Cannot find calc.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:calc nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " ca " -- Please wait. "))+
+(load ca))))(princ) CALC ^P\$S=calc1
+[CHBLOCK]^C^C^P(if (not c:chb) (if (not (or (setq ch +
+(findfile "sample/chblock.lsp")) (setq ch (findfile "chblock.lsp")))) +
+(defun C:chb () (princ "Cannot find chblock.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:chb nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " ch " -- Please wait. "))+
+(load ch))))(princ) CHB ^P
+[CHFACE]^C^C^P(if (not c:chface) (if(not(or (setq chf +
+(findfile "sample/chface.lsp")) (setq chf (findfile "chface.lsp")))) +
+(defun C:chface () (princ "Cannot find chface.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:chface nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " chf " -- Please wait. "))+
+(load chf))))(princ) CHFACE ^P
+[CHTEXT]^C^C^P(if (not c:cht) (if (not (or (setq cht +
+(findfile "sample/chtext.lsp")) (setq cht (findfile "chtext.lsp")))) +
+(defun C:cht () (princ "Cannot find chtext.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:cht nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " cht " -- Please wait. "))+
+(load cht))))(princ) CHT ^P
+[CL]^C^C^P(if (not c:cl) (if (not (or (setq cl (findfile "sample/cl.lsp")) +
+(setq cl (findfile "cl.lsp")))) (defun C:cl () (princ "Cannot find cl.lsp ");+
+(terpri) (princ "It is on the SAMPLE DISK. ")(setq C:cl nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " cl " -- Please wait. "))+
+(load cl))))(princ) CL ^P
+[DELLAYER]^C^C^P(if (not c:dellayer) (if (not (or (setq de +
+(findfile "sample/dellayer.lsp")) (setq de (findfile "dellayer.lsp")))) +
+(defun C:dellayer () (princ "Cannot find dellayer.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:dellayer nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " de " -- Please wait. "))+
+(load de))))(princ) DELLAYER ^P
+[DLINE]^C^C^P(if (not c:dline) (if (not (or (setq dl +
+(findfile "sample/dline.lsp")) (setq dl (findfile "dline.lsp")))) +
+(defun C:dline () (princ "Cannot find dline.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:dline nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " dl " -- Please wait. "))+
+(load dl))))(princ) DLINE ^P
+[EDGE]^C^C^P(if (not c:edge)(if (not(or(setq ed (findfile "sample/edge.lsp")) +
+(setq ed (findfile "edge.lsp")))) (defun C:edge () +
+(princ "Cannot find edge.lsp ")(terpri) (princ "It is on the SAMPLE DISK. ");+
+(setq C:edge nil)(princ)) (progn(terpri)(princ (strcat "Loading " ed " -- Please wait. "))+
+(load ed))))(princ) EDGE ^P
+[END]^C^C^P(if (not c:end) (if (not (or (setq en (findfile "sample/end.lsp")) +
+(setq en (findfile "end.lsp"))))(defun C:end ()(princ "Cannot find end.lsp ");+
+(terpri)(princ "It is on the SAMPLE DISK. ")(setq C:end nil)(princ));+
+(progn (progn(terpri)(princ (strcat "Loading " en " -- Please wait. "))+
+(load en))(menucmd "S=X")(menucmd "S=END"))))(princ)(c:end) ^P
+[FACT]^C^C^P(if (not c:fact) (if (not (or (setq fa +
+(findfile "sample/fact.lsp")) (setq fa (findfile "fact.lsp")))) +
+(defun C:fact () (princ "Cannot find fact.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:fact nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " fa " -- Please wait. "))(load fa))))+
+(princ) FACT ^P
+
+[  next]$S=X $S=SAMP2
+**SAMP2 3
+[LLOAD]^C^C^P(if (not c:ll) (if (not (or (setq lo +
+(findfile "sample/lload.lsp")) (setq lo (findfile "lload.lsp")))) +
+(defun C:ll () (princ "Cannot find lload.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:ll nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " lo " -- Please wait. "))+
+(load lo))))(princ) LL ^P
+[MFACE]^C^C^P(if (not c:mface) (if (not (or (setq mf +
+(findfile "sample/mface.lsp")) (setq mf (findfile "mface.lsp")))) +
+(defun C:mface () (princ "Cannot find mface.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:mface nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " mf " -- Please wait. "))+
+(load mf))))(princ) MFACE ^P
+[MVSETUP]^C^C^P(if (not c:mvs) (if (not (or (setq mv +
+(findfile "sample/mvsetup.lsp")) (setq mv (findfile "mvsetup.lsp")))) +
+(defun C:mvs () (princ "Cannot find mvsetup.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:mvs nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " mv " -- Please wait. "))+
+(load mv))))(princ) MVS ^P
+[PROJECT]^C^C^P(if (not c:project) (if (not (or (setq pr +
+(findfile "sample/project.lsp")) (setq pr (findfile "project.lsp")))) +
+(defun C:project () (princ "Cannot find project.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:project nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " pr " -- Please wait. "))+
+(load pr))))(princ) PROJECT ^P
+[PTEXT]^C^C^P(if (not c:ptext) (if (not (or (setq pt +
+(findfile "sample/ptext.lsp")) (setq pt (findfile "ptext.lsp")))) +
+(defun C:ptext () (princ "Cannot find ptext.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:ptext nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " pt " -- Please wait. "))+
+(load pt))))(princ) PTEXT ^P
+[RECTANG]^C^C^P(if (not c:rectang) (if (not (or (setq re +
+(findfile "sample/rectang.lsp")) (setq re (findfile "rectang.lsp")))) +
+(defun C:rectang () (princ "Cannot find rectang.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:rectang nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " re " -- Please wait. "))+
+(load re))))(princ) RECTANG ^P
+[RPOLY]^C^C^P(if (not c:rpoly) (if (not (or (setq rp +
+(findfile "sample/rpoly.lsp")) (setq rp (findfile "rpoly.lsp")))) +
+(defun C:rpoly () (princ "Cannot find rpoly.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:rpoly nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " rp " -- Please wait. "))+
+(load rp))))(princ) RPOLY ^P
+[SPIRAL]^C^C^P(if (not c:spiral) (if (not (or (setq sp +
+(findfile "sample/spiral.lsp")) (setq sp (findfile "spiral.lsp")))) +
+(defun C:spiral () (princ "Cannot find spiral.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:spiral nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " sp " -- Please wait. "))+
+(load sp))))(princ) SPIRAL ^P
+[SSX]^C^C^P(if (not c:ssx) (if (not (or (setq ss +
+(findfile "sample/ssx.lsp")) (setq ss (findfile "ssx.lsp")))) +
+(defun C:ssx () (princ "Cannot find ssx.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:ssx nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " ss " -- Please wait. "))+
+(load ss))))(princ) SSX ^P
+[TABLES]^C^C^P(if (not c:tables) (if (not (or (setq ta +
+(findfile "sample/tables.lsp")) (setq ta (findfile "tables.lsp")))) +
+(defun C:tables () (princ "Cannot find tables.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:tables nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " ta " -- Please wait. "))+
+(load ta))))(princ) TABLES ^P
+[XDATA]^C^C^P(if (not c:xdata) (if (not (or (setq xd +
+(findfile "sample/xdata.lsp")) (setq xd (findfile "xdata.lsp")))) +
+(defun C:xdata () (princ "Cannot find xdata.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:xdata nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " xd " -- Please wait. "))+
+(load xd))))(princ) XDATA ^P
+[XPLODE]^C^C^P(if (not c:xplode) (if (not (or (setq xp +
+(findfile "sample/xplode.lsp")) (setq xp (findfile "xplode.lsp")))) +
+(defun C:xplode () (princ "Cannot find xplode.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:xplode nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " xp " -- Please wait. "))+
+(load xp))))(princ) XPLODE ^P
+[XREFCLIP]^C^C^P(if (not C:xrefclip) (if (not (or (setq xc +
+(findfile "sample/xrefclip.lsp")) (setq xc (findfile "xrefclip.lsp")))) +
+(defun C:xrefclip () (princ "Cannot find xrefclip.lsp ")(terpri);+
+(princ "It is on the SAMPLE DISK. ")(setq C:xrefclip nil)(princ));+
+(progn(terpri)(princ (strcat "Loading " xc " -- Please wait. "))+
+(load xc))))(princ) XREFCLIP ^P
+
+[previous]$S=X $S=SAMP1
+**BL 3
+[ATTDEF:]$S=X $S=ATTDEF ^C^CATTDEF
+[BASE:]^C^CBASE
+[BLOCK:]$S=X $S=BLOCK ^C^CBLOCK
+[INSERT:]$S=X $S=INSERT ^C^CINSERT
+[MINSERT:]$S=X $S=MINSERT ^C^CMINSERT
+[WBLOCK:]$S=X $S=WBLOCK ^C^CWBLOCK
+
+[XBIND:]$S=X $S=XBIND ^C^CXBIND
+[XREF:]$S=X $S=XREF ^C^CXREF
+
+**DS 3
+[ATTDISP:]$S=X $S=ATTDISP ^C^CATTDISP
+[DVIEW:]$S=X $S=DVIEW ^C^CDVIEW
+[MVIEW:]$S=X $S=MV ^C^CMVIEW
+[PAN:]'PAN
+[PLAN:]$S=X $S=PLAN ^C^CPLAN
+[REDRALL:]'REDRAWALL
+[REDRAW:]'REDRAW
+[REGEN:]^C^CREGEN
+[REGNALL:]^C^CREGENALL
+[RGNAUTO:]$S=X $S=RGNAUTO ^C^CREGENAUTO
+[SHADE]$S=X $S=SHADE
+[VIEW:]$S=X $S=VIEW 'VIEW
+[VIEWRES:]$S=X $S=VIEWRES ^C^CVIEWRES
+[VPOINT:]$S=X $S=VPOINT ^C^CVPOINT
+[ZOOM:]$S=X $S=ZOOM 'ZOOM
+**DR 3
+[ARC]$S=X $S=ARC
+[ATTDEF:]$S=X $S=ATTDEF ^C^CATTDEF
+[CIRCLE]$S=X $S=CIRCLE
+[DONUT:]^C^CDONUT
+[DTEXT:]$S=X $S=DTEXT ^C^CDTEXT
+[ELLIPSE:]$S=X $S=ELLIPSE ^C^CELLIPSE
+[HATCH:]$S=X $S=HATCH ^C^CHATCH
+[INSERT:]$S=X $S=INSERT ^C^CINSERT
+[LINE:]$S=X $S=LINE ^C^CLINE
+[MINSERT:]$S=X $S=MINSERT ^C^CMINSERT
+[OFFSET:]$S=X $S=OFFSET ^C^COFFSET
+[PLINE:]$S=X $S=PLINE ^C^CPLINE
+
+[next]$S=X $S=DR2
+**DR2 3
+[POINT:]$S=X $S=POINT ^C^CPOINT
+[POLYGON:]$S=X $S=POLYGON ^C^CPOLYGON
+[SHAPE:]$S=X $S=SHAPE ^C^CSHAPE
+[SKETCH:]$S=X $S=SKETCH ^C^CSKETCH
+[SOLID:]$S=X $S=SOLID ^C^CSOLID
+[TEXT:]$S=X $S=TEXT ^C^CTEXT
+[TRACE:]$S=X $S=TRACE ^C^CTRACE
+[3DFACE:]$S=X $S=3DFACE ^C^C3DFACE
+
+[3D Surfs]$S=X $S=3D
+[SOLIDS]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:solbox)(progn (menucmd "S=X")(menucmd "S=SOLLOAD"))+
+(progn (menucmd "S=X")(menucmd "S=SOLIDS")))(princ);^P
+
+
+[previous]$S=X $S=DR
+**ED 3
+[ARRAY:]$S=X $S=ARRAY ^C^CARRAY
+[ATTEDIT:]$S=X $S=ATTEDIT ^C^CATTEDIT
+[BREAK:]$S=X $S=BREAK ^C^CBREAK
+[CHAMFER:]$S=X $S=CHAMFER ^C^CCHAMFER
+[CHANGE:]$S=X $S=CHANGE ^C^CCHANGE
+[CHPROP:]$S=X $S=CHPROP ^C^CCHPROP
+[COPY:]$S=X $S=COPY ^C^CCOPY
+[DDATTE:]^C^CDDATTE
+[DDEDIT:]$S=X $S=DDEDIT ^C^CDDEDIT
+[DIVIDE:]$S=X $S=DIVIDE ^C^CDIVIDE
+[ERASE:]$S=X $S=ERASE ^C^CERASE
+[EXPLODE:]^C^CEXPLODE
+[EXTEND:]$S=X $S=EXTEND ^C^CEXTEND
+[next]$S=X $S=ED2
+**ED2 3
+[FILLET:]$S=X $S=FILLET ^C^CFILLET
+[MEASURE:]$S=X $S=MEASURE ^C^CMEASURE
+[MIRROR:]$S=X $S=MIRROR ^C^CMIRROR
+[MOVE:]$S=X $S=MOVE ^C^CMOVE
+[OFFSET:]$S=X $S=OFFSET ^C^COFFSET
+[PEDIT:]^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+[ROTATE:]$S=X $S=ROTATE ^C^CROTATE
+[SCALE:]$S=X $S=SCALE ^C^CSCALE
+[SELECT:]$S=X $S=SELECT ^C^CSELECT
+[STRETCH:]$S=X $S=STRETCH ^C^CSTRETCH C
+[TRIM:]$S=X $S=TRIM ^C^CTRIM
+[UNDO:]$S=X $S=UNDO ^C^CUNDO
+
+[previous]$S=X $S=ED
+**INQ 5
+[AREA:]$S=X $S=AREA ^C^CAREA
+[DBLIST:]^CDBLIST
+[DIST:]^C^CDIST
+[HELP:]'HELP
+[ID:]$S=X $S=ID ^C^CID
+[LIST:]$S=X $S=LIST ^C^CLIST
+[STATUS:]^C^CSTATUS
+[TIME:]^C^CTIME
+**SET 3
+[DDEMODES]'DDEMODES
+[DDRMODES]'DDRMODES
+[--------]
+[APERTUR:]$S=X $S=APERTURE ^C^CAPERTURE
+[AXIS:]$S=X $S=AXIS ^C^CAXIS
+[BLIPS:]$S=X $S=BLIPMODE ^C^CBLIPMODE
+[COLOR:]$S=X $S=COLOR ^C^CCOLOR
+[DRAGMOD:]$S=X $S=DRAGMODE ^C^CDRAGMODE
+[ELEV:]^C^CELEV
+[GRID:]$S=X $S=GRID ^C^CGRID
+[HANDLES:]$S=X $S=HANDLES ^C^CHANDLES
+[LINETYP:]$S=X $S=LINETYPE ^C^CLINETYPE
+[LIMITS:]$S=X $S=LIMITS ^C^CLIMITS
+
+[next]$S=X $S=SET2
+**SET2 3
+[LTSCALE:]^C^CLTSCALE
+[OSNAP:]$S=X $S=OSNAPC ^C^COSNAP
+[QTEXT:]$S=X $S=QTEXT ^C^CQTEXT
+[SETVAR:]$S=X $S=SETVAR1 'SETVAR
+[SNAP:]$S=X $S=SNAP ^C^CSNAP
+[STYLE:]$S=X $S=STYLE ^C^CSTYLE
+[TABLET:]$S=X $S=TABLET ^C^CTABLET
+[UCS:]$S=X $S=UCS1 ^C^CUCS
+[UCSICON:]$S=X $S=UCSICON ^C^CUCSICON
+[UNITS:]^CUNITS
+[VPORTS:]$S=X $S=VPORTS ^C^CVPORTS
+
+
+
+[previous]$S=X $S=SET
+**PLOT 3
+
+[ C   D]
+[ H   E]
+[ O   V]
+[ O   I]
+[ S   C]
+[ E   E]
+
+
+[PLOTTER]^C^CPLOT
+
+[PRINTER]^C^CPRPLOT
+
+
+**SOLLOAD 3
+ 
+[LOAD AME]^C^C^P+
+(defun *error* (msg)(if (= msg "null function") (progn (terpri)+
+(princ "ERROR: AME is not available on this platform.")(princ));+
+(progn(princ msg)(setq *error* m:err m:err nil f nil)(princ))))+
+(cond ((null c:solbox)(princ "Loading AME...")+
+(cond ((setq f (findfile "ame")) (xload f))+
+((setq f (findfile "ame.exp")) (xload f));+
+(T (terpri)(princ "ERROR:  File not found. ")))+
+(if f (progn(terpri)(princ "AutoCAD AME executable loaded. ")+
+(menucmd "p9=p9prim")(menucmd "s=SOLIDS")(princ));+
+(progn(terpri)(princ "Unable to load AME executable.")+
+(menucmd "S=")(menucmd "S=")(princ)))));^P
+
+ 
+[LOAD    ]^C^C^P+
+(defun *error* (msg)(if (= msg "null function") (progn (terpri)+
+(princ "ERROR: AME is not available on this platform.")(princ));+
+(progn(princ msg)(setq *error* m:err m:err nil f nil)(princ))))+
+(cond ((null c:solbox)(princ "Loading AMElite...")+
+(cond ((setq f (findfile "amelite")) (xload f))+
+((setq f (findfile "amelite.exp")) (xload f));+
+(T (terpri)(princ "ERROR:  File not found. ")))+
+(if f (progn(terpri)(princ "AutoCAD AMElite executable loaded. ")+
+(menucmd "p9=p9prim")(menucmd "s=SOLIDS")(princ));+
+(progn(terpri)(princ "Unable to load AMElite executable. ")+
+(menucmd "S=")(menucmd "S=")(princ)))));^P
+[AMElite ]^C^C^P+
+(defun *error* (msg)(if (= msg "null function") (progn (terpri)+
+(princ "ERROR: AME is not available on this platform.")(princ));+
+(progn(princ msg)(setq *error* m:err m:err nil f nil)(princ))))+
+(cond ((null c:solbox)(princ "Loading AMElite...")+
+(cond ((setq f (findfile "amelite")) (xload f))+
+((setq f (findfile "amelite.exp")) (xload f));+
+(T (terpri)(princ "ERROR:  File not found. ")))+
+(if f (progn(terpri)(princ "AutoCAD AMElite executable loaded. ")+
+(menucmd "p9=p9prim")(menucmd "s=SOLIDS")(princ));+
+(progn(terpri)(princ "Unable to load AMElite executable. ")+
+(menucmd "S=")(menucmd "S=")(princ)))));^P
+
+
+
+
+
+**SOLIDS 3
+[SOLBOX: ]^C^C$S=X $S=SBOX SOLBOX
+[SOLCONE:]^C^C$S=X $S=SCONE SOLCONE
+[SOLCYL: ]^C^C$S=X $S=SCYL SOLCYL
+[SOLSPH: ]^C^C$S=X $S=SSPH SOLSPHERE
+[SOLTORS:]^C^C$S=X $S=STOR SOLTORUS
+[SOLWEGE:]^C^C$S=X $S=SWEDGE SOLWEDGE
+[SOLEXT: ]^C^C$S=X $S=SEXT SOLEXT
+[SOLREV: ]^C^C$S=X $S=SREV SOLREV
+[SOLIDIFY]^C^C$S=X $S=SSOLID SOLIDIFY
+
+[MODIFY]$S=X $S=SMODIFY
+[INQUIRY]$S=X $S=SINQUIRE
+[DISPLAY]$S=X $S=SRENDER
+[UTILITY]$S=X $S=SUTIL
+
+**SUTIL 3
+[SOLMAT: ]^C^C$S=X $S=SCHMAT SOLMAT
+[SOLVAR: ]^C^C$S=X $S=SSOLV SOLVAR
+[SOLUCS: ]^C^C$S=X $S=SUCS SOLUCS
+
+[SOLIN:]^C^CSOLIN
+[SOLOUT:]^C^CSOLOUT
+[SOLPURG:]^C^C$S=X $S=SPURGE SOLPURGE
+[UNLOAD  ]^C^C^P(if (xunload "ame" nil)+
+(princ (strcat "AME unloaded." (chr 10))))+
+(if (xunload "amelite" nil)(princ "AMElite unloaded."))+
+(menucmd "p9=POP9")(menucmd "S=S")(princ);^P
+
+[SOLIDS]$S=X $S=SOLIDS
+[MODIFY]$S=X $S=SMODIFY
+[INQUIRY]$S=X $S=SINQUIRE
+[DISPLAY]$S=X $S=SRENDER
+
+**SMODIFY 3
+[SOLINT:]^C^C$S=X $S=SINT SOLINT
+[SOLSUB:]^C^C$S=X $S=SSUB SOLSUB
+[SOLUNON:]^C^C$S=X $S=SUNION SOLUNION
+[SOLCHAM:]^C^C$S=X $S=SCHAM SOLCHAM
+[SOLFILL:]^C^C$S=X $S=SFILL SOLFILL
+[SOLCHP:]^C^C$S=X $S=SCHP SOLCHP
+[SOLMOVE:]^C^C$S=X $S=SMOVE SOLMOVE
+[SOLSEP:]^C^C$S=X $S=SSEP SOLSEP
+
+[SOLIDS]$S=X $S=SOLIDS
+
+[INQUIRY]$S=X $S=SINQUIRE
+[DISPLAY]$S=X $S=SRENDER
+[UTILITY]$S=X $S=SUTIL
+**SINQUIRE 3
+[SOLLIST:]^C^C$S=X $S=SLIST SOLLIST
+[SOLMASP:]^C^C$S=X $S=SMASSP SOLMASSP
+[SOLAREA:]^C^C$S=X $S=SAREA SOLAREA
+
+
+
+
+
+
+[SOLIDS]$S=X $S=SOLIDS
+[MODIFY]$S=X $S=SMODIFY
+
+[DISPLAY]$S=X $S=SRENDER
+[UTILITY]$S=X $S=SUTIL
+**SRENDER 3
+[SOLMESH:]^C^C$S=X $S=SMESH SOLMESH
+[SOLWIRE:]^C^C$S=X $S=SWIRE SOLWIRE
+
+[SOLFEAT:]^C^C$S=X $S=SFEAT SOLFEAT
+[SOLPROF:]^C^C$S=X $S=SPROF SOLPROF
+[SOLSECT:]^C^C$S=X $S=SSECT SOLSECT
+
+
+
+[SOLIDS]$S=X $S=SOLIDS
+[MODIFY]$S=X $S=SMODIFY
+[INQUIRY]$S=X $S=SINQUIRE
+
+[UTILITY]$S=X $S=SUTIL
+**SBOX 3
+[BOX:]^C^CSOLBOX
+
+Cube
+Length
+
+**SWEDGE 3
+[WEDGE:]^C^CSOLWEDGE
+
+Length
+
+**SCONE 3
+[CONE:]^C^CSOLCONE
+
+[Elliptcl]Elliptical
+[Center  ]C
+
+Diameter
+
+**SCYL 3
+[CYLNDER:]^C^CSOLCYL
+
+[Elliptcl]Elliptical
+[Center  ]C
+
+Diameter
+
+**SSPH 3
+[SPHERE:]^C^CSOLSPHERE
+
+Diameter
+
+**STOR 3
+[TORUS:]^C^CSOLTORUS
+
+Diameter
+
+**SFILL 3
+[SOLFILL:]^C^CSOLFILL
+
+Diameter
+
+**SCHAM 3
+[CHAMFER:]^C^CSOLCHAM
+
+Next
+OK
+
+**SEXT 3
+[EXTRUDE:]^C^CSOLEXT
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SREV 3
+[REVOLVE:]^C^CSOLREV
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+ 
+Entity
+X
+Y
+
+
+**SSOLID 3
+[SOLIDFY]^C^CSOLIDIFY
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+Yes
+No
+
+**SINT 3
+[INTERS:]^C^CSOLINT
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SSUB 3
+[SUBTRCT:]^C^CSOLSUB
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SUNION 3
+[UNION:]^C^CSOLUNION
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SSEP 3
+[SEPRATE:]^C^CSOLSEP
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SCHP 3
+[CHPRIM:]^C^CSOLCHP
+
+Color
+Delete
+Evaluate
+Instance
+Move
+Next
+Pick
+Replace
+Size
+eXit
+
+Yes
+No
+**SCHMAT 3
+[MATERAL:]^C^CSOLMAT
+ 
+Change
+Edit
+eXit
+LIst
+LOad
+New
+Remove
+SAve
+SEt
+?
+
+**SMOVE  3
+[SOLMOVE:]^C^CSOLMOVE
+?
+Window
+Last
+Previous
+ 
+[Align]a^^
+[  Edge]edge
+[  Face]face
+[  Ucs]ucs
+[  World]world
+[Origin]origin
+ 
+OK
+Next
+**SPURGE 3
+[PURGE:]^C^CSOLPURGE
+
+Memory
+Bfile
+Pmesh
+Erased
+
+All
+Select
+ 
+Window
+Last
+Previous
+Crossing
+  
+**SLIST 3
+[LIST:]^C^CSOLLIST
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+Edge
+Face
+Tree
+Solid
+
+**SPROF 3
+[PROFILE:]^C^CSOLPROF
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+Yes
+No
+
+**SFEAT 3
+[FEATURE:]^C^CSOLFEAT
+
+Edge
+Face
+
+OK
+Next
+
+**SUCS 3
+[UCS:]^C^CSOLUCS
+
+Edge
+Face
+
+OK
+Next
+
+**SWIRE 3
+[WIRE:]^C^CSOLWIRE
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SSECT 3
+[SOLSECT:]^C^CSOLSECT
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SMESH 3
+[MESH:]^C^CSOLMESH
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SMASSP 3
+[MASSPRP:]^C^CSOLMASSP
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+Yes
+No
+
+**SAREA 3
+[AREA:]^C^CSOLAREA
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+**SSOLV 3
+[SOLVAR:]^C^CSOLVAR
+[Amever  ]solamever
+[Areau   ]solareau
+[Axcol   ]solaxcol
+[Decomp  ]soldecomp
+[Delent  ]soldelent
+[Display ]soldisplay
+[Hangle  ]solhangle
+[Hpat    ]solhpat
+[Hsize   ]solhsize
+[Length  ]sollength
+[Mass    ]solmass
+
+[More... ]$S=X $S=SSOLV2
+**SSOLV2 3
+[SOLVAR:]^C^CSOLVAR
+[Matcurr ]solmatcurr
+[Pagelen ]solpagelen
+[Render  ]solrender
+[Servmsg ]solservmsg
+[Solidify]solsolidify
+[Subdiv  ]solsubdiv
+[Volume  ]solvolume
+[Solwdens]solwdens
+
+
+
+ 
+[Previous]$S=X $S=SSOLV
+
+**UT 3
+[ATTEXT:]$S=X $S=ATTEXT ^C^CATTEXT
+[AUDIT:]$S=X $S=AUDIT ^C^CAUDIT \$S= $S=
+[DXF/DXB]$S=X $S=DXF
+[FILES:]^C^CFILES
+[IGES]$S=X $S=IGES
+[MENU:]^C^CMENU
+[PURGE:]$S=X $S=PURGE ^C^CPURGE
+[RENAME:]$S=X $S=RENAME ^C^CRENAME
+[SCRIPT:]$S=X $S=SCRIPT ^C^CSCRIPT
+[SLIDES]$S=X $S=SLIDES
+[External]$S=X $S=EXCOMDS
+[Commands]$S=X $S=EXCOMDS
+
+[END:]^C^CEND
+[QUIT]$S=X $S=QUIT
+
+**ASH11 3
+[LIGHTS:]^C^C$S=X $S=ASH11L LIGHT
+[CAMERA:]^C^C$S=X $S=ASH11C CAMERA
+[ACTION]^C^C$S=X $S=ASH11A
+
+[CAMVIEW:]^C^CCAMVIEW
+**ASH11L 3
+[LIGHT:]^C^CLIGHT
+
+[Point]p
+Directed
+
+[Filters]
+.x
+.y
+.z
+.xy
+.xz
+.yz
+
+[CAMERA:]^C^C$S=X $S=ASH11C CAMERA
+[ACTION]$S=X $S=ASH11A
+**ASH11C 3
+[CAMERA:]^C^CCAMERA
+
+[Filters]
+.x
+.y
+.z
+.xy
+.xz
+.yz
+
+[CAMVIEW:]^C^CCAMVIEW
+
+
+[LIGHTS:]^C^C$S=X $S=ASH11L LIGHT
+[ACTION]$S=X $S=ASH11A
+**ASH11A 3
+[ACTION]
+
+[SCENE:]^C^CSCENE
+[FLMROLL:]^C^CFILMROLL
+
+
+
+
+
+
+
+
+
+[LIGHTS:]^C^C$S=X $S=ASH11L LIGHT
+[CAMERA:]^C^C$S=X $S=ASH11C CAMERA
+**ASH 3
+[LIGHT:]^C^C$S=X ^p(progn(menucmd(if g:rman"s=ashlrm""s=ashl"));+
+(princ)) ^pLIGHT
+[VLIGHT:]^C^C$S=X ^p(progn(menucmd(if g:rman"s=ashlrm""s=ashl"));+
+(princ)) ^pVLIGHT
+[CAMERA:]^C^C$S=X $S=ASHC CAMERA
+[VCAMERA:]^C^C$S=X $S=ASHC VCAMERA
+[FINISH:]^C^CFINISH
+[SCENE:]^C^CSCENE
+
+[CAMVIEW:]^C^CCAMVIEW
+
+[FILMROL:]^C^CFILMROLL
+[DEFAULT:]^C^C$S=X $S=DEFAULTS DEFAULTS
+[RMSCAN:]^C^CRMSCAN
+[--------]
+[RMAN]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMAN"))(progn(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMAN")(setq *error* m:err m:err nil)(princ))) ^P
+**ASHL 3
+[LIGHT:]^C^CLIGHT
+[VLIGHT:]^C^CVLIGHT
+
+[Point]p
+Directed
+
+.x
+.y
+.z
+.xy
+.xz
+.yz
+**ASHLRM 3
+[LIGHT:]^C^CLIGHT
+[VLIGHT:]^C^CVLIGHT
+
+[Point]p
+Directed
+Spot
+.x
+.y
+.z
+.xy
+.xz
+.yz
+**ASHC 3
+[CAMERA:]^C^CCAMERA
+[VCAMERA:]^C^CVCAMERA
+
+
+[CAMVIEW:]^C^CCAMVIEW
+
+.x
+.y
+.z
+.xy
+.xz
+.yz
+**DEFAULTS 3
+[DEFAULT:]^C^CDEFAULTS
+
+Resize
+Scale
+[Prompts]Prompts $S=X $S=YESNO \$S= $S=
+
+
+Select
+**RMAN 3
+[RMSETUP:]^C^C$S=X $S=RMSETUP RMSETUP
+[RMPROP: ]^C^C$S=X $S=RMPROP RMPROP
+
+[RMATTAC:]^C^C$S=X $S=RMATTACH RMATTACH
+[RMEDIT: ]^C^C$S=X $S=RMEDIT RMEDIT
+[RMCOPY: ]^C^C$S=X $S=RMCOPY RMCOPY
+
+[RMLIST: ]^C^C$S=X $S=RMLIST RMLIST
+
+[FILMROL:]^C^CFILMROLL
+[DEFAULT:]^C^C$S=X $S=DEFAULTS DEFAULTS
+[RMSCAN:]^C^CRMSCAN
+[--------]
+[ASHADE]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20)  "S=ASH")+
+((= G:SVER 11)"S=ASH11")(T"S=")))(setq m:shmn nil)(princ))(princ))(cond(G:SVER;+
+(setq *error* m:err m:err nil)(m:shmn))(T (vmon)(cond((findfile"ashade.lsp")+
+(load"ashade")(setq *error* m:err m:err nil)(if G:SVER(m:shmn)(progn(terpri);+
+(prompt "The file '") (princ (findfile "ashade.lsp"))+
+(prompt "' is incompatible with AutoCAD r11.");+
+(setq m:shmn nil C:CAMERA nil C:LIGHT nil C:CAMVIEW nil C:SCENE nil)(princ))))+
+(T(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq *error* m:err m:err nil m:shmn nil)(princ))))) ^P
+**RMSETUP 3
+[RMSETUP:]^C^CRMSETUP
+
+
+Air
+Bucket
+[Crop]Crop $S=X $S=RMSETUPC \$S= $S=
+[Dest]Dest $S=X $S=RMSETUPD \$S= $S=
+Exposure
+[Filter]Filter $S=X $S=RMSETUPFI \$S= $S=
+[Format]Format $S=X $S=RMSETUPFO \$S= $S=
+[Merge]Merge $S=X $S=YESNO \$S= $S=
+Rate
+Samples
+**RMSETUPC 3
+
+
+Visual
+
+Numeric
+**RMSETUPD 3
+
+
+[Cpscript]Cpostscript
+[Pscript]Postscript
+File
+Tiff
+Vga
+Tga
+Targa
+Vista
+Framebuffer
+**RMSETUPFI 3
+
+
+Box
+
+Gaussian
+**RMSETUPFO 3
+
+
+Ascii
+
+Binary
+**YESNO 3
+
+
+Yes
+
+No
+**RMPROP 3
+[RMPROP:]^C^CRMPROP
+
+
+Air
+Color
+Displace
+Opaque
+Project
+Rate
+[Smooth]Smooth $S=X $S=YESNO \$S= $S=
+Surface
+[Tcoord]Tcoord $S=X $S=RMPROPTC \$S= $S=
+**RMPROPTC 3
+
+
+Insert
+
+Pick
+
+Numeric
+**RMEDIT 3
+[RMEDIT:]^C^CRMEDIT
+
+
+Air
+Color
+Displace
+Opaque
+Project
+Rate
+[Smooth]Smooth $S=X $S=YESNO \$S= $S=
+Surface
+[Tcoord]Tcoord $S=X $S=RMPROPTC \$S= $S=
+**RMCOPY 3
+[RMCOPY:]^C^CRMCOPY
+
+
+Air
+Color
+Displace
+Opaque
+Project
+Rate
+[Smooth]Smooth $S=X $S=YESNO \$S= $S=
+Surface
+[Tcoord]Tcoord $S=X $S=RMPROPTC \$S= $S=
+**RMATTACH 3
+[RMATTAC:]^C^CRMATTACH
+
+?
+
+Layer
+Select
+**RMLIST 3
+[RMLIST:]^C^CRMLIST
+
+Colors
+Shaders
+Entity
+Layer
+Defined
+
+
+Atmosphere
+Displacement
+Light
+Surface
+
+
+**OSNAPB 2
+[  HELP  ]$S= 'help
+[CENter]CENTER $S=
+[ENDpoint]ENDPOINT $S=
+[INSert]INSERT $S=
+[INTersec]INTERSEC $S=
+[MIDpoint]MIDPOINT $S=
+[NEArest]NEAREST $S=
+[NODe]NODE $S=
+[PERpend]PERPEND $S=
+[QUAdrant]QUADRANT $S=
+[QUICK,]QUICK,^Z
+[TANgent]TANGENT $S=
+[NONE]NONE $S=
+[CANCEL:]^C^C$S=
+[U:]^C^CU $S=
+[REDO:]^C^CREDO $S=
+[REDRAW:]'REDRAW $S=
+[SETVAR:]$S= 'SETVAR
+[__LAST__]$S=
+**BLOCK 3
+[BLOCK:]^C^CBLOCK
+?
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+Yes
+[OOPS]^C^COOPS
+**INSERT 3
+[INSERT:]^C^CINSERT
+[~]~\
+?
+[*]*\
+corner
+xyz
+drag
+
+Scale
+Xscale
+Yscale
+Zscale
+Rotate
+**WBLOCK 3
+[WBLOCK:]^C^CWBLOCK
+
+=
+*
+[blank];
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**MINSERT 3
+[MINSERT:]^C^CMINSERT
+?
+
+corner
+xyz
+drag
+**XBIND 3
+[XBIND:]^C^CXBIND
+
+Block
+Dimstyle
+Layer
+Ltype
+Style
+
+
+
+
+
+[XREF]$S=X $S=XREF
+**XREF 3
+[XREF:]^C^CXREF
+
+?
+Attach
+Bind
+Detach
+Path
+Reload
+
+[Show log]^C^CTYPE (strcat (getvar "DWGNAME") ".XLG")
+
+
+[XBIND]$S=X $S=XBIND
+**DIM 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+angular
+[Dim Vars]$S=X $S=VAR1
+leader
+[linear]$S=X $S=DIMLINEAR
+oblique
+[ORDINAT:]$S=X $S=DIMORD ordinate
+[radial]$S=X $S=DIMRADIAL
+status
+style
+trotate
+undo
+
+[TEdit]$S=X $S=TEDIT TEDIT
+[EXIT]EXIT;$S=X $S=S
+[next]$S=X $S=FORMAT
+**DIMLINEAR 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+horiz
+vertical
+aligned
+rotated
+
+[baseline]^C^Cdim BASELINE
+[continue]^C^Cdim CONTINUE
+
+
+
+[previous]$S=X $S=DIM
+**DIMRADIAL 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+diameter
+radius
+center
+
+
+
+
+
+
+
+[previous]$S=X $S=DIM
+**DIMORD 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+Xdatum
+Ydatum
+
+
+
+
+
+
+[previous]$S=X $S=DIM
+**TEDIT 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+[TEDIT:]TEDIT
+
+angle
+home
+left
+right
+
+
+
+
+[previous]$S=X $S=DIM
+**ATTDEF 3
+[ATTDEF:]^C^CATTDEF
+
+Invisibl
+Constant
+Verify
+[Preset]P
+
+[Options]$S=TEXTOPTS
+Style
+aligned
+[centered]C
+fit
+middle
+right
+**LAYER 3
+[DDLMODES]'DDLMODES
+[LAYER:]^C^CLAYER
+
+[?]? *
+Make
+Set
+New
+ON
+OFF
+[Color]Color $S=X $S=LACOLOR
+[Ltype]LType $S=X $S=LALT \$S=X $S=LAYER
+Freeze
+Thaw
+
+**VPLA 3
+[VPLAYER:]^C^CVPLAYER
+
+?
+Freeze
+Thaw
+Reset
+Newfrz
+Vpvisdflt
+
+**LACOLOR 3
+[COLOR]
+
+[red]red $S= $S=
+[yellow]yellow $S= $S=
+[green]green $S= $S=
+[cyan]cyan $S= $S=
+[blue]blue $S= $S=
+[magenta]magenta $S= $S=
+[white]white $S= $S=
+
+[Chroma]^C^CVSLIDE acad(chroma) LAYER Color
+[ Restore]'REDRAW
+
+
+
+**LALT 3
+[LINETYPE]
+
+[contin.]CONTINUOUS
+dashed
+hidden
+center
+phantom
+dot
+dashdot
+border
+divide
+
+**ZOOM 3
+[ZOOM:]'ZOOM
+
+All
+[Center ]C
+Dynamic
+Extents
+Left
+Previous
+Vmax
+Window
+
+Yes
+No
+**ATTDISP 3
+[ATTDISP:]^C^CATTDISP
+
+Normal
+ON
+OFF
+**DVIEW 3
+[DVIEW:]^C^CDVIEW
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+
+[By Layer]^P(defun berror (msg)(setq *error* m:err m:err nil)(princ))+
+(progn (setq m:err *error* *error* berror);+
+(setq l(getstring (strcat "Layer name: <" (getvar "clayer") "> ")))+
+(if (= l "")(setq s(ssget "X" (list(cons 8 (getvar "clayer")))))+
+(setq s(ssget "X" (list(cons 8 l)))))(setq *error* m:err m:err nil) s) ^P
+[--------]
+[Dviewblk]^C^CDVIEW;;
+[ Dview ]$S=X $S=DVIEW1
+[Options]$S=X $S=DVIEW1
+**DVIEW1 3
+CAmera
+TArget
+Distance
+POints
+PAn
+Zoom
+TWist
+[CLip]Clip $S=X $S=DVIEW2
+Hide
+Off
+Undo
+
+[eXit]Exit $S=X $S=S
+**DVIEW2 3
+[Back]Back $S=X $S=BACK
+[Front]Front $S=X $S=FRONT
+[Off]Off $S=X $S=DVIEW1
+**BACK 3
+[ back]
+[clipping]
+
+[ON]On $S=X $S=DVIEW1
+[OFF]Off $S=X $S=DVIEW1
+**FRONT 3
+[ front]
+[clipping]
+
+[ON]On $S=X $S=DVIEW1
+[OFF]Off $S=X $S=DVIEW1
+
+[Eye]Eye $S=X $S=DVIEW1
+**MV 3
+[MVIEW:]^C^CMVIEW
+
+ON
+OFF
+Hideplot
+Fit
+[2]2 $S=X $S=mv2 
+[3]3 $S=X $S=mv2 
+[4]4 $S=X $S=mv2 
+
+[MSPACE:]^C^C$S=X $S=mv mspace
+[PSPACE:]^C^C$S=X $S=mv pspace
+[TILEMOD:]^C^C$S=X $S=mv Tilemode
+[VPLAYER:]^C^C$S=X $S=vpla VPlayer
+
+**MV2 3
+Horizont
+Vertical
+
+Above
+Below
+Left
+Right
+
+Fit
+
+
+**RGNAUTO 3
+[RGNAUTO:]^C^CREGENAUTO
+
+[ON]On $S=X $S=DS
+[OFF]Off $S=X $S=DS
+**SHADE 3
+[SHADE:]^C^CSHADE
+
+[Shadedif]'SHADEDIF
+
+[Shadedge]'SHADEDGE
+[ 256-col]0
+[ 256-edg]1
+[ Hidden]2
+[ Filled]3
+
+[REGEN:]^C^CREGEN
+**VIEW 3
+[VIEW:]'VIEW
+?
+
+Delete
+Restore
+Save
+Window
+**VPORTS 3
+[VPORTS:]^C^CVPORTS
+
+Save
+Restore
+Delete
+Join
+Single
+?
+
+[2]2 $S=X $S=VP2
+[3]3 $S=X $S=VP3
+4
+**VP2 3
+
+[Horizont]H $S=X $S=VPORTS
+[Vertical]V $S=X $S=VPORTS
+**VP3 3
+
+[Horizont]Horizontal $S=X $S=VPORTS
+[Vertical]Vertical $S=X $S=VPORTS
+[Above]Above $S=X $S=VPORTS
+[Below]Below $S=X $S=VPORTS
+[Left]Left $S=X $S=VPORTS
+[Right]Right $S=X $S=VPORTS
+**LINE 3
+[LINE:]^C^CLINE
+
+[continue]^C^CLINE;;
+close
+undo
+.x
+.y
+.z
+.xy
+.xz
+.yz
+**3D 3
+[EDGSURF:]^C^CEDGESURF
+[REVSURF:]^C^CREVSURF
+[RULSURF:]^C^CRULESURF
+[TABSURF:]^C^CTABSURF
+
+[Surftb1:]'SURFTAB1
+[Surftb2:]'SURFTAB2
+
+[3DFACE:]$S=X $S=3DFACE ^C^C3DFACE
+[3DMESH:]^C^C3DMESH
+[PFACE:]^C^CPFACE
+[3DPOLY:]$S=X $S=3DPOLY ^C^C3DPOLY
+
+[  3d   ]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun m:l3d () (cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn(terpri)(prompt +
+"The file `3d.lsp' was not found in your search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.");+
+(princ))))((not (null C:BOX)) (menucmd "S=X") (menucmd "S=3D2")(princ))+
+(T(princ)))(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg);+
+(menucmd "S=X")(menucmd "S=S")(setq *error* m:err m:err nil)(princ))(m:l3d);^P
+[objects]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun m:l3d () (cond ((null C:BOX)(vmon)(if (/= nil (findfile "3d.lsp"))+
+(progn (terpri)(prompt "Please wait...  Loading 3D Objects.  ");+
+(load "3d")(menucmd "S=X")(menucmd "S=3D2")(princ))(progn(terpri)(prompt +
+"The file `3d.lsp' was not found in your search path directories. ")(terpri);+
+(prompt "Check installation of the Support Files and try again.");+
+(princ))))((not (null C:BOX)) (menucmd "S=X") (menucmd "S=3D2")(princ))+
+(T(princ)))(setq *error* m:err m:err nil))(defun *error* (msg)(princ msg);+
+(menucmd "S=X")(menucmd "S=S")(setq *error* m:err m:err nil)(princ))(m:l3d);^P
+**3D2 3
+
+[Box    ]^C^C^P(C:box) ^P
+[Cone   ]^C^C^P(C:cone) ^P
+[Dish   ]^C^C^P(C:dish) ^P
+[Dome   ]^C^C^P(C:dome) ^P
+[Mesh   ]^C^C^P(C:mesh) ^P
+[Pyramid]^C^C^P(C:pyramid) ^P
+[Sphere ]^C^C^P(C:sphere) ^P
+[Torus  ]^C^C^P(C:torus) ^P
+[Wedge  ]^C^C^P(C:wedge) ^P
+**ELEVTHK 3
+[ELEV:]^C^CELEV
+
+[CHANGE:]^C^CCHANGE
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+[Elev]PROP E
+[Thick]PROP T
+**HIDE 3
+[HIDE ?]
+
+[YES]^C^CHIDE
+[NO]$S= $S=
+**HIDE1 3
+[HIDE:]^C^CHide
+
+[YES]Yes
+[NO]No 
+**VPOINT 3
+[VPOINT:]^C^CVPOINT
+
+rotate
+[axes];
+[plan]none 0,0,1
+
+[HIDE]$S=X $S=HIDE
+**VPOINT3D 3
+[ Angle  ]^C^CVPOINT R;;
+[from XY ]^C^CVPOINT R;;
+[ Plane  ]^C^CVPOINT R;;
+[    +80 ]<<80
+[    +60 ]<<60
+[    +45 ]<<45
+[    +30 ]<<30
+[    +10 ]<<10
+[      0 ]<<0
+[    -10 ]<<350
+[    -30 ]<<330
+[    -45 ]<<315
+[    -60 ]<<300
+[    -80 ]<<280
+**PLINE 3
+[PLINE:]^C^CPLINE
+
+[Arc]ARC $S=X $S=PARC
+Close
+Halfwid
+Length
+Undo
+Width
+
+[FILL ON]'FILLMODE 1
+[FILL OFF]'FILLMODE 0
+**PARC 3
+[POLYARC]
+
+[angle]$S=X $S=PARCANG Angle
+[CEnter]$S=X $S=PARCEN CE
+[tanDir]Direction \DRAG
+[Radius]$S=X $S=PARCRAD Radius
+[2nd PT]Second \DRAG
+[CLose]$S=X $S=PLINE CLose
+
+undo
+
+[contline]$S=X $S=PLINE L
+
+[PLINE:]$S=X $S=PLINE ^C^CPLINE
+**PARCANG 3
+[ANGLE]
+
+[center]$S=X $S=PARC Center drag
+[radius]$S=X $S=PARC Radius \
+[drag]$S=X $S=PARC drag
+**PARCEN 3
+[CENTER]
+
+[angle]$S=X $S=PARC Angle drag
+[length]$S=X $S=PARC Length drag
+[drag]$S=X $S=PARC drag
+**PARCRAD 3
+[RADIUS]
+
+[angle]A \drag $S=X $S=PARC Angle \drag
+[drag]$S=X $S=PARC drag
+**OFFSET 3
+[OFFSET:]^C^COFFSET
+
+Through
+
+[done];
+
+**ARC 3
+[ARC]
+
+[3-point:]^C^CARC \\DRAG
+[S,C,E:]^C^CARC \C \DRAG
+[S,C,A:]^C^CARC \C \A DRAG
+[S,C,L:]^C^CARC \C \L DRAG
+[S,E,A:]^C^CARC \E \A
+[S,E,R:]^C^CARC \E \R
+[S,E,D:]^C^CARC \E \D DRAG
+[C,S,E:]^C^CARC C \\DRAG
+[C,S,A:]^C^CARC C \\A DRAG
+[C,S,L:]^C^CARC C \\L DRAG
+[CONTIN:]^C^CARC ;DRAG
+**CIRCLE 3
+[CIRCLE]
+
+[CEN,RAD:]^C^CCIRCLE \DRAG
+[CEN,DIA:]^C^CCIRCLE \D
+[2 POINT:]^C^CCIRCLE 2P \DRAG
+[3 POINT:]^C^CCIRCLE 3P \\DRAG
+[TTR:]^C^CCIRCLE TTR
+**ELLIPSE 3
+[ELLIPSE:]^C^CELLIPSE
+
+[Center]C
+Rotation
+Iso
+Diameter
+**POLYGON 3
+[POLYGON:]^C^CPOLYGON
+
+Edge
+[I-scribe]INSCRIBED
+[C-scribe]CIRCUMSCRIBED
+**SHAPE 3
+[SHAPE:]^C^CSHAPE
+?
+
+[LOAD:]^C^CLOAD
+?
+**SKETCH 3
+[SKETCH:]^C^CSKETCH
+
+Connect
+Erase
+Record
+
+[eXit]Xit
+Quit
+
+[------]
+[SKPOLY:]'SKPOLY 1
+[SKLINE:]'SKPOLY 0
+[------]
+**SOLID 3
+[SOLID:]^C^CSOLID
+
+[FILL ON]'FILLMODE 1
+[FILL OFF]'FILLMODE 0
+**TRACE 3
+[TRACE:]^C^CTRACE
+
+[FILL ON]'FILLMODE 1
+[FILL OFF]'FILLMODE 0
+**POINT 3
+[POINT:]^C^CPOINT
+.x
+.y
+.z
+.xy
+.xz
+.yz
+
+[Complex]
+[Points]
+[example:]^C^CVSLIDE acad(points)
+[Remove]^C^CREDRAW
+[example:]^C^CREDRAW
+[Pdmode:]'PDMODE
+[Pdsize:]'PDSIZE
+**HATCH 3
+[HATCH:]^C^CHATCH
+?
+u
+u,o
+u,i
+Yes
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**3DFACE 3
+[3DFACE:]^C^C3DFACE
+
+.x
+.y
+.z
+.xy
+.xz
+.yz
+
+Invisible
+
+[ShowEdge]^P(setvar "splframe" 1)(prompt "Invisible edges will be SHOWN after next Regeneration.")(princ) ^P
+[HideEdge]^P(setvar "splframe" 0)(prompt "Invisible edges will be HIDDEN after next Regeneration.")(princ) ^P
+
+**3DPOLY 3
+[3DPOLY:]^C^C3DPOLY
+
+Close
+Undo
+.x
+.y
+.z
+.xy
+.xz
+.yz
+**ID 3
+[ID:]^C^CID
+
+.x
+.y
+.z
+.xy
+.xz
+.yz
+**LIMITS 3
+
+[LIMITS:]^C^CLIMITS
+
+ON
+OFF
+**UCS1 3
+[UCS:]^C^CUCS
+[DDUCS:]^C^CDDUCS
+
+?
+Previous
+Restore
+Save
+Delete
+World
+
+[RENAME:]^C^CRename UCS
+[Follow:]'UCSFOLLOW
+
+[next]$S=X $S=UCS2
+**UCS2 3
+[UCS:]$S=X $S=UCS1 ^C^CUCS
+
+Origin
+Zaxis
+3point
+
+X
+Y
+Z
+
+View
+Entity
+
+[previous]$S=X $S=UCS1
+**UCSICON 3
+[UCSICON:]^C^CUCSICON
+
+ON
+OFF
+
+All
+Origin
+Noorigin
+**PLAN 3
+[PLAN:]^C^CPLAN
+
+Current
+UCS
+World
+
+[Follow:]'UCSFOLLOW
+**LIST 3
+[LIST:]^C^CLIST
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**AREA 3
+[AREA:]^C^CAREA
+
+Entity
+Add
+Subtract
+**TEXT 3
+[TEXT:]^C^CTEXT
+[DTEXT:]^C^CDTEXT
+
+[Options]$S=TEXTOPTS
+Style
+
+aligned
+[centered]C
+fit
+middle
+right
+
+[STYLE:]$S=X $S=STYLE ^C^CSTYLE
+**TEXTOPTS 5
+
+[Top-]T\
+[Middle-]M\
+[Bottom-]B\
+[ -Left]Left
+[ -Center]C
+[ -Right]Right
+
+[aligned]aligned
+[centered]C
+[fit]fit
+[middle]middle
+[right]right
+[__LAST__]$S=
+**TEXTSET 5
+[DTEXT]$S=X $S=DTEXT ^C^C$T4=DTEXT1 $T4=DTEXT2 $T4=DTEXT3 $T4=DTEXT4 +
+$T4=DTEXT5 $T4=DTEXT6
+
+[REG.TEXT]$S=X $S=TEXT ^C^C$T4=TEXT1 $T4=TEXT2 $T4=TEXT3 $T4=TEXT4 +
+$T4=TEXT5 $T4=TEXT6
+
+[STYLE:]$S=X $S=STYLE ^C^CSTYLE
+**STYLE 3
+[STYLE:]^C^CSTYLE
+?
+
+[Fonts]$S=X $S=F1
+
+Yes
+No
+
+[DTEXT:]$S=X $S=DTEXT ^C^CDTEXT
+[TEXT:]$S=X $S=TEXT ^C^CTEXT
+**F1 3
+Cyrillic
+Cyriltlc
+Greekc
+Greeks
+Gothice
+Gothicg
+Gothici
+Italicc
+Italict
+Romanc
+Romand
+Romans
+
+
+
+
+[next]$S=X $S=F2
+[STYLMNU]$S=X $S=STYLE
+**F2 3
+Romant
+Scriptc
+Scripts
+Syastro
+Symap
+Symath
+Symeteo
+Symusic
+
+
+
+
+
+
+
+
+[previous]$S=X $S=F1
+[STYLMNU]$S=X $S=STYLE
+**DTEXT 3
+[DTEXT:]^C^CDTEXT
+[TEXT:]^C^CTEXT
+
+[Options]$S=TEXTOPTS
+Style
+
+aligned
+[centered]C
+fit
+middle
+right
+
+[STYLE:]$S=X $S=STYLE ^C^CSTYLE
+**AXIS 3
+[AXIS:]^C^CAXIS
+
+[axs=snap]SNAP
+
+ON
+OFF
+Aspect
+**BLIPMODE 3
+[BLIPS:]^C^CBLIPMODE
+
+ON
+OFF
+**END 3
+[END ?]
+
+Yes
+No
+**QUIT 3
+[QUIT:]^c^cquit
+
+[Yes]Y
+[No]n $S=X $S=S
+**VAR1 3
+[dimalt]$S=X $S=OF DIMALT \
+[dimaltd]DIMALTD \
+[dimaltf]DIMALTF \
+[dimapost]DIMAPOST \
+[dimaso]$S=X $S=OF DIMASO \
+[dimasz]DIMASZ \
+[--------]
+[dimblk]DIMBLK \
+[dimblk1]DIMBLK1 \
+[dimblk2]DIMBLK2 \
+[--------]
+[dimcen]DIMCEN \
+[dimclrd]DIMCLRD \
+[dimclre]DIMCLRE \
+[dimclrt]DIMCLRT \
+
+[next]$S=X $S=VAR2
+[DIMMENU]$S=X $S=DIM
+
+
+**VAR2 3
+[dimdle]DIMDLE \
+[dimdli]DIMDLI \
+[dimexe]DIMEXE \
+[dimexo]DIMEXO \
+[dimgap]DIMGAP \
+[dimlfac]DIMLFAC \
+[dimlim]$S=X $S=OF DIMLIM \
+[dimpost]DIMPOST \
+[dimrnd]DIMRND \
+[dimsah]$S=X $S=OF DIMSAH \
+[dimscale]DIMSCALE \
+[dimse1]$S=X $S=OF DIMSE1 \
+[dimse2]$S=X $S=OF DIMSE2 \
+
+
+[previous]$S=X $S=VAR1
+[next]$S=X $S=VAR3
+[DIMMENU]$S=X $S=DIM
+
+
+**VAR3 3
+[dimsho]$S=X $S=OF DIMSHO \
+[dimsoxd]$S=X $S=OF DIMSOXD \
+[dimtad]$S=X $S=OF DIMTAD \
+[dimtfac]DIMTFAC \
+[dimtih]$S=X $S=OF DIMTIH \
+[dimtix]$S=X $S=OF DIMTIX \
+[dimtm]DIMTM \
+[dimtofl]$S=X $S=OF DIMTOFL \
+[dimtoh]$S=X $S=OF DIMTOH \
+[dimtol]$S=X $S=OF DIMTOL \
+[dimtp]DIMTP \
+[dimtsz]DIMTSZ \
+[dimtvp]DIMTVP \
+[dimtxt]DIMTXT \
+[dimzin]$S=X $S=DIMZIN DIMZIN \
+
+
+[previous]$S=X $S=VAR2
+[DIMMENU]$S=X $S=DIM
+**OF 3
+[ON]$S= $S= ON
+
+[OFF]$S= $S= OFF
+**DIMZIN 4
+[  New]
+[ Dimzin]
+[ Value]
+
+
+
+
+[0]$S= $S= 0
+[1]$S= $S= 1
+[2]$S= $S= 2
+[3]$S= $S= 3
+**FORMAT 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+[HOMETEXT]$S=X $S=HOMETEXT HOMETEXT
+[UPDATE]$S=X $S=UPDATE UPDATE
+[NEWTEXT]$S=X $S=NEWTEXT NEWTEXT
+
+[Dimstyle]'DIMSTYLE
+Save
+Restore
+Override
+[Variabls]VARIABLES
+?
+
+
+[DIMMENU]$S=X $S=DIM
+**HOMETEXT 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+HOMETEXT
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**UPDATE 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+UPDATE
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**NEWTEXT 3
+[DIM:]^C^CDIM
+[DIM1:]^C^CDIM1
+
+NEWTEXT
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**LINETYPE 3
+[LINETYP:]^C^CLINETYPE
+?
+
+Create
+Load
+[Set]SET $S=X $S=CHLT \$S=X $S=LINETYPE
+
+Yes
+No
+**LIMITS 3
+[LIMITS:]^C^CLIMITS
+
+On
+Off
+**SNAP 3
+[SNAP:]^C^CSNAP
+
+ON
+OFF
+
+Aspect
+Rotate
+
+Style
+[ Iso]Iso;
+[ Standrd]Standard;
+**TABLET 3
+[TABLET:]^C^CTABLET
+
+cal
+[config]CFG 4 25 9 11 9 9 13 25 7 Y
+[re-cfg]CFG 4 Y 25 9 11 9 9 13 25 7 Y
+ON
+OFF
+Yes
+No
+**OSNAPC 3
+[OSNAP:]^C^COSNAP
+
+[CENter]CENTER\
+[ENDpoint]ENDPOINT\
+[INSert]INSERT\
+[INTersec]INTERSEC\
+[MIDpoint]MIDPOINT\
+[NEArest]NEAREST\
+[NODe]NODE\
+[PERpend]PERPEND\
+[QUAdrant]QUADRANT\
+[TANgent]TANGENT\
+[NONE]NONE\ $S= $S=
+[Quick,]QUICK,^Z
+[,],\
+**DRAGMODE 3
+[DRAGMODE]^C^CDRAGMODE
+
+[ON]ON $S=X $S=S
+[OFF]OFF $S=X $S=S
+[Auto]A $S=X $S=S
+
+**GRID 3
+[GRID:]^C^CGRID
+
+[grd=snap]SNAP
+
+ON
+OFF
+Aspect
+**HANDLES 3
+[HANDLES:]^C^CHANDLES
+
+[ON]ON
+[DESTROY]DESTROY
+
+**SETVAR1 3
+[SETVAR:]^C^CSETVAR
+['SETVAR]'SETVAR
+[? Vars]'SETVAR ?
+
+*
+**QTEXT 3
+[QTEXT:]^C^CQTEXT
+
+ON
+OFF
+[REGEN:]REGEN
+**VIEWRES 3
+[VIEWRES:]^C^CVIEWRES
+
+No
+Yes
+
+100
+500
+
+[RGNAUTO:]^C^CREGENAUTO
+[ On]On
+[ Off]Off
+**APERTURE 3
+[APERTUR:]'APERTURE
+[PICKBOX:]'PICKBOX
+
+[1]$S= $S= 1
+[2]$S= $S= 2
+[3]$S= $S= 3
+[4]$S= $S= 4
+[5]$S= $S= 5
+[6]$S= $S= 6
+[7]$S= $S= 7
+[8]$S= $S= 8
+[9]$S= $S= 9
+[10]$S= $S= 10
+[15]$S= $S= 15
+**ARRAY 3
+[ARRAY:]^C^CARRAY
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+Rectang
+Polar
+Yes
+No
+**ROTATE 3
+[ROTATE:]^C^CROTATE
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+Referenc
+**SELECT 3
+[SELECT:]^C^CSELECT
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+**SCALE 3
+[SCALE:]^C^CSCALE
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+Referenc
+**BREAK 3
+[BREAK:]^C^CBREAK
+
+First
+@
+**BREAK2P 3
+[BREAK:]^C^CBREAK \F
+
+First
+@
+**BREAKSPL 3
+[BREAK:]^C^CBREAK \F \@
+
+First
+@
+**MOVE 3
+[MOVE:]^C^CMOVE
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**COPY 3
+[COPY:]^C^CCOPY
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+Multiple
+**DDEDIT 3
+[DDEDIT:]^C^CDDEDIT
+
+Last
+Undo
+**UNDO 3
+[UNDO:]^C^CUNDO
+
+[Back 1]^C^CUNDO 1
+
+[Auto]$S=X $S=UNDOA Auto
+Back
+End
+Group
+Mark
+[Control]$S=X $S=UNDOC Control
+
+Yes
+No
+
+[REDO:]REDO
+**UNDOC 3
+All
+None
+One
+**UNDOA 3
+On
+Off
+**ERASE 3
+[ERASE:]^C^CERASE
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+[OOPS:]^C^COOPS
+**PSEL 4
+[PEDIT:]^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+
+BOX
+Crossing
+Last
+Window
+
+No
+Yes
+
+**P0 3
+[PEDIT:]^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+
+Close
+Open
+Join
+Width
+[Ed Vrtx]Edit $S=X $S=PVERTED
+[Fit Curv]Fit
+Spline
+Decurve
+Undo
+[eXit]X $S=X $S=S
+
+[PolyVars]$S=X $S=PVARS $I=poly $I=*
+**P8 3
+[PEDIT:]^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+
+Close
+Open
+[Ed Vrtx]Edit $S=X $S=3DPVERTED
+Spline
+Decurve
+Undo
+[eXit]X $S=X $S=S
+
+[PolyVars]$S=X $S=PVARS $I=poly $I=*
+**P16 3
+[PEDIT:]^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+
+[Ed Vrtx]E $S=X $S=3DMVERTED
+Smooth
+Desmooth
+Mclose
+Nclose
+Mopen
+Nopen
+
+Undo
+[eXit]X $S=X $S=S
+
+[PolyVars]$S=X $S=PVARS $I=poly $I=*
+**PVERTED 3
+[ED VRTX]
+
+Next
+Previous
+Break
+Insert
+Move
+Straight
+Width
+Tangent
+Go
+Regen
+[Undo]X Undo $S=X $S=P0
+[eXit]X $S=X $S=P0
+**3DPVERTED 3
+[ED VRTX]
+
+Next
+Previous
+Break
+Insert
+Move
+Regen
+Straight
+[eXit]X $S=X $S=P8
+**3DMVERTED 3
+[ED VRTX]
+
+Next
+Previous
+Left
+Right
+Up
+Down
+Move
+Regen
+[eXit]X $S=X $S=P16
+**PVARS 3
+[Polyvars]$I=poly $I=*
+
+[SPLframe]'SPLFRAME
+[ On]1
+[ Off]0
+[SPLsegs]'SPLINESEGS
+[SPLtype]'SPLINETYPE
+[ Quad]5
+[ Cubic]6
+[SURFtype]'SURFTYPE
+[ Quad]5
+[ Cubic]6
+[ Bezier]8
+[UDensity]'SURFU
+[VDensity]'SURFV
+**TRIM 3
+[TRIM:]^C^CTRIM
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**ATTEXT 3
+[ATTEXT:]^C^CATTEXT
+
+CDF
+SDF
+DXF
+Entities
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**AUDIT 3
+
+Yes
+No
+**SLIDES 3
+[MSLIDE:]^C^CMSLIDE
+
+[VSLIDE:]^C^CVSLIDE
+
+[REDRAW:]$S=X $S=S ^C^CREDRAW
+**SCRIPT 3
+[SCRIPT:]^C^CSCRIPT
+
+[RESUME:]'RESUME
+[RSCRIPT:]^C^CRSCRIPT
+**PURGE 3
+[PURGE:]^C^CPURGE
+
+Blocks
+Dimstyles
+LAyers
+LTypes
+SHapes
+STyles
+All
+
+Yes
+No
+**RENAME 3
+[RENAME:]^C^CRENAME
+
+Block
+Dimstyle
+LAyer
+LType
+Style
+Ucs
+VIew
+VPort
+**DXF 3
+[DXFIN:]^C^CDXFIN
+
+[DXFOUT:]^C^CDXFOUT
+16
+Entities
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+[DXBIN:]^C^CDXBIN
+**IGES 3
+[IGESIN:]^C^CIGESIN
+
+[IGESOUT:]^C^CIGESOUT
+**EXTEND 3
+[EXTEND:]^C^CEXTEND
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+[SELECT:]^C^CSELECT
+[ZOOM W:]'ZOOM W
+**STRETCH 3
+[STRETCH:]^C^CSTRETCH C
+
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+**MIRROR 3
+[MIRROR:]^C^CMIRROR
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+
+Yes
+No
+**FILLET0 3
+[FILLET:0]^C^CFILLET R 0;;
+
+[polyline]P
+**FILLET 3
+[FILLET:]^C^CFILLET
+
+[radius]R \FILLET
+[radius 0]R 0 FILLET
+polyline
+**CHAMFER 3
+[CHAMFER:]^C^CCHAMFER
+
+[distance]D \\CHAMFER
+[dist = 0]D 0 0 CHAMFER
+polyline
+**DIVIDE 3
+[DIVIDE:]^C^CDIVIDE
+
+Block
+Yes
+No
+**MEASURE 3
+[MEASURE:]^C^CMEASURE
+
+Block
+Yes
+No
+**CHANGE 3
+[CHANGE:]^C^CCHANGE
+Window
+Last
+Previous
+Crossing
+Remove
+Add
+Undo
+[Color]PROP COLOR $S=X $S=CHCOLOR \ $S=X $S=CHANGE
+[Chroma]^C^CVSLIDE acad(chroma)
+[ Restore]^C^CREDRAW
+[LAyer]PROP LAYER
+[LType]PROP LT $S=X $S=CHLT \$S=X $S=CHANGE
+[Thicknes]PROP THICKNESS
+**CHPROP 3
+[CHPROP:]^C^CCHPROP
+Window
+Last
+Previous
+Crossing
+Remove
+Add 
+Undo
+[Color]PROP COLOR $S=X $S=CHCOLOR \$S=X $S=CHPROP
+[Chroma]^C^CVSLIDE acad(chroma)
+[ Restore]^C^CREDRAW
+[LAyer]PROP LAYER
+[LType]PROP LT $S=X $S=CHLT \$S=X $S=CHPROP
+[Thicknes]PROP THICKNESS
+**CHCOLOR 3
+[COLOR]
+
+bylayer
+byblock
+
+red
+yellow
+green
+cyan
+blue
+magenta
+white
+**CHLT 3
+[LTYPE]
+
+bylayer
+byblock
+
+[contin.]CONTINUOUS
+dashed
+hidden
+center
+phantom
+dot
+dashdot
+border
+divide
+
+**COLOR 3
+[COLOR:]^C^CCOLOR
+bylayer
+byblock
+red
+yellow
+green
+cyan
+blue
+magenta
+white
+
+[Chroma]^C^CVSLIDE acad(chroma)
+[ Restore]^C^CREDRAW
+**ATTEDIT 3
+[ATTEDIT:]^C^CATTEDIT
+Window
+Last
+Crossing
+Remove
+Add
+Undo
+
+[Value]Value $S=X $S=ATTEDIT2
+Position
+Height
+Angle
+Style
+Layer
+[Color]Color $S=X $S=ATTCOLOR
+Next
+
+[__LAST__]$S= $S=
+**ATTEDIT2 3
+
+[Change]Change $S=X $S=ATTEDIT
+[Replace]Replace $S=X $S=ATTEDIT
+**ATTCOLOR 3
+[COLOR]
+
+[red]RED $S= $S=
+[yellow]YELLOW $S= $S=
+[green]GREEN $S= $S=
+[cyan]CYAN $S= $S=
+[blue]BLUE $S= $S=
+[magenta]MAGENTA $S= $S=
+[white]WHITE $S= $S=
+**UNITS 2
+
+[UNIT    ]
+[TYPE    ]
+
+[scientfc]1;
+
+[decimal ]2;
+
+[enginrng]3;
+
+[archtect]4;
+
+[metric  ]5;
+
+
+
+
+
+
+**U1 2
+
+[Scientfc]
+[Scale   ]
+
+
+[4 TIMES ]4.0;
+
+[2 TIMES ]2.0;
+
+[FULL    ]1.0;
+
+[HALF    ]0.5;
+
+[QUARTER ]0.25;
+
+[OTHER   ]^P0;^P
+
+
+
+
+**U2 2
+
+[Decimal ]
+[Scale   ]
+
+
+[4 TIMES ]4.0;
+
+[2 TIMES ]2.0;
+
+[FULL    ]1.0;
+
+[HALF    ]0.5;
+
+[QUARTER ]0.25;
+
+[OTHER   ]^P0;^P
+
+
+
+
+**U3 2
+
+[Enginrng]
+[Scale   ]
+
+
+[1"=10'  ]120.0;
+[1"=20'  ]240.0;
+
+[1"=30'  ]360.0;
+[1"=40'  ]480.0;
+
+[1"=50'  ]600.0;
+[1"=60'  ]720.0;
+
+[1"=80'  ]960.0;
+[1"=100' ]1200.0;
+
+[OTHER   ]^P0;^P
+
+
+**U4 2
+
+[Archtect]
+
+
+[1/40"=1']480.0;
+[1/20"=1']240.0;
+[1/16"=1']192.0;
+[ 1/8"=1']96.0;
+[ 1/4"=1']48.0;
+
+[ 1/2"=1']24.0;
+[ 3/4"=1']16.0;
+[   1"=1']12.0;
+[   3"=1']4.0;
+[   6"=1']2.0;
+[  FULL  ]1.0;
+
+[OTHER...]^P0;^P
+
+
+**U5 2
+
+[Metric  ]
+
+[ 1:5000 ]5000.0;
+[ 1:2000 ]2000.0;
+[ 1:1000 ]1000.0;
+[ 1:500  ]500.0;
+[ 1:200  ]200.0;
+
+[ 1:100  ]100.0;
+[ 1:75   ]75.0;
+[ 1:50   ]50.0;
+[ 1:20   ]20.0;
+[ 1:10   ]10.0;
+[ 1:5    ]5.0;
+[  FULL  ]1.0;
+
+[OTHER...]^P0;^P
+
+
+**ENGLISH 2
+
+[Horizntl]
+
+[ Sheet  ]
+[ Size   ]
+
+[A-8.5x11]11.0 8.5;
+[B- 11x17]17.0 11.0;
+[C- 17x22]22.0 17.0;
+[   18x24]24.0 18.0;
+
+[D- 22X34]34.0 22.0;
+[   24x36]36.0 24.0;
+[E- 34x44]44.0 34.0;
+
+[OTHER...]^P0 0;^P
+
+[VERTCAL>]$S=X $S=ENGVERT
+
+
+**ENGVERT 2
+
+[Vertical]
+
+[ Sheet  ]
+[ Size   ]
+
+[A-8.5x11]8.5 11.0;
+[B- 11x17]11.0 17.0;
+[C- 17x22]17.0 22.0;
+[   18x24]18.0 24.0;
+
+[D- 22X34]22.0 34.0;
+[   24x36]24.0 36.0;
+[E- 34x44]34.0 44.0;
+
+[OTHER...]^P0 0;^P
+
+[HORZNTL>]$S=X $S=ENGLISH
+
+
+**METRIC 2
+
+[Horizntl]
+
+[ Sheet  ]
+[ Size   ]
+
+[1189x841]1189.0 841.0;
+[1000x707]1000.0 707.0;
+[ 841x594]841.0 594.0;
+
+[ 594x420]594.0 420.0;
+[ 420x297]420.0 297.0;
+[ 297x210]297.0 210.0;
+
+[OTHER...]^P0 0;^P
+
+
+[VERTCAL>]$S=X $S=METRICVERT
+
+
+**METRICVERT 2
+
+[Vertical]
+
+[ Sheet  ]
+[ Size   ]
+
+[1189x841]841.0 1189.0;
+[1000x707]707.0 1000.0;
+[ 841x594]594.0 841.0;
+
+[ 594x420]420.0 594.0;
+[ 420x297]297.0 420.0;
+[ 297x210]210.0 297.0;
+
+[OTHER...]^P0 0;^P
+
+
+[HORZNTL>]$S=X $S=METRIC
+
+
+**EXCOMDS 3
+[CATALOG:]^C^CCATALOG
+[DEL:]^C^CDEL
+[DIR:]^C^CDIR
+[EDIT:]^C^CEDIT
+[SH:]^C^CSH
+[SHELL:]^C^CSHELL
+[TYPE:]^C^CTYPE
+
+***Comment
+        This is the new TABLET1 menu containing the code for 
+        AME and AutoShade.  You may put your own macros 
+        and menu items here in the space remaining.
+        All of the "blank" line items actually contain one
+        space so that a RETURN is issued when you pick any
+        of them from the tablet.  Remove them if want nothing
+        to happen when they are selected or place your own 
+        macros in their place.
+
+***TABLET1
+[A-1] 
+[A-2] 
+[A-3] 
+[A-4] 
+[A-5] 
+[A-6] 
+[A-7] 
+[A-8] 
+[A-9] 
+[A-10] 
+[A-11] 
+[A-12] 
+[A-13] 
+[A-14] 
+[A-15] 
+[A-16] 
+[A-17] 
+[A-18] 
+[A-19] 
+[A-20] 
+[A-21] 
+[A-22] 
+[A-23] 
+[A-24] 
+[A-25] 
+[B-1]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLMOVE)(defun c:SOLMOVE () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLMOVE nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SMOVE")))(princ);^PSOLMOVE
+[B-2]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLCHAM)(defun c:SOLCHAM () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLCHAM nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SCHAM")))(princ);^PSOLCHAM
+[B-3]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLINT)(defun c:SOLINT () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLINT nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SINT")))(princ);^PSOLINT
+[B-4]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLBOX)(defun c:SOLBOX () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLBOX nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SBOX")))(princ);^PSOLBOX
+[B-5]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLCONE)(defun c:SOLCONE () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLCONE nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SCONE")))(princ);^PSOLCONE
+[B-6]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLCYL)(defun c:SOLCYL () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLCYL nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SCYL")))(princ);^PSOLCYL
+[B-7] 
+[B-8]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20) "S=ASHC")+
+((= G:SVER 11) "S=ASH11C")(T "S=")))(setq m:shmn nil)(princ))(princ))(cond;+
+(G:SVER(setq *error* m:err m:err nil)(m:shmn))(T (cond((findfile"ashade.lsp")+
+(vmon)(load"ashade")(setq *error* m:err m:err nil)(if G:SVER(m:shmn);+
+(setq C:CAMERA (list '()'(terpri)+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")));+
+(list 'prompt "' is incompatible with AutoCAD r11.")+
+(list 'setq 'C:CAMERA '())'(princ))m:shmn (princ))))(T(defun C:CAMERA()(terpri);+
+(prompt"The file 'Ashade.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.");+
+(setq C:CAMERA nil)(princ))(setq *error* m:err m:err nil m:shmn (princ)))))) ^P+
+CAMERA
+[B-9]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg);+
+(setq *error* m:err m:err nil m:shmn nil m:not2 nil G:SVER nil)+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20) "S=ASHC");+
+((= G:SVER 11) "S=ASH11C")(T "S=")))(setq m:shmn nil)(princ))+
+(defun m:not2 (m:avar)(set m:avar (list '()'(terpri);+
+(list 'prompt "This command requires AutoShade version 2.")+
+(list 'setq m:avar '() 'm:not2 '())'(princ)))(princ))(princ));+
+(cond(G:SVER(setq *error* m:err m:err nil)(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:VCAMERA)))(T (cond((findfile"ashade.lsp")(vmon)(load"ashade");+
+(setq *error* m:err m:err nil)(if G:SVER(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:VCAMERA))(setq C:VCAMERA (list '()'(terpri);+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")))+
+(list 'prompt "' is incompatible with AutoCAD r11.");+
+(list 'setq 'C:VCAMERA '())'(princ))m:shmn (princ))))(T  (defun C:VCAMERA ()+
+(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq C:VCAMERA nil)(princ));+
+(setq *error* m:err m:err nil m:not2 nil m:shmn (princ)))))) ^PVCAMERA
+[B-10]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20) "S=ASH")+
+((= G:SVER 11) "S=ASH11")(T "S=")))(setq m:shmn nil)(princ))(princ))(cond;+
+(G:SVER(setq *error* m:err m:err nil)(m:shmn))(T (cond((findfile"ashade.lsp")+
+(vmon)(load"ashade")(setq *error* m:err m:err nil)(if G:SVER(m:shmn);+
+(setq C:CAMVIEW (list '()'(terpri)+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")));+
+(list 'prompt "' is incompatible with AutoCAD r11.")+
+(list 'setq 'C:CAMVIEW '())'(princ))m:shmn (princ))))(T(defun C:CAMVIEW()(terpri);+
+(prompt"The file 'Ashade.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.");+
+(setq C:CAMVIEW nil)(princ))(setq *error* m:err m:err nil m:shmn (princ)))))) ^P+
+CAMVIEW
+[B-11] 
+[B-12] 
+[B-13] 
+[B-14] 
+[B-15] 
+[B-16] 
+[B-17] 
+[B-18] 
+[B-19] 
+[B-20] 
+[B-21] 
+[B-22] 
+[B-23] 
+[B-24] 
+[B-25] 
+[C-1]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLSEP)(defun c:SOLSEP () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLSEP nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSEP")))(princ);^PSOLSEP
+[C-2]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLFILL)(defun c:SOLFILL () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLFILL nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SFILL")))(princ);^PSOLFILL
+[C-3]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLSUB)(defun c:SOLSUB () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLSUB nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSUB")))(princ);^PSOLSUB
+[C-4]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLSPHERE)(defun c:SOLSPHERE () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLSPHERE nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSPH")))(princ);^PSOLSPHERE
+[C-5]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLTORUS)(defun c:SOLTORUS () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLTORUS nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=STOR")))(princ);^PSOLTORUS
+[C-6]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLWEDGE)(defun c:SOLWEDGE () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLWEDGE nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SWEDGE")))(princ);^PSOLWEDGE
+[C-7] 
+[C-8]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20)(if G:RMAN+
+"S=ASHLRM" "S=ASHL"))+
+((= G:SVER 11) "S=ASH11L")(T "S=")))(setq m:shmn nil)(princ))(princ))(cond;+
+(G:SVER(setq *error* m:err m:err nil)(m:shmn))(T (cond((findfile"ashade.lsp")+
+(vmon)(load"ashade")(setq *error* m:err m:err nil)(if G:SVER(m:shmn);+
+(setq C:LIGHT (list '()'(terpri)+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")));+
+(list 'prompt "' is incompatible with AutoCAD r11.")+
+(list 'setq 'C:LIGHT '())'(princ))m:shmn (princ))))(T(defun C:LIGHT()(terpri);+
+(prompt"The file 'Ashade.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.");+
+(setq C:LIGHT nil)(princ))(setq *error* m:err m:err nil m:shmn (princ)))))) ^P+
+LIGHT
+[C-9]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg);+
+(setq *error* m:err m:err nil m:shmn nil m:not2 nil G:SVER nil)+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20)(if G:RMAN+
+"S=ASHLRM" "S=ASHL"));+
+((= G:SVER 11) "S=ASH11L")(T "S=")))(setq m:shmn nil)(princ))+
+(defun m:not2 (m:avar)(set m:avar (list '()'(terpri);+
+(list 'prompt "This command requires AutoShade version 2.")+
+(list 'setq m:avar '() 'm:not2 '())'(princ)))(princ))(princ));+
+(cond(G:SVER(setq *error* m:err m:err nil)(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:VLIGHT)))(T (cond((findfile"ashade.lsp")(vmon)(load"ashade");+
+(setq *error* m:err m:err nil)(if G:SVER(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:VLIGHT))(setq C:VLIGHT (list '()'(terpri);+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")))+
+(list 'prompt "' is incompatible with AutoCAD r11.");+
+(list 'setq 'C:VLIGHT '())'(princ))m:shmn (princ))))(T  (defun C:VLIGHT ()+
+(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq C:VLIGHT nil)(princ));+
+(setq *error* m:err m:err nil m:not2 nil m:shmn (princ)))))) ^PVLIGHT
+[C-10]^C^CFILMROLL
+[C-11] 
+[C-12] 
+[C-13] 
+[C-14] 
+[C-15] 
+[C-16] 
+[C-17] 
+[C-18] 
+[C-19] 
+[C-20] 
+[C-21] 
+[C-22] 
+[C-23] 
+[C-24] 
+[C-25] 
+[D-1]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLCHP)(defun c:SOLCHP () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLCHP nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SCHP")))(princ);^PSOLCHP
+[D-2]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLCHP)(defun c:SOLCHP () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLCHP nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SCHP")))(princ);^PSOLCHP
+[D-3]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLUNION)(defun c:SOLUNION () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLUNION nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SUNION")))(princ);^PSOLUNION
+[D-4]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLEXT)(defun c:SOLEXT () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLEXT nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SEXT")))(princ);^PSOLEXT
+[D-5]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLREV)(defun c:SOLREV () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLREV nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SREV")))(princ);^PSOLREV
+[D-6]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLIDIFY)(defun c:SOLIDIFY () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLIDIFY nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSOLID")))(princ);^PSOLIDIFY
+[D-7] 
+[D-8]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg)(setq *error* m:err m:err nil G:SVER nil);+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20) "S=ASH")+
+((= G:SVER 11) "S=ASH11A")(T "S=")))(setq m:shmn nil)(princ))(princ))(cond;+
+(G:SVER(setq *error* m:err m:err nil)(m:shmn))(T (cond((findfile"ashade.lsp")+
+(vmon)(load"ashade")(setq *error* m:err m:err nil)(if G:SVER(m:shmn);+
+(setq C:SCENE (list '()'(terpri)+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")));+
+(list 'prompt "' is incompatible with AutoCAD r11.")+
+(list 'setq 'C:SCENE '())'(princ))m:shmn (princ))))(T(defun C:SCENE()(terpri);+
+(prompt"The file 'Ashade.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.");+
+(setq C:SCENE nil)(princ))(setq *error* m:err m:err nil m:shmn (princ)))))) ^P+
+SCENE
+[D-9]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg);+
+(setq *error* m:err m:err nil m:shmn nil m:not2 nil G:SVER nil)+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20) "S=ASH");+
+((= G:SVER 11) "S=ASH11")(T "S=")))(setq m:shmn nil)(princ))+
+(defun m:not2 (m:avar)(set m:avar (list '()'(terpri);+
+(list 'prompt "This command requires AutoShade version 2.")+
+(list 'setq m:avar '() 'm:not2 '())'(princ)))(princ))(princ));+
+(cond(G:SVER(setq *error* m:err m:err nil)(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:FINISH)))(T (cond((findfile"ashade.lsp")(vmon)(load"ashade");+
+(setq *error* m:err m:err nil)(if G:SVER(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:FINISH))(setq C:FINISH (list '()'(terpri);+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")))+
+(list 'prompt "' is incompatible with AutoCAD r11.");+
+(list 'setq 'C:FINISH '())'(princ))m:shmn (princ))))(T  (defun C:FINISH ()+
+(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq C:FINISH nil)(princ));+
+(setq *error* m:err m:err nil m:not2 nil m:shmn (princ)))))) ^PFINISH
+[D-10]^C^C^P(progn(setq m:err *error*)(defun *error* (msg)+
+(princ"Error loading: ")(princ msg);+
+(setq *error* m:err m:err nil m:shmn nil m:not2 nil G:SVER nil)+
+(princ))(defun m:shmn ()(menucmd "S=X")(menucmd(cond((= G:SVER 20) "S=DEFAULTS");+
+((= G:SVER 11) "S=ASH11")(T "S=")))(setq m:shmn nil)(princ))+
+(defun m:not2 (m:avar)(set m:avar (list '()'(terpri);+
+(list 'prompt "This command requires AutoShade version 2.")+
+(list 'setq m:avar '() 'm:not2 '())'(princ)))(princ))(princ));+
+(cond(G:SVER(setq *error* m:err m:err nil)(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:DEFAULTS)))(T (cond((findfile"ashade.lsp")(vmon)(load"ashade");+
+(setq *error* m:err m:err nil)(if G:SVER(if (= G:SVER 20)(m:shmn)+
+(m:not2 'C:DEFAULTS))(setq C:DEFAULTS (list '()'(terpri);+
+(list 'prompt (strcat "The file '" (findfile "ashade.lsp")))+
+(list 'prompt "' is incompatible with AutoCAD r11.");+
+(list 'setq 'C:DEFAULTS '())'(princ))m:shmn (princ))))(T  (defun C:DEFAULTS ()+
+(terpri)(prompt"The file 'Ashade.lsp' was not found in your current search directories.");+
+(terpri)(prompt"Check your AutoShade Manual for installation instructions.")+
+(setq C:DEFAULTS nil)(princ));+
+(setq *error* m:err m:err nil m:not2 nil m:shmn (princ)))))) ^PDEFAULTS
+[D-11] 
+[D-12] 
+[D-13] 
+[D-14] 
+[D-15] 
+[D-16] 
+[D-17] 
+[D-18] 
+[D-19] 
+[D-20] 
+[D-21] 
+[D-22] 
+[D-23] 
+[D-24] 
+[D-25] 
+[E-1] 
+[E-2] 
+[E-3] 
+[E-4] 
+[E-5] 
+[E-6] 
+[E-7] 
+[E-8]
+[E-9]
+[E-10]
+[E-11] 
+[E-12] 
+[E-13] 
+[E-14] 
+[E-15] 
+[E-16] 
+[E-17] 
+[E-18] 
+[E-19] 
+[E-20] 
+[E-21] 
+[E-22] 
+[E-23] 
+[E-24] 
+[E-25] 
+[F-1]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLVAR)(defun c:SOLVAR () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLVAR nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSOLV")))(princ);^PSOLVAR SOLDECOMP
+[F-2]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLLIST)(defun c:SOLLIST () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLLIST nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SLIST")))(princ);^PSOLLIST
+[F-3]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLIN)(defun c:SOLIN () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLIN nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=")))(princ);^PSOLIN
+[F-4]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLMAT)(defun c:SOLMAT () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLMAT nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SCHMAT")))(princ);^PSOLMAT
+[F-5]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLMESH)(defun c:SOLMESH () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLMESH nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SMESH")))(princ);^PSOLMESH
+[F-6]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLWIRE)(defun c:SOLWIRE () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLWIRE nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SWIRE")))(princ);^PSOLWIRE
+[F-7] 
+[F-8]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMSETUP"))(defun C:RMSETUP()(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMSETUP")(setq *error* m:err m:err nil)(princ))) ^PRMSETUP
+[F-9]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMEDIT"))(defun C:RMEDIT()(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMEDIT")(setq *error* m:err m:err nil)(princ))) ^PRMEDIT
+[F-10]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #ASERR nil)(princ))(princ));+
+(cond((null #ASERR)(vmon)(if(findfile"ascommon.lsp")(load"ascommon")+
+(defun C:RMSCAN()(terpri);+
+(prompt"The file 'Ascommon.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T+
+(setq *error* m:err m:err nil)(princ))) ^PRMSCAN
+[F-11] 
+[F-12] 
+[F-13] 
+[F-14] 
+[F-15] 
+[F-16] 
+[F-17] 
+[F-18] 
+[F-19] 
+[F-20] 
+[F-21] 
+[F-22] 
+[F-23] 
+[F-24] 
+[F-25] 
+[G-1]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLVAR)(defun c:SOLVAR () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLVAR nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSOLV")))(princ);^PSOLVAR SOLSUBDIV
+[G-2]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLMASSP)(defun c:SOLMASSP () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLMASSP nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SMASSP")))(princ);^PSOLMASSP
+[G-3]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLOUT)(defun c:SOLOUT () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLOUT nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=")))(princ);^PSOLOUT
+[G-4]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLUCS)(defun c:SOLUCS () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLUCS nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SUCS")))(princ);^PSOLUCS
+[G-5]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLPROF)(defun c:SOLPROF () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLPROF nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SPROF")))(princ);^PSOLPROF
+[G-6]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLPROF)(defun c:SOLPROF () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLPROF nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SPROF")))(princ);^PSOLPROF
+[G-7] 
+[G-8]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMPROP"))(defun C:RMPROP()(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMPROP")(setq *error* m:err m:err nil)(princ))) ^PRMPROP
+[G-9]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMCOPY"))(defun C:RMCOPY()(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMCOPY")(setq *error* m:err m:err nil)(princ))) ^PRMCOPY
+[G-10]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMATTACH"))(defun C:RMATTACH()(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMATTACH")(setq *error* m:err m:err nil)(princ))) ^PRMATTACH
+[G-11] 
+[G-12] 
+[G-13] 
+[G-14] 
+[G-15] 
+[G-16] 
+[G-17] 
+[G-18] 
+[G-19] 
+[G-20] 
+[G-21] 
+[G-22] 
+[G-23] 
+[G-24] 
+[G-25] 
+[H-1]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLVAR)(defun c:SOLVAR () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLVAR nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSOLV")))(princ);^PSOLVAR SOLWDENS
+[H-2]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLAREA)(defun c:SOLAREA () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLAREA nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SAREA")))(princ);^PSOLAREA 
+[H-3]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLPURGE)(defun c:SOLPURGE () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLPURGE nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SPURGE")))(princ);^PSOLPURGE
+[H-4]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLVAR)(defun c:SOLVAR () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLVAR nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSOLV")))(princ);^PSOLVAR 
+[H-5]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLFEAT)(defun c:SOLFEAT () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLFEAT nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SFEAT")))(princ);^PSOLFEAT 
+[H-6]^C^C^P(progn(setq m:err *error*)(princ))+
+(defun *error* (msg)(princ msg)(setq *error* m:err m:err nil f nil)(princ))+
+(if (null c:SOLSECT)(defun c:SOLSECT () (menucmd "S=X")(menucmd "S=SOLLOAD");+
+(terpri)(princ "ERROR:  Command not found. ")+
+(princ "  Load AME or AMElite from the screen menu. ")+
+(setq c:SOLSECT nil)(princ))+
+(progn (menucmd "S=X")(menucmd "S=SSECT")))(princ);^PSOLSECT
+[H-7] 
+[H-8] 
+[H-9]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMLIST"))(defun C:RMLIST()(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMLIST")(setq *error* m:err m:err nil)(princ))) ^PRMLIST
+[H-10] 
+[H-11] 
+[H-12] 
+[H-13] 
+[H-14] 
+[H-15] 
+[H-16] 
+[H-17] 
+[H-18] 
+[H-19] 
+[H-20] 
+[H-21] 
+[H-22] 
+[H-23] 
+[H-24] 
+[H-25] 
+[I-1] 
+[I-2] 
+[I-3] 
+[I-4] 
+[I-5] 
+[I-6] 
+[I-7] 
+[I-8]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMAN"))(progn(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMAN")(setq *error* m:err m:err nil)(princ))) ^P
+[I-9]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMAN"))(progn(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMAN")(setq *error* m:err m:err nil)(princ))) ^P
+[I-10]^C^C^P(progn(setq m:err *error*)(defun *error*(msg)(princ"Error loading: ")+
+(princ msg)(setq *error* m:err m:err nil #GTSPO nil)(princ))(princ));+
+(cond((null #GTSPO)(vmon)(if(findfile"rman.lsp")(progn(load"rman")+
+(menucmd"S=X")(menucmd"S=RMAN"))(progn(terpri);+
+(prompt"The file 'Rman.lsp' was not found in your current search directories.")+
+(terpri)(prompt"Check your AutoShade v2.0 Manual for installation instructions.");+
+(princ)))(setq *error* m:err m:err nil)(princ))(T(menucmd"S=X")+
+(menucmd"S=RMAN")(setq *error* m:err m:err nil)(princ))) ^P
+[I-11] 
+[I-12] 
+[I-13] 
+[I-14] 
+[I-15] 
+[I-16] 
+[I-17] 
+[I-18] 
+[I-19] 
+[I-20] 
+[I-21] 
+[I-22] 
+[I-23] 
+[I-24] 
+[I-25] 
+***Comment
+        This is the existing TABLET2 menu.  It has been
+        updated for Release 11 functionality.
+
+***TABLET2
+^C^C^P(defun C:T2HIDE (/ m:err m:a)(setq m:err *error*)(defun *error* (msg)+
+(setq *error* m:err)(princ))(menucmd"S=X")(menucmd"S=HIDE1")(initget "Yes No")+
+(setq m:a(getkword"Do you want to HIDE? <Y> "))(if(/= m:a"No")(command"HIDE");+
+(progn (menucmd "S= ")(menucmd "S= ")))(setq *error* m:err)(princ))(princ);+
+T2HIDE;^P
+$S=X $S=VPOINT VPOINT;;
+$S=X $S=SHADE
+$S=X $S=UCS1 ^C^CUCS
+^C^CUCS;PREV
+^C^CUCS;ORIGIN
+;
+$S=X $S=MV ^C^CMVIEW
+$S=X $S=ZOOM 'ZOOM VMAX
+$S=X $S=LINE ^C^CLINE
+^C^CREGEN
+[VPOINT  ]^C^CVPOINT R;<<135;$S=X $S=VPOINT3D
+[VPT rear]^C^CVPOINT R;<<90;$S=X $S=VPOINT3D
+[VPOINT  ]^C^CVPOINT R;<<45;$S=X $S=VPOINT3D
+$S=X $S=UCS1 ^C^CUCS
+^C^CUCS;;
+^C^CPLAN;W
+;
+$S=X $S=MV ^C^CMVIEW
+$S=X $S=ZOOM 'ZOOM W
+$S=X $S=PLINE ^C^CPLINE
+^C^CREGENALL
+[VPT left]^C^CVPOINT R;<<180;$S=X $S=VPOINT3D
+[VPT plan]^C^CPLAN;;
+[VPT rigt]^C^CVPOINT R;<<0;$S=X $S=VPOINT3D
+$S=X $S=DVIEW ^C^CDVIEW
+$S=X $S=DVIEW ^C^CSELECT;\DVIEW;P;;CA;\\;
+$S=X $S=DVIEW ^C^C$S=X $S=DVIEW1 DVIEW;;
+;
+$S=X $S=MV ^C^CMVIEW ON
+$S=X $S=ZOOM 'ZOOM D
+$S=X $S=ARC ^C^CARC
+'REDRAW
+[VPOINT  ]^C^CVPOINT R;<<225;$S=X $S=VPOINT3D
+[VPT frnt]^C^CVPOINT R;<<270;$S=X $S=VPOINT3D
+[VPOINT  ]^C^CVPOINT R;<<315;$S=X $S=VPOINT3D
+$S=X $S=DVIEW ^C^CDVIEW
+$S=X $S=DVIEW ^C^CSELECT;\DVIEW;P;;Z;\;
+$S=X $S=DVIEW ^C^CSELECT;\DVIEW;P;;PA;\\;
+;
+$S=X $S=MV ^C^CMVIEW OFF
+$S=X $S=ZOOM ^C^CZOOM A
+$S=X $S=CIRCLE ^C^CCIRCLE
+'REDRAW
+$S=X $S=3D ^C^CRULESURF
+$S=X $S=3D ^C^CREVSURF
+$S=X $S=3DFACE ^C^C3DFACE
+$S=X $S=VPLA ^C^CVPLAYER
+$S=X $S=VPLA ^C^CVPLAYER THAW
+$S=X $S=VPLA ^C^CVPLAYER FREEZE
+;
+$S=X $S=MV ^C^CMVIEW 2
+$S=X $S=ZOOM 'ZOOM P
+$S=X $S=ELLIPSE ^C^CELLIPSE
+'REDRAW
+$S=X $S=3D ^C^CEDGESURF
+$S=X $S=3D ^C^CTABSURF
+$S=X $S=3DPOLY ^C^C3DPOLY
+$S=X $S=VPLA ^C^CVPLAYER
+$S=X $S=VPLA ^C^CVPLAYER NEW
+$S=X $S=VPLA ^C^CVPLAYER RESET
+;
+$S=X $S=MV ^C^CMVIEW 3
+$S=X $S=ZOOM ^C^CZOOM E
+$S=X $S=POLYGON ^C^CPOLYGON
+'REDRAW
+$S=X $S=XREF ^C^CXREF
+$S=X $S=XREF ^C^CXREF;;
+$S=X $S=XBIND ^C^CXBIND
+$S=X $S=LAYER ^C^CDDLMODES
+$S=X $S=LAYER ^C^CLAYER ON
+$S=X $S=LAYER ^C^CLAYER OFF
+;
+$S=X $S=MV ^C^CMVIEW 4
+$S=X $S=ZOOM 'ZOOM
+$S=X $S=POINT ^C^CPOINT
+'REDRAW
+$S=X $S=ATTDEF ^C^CATTDEF
+$S=X $S=BLOCK ^C^CBLOCK
+$S=X $S=INSERT ^C^CINSERT
+$S=X $S=LAYER ^C^CLAYER
+$S=X $S=LAYER ^C^CLAYER THAW
+$S=X $S=LAYER ^C^CLAYER FREEZE
+;
+$S=X $S=MV ^C^CMSPACE
+'PAN
+^C^CDONUT
+'REDRAWALL
+$S=X $S=ATTEDIT ^C^CATTEDIT
+$S=X $S=WBLOCK ^C^CWBLOCK
+$S=X $S=MINSERT ^C^CMINSERT
+$S=X $S=LAYER ^C^CLAYER
+$S=X $S=LAYER ^C^CLAYER ? *;;
+$S=X $S=LAYER ^C^CLAYER M \;
+;
+$S=X $S=MV ^C^CPSPACE
+$S=X $S=DS
+$S=X $S=DR
+'REDRAWALL
+***Comment
+        This is the existing TABLET3 menu.  It has been
+        updated for Release 11 in functionality.
+
+***TABLET3
+;
+;
+;
+<<135
+<<135
+<<90
+<<90
+<<45
+<<45
+;
+;
+;
+<<180
+<<180
+<\
+<\
+<<0
+<<0
+;
+;
+;
+<<225
+<<225
+<<270
+<<270
+<<315
+<<315
+;
+;
+;
+^H
+^H
+^H
+^H
+^H
+^H
+;
+;
+;
+7/8\
+7/8\
+/16\
+/16\
+/32\
+/32\
+;
+;
+;
+1/2\
+1/2\
+5/8\
+5/8\
+3/4\
+3/4\
+;
+;
+;
+1/8\
+1/8\
+1/4\
+1/4\
+3/8\
+3/8\
+;
+;
+;
+-\
+-\
+/\
+/\
+X\
+X\
+;
+;
+;
+@\
+@\
+'\
+'\
+"\
+"\
+;
+;
+;
+7\
+7\
+8\
+8\
+9\
+9\
+
+;
+;
+4\
+4\
+5\
+5\
+6\
+6\
+;
+;
+;
+1\
+1\
+2\
+2\
+3\
+3\
+
+;
+;
+0\
+0\
+.\
+.\
+,\
+,\
+***Comment
+        This is the existing TABLET4 menu.  It has been
+        updated for Release 11 functionality.
+        
+        Menu items S19 - S22 contain the calls to swap the tablet menus.
+
+        These items cause tablet menus to be swapped which contain
+        various "expert" menu selections.  A variable is used to 
+        hold bit-coded values which are on when the menu is  swapped, 
+        i.e., when the alternate menu has been swapped in.  Bit 1 
+        is on when menu area 1 is swapped, bit 2 when menu area 2 
+        is swapped, and so on with bits 4 and 8. 
+        
+        When bit 1 is set, the first asterick in the second line 
+        of the screen menu is replaced  with the numeral one, the 
+        second asterick when bit 2 is set, and so on with bits 4 
+        and 8. 
+
+        This shows the user that there has been a change to the 
+        structure of the menus in a graphical, albeit miniscule, 
+        way.  Prompts describing the changes enacted via the menu 
+        swaps will pick up the balance of the feedback to the user.  
+        They should be tied to the setting of the EXPERT system 
+        variable.  If the value of the EXPERT system variable is 0, 
+        then a prompt such as this will be issued;  
+        "Menu area 3 has been swapped.  Optional metric 
+        functionality is now active."  If the value of the EXPERT 
+        system variable is 1-4, the prompt will be shortened to; 
+        "Menu area 3 has been swapped.", and if the value of 
+        the EXPERT system variable is greater than 4, all prompts 
+        will be suppressed. 
+        
+        Selecting the AutoCAD heading at the top of the screen 
+        menu resets all of the menus to their default values as
+        does re-entering the drawing editor.
+
+
+***TABLET4
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+[Tablet 1]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 1 T_MENU) 1)(progn (setq T_MENU (- T_MENU 1))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 1 unloaded.  "));+
+(menucmd "T1=TABLET1")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Select from the AutoCAD AME menu and AutoShade tablet menus.")(princ))))+
+(progn (setq T_MENU (+ T_MENU 1))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 1 loaded.  "));+
+(menucmd "T1=TABLET1ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "This area is for your personal applications and menu items.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+[Tablet 2]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 2 T_MENU) 2)(progn(setq T_MENU (- T_MENU 2))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 2 unloaded.  "));+
+(menucmd "T2=TABLET2")(if old_wv (setvar "WORLDVIEW" old_wv))(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Commands operate transparently: VPOINT and DVIEW in Worldview mode.")(princ))))+
+(progn(setq T_MENU (+ T_MENU 2));+
+(setq old_wv (getvar "WORLDVIEW"))(setvar "WORLDVIEW" 0)+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 2 loaded.  "));+
+(menucmd "T2=TABLET2ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Zoom and other commands issue CTRL-C's: VPOINT and DVIEW in current UCS mode.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+[Tablet 3]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 4 T_MENU) 4)(progn(setq T_MENU (- T_MENU 4))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 3 unloaded.  "));+
+(menucmd "T3=TABLET3")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Select American units from the Numeric menu.")(princ))))+
+(progn(setq T_MENU (+ T_MENU 4))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 3 loaded.  "));+
+(menucmd "T3=TABLET3ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Select Metric units from the Numeric menu.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+[Tablet 4]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 8 T_MENU) 8)(progn(setq T_MENU (- T_MENU 8))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 4 unloaded.  "));+
+(menucmd "T4=TABLET4")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Object snap modes issue overrides: commands do NOT repeat.")(princ))))+
+(progn(setq T_MENU (+ T_MENU 8))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 4 loaded.  "));+
+(menucmd "T4=TABLET4ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Object snap modes issue running modes: commands repeat.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+;
+;
+;
+^C^CTIME
+^C^C$S=X $S=ID ID
+^C^CSTATUS
+^C^C$S=X $S=LIST LIST
+'HELP
+'HELP
+;
+^C^CDDEMODES
+^C^CDDEMODES
+^C^C$S=X $S=OSNAPC OSNAP
+;
+NONE
+CENTER
+ENDPOINT
+INSERT
+INTERSEC
+MIDPOINT
+NEAREST
+NODE
+PERPEND
+QUADRANT
+TANGENT
+;
+^C^CSAVE
+^C^CSAVE
+^C^CSETVAR ? *
+^C^C$S=X $S=AREA AREA
+^C^CDIST
+^C^C$S=X $S=LIST LIST
+'HELP
+'HELP
+;
+^C^CDDRMODES
+^C^CDDRMODES
+^C^C$S=X $S=OSNAPC OSNAP
+;
+UNDO B
+^C^CU
+^C^CREDO
+AUTO
+MULTIPLE
+WINDOW
+LAST
+PREVIOUS
+CROSSING
+REMOVE
+ADD
+;
+^C^C$S=X $S=END END
+^C^C$S=X $S=QUIT QUIT
+^C^C$S=X $S=DIM DIM SAV
+^C^C$S=X $S=DIM DIM RESTORE
+^C^C$S=X $S=DIM DIM SAV ? *
+^C^C$S=X $S=HOMETEXT DIM HOMETEXT
+^C^C$S=X $S=TEDIT DIM TEDIT
+^C^C$S=X $S=DIM DIM TROTATE
+;
+^C^C$S=X $S=DDEDIT DDEDIT
+^C^C$S=X $S=DDEDIT DDEDIT
+^C^C$S=X $S=QTEXT QTEXT
+;
+^C^C
+^C^C
+^C^C
+^O
+^D
+^Q
+GRAPHSCR
+^E
+^G
+^B
+^V
+;
+^C^CFILES
+^C^CFILES
+^C^CDIM1 STATUS
+^C^C$S=X $S=VAR1 DIM
+^C^C$S=X $S=DIM DIM OVE
+^C^C$S=X $S=DIM DIM OBLIQUE
+EXIT;^C^C$S=X $S=S
+EXIT;^C^C$S=X $S=S
+;
+^C^C^P(if (= dtext 1)(progn(menucmd "S=TEXT")(menucmd "T4=TEXT1")+
+(menucmd "T4=TEXT2")(menucmd "T4=TEXT3")(setq dtext null)+
+(prompt "TEXT mode set")(princ))(progn(menucmd "S=DTEXT");+
+(menucmd "T4=DTEXT1")(menucmd "T4=DTEXT2")(menucmd "T4=DTEXT3")(setq dtext 1)+
+(prompt "DTEXT mode set")(princ)));^P
+^C^C^P(if (= dtext 1)(progn(menucmd "S=TEXT")(menucmd "T4=TEXT1")+
+(menucmd "T4=TEXT2")(menucmd "T4=TEXT3")(setq dtext null)+
+(prompt "TEXT mode set")(princ))(progn(menucmd "S=DTEXT");+
+(menucmd "T4=DTEXT1")(menucmd "T4=DTEXT2")(menucmd "T4=DTEXT3")(setq dtext 1)+
+(prompt "DTEXT mode set")(princ)));^P
+^C^C$S=X $S=TEXT TEXT STYLE
+;
+^C^C$S=X $S=SCALE SCALE
+^C^C$S=X $S=ROTATE ROTATE
+^C^C$S=X $S=OFFSET OFFSET
+^C^C$S=X $S=MOVE MOVE
+^C^C$S=X $S=ERASE ERASE
+^C^C$S=X $S=ERASE ERASE
+^C^COOPS
+^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+^C^CEXPLODE
+^C^C$S=X $S=ARRAY ARRAY
+^C^C$S=X $S=DIVIDE DIVIDE
+;
+^C^CPLOT
+^C^CPRPLOT
+^C^C$S=X $S=DIMORD DIM ORDINATE
+^C^C$S=X $S=DIM DIM LEADER
+^C^C$S=X $S=DIMLINEAR DIM BASELINE
+^C^C$S=X $S=DIMLINEAR DIM CONTIN
+^C^C$S=X $S=DIMLINEAR DIM VERT
+^C^C$S=X $S=DIMLINEAR DIM HORIZ
+;
+^C^C$S=X $S=TEXT TEXT ALIGNED
+^C^C$S=X $S=TEXT TEXT MIDDLE
+^C^C$S=X $S=TEXT TEXT FIT
+;
+^C^C$S=X $S=MIRROR MIRROR
+^C^C$S=X $S=BREAK2P BREAK \F
+^C^C$S=X $S=BREAKSPL BREAK \F \@
+^C^C$S=X $S=COPY COPY
+^C^C$S=X $S=EXTEND EXTEND
+^C^C$S=X $S=STRETCH STRETCH C
+^C^C$S=X $S=TRIM TRIM
+^C^C$S=X $S=FILLET0 FILLET R 0;;
+^C^C$S=X $S=FILLET FILLET
+^C^C$S=X $S=CHAMFER CHAMFER
+^C^C$S=X $S=MEASURE MEASURE
+;
+^C^C$S=X $S=UT
+^C^C^P(if R11omn (progn(command "Menu" R11omn)(setq R11omn nil));+
+(if (setq R11omn (getvar "menuname"));+
+(if (setq envname (getenv "ACADALTMENU")) (command "Menu" +
+(findfile envname)) (command "Menu" R11omn))))(setq T_MENU nil)(princ) ^P
+^C^C$S=X $S=DIM DIM CENTER
+^C^C$S=X $S=DIM DIM RADIUS
+^C^C$S=X $S=DIM DIM DIAMETER
+^C^C$S=X $S=DIM DIM ANGULAR
+^C^C$S=X $S=DIM DIM ROTATED
+^C^C$S=X $S=DIMLINEAR DIM ALIGNED
+;
+^C^C$S=X $S=TEXT TEXT
+^C^C$S=X $S=TEXT TEXT C
+^C^C$S=X $S=TEXT TEXT RIGHT
+;
+^C^C$S=X $S=SNAP SNAP
+^C^C$S=X $S=GRID GRID
+^C^C$S=X $S=UNITS UNITS
+^C^C$S=X $S=LINETYPE LINETYPE
+^C^C$S=X $S=CHANGE CHANGE
+^C^C$S=X $S=CHANGE CHANGE
+^C^C$S=X $S=CHPROP CHPROP
+^C^CLTSCALE
+^C^C$S=X $S=COLOR COLOR
+^C^CTILEMODE
+^C^C$S=X $S=APERTURE APERTURE
+;
+^C^C$S=X $S=EXCOMDS
+^C^C$S=X $S=EXCOMDS
+**DTEXT1 110
+^C^C$S=X $S=DTEXT DTEXT STYLE
+**DTEXT2 133
+^C^C$S=X $S=DTEXT DTEXT ALIGNED
+^C^C$S=X $S=DTEXT DTEXT MIDDLE
+^C^C$S=X $S=DTEXT DTEXT FIT
+**DTEXT3 158
+^C^C$S=X $S=DTEXT DTEXT
+^C^C$S=X $S=DTEXT DTEXT C
+^C^C$S=X $S=DTEXT DTEXT RIGHT
+**TEXT1 110
+^C^C$S=X $S=TEXT TEXT STYLE
+**TEXT2 133
+^C^C$S=X $S=TEXT TEXT ALIGNED
+^C^C$S=X $S=TEXT TEXT MIDDLE
+^C^C$S=X $S=TEXT TEXT FIT
+**TEXT3 158
+^C^C$S=X $S=TEXT TEXT
+^C^C$S=X $S=TEXT TEXT C
+^C^C$S=X $S=TEXT TEXT RIGHT
+
+***Comment
+        This is the original TABLET1 menu which is now an alternate menu.
+        The new TABLET1 menu contains the code for AME and AutoShade.
+        You may put your own macros and menu items here or in the space
+        remaining on the regular TABLET1 area.  All of the item locations
+        are now accessible through the transparent window in the template.
+
+***TABLET1ALT
+[A-1] 
+[A-2] 
+[A-3] 
+[A-4] 
+[A-5] 
+[A-6] 
+[A-7] 
+[A-8] 
+[A-9] 
+[A-10] 
+[A-11] 
+[A-12] 
+[A-13] 
+[A-14] 
+[A-15] 
+[A-16] 
+[A-17] 
+[A-18] 
+[A-19] 
+[A-20] 
+[A-21] 
+[A-22] 
+[A-23] 
+[A-24] 
+[A-25] 
+[B-1] 
+[B-2] 
+[B-3] 
+[B-4] 
+[B-5] 
+[B-6] 
+[B-7] 
+[B-8] 
+[B-9] 
+[B-10] 
+[B-11] 
+[B-12] 
+[B-13] 
+[B-14] 
+[B-15] 
+[B-16] 
+[B-17] 
+[B-18] 
+[B-19] 
+[B-20] 
+[B-21] 
+[B-22] 
+[B-23] 
+[B-24] 
+[B-25] 
+[C-1] 
+[C-2] 
+[C-3] 
+[C-4] 
+[C-5] 
+[C-6] 
+[C-7] 
+[C-8] 
+[C-9] 
+[C-10] 
+[C-11] 
+[C-12] 
+[C-13] 
+[C-14] 
+[C-15] 
+[C-16] 
+[C-17] 
+[C-18] 
+[C-19] 
+[C-20] 
+[C-21] 
+[C-22] 
+[C-23] 
+[C-24] 
+[C-25] 
+[D-1] 
+[D-2] 
+[D-3] 
+[D-4] 
+[D-5] 
+[D-6] 
+[D-7] 
+[D-8] 
+[D-9] 
+[D-10] 
+[D-11] 
+[D-12] 
+[D-13] 
+[D-14] 
+[D-15] 
+[D-16] 
+[D-17] 
+[D-18] 
+[D-19] 
+[D-20] 
+[D-21] 
+[D-22] 
+[D-23] 
+[D-24] 
+[D-25] 
+[E-1] 
+[E-2] 
+[E-3] 
+[E-4] 
+[E-5] 
+[E-6] 
+[E-7] 
+[E-8] 
+[E-9] 
+[E-10] 
+[E-11] 
+[E-12] 
+[E-13] 
+[E-14] 
+[E-15] 
+[E-16] 
+[E-17] 
+[E-18] 
+[E-19] 
+[E-20] 
+[E-21] 
+[E-22] 
+[E-23] 
+[E-24] 
+[E-25] 
+[F-1] 
+[F-2] 
+[F-3] 
+[F-4] 
+[F-5] 
+[F-6] 
+[F-7] 
+[F-8] 
+[F-9] 
+[F-10] 
+[F-11] 
+[F-12] 
+[F-13] 
+[F-14] 
+[F-15] 
+[F-16] 
+[F-17] 
+[F-18] 
+[F-19] 
+[F-20] 
+[F-21] 
+[F-22] 
+[F-23] 
+[F-24] 
+[F-25] 
+[G-1] 
+[G-2] 
+[G-3] 
+[G-4] 
+[G-5] 
+[G-6] 
+[G-7] 
+[G-8] 
+[G-9] 
+[G-10] 
+[G-11] 
+[G-12] 
+[G-13] 
+[G-14] 
+[G-15] 
+[G-16] 
+[G-17] 
+[G-18] 
+[G-19] 
+[G-20] 
+[G-21] 
+[G-22] 
+[G-23] 
+[G-24] 
+[G-25] 
+[H-1] 
+[H-2] 
+[H-3] 
+[H-4] 
+[H-5] 
+[H-6] 
+[H-7] 
+[H-8] 
+[H-9] 
+[H-10] 
+[H-11] 
+[H-12] 
+[H-13] 
+[H-14] 
+[H-15] 
+[H-16] 
+[H-17] 
+[H-18] 
+[H-19] 
+[H-20] 
+[H-21] 
+[H-22] 
+[H-23] 
+[H-24] 
+[H-25] 
+[I-1] 
+[I-2] 
+[I-3] 
+[I-4] 
+[I-5] 
+[I-6] 
+[I-7] 
+[I-8] 
+[I-9] 
+[I-10] 
+[I-11] 
+[I-12] 
+[I-13] 
+[I-14] 
+[I-15] 
+[I-16] 
+[I-17] 
+[I-18] 
+[I-19] 
+[I-20] 
+[I-21] 
+[I-22] 
+[I-23] 
+[I-24] 
+[I-25] 
+***Comment
+        This is an alternate TABLET2 menu.
+
+***TABLET2ALT
+^C^C^P(defun C:T2HIDE (/ m:err m:a)(setq m:err *error*)(defun *error* (msg)+
+(setq *error* m:err)(princ))(menucmd"S=X")(menucmd"S=HIDE1")(initget "Yes No")+
+(setq m:a(getkword"Do you want to HIDE? <Y> "))(if(/= m:a"No")(command"HIDE");+
+(progn (menucmd "S= ")(menucmd "S= ")))(setq *error* m:err)(princ))(princ);+
+T2HIDE;^P
+$S=X $S=VPOINT VPOINT;;
+$S=X $S=SHADE
+$S=X $S=UCS1 ^C^CUCS
+^C^CUCS;PREV
+^C^CUCS;ORIGIN
+;
+$S=X $S=MV ^C^CMVIEW
+$S=X $S=ZOOM ^C^CZOOM VMAX
+$S=X $S=LINE ^C^CLINE
+^C^CREGEN
+[VPOINT  ]^C^CVPOINT R;<<135;$S=X $S=VPOINT3D
+[VPT rear]^C^CVPOINT R;<<90;$S=X $S=VPOINT3D
+[VPOINT  ]^C^CVPOINT R;<<45;$S=X $S=VPOINT3D
+$S=X $S=UCS1 ^C^CUCS
+^C^CUCS;;
+^C^CPLAN;W
+;
+$S=X $S=MV ^C^CMVIEW
+$S=X $S=ZOOM ^C^CZOOM W
+$S=X $S=PLINE ^C^CPLINE
+^C^CREGENALL
+[VPT left]^C^CVPOINT R;<<180;$S=X $S=VPOINT3D
+[VPT plan]^C^CPLAN;;
+[VPT rigt]^C^CVPOINT R;<<0;$S=X $S=VPOINT3D
+$S=X $S=DVIEW ^C^CDVIEW
+$S=X $S=DVIEW ^C^CSELECT;\DVIEW;P;;CA;\\;
+$S=X $S=DVIEW ^C^C$S=X $S=DVIEW1 DVIEW;;
+;
+$S=X $S=MV ^C^CMVIEW ON
+$S=X $S=ZOOM ^C^CZOOM D
+$S=X $S=ARC ^C^CARC
+'REDRAW
+[VPOINT  ]^C^CVPOINT R;<<225;$S=X $S=VPOINT3D
+[VPT frnt]^C^CVPOINT R;<<270;$S=X $S=VPOINT3D
+[VPOINT  ]^C^CVPOINT R;<<315;$S=X $S=VPOINT3D
+$S=X $S=DVIEW ^C^CDVIEW
+$S=X $S=DVIEW ^C^CSELECT;\DVIEW;P;;Z;\;
+$S=X $S=DVIEW ^C^CSELECT;\DVIEW;P;;PA;\\;
+;
+$S=X $S=MV ^C^CMVIEW OFF
+$S=X $S=ZOOM ^C^CZOOM A
+$S=X $S=CIRCLE ^C^CCIRCLE
+'REDRAW
+$S=X $S=3D ^C^CRULESURF
+$S=X $S=3D ^C^CREVSURF
+$S=X $S=3DFACE ^C^C3DFACE
+$S=X $S=VPLA ^C^CVPLAYER
+$S=X $S=VPLA ^C^CVPLAYER THAW
+$S=X $S=VPLA ^C^CVPLAYER FREEZE
+;
+$S=X $S=MV ^C^CMVIEW 2
+$S=X $S=ZOOM ^C^CZOOM P
+$S=X $S=ELLIPSE ^C^CELLIPSE
+'REDRAW
+$S=X $S=3D ^C^CEDGESURF
+$S=X $S=3D ^C^CTABSURF
+$S=X $S=3DPOLY ^C^C3DPOLY
+$S=X $S=VPLA ^C^CVPLAYER
+$S=X $S=VPLA ^C^CVPLAYER NEW
+$S=X $S=VPLA ^C^CVPLAYER RESET
+;
+$S=X $S=MV ^C^CMVIEW 3
+$S=X $S=ZOOM ^C^CZOOM E
+$S=X $S=POLYGON ^C^CPOLYGON
+'REDRAW
+$S=X $S=XREF ^C^CXREF
+$S=X $S=XREF ^C^CXREF;;
+$S=X $S=XBIND ^C^CXBIND
+$S=X $S=LAYER ^C^CDDLMODES
+$S=X $S=LAYER ^C^CLAYER ON
+$S=X $S=LAYER ^C^CLAYER OFF
+;
+$S=X $S=MV ^C^CMVIEW 4
+$S=X $S=ZOOM ^C^CZOOM
+$S=X $S=POINT ^C^CPOINT
+'REDRAW
+$S=X $S=ATTDEF ^C^CATTDEF
+$S=X $S=BLOCK ^C^CBLOCK
+$S=X $S=INSERT ^C^CINSERT
+$S=X $S=LAYER ^C^CLAYER
+$S=X $S=LAYER ^C^CLAYER THAW
+$S=X $S=LAYER ^C^CLAYER FREEZE
+;
+$S=X $S=MV ^C^CMSPACE
+'PAN
+^C^CDONUT
+'REDRAWALL
+$S=X $S=ATTEDIT ^C^CATTEDIT
+$S=X $S=WBLOCK ^C^CWBLOCK
+$S=X $S=MINSERT ^C^CMINSERT
+$S=X $S=LAYER ^C^CLAYER
+$S=X $S=LAYER ^C^CLAYER ? *;;
+$S=X $S=LAYER ^C^CLAYER M \;
+;
+$S=X $S=MV ^C^CPSPACE
+$S=X $S=DS
+$S=X $S=DR
+'REDRAWALL
+***Comment
+        This is an alternate TABLET3 menu which provides all of the common
+        features found on the UK tablet area 3 for metric use.  Their 
+        locations had to be altered slightly to fit with our present
+        layout, but all of them are available.
+
+***TABLET3ALT
+;
+;
+;
+<<135
+<<135
+<<90
+<<90
+<<45
+<<45
+;
+;
+;
+<<180
+<<180
+<\
+<\
+<<0
+<<0
+;
+;
+;
+<<225
+<<225
+<<270
+<<270
+<<315
+<<315
+;
+;
+;
+^H
+^H
+^H
+^H
+^H
+^H
+;
+;
+;
+m\
+m\
+cm\
+cm\
+mm\
+mm\
+;
+;
+;
+.\
+.\
++\
++\
+%%d\
+%%d\
+;
+;
+;
+,\
+,\
+%%p\
+%%p\
+%%c\
+%%c\
+;
+;
+;
+-\
+-\
+/\
+/\
+X\
+X\
+;
+;
+;
+@\
+@\
+'\
+'\
+"\
+"\
+;
+;
+;
+7\
+7\
+8\
+8\
+9\
+9\
+
+;
+;
+4\
+4\
+5\
+5\
+6\
+6\
+;
+;
+;
+1\
+1\
+2\
+2\
+3\
+3\
+
+;
+;
+0\
+0\
+00\
+00\
+000\
+000\
+***Comment
+        This is an alternate TABLET4 menu which contains the following
+        changes to the base functionality contained in the original
+        menu.
+        
+        1)  All commands repeat which make sense to repeat
+        2)  The Osnap override picks now change the running "osmode"
+            transparently via 'SETVAR OSMODE.  
+        
+        Menu items S19 - S22 contain the calls to swap the tablet menus.
+
+        These items cause tablet menus to be swapped which contain
+        various "expert" menu selections.  A variable is used to 
+        hold bit-coded values which are on when the menu is  swapped, 
+        i.e., when the alternate menu has been swapped in.  Bit 1 
+        is on when menu area 1 is swapped, bit 2 when menu area 2 
+        is swapped, and so on with bits 4 and 8. 
+        
+        When bit 1 is set, the first asterick in the second line 
+        of the screen menu is replaced  with the numeral one, the 
+        second asterick when bit 2 is set, and so on with bits 4 
+        and 8. 
+
+        This shows the user that there has been a change to the 
+        structure of the menus in a graphical, albeit miniscule, 
+        way.  Prompts describing the changes enacted via the menu 
+        swaps will pick up the balance of the feedback to the user.  
+        They should be tied to the setting of the EXPERT system 
+        variable.  If the value of the EXPERT system variable is 0, 
+        then a prompt such as this should be issued;  
+        "Menu area 3 has been swapped.  Optional metric 
+        functionality is now active."  If the value of the EXPERT 
+        system variable is 1-4, the prompt should be shortened to; 
+        "Menu area 3 has been swapped.", and if the value of 
+        the EXPERT system variable is greater than 4, all prompts 
+        should be suppressed.  This is currently unsupported.
+        
+        Selecting the AutoCAD heading at the top of the screen 
+        menu resets all of the menus to their default values as
+        does re-entering the drawing editor.
+
+
+***TABLET4ALT
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+[Tablet 1]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 1 T_MENU) 1)(progn (setq T_MENU (- T_MENU 1))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 1 unloaded.  "));+
+(menucmd "T1=TABLET1")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Select from the AutoCAD AME menu and AutoShade tablet menus.")(princ))))+
+(progn (setq T_MENU (+ T_MENU 1))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 1 loaded.  "));+
+(menucmd "T1=TABLET1ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "This area is for your personal applications and menu items.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+[Tablet 2]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 2 T_MENU) 2)(progn(setq T_MENU (- T_MENU 2))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 2 unloaded.  "));+
+(menucmd "T2=TABLET2")(if old_wv (setvar "WORLDVIEW" old_wv))(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Commands operate transparently: VPOINT and DVIEW in Worldview mode.")(princ))))+
+(progn(setq T_MENU (+ T_MENU 2));+
+(setq old_wv (getvar "WORLDVIEW"))(setvar "WORLDVIEW" 0)+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 2 loaded.  "));+
+(menucmd "T2=TABLET2ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Zoom and other commands issue CTRL-C's: VPOINT and DVIEW in current UCS mode.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+[Tablet 3]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 4 T_MENU) 4)(progn(setq T_MENU (- T_MENU 4))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 3 unloaded.  "));+
+(menucmd "T3=TABLET3")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Select American units from the Numeric menu.")(princ))))+
+(progn(setq T_MENU (+ T_MENU 4))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 3 loaded.  "));+
+(menucmd "T3=TABLET3ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Select Metric units from the Numeric menu.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+[Tablet 4]^C^C^P(if (null T_MENU) (setq T_MENU 0))+
+(if (= (logand 8 T_MENU) 8)(progn(setq T_MENU (- T_MENU 8))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 4 unloaded.  "));+
+(menucmd "T4=TABLET4")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Object snap modes issue overrides: commands do NOT repeat.")(princ))))+
+(progn(setq T_MENU (+ T_MENU 8))+
+(if (< (getvar "EXPERT") 4)(princ "Alternate tablet area 4 loaded.  "));+
+(menucmd "T4=TABLET4ALT")(if (< (getvar "EXPERT") 1)(progn +
+(terpri)(princ "Object snap modes issue running modes: commands repeat.")(princ)))))+
+(menucmd (strcat "s=HEADER" (itoa T_MENU)))(princ);^P
+;
+;
+;
+^C^CTIME
+*^C^C$S=X $S=ID ID
+^C^CSTATUS
+^C^C$S=X $S=LIST LIST
+'HELP
+'HELP
+;
+^C^CDDEMODES
+^C^CDDEMODES
+^C^C$S=X $S=OSNAPC OSNAP
+;
+'SETVAR OSMODE 0
+'SETVAR OSMODE 4
+'SETVAR OSMODE 1
+'SETVAR OSMODE 64
+'SETVAR OSMODE 32
+'SETVAR OSMODE 2
+'SETVAR OSMODE 512
+'SETVAR OSMODE 8
+'SETVAR OSMODE 128
+'SETVAR OSMODE 16
+'SETVAR OSMODE 256
+;
+^C^CSAVE
+^C^CSAVE
+^C^CDBLIST
+*^C^C$S=X $S=AREA AREA
+*^C^CDIST
+^C^C$S=X $S=LIST LIST
+'HELP
+'HELP
+;
+^C^CDDRMODES
+^C^CDDRMODES
+^C^C$S=X $S=OSNAPC OSNAP
+;
+UNDO B
+^C^CU
+^C^CREDO
+AUTO
+MULTIPLE
+WINDOW
+LAST
+PREVIOUS
+CROSSING
+REMOVE
+ADD
+;
+^C^C$S=X $S=END END
+^C^C$S=X $S=QUIT QUIT
+*^C^C$S=X $S=DIM DIM SAV
+*^C^C$S=X $S=DIM DIM RESTORE
+*^C^C$S=X $S=DIM DIM SAV ? *
+*^C^C$S=X $S=TEDIT DIM TEDIT
+*^C^C$S=X $S=DIM DIM TROTATE
+*^C^C$S=X $S=DIM DIM HOMETEXT
+;
+*^C^C$S=X $S=DDEDIT DDEDIT
+*^C^C$S=X $S=DDEDIT DDEDIT
+*^C^C$S=X $S=QTEXT QTEXT
+;
+^C^C
+^C^C
+^C^C
+^O
+^D
+^Q
+GRAPHSCR
+^E     
+^G
+^B
+^V
+;
+^C^CFILES
+^C^CFILES
+^C^CDIM1 STATUS
+*^C^C$S=X $S=VAR1 DIM
+*^C^C$S=X $S=DIM DIM OVE
+^C^C$S=X $S=DIM DIM OBLIQUE
+EXIT;^C^C$S=X $S=S
+EXIT;^C^C$S=X $S=S
+;
+^C^C$S=X $S=TEXTSET TEXT
+^C^C$S=X $S=TEXTSET TEXT
+*^C^C$S=X $S=TEXT TEXT STYLE
+;
+*^C^C$S=X $S=SCALE SCALE
+*^C^C$S=X $S=ROTATE ROTATE
+*^C^C$S=X $S=OFFSET OFFSET
+*^C^C$S=X $S=MOVE MOVE
+*^C^C$S=X $S=ERASE ERASE
+*^C^C$S=X $S=ERASE ERASE
+^C^COOPS
+*^C^C^P(if(null C:PEDITM)(defun C:PEDITM(/ m:p0 m:p1 m:err)+
+(setq m:err *error*)(defun *error* (m)(setq *error* m:err)(princ))+
+(defun m:p0(/ m:s1 m:e1 m:e2 m:e3)(menucmd"S=X")(menucmd"S=PSEL");+
+(while(not m:s1)(if(setq m:s1(ssget))(progn(setq m:e1(ssname m:s1 0)+
+m:e2(entget m:e1) m:e3(cdr(assoc 0 m:e2)))(if(= m:e3 "POLYLINE")(m:p1)+
+(if(member m:e3 '("LINE" "ARC"))(progn(command "PEDIT" m:e1 pause);+
+(menucmd "S=X")(menucmd "S=P0"))(progn(terpri)+
+(princ "Entity selected is not a polyline.")(terpri)(setq m:s1 nil))))))))+
+(defun m:p1 (/ m:a)(menucmd"S=X")(if(=(setq m:a (cdr(assoc 70 m:e2)))nil);+
+(menucmd"S=P0")(progn(setq m:a(/ m:a 2))(if(>= m:a 8)(menucmd"S=P16")+
+(if(< m:a 4)(menucmd"S=P0")(menucmd"S=P8")))))(command "PEDIT" m:e1))(m:p0)+
+(setq *error* m:err)(princ))(princ));PEDITM;^P
+*^C^CEXPLODE
+*^C^C$S=X $S=ARRAY ARRAY
+*^C^C$S=X $S=DIVIDE DIVIDE
+;
+^C^CPLOT
+^C^CPRPLOT
+*^C^C$S=X $S=DIMORD DIM ORDINATE
+*^C^C$S=X $S=DIM DIM LEADER
+*^C^C$S=X $S=DIMLINEAR BASELINE
+*^C^C$S=X $S=DIMLINEAR CONTIN
+*^C^C$S=X $S=DIMLINEAR DIM VERT
+*^C^C$S=X $S=DIMLINEAR DIM HORIZ
+;
+*^C^C$S=X $S=TEXT TEXT ALIGNED
+*^C^C$S=X $S=TEXT TEXT MIDDLE
+*^C^C$S=X $S=TEXT TEXT FIT
+;
+*^C^C$S=X $S=MIRROR MIRROR
+*^C^C$S=X $S=BREAK2P BREAK \F
+*^C^C$S=X $S=BREAKSPL BREAK \F \@
+*^C^C$S=X $S=COPY COPY
+*^C^C$S=X $S=EXTEND EXTEND
+*^C^C$S=X $S=STRETCH STRETCH C
+*^C^C$S=X $S=TRIM TRIM
+*^C^C$S=X $S=FILLET0 FILLET R 0;;
+*^C^C$S=X $S=FILLET FILLET
+*^C^C$S=X $S=CHAMFER CHAMFER
+*^C^C$S=X $S=MEASURE MEASURE
+;
+^C^C$S=X $S=UT
+^C^C^P(if R11omn (progn(command "Menu" R11omn)(setq R11omn nil));+
+(if (setq R11omn (getvar "menuname"));+
+(if (setq envname (getenv "ACADALTMENU")) (command "Menu" +
+(findfile envname)) (command "Menu" R11omn))))(setq T_MENU nil)(princ) ^P
+*^C^C$S=X $S=DIM DIM CENTER
+*^C^C$S=X $S=DIM DIM RADIUS
+*^C^C$S=X $S=DIM DIM DIAMETER
+*^C^C$S=X $S=DIM DIM ANGULAR
+*^C^C$S=X $S=DIM DIM ROTATED
+*^C^C$S=X $S=DIMLINEAR DIM ALIGNED
+;
+*^C^C$S=X $S=TEXT TEXT
+*^C^C$S=X $S=TEXT TEXT C
+*^C^C$S=X $S=TEXT TEXT RIGHT
+;
+*^C^C$S=X $S=SNAP SNAP
+*^C^C$S=X $S=GRID GRID
+*^C^C$S=X $S=UNITS UNITS
+*^C^C$S=X $S=LINETYPE LINETYPE
+*^C^C$S=X $S=CHANGE CHANGE
+*^C^C$S=X $S=CHANGE CHANGE
+*^C^C$S=X $S=CHPROP CHPROP
+*^C^CLTSCALE
+*^C^C$S=X $S=COLOR COLOR
+*^C^CTILEMODE
+*^C^C$S=X $S=APERTURE APERTURE
+;
+^C^C$S=X $S=EXCOMDS
+^C^C$S=X $S=EXCOMDS
+**DTEXT1 110
+*^C^C$S=X $S=DTEXT DTEXT STYLE
+**DTEXT2 133
+*^C^C$S=X $S=DTEXT DTEXT ALIGNED
+*^C^C$S=X $S=DTEXT DTEXT MIDDLE
+*^C^C$S=X $S=DTEXT DTEXT FIT
+**DTEXT3 158
+*^C^C$S=X $S=DTEXT DTEXT
+*^C^C$S=X $S=DTEXT DTEXT C
+*^C^C$S=X $S=DTEXT DTEXT RIGHT
+**TEXT1 110
+*^C^C$S=X $S=TEXT TEXT STYLE
+**TEXT2 133
+*^C^C$S=X $S=TEXT TEXT ALIGNED
+*^C^C$S=X $S=TEXT TEXT MIDDLE
+*^C^C$S=X $S=TEXT TEXT FIT
+**TEXT3 158
+*^C^C$S=X $S=TEXT TEXT
+*^C^C$S=X $S=TEXT TEXT C
+*^C^C$S=X $S=TEXT TEXT RIGHT
+
+

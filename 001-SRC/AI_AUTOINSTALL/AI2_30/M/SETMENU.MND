@@ -1,0 +1,112 @@
+{comment}=SETup, menu auxiliar - Copyright (C), 1992
+***Buttons
+^c^c^p(progn(prompt "--- SEM funcao no menu ---")(princ))
+;
+***pop1
+Setup
+[Load SETup]^c^c^p$p1=* (progn (initget "Yes No")+
+(if (/= (getkword "Executar SETup (Yes/No)? ") "No")+
+(progn (prompt "^JCarregando... ")(loadf "k1bc0")(c:setup)))(princ))
+Yes
+No
+
+***pop2
+[ ---- ]
+
+***pop3
+[ ---- ]
+
+***pop4
+[ ---- ]
+
+***pop5
+[ ---- ]
+
+***pop6
+[ ---- ]
+
+***pop7
+[ ---- ]
+
+***pop8
+[Menus]
+[Arquitetura]^c^clayer t arq-*  menu ARQmenu
+[Formas]^c^clayer t f-*  menu Fmenu
+[ELetrica]^c^clayer t el-*  menu ELmenu
+[ESgoto]^c^clayer t es-*  menu ESmenu
+[Hidraulica]^c^clayer t h-*  menu Hmenu
+[INCendio]^c^clayer t inc-*  menu INCmenu
+[Gas]^c^clayer t g-*  menu Gmenu
+[TExterno]^c^clayer t te-*  menu TEmenu
+[TInterno]^c^clayer t ti-*  menu TImenu
+[IEspecial]^c^clayer t ie-*  menu IEmenu
+[AR condicionado]^c^clayer t ar-*  menu ARmenu
+[~--]
+[AutoCAD]^c^c^p$p8=* (progn+
+(initget "Yes No")+
+(if (/= (getkword "Executar menu do AutoCAD (Yes/No)? ") "No")+
+(progn (prompt "^J--- Carregando menu ACAD... ---") (command "menu" "ACAD"))+
+(princ)+
+))
+Yes
+No
+
+***pop9
+[ ---- ]
+
+***Screen
+[SETmenu]^c^c^p(progn+
+(prompt "^J--- Carregando programa SETup... ---")+
+(loadf "K1bc0"))
+[* * * *]
+[FORMATO]
+
+[A0 max ]A0max
+A0
+[A1 max ]A1max
+A1
+A2
+A3
+2A2
+2A3
+A1A2
+A2A3
+A3A4
+A2A3A4
+
+Outro
+**Escala 3
+[ESCALA]
+
+[S/Esc]1
+
+[1:20]20
+[1:25]25
+[1:50]50
+[1:75]75
+[1:100]100
+[1:125]125
+[1:150]150
+[1:200]200
+[1:250]250
+[1:500]500
+
+
+**Unidade 3
+[UNIDADE]
+
+MM
+CM
+M
+
+Outro
+
+
+
+
+
+
+
+
+
+

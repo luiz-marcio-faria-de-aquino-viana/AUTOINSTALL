@@ -1,0 +1,1777 @@
+{comment}=ELmenu, menu auxiliar de eletrica - Copyright (C), 1992
+{B}=$s=x
+{L1}=^c^c^p(progn(if(/=(getvar"clayer")"EL-PONTOS")(command"layer""m""EL-pontos"""))(princ))
+{L2}=^c^c^p(progn(if(/=(getvar"clayer")"EL-TEXTOS")(command"layer""m""EL-textos"""))(princ))
+{L3}=^c^c^p(progn(if(/=(getvar"clayer")"EL-DT_TETO")(command"layer""m""EL-dt_teto"""))(princ))
+{L4}=^c^c^p(progn(if(/=(getvar"clayer")"EL-DT_PISO")(command"layer""m""EL-dt_piso"""))(princ))
+{L5}=^c^c^p(progn(if(/=(getvar"clayer")"EL-DT_APARENTE")(command"layer""m""EL-dt_aparente"""))(princ))
+{L6}=^c^c^p(progn(if(/=(getvar"clayer")"EL-PRUMADAS")(command"layer""m""EL-prumadas"""))(princ))
+{L7}=^c^c^p(progn(if(/=(getvar"clayer")"EL-CIRCUITOS")(command"layer""m""EL-circuitos"""))(princ))
+{S}=$s=s
+***Buttons
+$s=osnap
+;
+***pop1
+Setup
+[Load SETup]^c^c^p$p1=* (progn (initget "Yes No")+
+(if (/= (getkword "Executar SETup (Yes/No)? ") "No")+
+(progn (prompt "^JCarregando... ")(loadf "k1bc0")(c:setup)))(princ))
+Yes
+No
+[~--]
+[Reset Layers]^C^CSCRIPT LAYER
+[Reset Vars]^C^CSCRIPT SETVAR
+[~--]
+[Regiao de Trabalho (AutoDWG)]^C^CAD_INSERT
+[Etapa do Projeto (AutoPLOT) ]^C^CAP_ETPPROJ
+
+***pop2
+[Pontos]
+[Ponto de luz                                   ]{L1} uinsert ELE/ELE100C2
+[Ponto de luz p/ circuito vigia                 ]{L1} uinsert ELE/ELE101C2
+[Ponto de luz p/ circuito de emergencia         ]{L1} uinsert ELE/ELE102C2
+[Ponto de luz tipo 'spot'                       ]{L1} uinsert ELE/ELE110C2
+[Ponto de arandela                              ]{L1} uinsert ELE/ELE120C2
+[Ponto de arandela p/ circuito vigia            ]{L1} uinsert ELE/ELE121C2
+[Ponto de arandela p/ circuito de emergencia    ]{L1} uinsert ELE/ELE122C2
+[Ponto de luz tipo refletor                     ]{L1} uinsert ELE/ELE130C2
+[Ponto p/ ventilador de teto                    ]{L1} uinsert ELE/ELE400C2
+[Ponto p/ ventilador de teto com ponto de luz   ]{L1} uinsert ELE/ELE410C2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas (1)...  ]$p2=pts1a $p2=*
+[Pontos de forca e tomadas (2)...  ]$p2=pts1b $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+**pts0
+[Pontos]
+[Luminaria de embutir                           ]{L1} {B} $s=setlum setlum ;;E;N uinsert ;
+[Luminaria de embutir p/ circuito vigia         ]{L1} {B} $s=setlum setlum ;;E;V uinsert ;
+[Luminaria de embutir p/ circuito de emergencia ]{L1} {B} $s=setlum setlum ;;E;E uinsert ;
+[Luminaria de sobrepor                          ]{L1} {B} $s=setlum setlum ;;S;N uinsert ;
+[Luminaria de sobrepor p/ circuito vigia        ]{L1} {B} $s=setlum setlum ;;S;V uinsert ;
+[Luminaria de sobrepor p/ circuito de emergencia]{L1} {B} $s=setlum setlum ;;S;E uinsert ;
+[Luminaria pendentes                            ]{L1} {B} $s=setlum setlum ;;P;N uinsert ;
+[Luminaria pendentes p/ circuito vigia          ]{L1} {B} $s=setlum setlum ;;P;V uinsert ;
+[Luminaria pendentes p/ circuito de emergencia  ]{L1} {B} $s=setlum setlum ;;P;E uinsert ;
+[Poste p/ iluminacao publica com uma petala     ]{L1} uinsert ELE/ELE300C2
+[Poste p/ iluminacao publica com duas petalas   ]{L1} uinsert ELE/ELE301C2
+[Poste p/ iluminacao publica com tres petalas   ]{L1} uinsert ELE/ELE302C2
+[Poste p/ iluminacao publica com quatro petalas ]{L1} uinsert ELE/ELE303C2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas (1)...  ]$p2=pts1a $p2=*
+[Pontos de forca e tomadas (2)...  ]$p2=pts1b $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+**pts1a
+[Pontos]
+[Tomada baixa                  ]{L1} uinsert ELE/ELE610C2
+[Tomada baixa com terra        ]{L1} uinsert ELE/ELE611C2
+[Tomada baixa especial         ]{L1} uinsert ELE/ELE612C2
+[Tomada baixa dupla            ]{L1} uinsert ELE/ELE615C2
+[Tomada baixa dupla com terra  ]{L1} uinsert ELE/ELE616C2
+[Tomada baixa dupla especial   ]{L1} uinsert ELE/ELE617C2
+[Tomada baixa tripla           ]{L1} uinsert ELE/ELE61AC2
+[Tomada media                  ]{L1} uinsert ELE/ELE620C2
+[Tomada media com terra        ]{L1} uinsert ELE/ELE621C2
+[Tomada media especial         ]{L1} uinsert ELE/ELE622C2
+[Tomada media dupla            ]{L1} uinsert ELE/ELE625C2
+[Tomada media dupla com terra  ]{L1} uinsert ELE/ELE626C2
+[Tomada media dupla especial   ]{L1} uinsert ELE/ELE627C2
+[Tomada media tripla           ]{L1} uinsert ELE/ELE62AC2
+[Tomada alta                   ]{L1} uinsert ELE/ELE630C2
+[Tomada alta com terra         ]{L1} uinsert ELE/ELE631C2
+[Tomada alta especial          ]{L1} uinsert ELE/ELE632C2
+[Tomada alta dupla             ]{L1} uinsert ELE/ELE635C2
+[Tomada alta dupla com terra   ]{L1} uinsert ELE/ELE636C2
+[Tomada alta dupla especial    ]{L1} uinsert ELE/ELE637C2
+[Tomada alta tripla            ]{L1} uinsert ELE/ELE63AC2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas (1)...  ]$p2=pts1a $p2=*
+[Pontos de forca e tomadas (2)...  ]$p2=pts1b $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+**pts1b
+[Pontos]
+[Tomada de piso                ]{L1} uinsert ELE/ELE600C2
+[Tomada de piso com terra      ]{L1} uinsert ELE/ELE601C2
+[Tomada de piso especial       ]{L1} uinsert ELE/ELE602C2
+[Tomada de piso dupla          ]{L1} uinsert ELE/ELE605C2
+[Tomada de piso dupla com terra]{L1} uinsert ELE/ELE606C2
+[Tomada de piso dupla especial ]{L1} uinsert ELE/ELE607C2
+[Tomada no teto                ]{L1} uinsert ELE/ELE640C2
+[Tomada no teto com terra      ]{L1} uinsert ELE/ELE641C2
+[Tomada no teto especial       ]{L1} uinsert ELE/ELE642C2
+[Tomada no teto dupla          ]{L1} uinsert ELE/ELE645C2
+[Tomada no teto dupla com terra]{L1} uinsert ELE/ELE646C2
+[Tomada no teto dupla especial ]{L1} uinsert ELE/ELE647C2
+[Ponto de forca no teto        ]{L1} uinsert ELE/ELEA00C2
+[Ponto de forca no piso        ]{L1} uinsert ELE/ELEA10C2
+[Ponto de campainha            ]{L1} uinsert ELE/ELE800C2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas (1)...  ]$p2=pts1a $p2=*
+[Pontos de forca e tomadas (2)...  ]$p2=pts1b $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+**pts2
+[Pontos]
+[Interruptor Simples                    ]{L1} uinsert ELE/ELE500C2
+[Interruptor Simples e tomada           ]{L1} uinsert ELE/ELE501C2
+[Interruptor Simples e tomada com terra ]{L1} uinsert ELE/ELE502C2
+[Interruptor Simples e tomada especial  ]{L1} uinsert ELE/ELE503C2
+[Interruptor 'dimer'                    ]{L1} uinsert ELE/ELE510C2
+[Interruptor 'dimer' e tomada           ]{L1} uinsert ELE/ELE511C2
+[Interruptor 'dimer' e tomada com terra ]{L1} uinsert ELE/ELE512C2
+[Interruptor 'dimer' e tomada especial  ]{L1} uinsert ELE/ELE513C2
+[Interruptor Bifasico                   ]{L1} uinsert ELE/ELE520C2
+[Interruptor Bifasico e tomada          ]{L1} uinsert ELE/ELE521C2
+[Interruptor Bifasico e tomada com terra]{L1} uinsert ELE/ELE522C2
+[Interruptor Bifasico e tomada especial ]{L1} uinsert ELE/ELE523C2
+[Interruptor tipo minuteria             ]{L1} uinsert ELE/ELE530C2
+[Interruptor de campainha               ]{L1} uinsert ELE/ELE540C2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas (1)...  ]$p2=pts1a $p2=*
+[Pontos de forca e tomadas (2)...  ]$p2=pts1b $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+**pts3
+[Pontos]
+[Quadro de distribuicao          ]{L1} uinsert ELE/ELE000C2
+[Quadro de forca dos elevadores  ]{L1} uinsert ELE/ELE010C2
+[Quadro de comando dos elevadores]{L1} uinsert ELE/ELE011C2
+[Caixa de passagem no teto       ]{L1} uinsert ELE/ELE700C2
+[Caixa de passagem no piso       ]{L1} uinsert ELE/ELE701C2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas (1)...  ]$p2=pts1a $p2=*
+[Pontos de forca e tomadas (2)...  ]$p2=pts1b $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+**pts4
+[Pontos]
+[Desvio/Prumada simples            ]{L6} uinsert ELE/ELE900C2
+[Grupamento de prumadas            ]{L6} uinsert ELE/ELE910C2
+[~--]
+[Insercao de objetos             ]{L1} einsobj
+[~--]
+[Construtor de calhas            ]{L1} emkclh
+[Construtor de objetos           ]{L1} emkobj
+[~--]
+[Pontos de luz...                  ]$p2=pop2 $p2=*
+[Luminarias e iluminacao externa...]$p2=pts0 $p2=*
+[Pontos de forca e tomadas...      ]$p2=pts1 $p2=*
+[Interruptores e minuterias...     ]$p2=pts2 $p2=*
+[Quadros de distribuicao...        ]$p2=pts3 $p2=*
+[Desvios e prumadas...             ]$p2=pts4 $p2=*
+
+***pop3
+[Blocks]
+[Parametricos ->]^c^c$p3=PARAMETRICOS $p3=*
+[~--]
+[Xref         ->]^c^c$p3=Xref $p3=*
+[~--]
+[Block]^c^c$p3=* block
+[Wblock]^c^c$p3=* wblock
+[Insert]^c^c$p3=* insert
+[Minsert]^c^c$p3=* minsert
+[~--]
+[LDdet]^c^c^p(progn(if(null C:LDdet)(loadf"K37c0"))(princ)) $p3=* lddet
+[Mkdet]^c^c^p(progn(if(null C:MkDET)(loadf"K05c0"))(princ)) $p3=* mkdet
+[Chdet]^c^c^p(progn(if(null C:chdet)(loadf"k38c0"))(princ)) $p3=* chdet
+?
+[~--]
+[ELetrica]$p3=* EL
+[ESgoto]$p3=* ES
+[Hidraulica]$p3=* H
+[INCendio]$p3=* INC
+[Gas]$p3=* G
+[TExterno]$p3=* TE
+[TInterno]$p3=* TI
+[IEspecial]$p3=* IE
+[AR condicionado]$p3=* AR
+[PC]$p3=* PC
+
+**xref
+[XREF]
+[Split]^c^c^p(progn(if(null c:xfsplit)(loadf"k50c0"))(princ)) xfsplit
+[~--]
+[Load]^c^c^p(progn(if(null c:xfload)(loadf"k51c0"))(princ)) xfload
+[Reload]^c^c^p(progn(if(null c:xfreload)(loadf"k52c0"))(princ)) xfreload
+[Unload]^c^c^p(progn(if(null c:xfunload)(loadf"k60c0"))(princ)) xfunload
+[Path]^c^c^p(progn(if(null c:xfpath)(loadf"k62c0"))(princ)) xfpath
+[~--]
+[IN]^c^c^p(progn(if(null c:xfin)(loadf"k53c0"))(princ)) xfin
+[OUT]^c^c^p(progn(if(null c:xfout)(loadf"k54c0"))(princ)) xfout
+[~--]
+[PRUNE]^c^c^p(progn(if(null c:xfprune)(loadf"k61c0"))(princ)) xfprune
+[~--]
+[Blocks   ->]^c^c$p3=pop3 $p3=*
+
+**PARAMETRICOS
+[PARAMETRICOS]
+[Barra de Neutro]^c^c^pbarrane {B} $s=barrane
+[~--]
+[Blocks   ->]^c^c$p3=pop3 $p3=*
+
+***pop4
+[Display]
+[Pan]^c^c'pan \\
+[Zoom Dynamic]^c^c'zoom d
+[~--]
+[User View...]
+[View Restore]^c^cview r $i=rview $i=*
+[View Save]^c^cview s $i=sview $i=*
+[~--]
+[Double Screen]^c^c^p(progn(if(null c:dblscr)(loadf"k59c0"))(princ)) dblscr
+[Single Screen]^c^c^p(progn(if(null c:siscr)(loadf"k59c0"))(princ)) siscr
+[~--]
+[Regen]^c^cregen
+[Zoom Extend]^c^czoom e
+[Zoom All]^c^czoom a
+
+**pop5
+[PSPC]
+[Margens]^c^c^ppsmarg {B} $s=psmarg
+[Carimbos]^c^c^ppscar {B} $s=pscar
+[~--]
+[Janelas]^c^c^ppswin {B} $s=pswin
+[~--]
+[PSpace/MSpace]^c^c^p(progn (if (= (getvar"tilemode") 0);+
+(progn (prompt "<Paper Space>") (setvar "tilemode" 1));+
+(progn (prompt "<Model Space>") (setvar "tilemode" 0)));+
+(princ))
+
+***pop6
+[Setings]
+[ORTHO]^o
+[SNAP]^b
+[~--]
+[Box-1]'setvar pickbox 1 'setvar aperture 1
+[Box-3]'setvar pickbox 3 'setvar aperture 3
+[Angbase 0]'setvar angbase 0
+[Angbase]'setvar angbase \
+[Mirrtext ON/OFF]^c^c^p(progn;+
+(if (zerop (getvar "mirrtext"));+
+(progn (setvar "mirrtext" 1) (prompt "<Mirrtext on>") (princ));+
+(progn (setvar "mirrtext" 0) (prompt "<Mirrtext off>") (princ))))
+[~--]
+[Drawing Aids...]'ddrmodes
+
+***pop7
+[Layers]
+[Layer]^c^c{B} $s=layer layer
+[Modify Layer...]'ddlmodes
+[~--]
+[Pick and Set...]^c^c^p(progn(if(null c:ps)(loadf"k3ec0"))(princ)) PS
+[Pick and Freeze...]^c^c^p(progn(if(null c:pf)(loadf"k3ec0"))(princ)) PF
+[Pick and Change...]^c^c^p(progn(if(null c:pch)(loadf"k3ec0"))(princ)) PCH
+[~--]
+[Pick and Erase LAYER...]^c^c^p(progn(if(null c:pe)(loadf"k49c0"))(princ)) PE
+[Pick and Explode PLINES...]^c^c^p(progn(if(null c:plexpl)(loadf"k4dc0"))(princ)) PLEXPL
+[~--]
+[ARQtetura Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "ARQ-")
+[Formas Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "F-")
+[ELetrica Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "EL-")
+[ESgoto Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "ES-")
+[Hidraulica Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "H-")
+[Gas Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "G-")
+[TExterno Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "TE-")
+[TInterno Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "TI-")
+[IEspecial Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "IE-")
+[AR condicionado Freeze/Thaw]^c^c^p(progn(if(null setlayer)(loadf"k1cc0"))(princ)) (SETlayer "AR-")
+[~--]
+[Freeze Inst]^c^clayer s 0 f arq-* f el-* f es-* f h-* f g-* f te-* f ti-* f ie-* f ar-* ;
+[Thaw Inst]^c^clayer s 0 t arq-* t el-* t es-* t h-* t g-* t te-* t ti-* t ie-* t ar-* ;
+[~--]
+[Freeze All]^c^clayer s 0 f * t 0 ;
+[Thaw All]^c^clayer s 0 t * ;
+
+***pop8
+[Menus]
+[Arquitetura]^c^clayer t arq-*  menu ARQmenu
+[Formas]^c^clayer t f-*  menu Fmenu
+[ELetrica]^c^clayer t el-*  menu ELmenu
+[ESgoto]^c^clayer t es-*  menu ESmenu
+[Hidraulica]^c^clayer t h-*  menu Hmenu
+[INCendio]^c^clayer t inc-*  menu INCmenu
+[Gas]^c^clayer t g-*  menu Gmenu
+[TExterno]^c^clayer t te-*  menu TEmenu
+[TInterno]^c^clayer t ti-*  menu TImenu
+[IEspecial]^c^clayer t ie-*  menu IEmenu
+[AR condicionado]^c^clayer t ar-*  menu ARmenu
+[~--]
+[AutoCAD]^c^c^p$p8=* (progn+
+(initget "Yes No")+
+(if (/= (getkword "Executar menu do AutoCAD (Yes/No)? ") "No")+
+(progn (prompt "^J--- Carregando menu ACAD... ---") (command "menu" "ACAD"))+
+(princ)+
+))
+Yes
+No
+
+***pop9
+[Inquiry]
+[Aplicacoes ->]^c^c^p$p9=APPL $p9=*
+[~--]
+[Area]^c^carea $p9=*
+[ entity]entity $p9=*
+[ add]add $p9=*
+[ subtract]subtract $p9=*
+[~--]
+[Distance]^c^cdist \\
+[Time]^c^cTime
+[~--]
+[List]^c^clist auto
+[~--]
+[Conta Blocos]^c^c^p(progn(if(null c:numblk)(loadf"k66c0"))(princ)) numblk
+[~--]
+[(VModif) Quem fez?]^c^c^p(progn(if(null c:vmodif)(loadf"k56c0"))(princ)) vmodif
+[(Vlog)  Quem mexeu?]^c^c^p(progn(if(null c:VLog)(loadf"k28c0"))(princ)) vlog
+[(VLock) Quem ta usando?]^c^c^p(progn(if(null c:vlock)(loadf"k47c0"))(princ)) vlock
+[~--]
+[Lista DirInfo]^c^c^p(progn(if(null c:info)(loadf"k3dc0"))(princ)) info
+[~--]
+[Calcula Custo]^c^c^p(progn(if(null c:custo)(loadf"k48c0"))(princ)) custo
+
+**APPL
+[Aplicacoes]
+[Iluminacao Interna]^c^c^p{B} $s=ilum (progn(if(null c:ilum)(loadf"k4ac0"))(princ)) ilum
+[Iluminacao Externa/Lumens]^c^c^p{B} $s=lumens (progn(if(null c:il_refl)(load"il"))(princ));
+[~--]
+[Calculo de Eletroduto]^c^c^p{B} $s=cdt_pvc (progn(if(null c:cdt)(loadf"k45c0"))(princ)) cdt
+[Calculo de Calhas]^c^c^p{B} $s=calha (progn(if(null c:ccalha)(loadf"k5cc0"))(princ)) ccalha
+[Calculo de Caixas]^c^c^p{B} $s=caixa (progn(if(null c:ccaixa)(loadf"k5ec0"))(princ)) ccaixa
+[~--]
+[Malhas de Aterramento]^C^Cmalhas
+[~--]
+[Fiacao  ->]^c^c$p9=FIACAO $p9=*
+[~--]
+[Inquiry ->]^c^c$p9=pop9 $p9=*
+
+**FIACAO
+[Fiacao]
+[Edicao de atributos...   ]^c^cddatte
+[Movimentacao de atributos]^c^ceattmov
+[~--]
+[Troca quadro de origem        ]^c^c{B} $s=echatt echorg
+[Troca numero do circuito      ]^c^c{B} $s=echatt echcirc
+[Troca identificacao do comando]^c^c{B} $s=echatt echcmd
+[~--]
+[Copia os valores dos atributos]^c^cecpatt
+[Troca os blocos do desenho    ]{L1} ^c^cechblk
+[~--]
+[Copia modificando a origem  ]^c^c{B} $s=eedt ecopy
+[Espelha modificando a origem]^c^c{B} $s=eedt emirror
+[~--]
+[Apaga fiacao]^c^c{B} $s=eedt eerase
+[~--]
+[Ajusta origem/destino dos eletrodutos]^c^cechdt
+[~--]
+[Ajuste da cor em funcao da origem]^c^c{B} $s=eset esetcol
+[Ajuste da origem em funcao da cor]^c^c{B} $s=eset esetorg
+[~--]
+[Listagem dos pontos de eletrica]^c^c{B} $s=elist elist
+[~--]
+[Verificacao de erros nos eletrodutos   ]^c^ceverdt
+[Restauracao das camadas dos eletrodutos]^c^c^p+
+change (ssget "x" '((8 . "ERR$EL-DT_TETO"))) ;p la EL-DT_TETO ;+
+change (ssget "x" '((8 . "ERR$EL-DT_PISO"))) ;p la EL-DT_PISO ;+
+change (ssget "x" '((8 . "ERR$EL-DT_APARENTE"))) ;p la EL-DT_APARENTE ;
+[~--]
+[Processa a fiacao eletrica      ]^c^cfiacao
+[Calcula potencia total do quadro]^c^ceqpot
+[~--]
+[Monta quadro de cargas          ]{L2}^c^ceqdrq
+[~--]
+[Aplicacoes ->]^c^c^p$p9=APPL $p9=*
+
+***pop10
+[Utility]
+[Save]^c^csave
+[End]^c^cend
+[~--]
+[Quit]^c^cquit $p10=*
+Yes
+No
+[~--]
+[PRintC]^c^c^p(progn(if(null c:PRintC)(loadf"k3Ac0"))(princ)) printc
+[PLoter]^c^c^p(progn(if(null c:PLoter)(loadf"k15c0"))(princ)) ploter
+[~--]
+[dPRint]^c^c^p(progn(if(null c:dPRint)(loadf"k3Bc0"))(princ)) dprint
+[mPRint]^c^c^p(progn(if(null c:mPRint)(loadf"k40c0"))(princ)) mprint
+[~--]
+[dFax]^c^c^p(progn(if(null c:dFax)(loadf"k41c0"))(princ)) dfax
+[Send Fax]^c^c^p(progn(if(null c:Fax)(loadf"k42c0"))(princ)) fax
+[Fax Log]^c^c^p(progn(if(null c:Faxlog)(loadf"k43c0"))(princ)) faxlog
+[~--]
+[Lotus]^c^clotus
+[Texto In]{L2} (progn(if(null c:imptxt)(loadf"k39c0"))(princ)) imptxt {B} $s=imptxt
+[~--]
+[Xtree]^c^cxtree
+
+***icon
+**PONTOS
+[PONTOS (pag 1)]
+[EL(EL-PLT)  ]{L1} insert2 EL/EL15c00 \\0 
+[EL(EL-PLS)  ]{L1} insert2 EL/EL14c00 \\0 
+[EL(EL-PLCVA)]{L1} insert2 EL/EL12c00 \\0 
+[EL(EL-PA)   ]{L1} inserir EL/EL10c00 \\\
+[EL(EL-PLCVD)]{L1} inserir EL/EL13c00 \\\
+[EL(EL-PIE)  ]{L1} insert2 EL/EL11c00 \\\
+[EL(EL-LFE)  ]{L1} insert2 EL/EL0cc00 \\\
+[EL(EL-LFS)  ]{L1} insert2 EL/EL0ec00 \\\
+[EL(EL-LFP)  ]{L1} insert2 EL/EL0dc00 \\\
+[EL(BLANK)]$I=*
+[EL(BLANK)]$I=*
+[EL(BLANK)]$I=*
+[EL(BLANK)]$I=*
+[EL(BLANK)]$I=*
+[ NEXT]$I=PNTS2 $I=*
+[ EXIT/MAINMENU]^C^C$S=SCREEN
+
+**PNTS2
+[PONTOS (pag 2)]
+[EL(EL-TB)  ]{L1} inserir EL/EL1cc00 \\\
+[EL(EL-TM)  ]{L1} inserir EL/EL0fc00 \\\
+[EL(EL-TA)  ]{L1} inserir EL/EL1ac00 \\\
+[EL(EL-TP)  ]{L1} inserir EL/EL07c00 \\0 
+[EL(EL-TBE) ]{L1} inserir EL/EL1ec00 \\\
+[EL(EL-TME) ]{L1} inserir EL/EL19c00 \\\
+[EL(EL-TAE) ]{L1} inserir EL/EL1bc00 \\\
+[EL(EL-TBD) ]{L1} inserir EL/EL1dc00 \\\
+[EL(EL-TMD) ]{L1} inserir EL/EL18c00 \\\
+[EL(EL-IS)  ]{L1} inserir EL/EL0ac00 \\\
+[EL(EL-ID)  ]{L1} inserir EL/EL09c00 \\\
+[EL(EL-ISTC)]{L1} inserir EL/EL0bc00 \\\
+[EL(EL-IB)  ]{L1} inserir EL/EL08c00 \\\
+[ PREVIOUS]$I=PONTOS $I=*
+[ NEXT]$I=PNTS3 $I=*
+[ EXIT/MAINMENU]^C^C$S=SCREEN
+
+**PNTS3
+[PONTOS (pag 3)]
+[EL(EL-CP)  ]{L1} inserir EL/EL05c00 \\\
+[EL(EL-CP_P)]{L1} inserir EL/EL06c00 \\\
+[EL(EL-BC)  ]{L1} inserir EL/EL02c00 \\\
+[EL(EL-BM)  ]{L1} inserir EL/EL03c00 \\\
+[EL(EL-C)   ]{L1} inserir EL/EL04C00 \\\
+[EL(EL-AB)  ]{L1} inserir EL/EL01c00 \\\
+[EL(EL-QD)  ]{L1} inserir EL/EL17c00 \\\
+[EL(EL-PP)  ]{L1} inserir EL/EL16c00 \\\
+[EL(BLANK)  ]$I=*
+[EL(BLANK)  ]$I=*
+[EL(BLANK)  ]$I=*
+[EL(BLANK)  ]$I=*
+[EL(BLANK)  ]$I=*
+[ PREVIOUS  ]$I=PNTS2 $I=*
+[EL(BLANK)  ]$I=*
+[ EXIT/MAINMENU]^C^C$S=SCREEN
+
+**hatch1
+[Select Hatch Pattern]
+[ Previous/User]{L1} hatch
+[acad(ansi31)]{L1} hatch ansi31
+[acad(ansi32)]{L1} hatch ansi32
+[acad(ansi34)]{L1} hatch ansi34
+[acad(ansi35)]{L1} hatch ansi35
+[acad(ansi33)]{L1} hatch ansi33
+[acad(ansi36)]{L1} hatch ansi36
+[acad(ansi37)]{L1} hatch ansi37
+[acad(ansi38)]{L1} hatch ansi38
+[acad(box)]{L1} hatch box
+[acad(brass)]{L1} hatch brass
+[acad(brick)]{L1} hatch brick
+[acad(clay)]{L1} hatch clay
+[acad(cork)]{L1} hatch cork
+[ Next]$i=hatch2 $i=*
+[ Exit]^c^c
+
+**hatch2
+[Select Hatch Pattern]
+[acad(cross)]{L1} hatch cross
+[acad(dash)]{L1} hatch dash
+[acad(dolmit)]{L1} hatch dolmit
+[acad(dots)]{L1} hatch dots
+[acad(earth)]{L1} hatch earth
+[acad(escher)]{L1} hatch escher
+[acad(flex)]{L1} hatch flex
+[acad(grass)]{L1} hatch grass
+[acad(grate)]{L1} hatch grate
+[acad(hex)]{L1} hatch hex
+[acad(honey)]{L1} hatch honey
+[acad(hound)]{L1} hatch hound
+[acad(insul)]{L1} hatch insul
+[acad(line)]{L1} hatch line
+[ Next]$i=hatch3 $i=*
+[ Exit]^c^c
+
+**hatch3
+[Select Hatch Pattern]
+[acad(mudst)]{L1} hatch mudst
+[acad(net)]{L1} hatch net
+[acad(net3)]{L1} hatch net3
+[acad(plast)]{L1} hatch plast
+[acad(plasti)]{L1} hatch plasti
+[acad(sacncr)]{L1} hatch sacncr
+[acad(square)]{L1} hatch square
+[acad(stars)]{L1} hatch stars
+[acad(steel)]{L1} hatch steel
+[acad(swamp)]{L1} hatch swamp
+[acad(trans)]{L1} hatch trans
+[acad(triang)]{L1} hatch triang
+[acad(zigzag)]{L1} hatch zigzag
+[acad(angle)]{L1} hatch angle
+[ Beginning]$i=hatch1 $i=*
+[ Exit]^c^c
+
+**rview
+[User View Restore...]
+[view-1]view-1
+[view-2]view-2
+[view-3]view-3
+[view-4]view-4
+[view-5]view-5
+[view-6]view-6
+[view-7]view-7
+[view-8]view-8
+[ Exit]^c^c
+
+**sview
+[User View Save...]
+[view-1]view-1 mslide view-1
+[view-2]view-2 mslide view-2
+[view-3]view-3 mslide view-3
+[view-4]view-4 mslide view-4
+[view-5]view-5 mslide view-5
+[view-6]view-6 mslide view-6
+[view-7]view-7 mslide view-7
+[view-8]view-8 mslide view-8
+[ Exit]^c^c
+
+***BUTTONS
+;
+$S=OSNAP
+***SCREEN
+**S
+[ELmenu]
+[* * * *]
+[Dutos   ]{L3} {B} $s=dutos edt
+[DutosOld]{L3} {B} $s=dutosold ^ppline \w ^p(/ 15.0 #und) ;
+[Circuito]{L7} {B} $s=circ circuito
+[Prumadas]^c^c{B} $s=prum
+[Quadros ]^c^c{B} $s=qdl
+[DRAW]^c^c{B} $s=dr
+[Textos]^c^c{B} $s=text {L2} Dtext
+[Carimbos]{L2} carimbo EL
+
+[Copy]^c^ccopy auto
+[CopyMult]^c^ccopy \ m
+[Erase]^c^cerase auto
+[Extend]^c^cextend auto
+[UniLine]^c^c^p(progn(if(null c:uniline)(loadf"k64c0"))(princ)) uniline
+[Move]^c^cmove auto
+[Trim]^c^ctrim auto
+[ZOOM_W]'zoom w \\
+[ZOOM_P]'zoom p
+[_EDIT_]^c^c$s=ed
+**Osnap
+[ OSNAP ]^c^cosnap
+[* * * *]
+[CENter]center $s=
+[ENDpoint]endpoint $s=
+[INSert]insert $s=
+[INTersec]intersec $s=
+[MIDpoint]midpoint $s=
+[NEArest]nearest $s=
+[NODe]node $s=
+[PERpend]perpend $s=
+[QUAdrant]quadrant $s=
+[QUICK,]quick, ^Z
+[TANgent]tangent $s=
+[NONE]none $s=
+[45gr]^p(45gr) ^pnear $s=
+[PARallel]^p(paralela) ^pnear $s=
+[*CANCEL*]^c^c$s=
+[REDRAW]'redraw $s=
+[U:]^c^cu $s=
+[Redo:]^c^credo $s=
+[_LAST_]$s=
+**X
+[MAINMENU]{S}
+[* * * *]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ZOOM_W]'zoom w
+[ZOOM_P]'zoom p
+[_EDIT_]^c^c$s=ed
+**Line 3
+[LINE]{L1} line 
+
+[continue]{L1} line ;
+close
+undo
+.x
+.y
+**Offset 3
+[OFFSET]^c^coffset
+[OFFCHG]^C^COFFCHG
+
+through
+
+[  2.5 cm]^p(/ 25.0 #und)
+[  5   cm]^p(/ 50.0 #und)
+[ 10   cm]^p(/ 100.0 #und)
+[ 15   cm]^p(/ 150.0 #und)
+[ 20   cm]^p(/ 200.0 #und)
+[ 25   cm]^p(/ 250.0 #und)
+[ 30   cm]^p(/ 300.0 #und)
+[ 40   cm]^p(/ 400.0 #und)
+[ 50   cm]^p(/ 500.0 #und)
+[100   cm]^p(/ 1000.0 #und)
+[125   cm]^p(/ 1250.0 #und)
+**Copy 3
+[COPY]^c^ccopy
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+multiple
+**Erase 3
+[ERASE]^c^cerase
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+[OOPS]^c^coops
+**Extend 3
+[EXTEND]^c^cextend
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Trim 3
+[TRIM]^c^ctrim
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**dr 3
+[ARC]{B} $s=arc
+[CIRCLE]{B} $s=circle
+[ Donut]{L1} donut
+[ELLIPSE]{B} $s=ellipse {L1} ellipse
+[HATCH]{B} $s=hatch {L1} hatch
+[LINE]{B} $s=line {L1} line
+[OFFSET]^c^c{B} $s=offset offset \{S}
+[ Pline]{B} $s=pline {L1} pline
+[ Point]{B} $s=point {L1} point
+[ Sketch]{B} $s=sketch {L1} sketch
+[ Solid]{L1} solid
+
+[APTO]{B} $s=apto {L1} (progn(if(null c:Apto)(loadf"k00c0"))(princ)) apto
+[TEXT]{B} $s=text
+[SERIE]{B} $s=serie {L2} (progn(if(null c:serie)(loadf"k3fc0"))(princ)) serie
+**Serie 3
+[SERIE]{L2} serie
+
+Micro
+Normal
+Super
+
+Yes
+**Apto 3
+[APTO]{L2} apto
+
+[Apto 01]01
+[     02]02
+[     03]03
+[     04]04
+[     05]05
+[     06]06
+[     07]07
+[     08]08
+**Arc 3
+[ARC]
+
+[3-point]{L1} arc \\drag
+[S,C,E]{L1} arc \c \drag
+[S,C,A]{L1} arc \c \a drag
+[S,C,L]{L1} arc \c \l drag
+[S,E,A]{L1} arc \e \a
+[S,E,R]{L1} arc \e \r
+[S,E,D]{L1} arc \e \d drag
+[C,S,E]{L1} arc c \\drag
+[C,S,A]{L1} arc c \\a drag
+[C,S,L]{L1} arc c \\l drag
+[Contin:]{L1} arc ;drag
+**Circle 3
+[CIRCLE]
+
+[CEN,RAD]{L1} circle \drag
+[CEN,DIA]{L1} circle \d
+[2 point]{L1} circle 2p \drag
+[3 point]{L1} circle 3p \\drag
+[TTR]{L1} circle ttr
+**Ellipse 3
+[ELLIPSE]{L1} ellipse
+
+[Center]C
+Rotation
+Iso
+Diameter
+**Hatch 3
+[HATCH]{L1} hatch
+[hatch...]^c^c$i=hatch1 $i=*
+?
+
+u
+u,o
+u,i
+yes
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Pline 3
+[PLINE]{L1} pline
+
+[Arc]arc {B} $S=PARC
+Close
+Halfwid
+Length
+Undo
+Width
+**PARC 3
+[POLYARC]
+
+[angle]{B} $S=PARCANG A
+[CEnter]{B} $S=PARCEN CE
+[tanDir]D \DRAG
+[Radius]{B} $S=PARCRAD R
+[2nd PT]S \DRAG
+[CLose]{B} $S=PLINE CLOSE
+
+undo
+
+[contline]{B} $S=PLINE L
+
+[PLINE]{B} $S=PLINE {L1} pline
+**PARCANG 3
+[ANGLE]
+
+[center]{B} $S=PARC Center drag
+[radius]{B} $S=PARC R \
+[drag]{B} $S=PARC drag
+**PARCEN 3
+[CENTER]
+
+[angle]{B} $S=PARC A drag
+[length]{B} $S=PARC L drag
+[drag]{B} $S=PARC drag
+**PARCRAD 3
+[RADIUS]
+
+[angle]A \drag {B} $S=PARC A \drag
+[drag]{B} $S=PARC drag
+**Point 3
+[POINT]{L1} point
+
+.x
+.y
+
+[Complex]
+[Points]
+[example:]^c^cvslide points
+[remove]^c^credraw
+[example]^c^credraw
+[Pdmode:]'setvar pdmode
+[Pdsize:]'setvar pdsize
+**sketch 3
+[SKETCH]{L1} sketch
+
+connect
+erase
+record
+
+[exit]x
+quit
+
+[------]
+[SKPOLY:]'setvar skpoly 1
+[SKLINE:]'setvar skpoly 0
+[------]
+**Text 3
+[DTEXT:]{L2} dtext
+[Centered]C
+Middle
+Right
+
+[Micro]^p(* 1.5 #scl)
+[Normal]^p(* 2.0 #scl)
+[Super]^p(* 4.0 #scl)
+
+[LEADER:]{L2} (progn(if(null c:leader)(loadf"k0fc0"))(princ)) leader
+[INDICDR:]{L2} $s=indic i_indic
+
+[ddEdit]^c^c^pddedit
+[ddAtte]^c^c^pddatte
+[ChgTEXT]$s=chgtext ^c^c^p(progn(if(null c:chgtext)(load"k03c0"))(princ)) chgtext auto
+[EdiTEXT]$s=editext ^c^c^p(progn(if(null c:editext)(loadf"k07c0"))(princ)) editext auto
+**Layer 3
+[LAYER]^C^CLAYER
+[?]? *
+
+Make
+[Set]set {B} $s=lname \{B} $s=layer
+New
+[On]on {B} $s=lname \{B} $s=layer
+[Off]off {B} $s=lname \{B} $s=layer
+[Color]color {B} $s=lacolor \{B} $s=layer
+[Ltype]ltype {B} $s=lalt \{B} $s=layer
+[Freeze]freeze {B} $s=lname \{B} $s=layer
+[Thaw]thaw {B} $s=lname \{B} $s=layer
+
+[eXit] $s=screen
+**Lacolor 3
+[COLOR]
+[]
+red
+yellow
+green
+cyan
+blue
+magenta
+white
+**Lalt 3
+[LINETYPE]
+[]
+[contin.]CONTINUOUS
+dashed
+hidden
+center
+phantom
+dot
+dashdot
+border
+divide
+**Lname 3
+[Layer 0]0
+
+[ARQ-]
+[Arqttura]ARQ-Arquitetura
+[Textos]ARQ-Textos
+
+[F-]
+[Pl-teto]F-Pl_teto
+[Vg-teto]F-Vg_teto
+[Vg-piso]F-Vg_piso
+[Furacao]F-Furacao
+[Textos]F-Textos
+
+
+
+
+
+
+[next]$s=Lname1
+**Lname1 3
+[EL-]
+[Prumadas]EL-Prumadas
+[Teto]EL-Dt_teto
+[Piso]EL-Dt_Piso
+[Aparente]EL-Dt_Aparente
+[Pontos]EL-Pontos
+[Furacao]EL-Furacao
+[Vigas]EL-Vigas
+[Textos]EL-Textos
+
+
+
+
+
+
+
+
+[previous]$s=Lname
+[next]$s=Lname2
+**Lname2 3
+[ES-]
+[Colunas]ES-Colunas
+[Primario]ES-Primario
+[Secundar]ES-Secundario
+[Ventilac]ES-Ventilacao
+[APluvial]ES-APluvial
+[Bujao]ES-Bujao
+[Pontos]ES-Pontos
+[Furacao]ES-Furacao
+[Vigas]ES-Vigas
+[Textos]ES-Textos
+
+
+
+
+
+
+[previous]$s=lname1
+[next]$s=lname3
+**Lname3 3
+[H-]
+[Colunas]H-Colunas
+[AFria]H-Tb_AFria
+[AQuente]H-Tb_AQuente
+[Incendio]H-Tb_Incendio
+[Pontos]H-Pontos
+[Formas]H-Furacao
+[Vigas]H-Vigas
+[Textos]H-Textos
+
+
+
+
+
+
+
+
+[previous]$s=lname2
+[next]$s=lname4
+**Lname4 3
+[G-]
+[Prumadas]G-Prumadas
+[Teto]G-Tb_teto
+[Piso]G-Tb_piso
+[Pontos]G-Pontos
+[Furacao]G-Furacao
+[Vigas]G-Vigas
+[Textos]G-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=lname3
+[next]$s=lname5
+**Lname5 3
+[TE-]
+[Prumadas]TE-Prumadas
+[Teto]TE-Tb_Teto
+[Piso]TE-Tb_Piso
+[Pontos]TE-Pontos
+[Furacao]TE-Furacao
+[Vigas]TE-Vigas
+[Textos]TE-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=lname4
+[next]$s=lname6
+**Lname6 3
+[TI-]
+[Prumadas]TI-Prumadas
+[Teto]TI-Tb_Teto
+[Piso]TI-Tb_Piso
+[Pontos]TI-Pontos
+[Furacao]TI-Furacao
+[Vigas]TI-Vigas
+[Textos]TI-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=lname5
+[next]$s=lname7
+**Lname7 3
+[IE-]
+[Prumadas]IE-Prumadas
+[Tv/fm]IE-Tvfm
+[Som]IE-Som
+[Circ/tv]IE-Circ_tv
+[Pararaio]IE-Pararaio
+[Pontos]IE-Pontos
+[Furacao]IE-Furacao
+[Vigas]IE-Vigas
+[Textos]IE-Textos
+
+
+
+
+
+
+
+[previous]$s=Lname6
+[next]$s=Lname8
+**Lname8 3
+[AR-]
+[Colunas]AR-Colunas
+[AGelada]AR-AGelada
+[Dutos]AR-Dutos
+[Pontos]AR-Pontos
+[Furacao]AR-Furacao
+[Vigas]AR-Vigas
+[Textos]AR-Textos
+
+
+
+
+
+
+
+
+
+[previous]$s=Lname7
+
+**Ed
+[MAINMENU]{S}
+[* * * *]
+[ Array]{B} $s=array ^c^carray
+[ Break]{B} $s=break ^c^cbreak
+[BREAK F]^c^cbreak \f
+[ Chamfer]{B} $s=chamfer ^c^cchamfer
+[ Change]{B} $s=change ^c^cchange
+[ChCOPY]{B} $s=chcopy ^c^c^p(progn(if(null C:chcopy)(loadf"k2ec0"))(princ)) chcopy
+[COPY]{B} $s=copy ^c^ccopy
+[ERASE]{B} $s=erase ^c^cerase
+[ Explode]^c^cexplode
+[EXTEND]{B} $s=extend ^c^cextend
+[ Fillet]{B} $s=fillet ^c^cfillet
+[MIRROR]{B} $s=mirror ^c^cmirror
+[MOVE]{B} $s=move ^c^cmove
+[ Pedit]{B} $s=pedit ^c^cpedit
+[ Rotate]{B} $s=rotate ^c^crotate
+[ Scale]{B} $s=scale ^c^cscale
+[STRETCH]{B} $s=stretch ^c^cstretch c \\
+[TRIM]{B} $s=trim trim
+[_LAST_]$s=
+**Array 3
+[ARRAY]^c^carray
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+rectang
+polar
+yes
+no
+**Break 3
+[BREAK]^c^cbreak
+
+first
+@
+
+
+
+
+[BREAK F]^c^cbreak \f
+
+[BREAK 1P]^c^cbreak \f @ @
+[BREAK 2P]^c^cbreak \f \@
+**Chamfer 3
+[CHAMFER]^c^cchamfer
+
+[distance]d \\chamfer
+[dist = 0]d 0 0 chamfer
+
+polyline
+**Change 3
+[CHANGE]^c^cchange
+window
+last
+previous
+crossing
+remove
+add
+undo
+[Color]prop color {B} $s=chcolor \{B} $s=change
+[Chroma]^c^cvslide chroma
+[ Restore]^c^credraw
+[Elev]prop elev
+[LAyer]prop layer $s=lname \{B} $s=change
+[LType]prop lt $s=chlt \{B} $s=change
+[Thicknes]prop thickness
+**Chcolor 3
+[COLOR]
+
+bylayer
+byblock
+red
+yellow
+green
+cyan
+blue
+magenta
+white
+**Chlt 3
+[LTYPE]
+
+bylayer
+byblock
+
+[contin.]continuous
+dashed
+hidden
+center
+phantom
+dot
+dashdot
+border
+divide
+**Chcopy 3
+[ChCOPY]^c^cchcopy
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+
+[Layers...]$s=lname \{B} $s=chcopy
+**Stretch 3
+[STRETCH]^c^cstretch c \\
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Fillet 3
+[FILLET]^c^cfillet
+
+[radius]r \fillet
+[rad = 0]r 0 fillet
+
+polyline
+**Mirror 3
+[MIRROR]^c^cmirror
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+yes
+no
+**Move 3
+[MOVE]^c^cmove
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+**Pedit 3
+[PEDIT]^c^cpedit
+
+close
+open
+join
+width
+[EdVERTEX]E {B} $s=pverted
+[FitCURVE]Fit
+spline
+DECURVE
+[undo]U
+
+[eXit]X {S}
+**Pverted 3
+[EdVERTEX]
+
+NEXT
+PREVIOUS
+
+break
+insert
+MOVE
+straight
+width
+tangent
+go
+regen
+[undo]X undo {B} $s=pedit
+
+[eXit]X {B} $s=pedit
+**Rotate 3
+[ROTATE]^c^crotate
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+referenc
+**Scale 3
+[SCALE]^c^cscale
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+referenc
+
+**Dutos 3
+[TETO    ]{L3} edt
+[PISO    ]{L4} edt
+[APARENTE]{L5} edt
+
+[Selecao]S
+
+[Line]L
+[Arc ]A
+[Undo]U
+
+
+
+
+
+
+**Dutosold 3
+[TETO]{L3} pline \w ^p^p(/ 15.0 #und) ;
+[PISO]{L4} pline \w ^p^p(/ 15.0 #und) ;
+[APARENTE]{L5} pline \w ^p^p(/ 15.0 #und) ;
+[--------]
+[Line]L
+Arc
+[--------]
+CLose
+Length
+Undo
+Angle
+CEnter
+[Direct]D
+Radius
+[Sec pt]S
+**Qdl 3
+[QUADRO:]{L2} (progn(if(null C:quadro)(loadf"k18c0"))(princ)) quadro
+[TEXTO:]{L2} (progn(if(null C:qdtexto)(loadf"k19c0"))(princ)) qdtexto \\2 4 15 
+
+[Direita]D 
+[Centro]C 
+[Esquerda]E 
+
+[*M=MOVE]*M;
+[*E=ERASE]*E;
+
+[*X=EXIT]*X;
+**Prum 3
+[PRUMADA:]{L6} donut 0 (/ 50.0 #UND);
+
+
+
+
+
+
+[Setas --]
+[ P-SOBE]{L2} (progn(if(null C:p-sobe)(loadf"k12c0"))(princ)) p-sobe
+[ P-PASSA]{L2} (progn(if(null C:p-passa)(loadf"k11c0"))(princ)) p-passa
+[ P-DESCE]{L2} (progn(if(null C:p-desce)(loadf"k10c0"))(princ)) p-desce
+
+[--------]
+[LINE:]{L2} line
+[DTEXT:]{L2} dtext c \^p(* 1.5 #SCL)
+[--------]
+**Circ 3
+[CIRCUITO]{L7} circuito
+
+RTC
+
+[Retorno]RT
+[Fase]FS
+[Neutro]NT
+
+[ESPACO]BARRA
+[Terra]TR
+
+[eXit];
+[------]
+[LINE:]{L7} LINE
+[DTEXT:]{L7} ^pDTEXT \^p(* 1.5 #scl) 0
+[------]
+**CDT_PVC 3
+[CalcEldt]^c^ccdt
+[Iso=PVC]$s=CDT_XLPE
+[ Secao ]
+[-(mm2)-]
+[   1.5 ]3.0
+[   2.5 ]3.7
+[   4   ]4.2
+[   6   ]4.6
+[  10   ]5.9
+[  16   ]6.9
+[  25   ]8.5
+[  35   ]9.5 
+[  50   ]11.5
+[  70   ]13.0
+[  95   ]15.0
+[ 120   ]16.5
+[ 150   ]18.5
+[ 185   ]20.5
+[ 240   ]23.5
+**CDT_XLPE 3
+[CalcEldt]^c^ccdt
+[Iso=XLPE]$s=CDT_CONDUTOR
+[ Secao ]
+[-(mm2)-]
+[   1.5 ]5.3
+[   2.5 ]5.7
+[   4   ]6.8
+[   6   ]7.2
+[  10   ]8.1
+[  16   ]9.1
+[  25   ]11.0
+[  35   ]12.0
+[  50   ]14.0
+[  70   ]15.5
+[  95   ]18.0
+[ 120   ]19.0
+[ 150   ]21.5
+[ 185   ]23.5
+[ 240   ]26.5
+**CDT_CONDUTOR 3
+[CalcEldt]^c^ccdt
+[Iso=Cond]$s=CDT_PVC
+[ Secao ]
+[-(mm2)-]
+[   1.5 ]1.55
+[   2.5 ]2.0
+[   4   ]2.5
+[   6   ]2.9
+[  10   ]3.75
+[  16   ]4.75
+[  25   ]5.95
+[  35   ]7.0
+[  50   ]8.05
+[  70   ]9.7
+[  95   ]11.45
+[ 120   ]12.8
+[ 150   ]14.25
+[ 185   ]15.90
+[ 240   ]18.45
+**ILUM 3
+[CalcIlum]^c^cilum
+
+[Branco]B
+[Claro]C
+[Medio]M
+[Escuro]E
+
+Limpo
+Normal
+Sujo
+**PSCAR 3
+[PSCAR:]^C^CPSCAR
+
+EL
+ES
+H
+G
+TE
+TI
+IE
+AR
+
+Yes
+No
+**PSWIN 3
+[PSWIN:]^C^CPSWIN
+
+2
+3
+4
+5
+6
+7
+8
+9
+
+Yes
+No
+
+[P/M SPC:]^C^C^P(progn(if(zerop(getvar"tilemode"));+
+(setvar"tilemode" 1)(setvar"tilemode" 0))(princ))
+**PSMARG 3
+[PSMARG:]^C^CPSMARG
+
+A0
+A1
+A2
+A3
+2A2
+2A3
+A1A2
+A2A3
+A3A4
+A2A3A4
+
+Yes
+No
+**SETLUM 3
+[NORMAL:]{L1} setlum ;;;N uinsert ;
+[VIGIA:]{L1} setlum ;;;V uinsert ;
+[EMERG:]{L1} setlum ;;;E uinsert ;
+
+[20W]{L1} setlum 20W;;; uinsert ;
+[40W]{L1} setlum 40W;;; uinsert ;
+[65W]{L1} setlum 65W;;; uinsert ;
+[85W]{L1} setlum 85W;;; uinsert ;
+[105W]{L1} setlum 105W;;; uinsert ;
+
+[1]{L1} setlum ;1;; uinsert ;
+[2]{L1} setlum ;2;; uinsert ;
+[4]{L1} setlum ;4;; uinsert ;
+[6]{L1} setlum ;6;; uinsert ;
+[8]{L1} setlum ;8;; uinsert ;
+
+**IMPTXT 3
+[IMPTXT:]{L2} IMPTXT
+
+Centro
+Direita
+
+
+Micro
+Normal
+Super
+**LUMENS 3
+[REF+FOCO]^C^Cil_refl
+[XY REFL:]^C^Cil_modif
+[H  REFL:]^C^Cil_chalt
+
+[DDATTE:]^C^CDDATTE
+[MOVE:]^C^CMOVE
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+[CALC:]^C^Cil_calc
+[RSLT:]^C^Cil_rslt
+**CALHA 3
+[CCALHA:]$s=calha ^C^CCCALHA
+
+[ < 1 > ]1
+[   2   ]2
+[   3   ]3
+[   4   ]4
+[   5   ]5
+
+[Pirastic]$s=calh1 Pirastic
+[Sintenax]$s=calh1 Sintenax
+
+Sim
+Nao
+
+**CALH1 3
+[CCALHA:]$s=calha ^C^CCCALHA
+
+[F+N]$s=calh2 F+N
+[2F]$s=calh2 2F
+[2F+N]$s=calh2 2F+N
+[3F]$s=calh2 3F
+[3F+N]$s=calh2 3F+N
+[F+N+T]$s=calh2 F+N+T
+[2F+T]$s=calh2 2F+T
+[2F+N+T]$s=calh2 2F+N+T
+[3F+T]$s=calh2 3F+T
+[3F+N+T]$s=calh2 3F+N+T
+
+[Termina]$s=calha ;
+
+**CALH2 3
+[CCALHA:]$s=calha ^C^CCCALHA
+
+[ 1.5mm]$s=calh3 1.5
+[ 2.5mm]$s=calh3 2.5
+[ 4  mm]$s=calh3 4.0
+[ 6  mm]$s=calh3 6.0
+[10  mm]$s=calh3 10.0
+[16  mm]$s=calh3 16.0
+[25  mm]$s=calh3 25.0
+[35  mm]$s=calh3 35.0
+[50  mm]$s=calh3 50.0
+[70  mm]$s=calh3 70.0
+[95  mm]$s=calh3 95.0
+
+
+**CALH3 3
+[CCALHA:]$s=calha ^C^CCCALHA
+
+[ < 1 > ]$s=calh1 1
+[   2   ]$s=calh1 2
+[   3   ]$s=calh1 3
+[   4   ]$s=calh1 4
+[   5   ]$s=calh1 5
+[   6   ]$s=calh1 6
+[   7   ]$s=calh1 7
+[   8   ]$s=calh1 8
+[   9   ]$s=calh1 9
+[  10   ]$s=calh1 10
+
+
+
+**CAIXA 3
+[CCAIXA:]^C^CCCAIXA
+
+[ 1/2" ]1/2;
+[ 3/4" ]3/4;
+[  1"  ]1;
+[1 1/4"]1 1/4;
+[1 1/2"]1 1/2;
+[  2"  ]2;
+[2 1/2"]2 1/2;
+[  3"  ]3;
+[3 1/2"]3 1/2;
+[  4"  ]4;
+**INDIC 3
+[INDICDR:]{L2} I_INDIC
+
+Circulo
+3
+4
+5
+6
+
+[DDATTE:]^C^CDDATTE
+[LEGENDA:]{L2} I_LEGENDA
+
+[--------]
+[AUTOINC:]^c^c^p(progn (setq #I_INCR (not #I_INCR));+
+(prompt "^JIncremento automatico do contador = ");+
+(if #I_INCR (prompt "ATIVADO") (prompt "DESATIVADO"))(princ))
+[--------]
+
+
+***ECHATT 3
+[CH ORG:]^c^cechorg
+[CH CIR:]^c^cechcirc
+[CH CMD:]^c^cechcmd
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+***EEDT 3
+[ECOPY:]^c^cecopy
+[EMIRROR:]^c^cemirror
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+
+Yes
+No
+
+***ESET 3
+[SET COL:]^c^cesetcol
+[SET ORG:]^c^cesetorg
+
+window
+last
+previous
+crossing
+remove
+add
+undo
+
+
+
+
+
+***ELIST 3
+[ELIST:]^c^celist
+Quadro
+CARga
+COmando
+CAMpainha
+
+Yes
+No
+
+[Red]10;
+[Yellow]50;
+[Green]80;
+[Cyan]130;
+[Blue]175
+[Magenta]220;
+[White]255;
+***BARRANE 3
+[BARRANE:]^C^CBARRANE $s=barrane
+
+[ barras]
+[paralelo]
+[  1]1
+[  2]2
+
+[n cabos]
+[ ramal]
+[  2]$s=barrane2 2
+[  4]$s=barrane2 4
+[  6]$s=barrane2 6
+[  8]$s=barrane2 8
+[ 10]$s=barrane2 10
+[ 12]$s=barrane2 12
+***BARRANE1 4
+[   1]$s=barrane2 1
+[   2]$s=barrane2 2
+[   3]$s=barrane2 3
+[   4]$s=barrane2 4
+[   5]$s=barrane2 5
+[   6]$s=barrane2 6
+[   7]$s=barrane2 7
+[   8]$s=barrane2 8
+[   9]$s=barrane2 9
+[  10]$s=barrane2 10
+[  11]$s=barrane2 11
+[  12]$s=barrane2 12
+
+[Termina];
+***BARRANE2 4
+[  6 mm]$s=barrane1 6;
+[ 10 mm]$s=barrane1 10;
+[ 16 mm]$s=barrane1 16;
+[ 25 mm]$s=barrane1 25;
+[ 35 mm]$s=barrane1 35;
+[ 50 mm]$s=barrane1 50;
+[ 70 mm]$s=barrane1 70;
+[ 95 mm]$s=barrane1 95;
+[120 mm]$s=barrane1 120;
+[150 mm]$s=barrane1 150;
+[185 mm]$s=barrane1 185;
+[240 mm]$s=barrane1 240;
+[300 mm]$s=barrane1 300;
+[500 mm]$s=barrane1 500;
+
