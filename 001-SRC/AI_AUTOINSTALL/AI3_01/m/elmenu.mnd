@@ -1,0 +1,1841 @@
+
+//
+// ELMENU.mnd
+// Copyright (C) 1992-2000 by Luiz Marcio F A Viana, 1/1/2000
+//
+
+{L0}=^C^C^P(progn (slaylight "0")              (princ))
+{L1}=^C^C^P(progn (slaylight "EL-PONTOS")      (princ))
+{L2}=^C^C^P(progn (slaylight "EL-TEXTOS")      (princ))
+{L3}=^C^C^P(progn (slaylight "EL-DT_TETO")     (princ))
+{L4}=^C^C^P(progn (slaylight "EL-DT_PISO")     (princ))
+{L5}=^C^C^P(progn (slaylight "EL-DT_APARENTE") (princ))
+{L6}=^C^C^P(progn (slaylight "EL-PRUMADAS")    (princ))
+{L7}=^C^C^P(progn (slaylight "EL-CIRCUITOS")   (princ))
+{L8}=^C^C^P(progn (slaylight "EL-DETALHE")     (princ))
+
+***MENUGROUP=AI_ELMENU
+
+***BUTTONS1
+;
+$p0=*
+
+***BUTTONS2
+$p0=*
+
+***AUX1
+;
+$p0=*
+
+***AUX2
+$p0=*
+
+***POP0
+[Osnap]
+[*CANCEL*]^C^C^C
+[--]
+['Redraw]'REDRAW
+[--]
+[Endpoint             ]_endp
+[Midpoint             ]_mid
+[Intersection         ]_int
+[Perpendicular        ]_per
+[Nearest              ]_nea
+[--]
+[Center               ]_center
+[Quadrant             ]_qua
+[Tangent              ]_tan
+[Node                 ]_nod
+[Insertion            ]_ins
+[None                 ]_non
+[--]
+[Paralela]^p(paralela)
+[45d]^p(45gr)
+[--]
+[.X].X
+[.Y].Y
+[--]
+[U   ]^C^C^CU
+[Redo]^C^C^CREDO
+[--]
+[Object snap...]^C^CDDOSNAP
+
+***POP1
+           [&File]
+ID_New     [&New...\tCtrl+N  ]^C^C_new
+ID_Open    [&Open...\tCtrl+O ]^C^C_open
+ID_Save    [&Save\tCtrl+S    ]^C^C_qsave
+ID_Saveas  [S&ave As...      ]^C^C_saveas
+           [--]
+ID_Import  [&Import...]^C^Cdxfin
+ID_Export  [&Export...]^C^Cdxfout
+           [--]
+           [->&Configuracao]
+ID_Setup     [&Setup...]^c^cddsetup
+             [--]
+ID_Lay       [&Re-inicializacao Camadas  ]^c^cscript layer
+ID_SVar      [R&e-inicializacao Variaveis]^c^cscript setvar
+             [--]
+ID_Sname     [A&justa Nomes]^C^Csname
+             [--]
+ID_Project   [<-E&tapa Projeto]^c^c$s=etpproj ap_etpproj
+           [--]
+ID_Print   [&Imprimir...\tCtrl+P]^C^C_plot
+ID_FPloter [E&nviar Impressao...]^c^cfploter
+           [--]
+ID_Plotq   [&Fila de Impressao...]^c^c(aci_xrun "pltservr" "/q=plotq_0")
+           [--]
+ID_Exit    [E&xit]^C^C_quit
+
+***POP2
+           [&Edit]
+ID_Cut     [Cu&t\tCtrl+X     ]'_cutclip
+ID_Copy    [&Copy\tCtrl+C    ]'_copyclip
+ID_Copylnk [Copy &View       ]^C^C_copylink
+ID_Paste   [&Paste\tCtrl+V   ]'_pasteclip
+ID_Pastesp [Paste &Special...]_pastespec
+           [--]
+ID_Links   [&Links...        ]^C^C_olelinks
+ID_Insobj  [&Insert Object...]^C^C_insertobj
+
+***POP3
+            [&Pontos]
+ID_LuzN       [&Ponto de Luz                    ]{L1} uinsert ELE/ELE100C2
+ID_ArandN     [Ponto &de Arandela               ]{L1} uinsert ELE/ELE120C2
+ID_LuzV       [P&onto de Luz p/ Circuito Vigia  ]{L1} uinsert ELE/ELE101C2
+ID_Spot       [Pon&to de Luz Tipo 'Spot'        ]{L1} uinsert ELE/ELE110C2
+ID_LumEN      [&Luminaria de Embutir            ]{L1} setlum ;;E;N uinsert ;
+ID_TomBST     [T&omada Baixa com Terra          ]{L1} uinsert ELE/ELE611C2
+ID_TomBSE     [To&mada Baixa Especial           ]{L1} uinsert ELE/ELE612C2
+ID_TomBDT     [Toma&da Baixa Dupla com Terra    ]{L1} uinsert ELE/ELE616C2
+ID_TomMST     [Tomada M&edia com Terra          ]{L1} uinsert ELE/ELE621C2
+ID_TomMSE     [Tomada Media E&special           ]{L1} uinsert ELE/ELE622C2
+ID_TomAST     [Tomada Alta com Te&rra           ]{L1} uinsert ELE/ELE631C2
+ID_TomASE     [Tomada Alta Espe&cial            ]{L1} uinsert ELE/ELE632C2
+ID_PFTeto     [Po&nto de Forca no Teto          ]{L1} uinsert ELE/ELEA00C2
+ID_Camp       [Ponto de Campa&inha              ]{L1} uinsert ELE/ELE800C2
+ID_IntS       [&Interruptor Simples                    ]{L1} uinsert ELE/ELE500C2
+ID_IntSTomT   [In&terruptor Simples e Tomada com Terra ]{L1} uinsert ELE/ELE502C2
+ID_IntM       [Interruptor Tipo &Minuteria             ]{L1} uinsert ELE/ELE530C2
+ID_IntC       [Interruptor de Campai&nha               ]{L1} uinsert ELE/ELE540C2
+ID_QdrDist    [&Quadro de Distribuicao          ]{L1} uinsert ELE/ELE000C2
+ID_QdrFElev   [Q&uadro de Forca dos Elevadores  ]{L1} uinsert ELE/ELE010C2
+ID_CaixTeto   [&Caixa de Passagem no Teto       ]{L1} uinsert ELE/ELE700C2
+              [--]
+            [->&Pontos de Luz]
+ID_LuzN       [&Ponto de Luz                                   ]{L1} uinsert ELE/ELE100C2
+ID_LuzV       [P&onto de Luz p/ Circuito Vigia                 ]{L1} uinsert ELE/ELE101C2
+ID_LuzE       [Po&nto de Luz p/ Circuito de Emergencia         ]{L1} uinsert ELE/ELE102C2
+ID_Spot       [Pon&to de Luz Tipo 'Spot'                       ]{L1} uinsert ELE/ELE110C2
+ID_ArandN     [Ponto &de Arandela                              ]{L1} uinsert ELE/ELE120C2
+ID_ArandV     [Ponto d&e Arandela p/ Circuito Vigia            ]{L1} uinsert ELE/ELE121C2
+ID_ArandE     [Ponto de &Arandela p/ Circuito de Emergencia    ]{L1} uinsert ELE/ELE122C2
+ID_Refl       [Ponto de &Luz Tipo Refletor                     ]{L1} uinsert ELE/ELE130C2
+ID_VenT       [Ponto p/ &Ventilador de Teto                    ]{L1} uinsert ELE/ELE400C2
+ID_VenL       [<-Ponto p/ Vent&ilador de Teto com Ponto de Luz ]{L1} uinsert ELE/ELE410C2
+            [->&Luminarias e Iluminacao Externa]
+              [&Definicao da Potência e Quantidade de Lampadas  ]^C^Csetlpot
+              [--]
+ID_LumEN      [&Luminaria de Embutir                            ]{L1} setlum ;;E;N uinsert ;
+ID_LumEV      [L&uminaria de Embutir p/ Circuito Vigia          ]{L1} setlum ;;E;V uinsert ;
+ID_LumEE      [Lu&minaria de Embutir p/ Circuito de Emergencia  ]{L1} setlum ;;E;E uinsert ;
+ID_LumSN      [Lum&inaria de Sobrepor                           ]{L1} setlum ;;S;N uinsert ;
+ID_LumSV      [Lumi&naria de Sobrepor p/ Circuito Vigia         ]{L1} setlum ;;S;V uinsert ;
+ID_LumSE      [Lumin&aria de Sobrepor p/ Circuito de Emergencia ]{L1} setlum ;;S;E uinsert ;
+ID_LumPN      [Lumina&ria Pendentes                             ]{L1} setlum ;;P;N uinsert ;
+ID_LumPV      [Luminaria &Pendentes p/ Circuito Vigia           ]{L1} setlum ;;P;V uinsert ;
+ID_LumPE      [Luminaria P&endentes p/ Circuito de Emergencia   ]{L1} setlum ;;P;E uinsert ;
+              [--]
+ID_Poste1     [P&oste p/ Iluminacao Publica com Uma Petala      ]{L1} uinsert ELE/ELE300C2
+ID_Poste2     [Po&ste p/ Iluminacao Publica com Duas Petalas    ]{L1} uinsert ELE/ELE301C2
+ID_Poste3     [Pos&te p/ Iluminacao Publica com Tres Petalas    ]{L1} uinsert ELE/ELE302C2
+ID_Poste4     [<-Poste p/ Iluminacao Pu&blica com Quatro Petalas]{L1} uinsert ELE/ELE303C2
+            [->P&ontos de Forca e Tomadas (1)]
+ID_TomBS      [&Tomada Baixa                  ]{L1} uinsert ELE/ELE610C2
+ID_TomBST     [T&omada Baixa com Terra        ]{L1} uinsert ELE/ELE611C2
+ID_TomBSE     [To&mada Baixa Especial         ]{L1} uinsert ELE/ELE612C2
+ID_TomBD      [Tom&ada Baixa Dupla            ]{L1} uinsert ELE/ELE615C2
+ID_TomBDT     [Toma&da Baixa Dupla com Terra  ]{L1} uinsert ELE/ELE616C2
+ID_TomBDE     [Tomada &Baixa Dupla Especial   ]{L1} uinsert ELE/ELE617C2
+ID_TomBT      [Tomada Bai&xa Tripla           ]{L1} uinsert ELE/ELE61AC2
+ID_TomMS      [Tomada &Media                  ]{L1} uinsert ELE/ELE620C2
+ID_TomMST     [Tomada M&edia com Terra        ]{L1} uinsert ELE/ELE621C2
+ID_TomMSE     [Tomada Media E&special         ]{L1} uinsert ELE/ELE622C2
+ID_TomMD      [Tomada Media D&upla            ]{L1} uinsert ELE/ELE625C2
+ID_TomMDT     [Tomada Media Du&pla com Terra  ]{L1} uinsert ELE/ELE626C2
+ID_TomMDE     [Tomada Media Dup&la Especial   ]{L1} uinsert ELE/ELE627C2
+ID_TomMT      [Tomada Media Tr&ipla           ]{L1} uinsert ELE/ELE62AC2
+ID_TomAS      [&Tomada Alta                   ]{L1} uinsert ELE/ELE630C2
+ID_TomAST     [Tomada Alta com Te&rra         ]{L1} uinsert ELE/ELE631C2
+ID_TomASE     [Tomada Alta Espe&cial          ]{L1} uinsert ELE/ELE632C2
+ID_TomAD      [T&omada Alta Dupla             ]{L1} uinsert ELE/ELE635C2
+ID_TomADT     [To&mada Alta Dupla com Terra   ]{L1} uinsert ELE/ELE636C2
+ID_TomADE     [Tom&ada Alta Dupla Especial    ]{L1} uinsert ELE/ELE637C2
+ID_TomAT      [<-Toma&da Alta Tripla          ]{L1} uinsert ELE/ELE63AC2
+            [->Po&ntos de Forca e Tomadas (2)]
+ID_TomPS      [&Tomada de Piso                ]{L1} uinsert ELE/ELE600C2
+ID_TomPST     [T&omada de Piso com Terra      ]{L1} uinsert ELE/ELE601C2
+ID_TomPSE     [To&mada de Piso Especial       ]{L1} uinsert ELE/ELE602C2
+ID_TomPD      [Tom&ada de Piso Dupla          ]{L1} uinsert ELE/ELE605C2
+ID_TomPDT     [Toma&da de Piso Dupla com Terra]{L1} uinsert ELE/ELE606C2
+ID_TomPDE     [Tomada d&e Piso Dupla Especial ]{L1} uinsert ELE/ELE607C2
+ID_TomTS      [Tomada &no Teto                ]{L1} uinsert ELE/ELE640C2
+ID_TomTST     [Tomada no Teto &com Terra      ]{L1} uinsert ELE/ELE641C2
+ID_TomTSE     [Tomada no Teto E&special       ]{L1} uinsert ELE/ELE642C2
+ID_TomTD      [Tomada no Teto D&upla          ]{L1} uinsert ELE/ELE645C2
+ID_TomTDT     [Tomada no Teto Du&pla com Terra]{L1} uinsert ELE/ELE646C2
+ID_TomTDE     [Tomada no Teto Dup&la Especial ]{L1} uinsert ELE/ELE647C2
+ID_PFTeto     [Po&nto de Forca no Teto        ]{L1} uinsert ELE/ELEA00C2
+ID_PFPiso     [Ponto de &Forca no Piso        ]{L1} uinsert ELE/ELEA10C2
+ID_Camp       [<-Ponto de Campa&inha          ]{L1} uinsert ELE/ELE800C2
+            [->&Interruptores e Minuterias]
+ID_IntS       [&Interruptor Simples                    ]{L1} uinsert ELE/ELE500C2
+ID_IntSTom    [I&nterruptor Simples e Tomada           ]{L1} uinsert ELE/ELE501C2
+ID_IntSTomT   [In&terruptor Simples e Tomada com Terra ]{L1} uinsert ELE/ELE502C2
+ID_IntSTomE   [Int&erruptor Simples e Tomada Especial  ]{L1} uinsert ELE/ELE503C2
+ID_IntD       [Inte&rruptor 'Dimer'                    ]{L1} uinsert ELE/ELE510C2
+ID_IntDTom    [Interr&uptor 'Dimer' e Tomada           ]{L1} uinsert ELE/ELE511C2
+ID_IntDTomT   [Interru&ptor 'Dimer' e Tomada com Terra ]{L1} uinsert ELE/ELE512C2
+ID_IntDTomE   [Interruptor 'Dimer' e Tomada Especial  ]{L1} uinsert ELE/ELE513C2
+ID_IntB       [Interrupt&or Bifasico                   ]{L1} uinsert ELE/ELE520C2
+ID_IntBTom    [Interruptor &Bifasico e Tomada          ]{L1} uinsert ELE/ELE521C2
+ID_IntBTomT   [Interruptor Bi&fasico e Tomada com Terra]{L1} uinsert ELE/ELE522C2
+ID_IntBTomE   [Interruptor Bif&asico e Tomada Especial ]{L1} uinsert ELE/ELE523C2
+ID_IntM       [Interruptor Tipo &Minuteria             ]{L1} uinsert ELE/ELE530C2
+ID_IntC       [<-Interruptor de Campai&nha             ]{L1} uinsert ELE/ELE540C2
+            [->&Quadros de Distribuicao]
+ID_QdrDist    [&Quadro de Distribuicao          ]{L1} uinsert ELE/ELE000C2
+ID_QdrFElev   [Q&uadro de Forca dos Elevadores  ]{L1} uinsert ELE/ELE010C2
+ID_QdrCElev   [Qu&adro de Comando dos Elevadores]{L1} uinsert ELE/ELE011C2
+ID_CaixTeto   [&Caixa de Passagem no Teto       ]{L1} uinsert ELE/ELE700C2
+ID_CaixPiso   [<-Ca&ixa de Passagem no Piso     ]{L1} uinsert ELE/ELE701C2
+            [->&Desvios e Prumadas]
+ID_PrumS      [&Desvio/Prumada Simples  ]{L6} uinsert ELE/ELE900C2
+ID_PrumG      [<-&Grupamento de Prumadas]{L6} uinsert ELE/ELE910C2
+            [--]
+ID_ConsClh  [&Construtor de Calhas ]{L1} $s=emkclh emkclh
+ID_ConsObj  [Con&strutor de Objetos]{L1} $s=emkobj emkobj
+            [--]
+ID_InsObj   [Ins&ercao de Objetos  ]{L1} einsobj
+
+***POP4
+           [Ele&trica]
+ID_EletrT  [Eletroduto pelo &Teto    ]{L3} edt
+ID_EletrP  [Eletroduto pelo &Piso    ]{L4} edt
+ID_EletrA  [Eletroduto pelo &Aparente]{L5} edt
+           [--]
+           [->&Eletroduto -ANTIGO-]
+ID_EletrT    [pelo &Teto ]{L3} ^p(setvar "plinewid" (/ 15.0 (#UND))) pline
+ID_EletrP    [pelo &Piso ]{L4} ^p(setvar "plinewid" (/ 15.0 (#UND))) pline
+ID_EletrA    [<-&Aparente]{L5} ^p(setvar "plinewid" (/ 15.0 (#UND))) pline
+           [--]
+           [->Setas Simples      ]
+             [Desce ]{L2} P-DESCE
+             [Passa ]{L2} P-PASSA
+             [<-Sobe]{L2} P-SOBE
+           [--]
+ID_TrocOrg [&Troca Origem  ]^c^cechorg
+ID_TrocCir [T&roca Circuito]^c^cechcir
+ID_TrocCmd [Tr&oca Comando ]^c^cechcmd
+           [--]
+ID_CpyPts  [&Copia Pontos  ]^c^cecopy
+ID_MirPts  [E&spelha Pontos]^c^cemirror
+           [--]
+ID_DelFios [&Apaga Fiacao     ]^c^cedelfios
+ID_MovFios [&Movimenta Fiacao ]^c^cemovfios
+ID_CopFios [Co&pia Fiacao     ]^c^cecopfios
+ID_RotFios [&Rotaciona Fiacao ]^c^cerotfios
+           [--]
+ID_EOrdem  [Or&dena Interruptores]^c^ceordem
+           [--]
+ID_EdtAdj  [A&justa Origem/Destino dos Eletrodutos ]^c^cechdt
+ID_Echkdt  [Verifica Origem/Destino dos Eletrodutos]^c^caci_echkdt
+           [--]
+ID_VerEdt  [A&nalisa Erros nos Eletrodutos      ]^c^ceverdt
+ID_RestEdt [Resta&uracao Camadas dos Eletrodutos]^c^cerestdt
+           [--]
+ID_TotPot  [Tota&liza Potencia dos Quadros]^c^ceqpot
+           [--]
+ID_QdrCarg [&Quadro de Cargas Automatico      ]{L2} eqdca
+ID_QdrMan  [Q&uadro de Cargas Manual          ]{L2} eqdcm
+ID_TBText  [&Preenchimento do Quadro de Cargas]{L2} tbtext
+           [--]
+ID_Circuit [&Fiacao Manual      ]{L7} $s=circuito circuito
+ID_Fiacao  [->F&iacao Automatica]
+             [Exporta informacoes do desenho      ]^c^cefiacao
+             [<-Importa resultado do processamento]^c^crfiacao
+           [--]
+           [->A&plicacoes]
+ID_IlumI     [&Calculo de Iluminacao Interna  ]^c^c^pilum
+             [--]
+ID_IlumE     [->C&alculo de Iluminacao Externa]
+               [Insere refletores    ]^c^cil_refl
+               [Move focos/refletores]^c^cil_modif
+               [--]
+               [Calcula...    ]^c^cil_calc
+               [<-Resultado...]^c^cil_rslt
+             [--]
+ID_CalcEDt   [&Dimensionamento de Eletroduto         ]^c^ccdt
+ID_CalcClh   [D&imensionamento de Calha              ]^c^cccalha
+ID_CalcCx    [<-Di&mensionamento de Caixa de Passagem]^c^cccaixa
+
+***POP5
+           [&Blocks]
+ID_Carimbo [&Carimbo]^c^ccarimbo
+           [--]
+ID_Detlh   [&Detalhes Tipicos]^c^cddgdet
+           [--]
+           [->D&etalhes Parametrizados]
+ID_BarrN     [<-&Barra de Neutro]^c^c^p$s=barrane barrane
+           [--]
+           [->Canaletas e Conexoes MEGA]
+               [->Canaletas]
+                 [Canaleta Lisa - MG 2650-L]{L8} ai_el_insertmega MEGA/MG2650-L 
+                 [Can.Perf.Alta - MG 2650-P]{L8} ai_el_insertmega MEGA/MG2650-P 
+                 [Can.Perf.Baixa - MG 2658-P]{L8} ai_el_insertmega MEGA/MG2658-P 
+                 [Fita Chata - MG 2685]{L8} ai_el_insertmega MEGA/MG2685 
+                 [<-Tampa - MG 2547]{L8} ai_el_insertmega MEGA/MG2547 
+               [->Conexões para Canaletas]
+                 [Acop.38x38- MG 2570-2]{L8} ai_el_insertmega MEGA/MG2570-2 
+                 [Âng.Ref.2 F.- MG 2761]{L8} ai_el_insertmega MEGA/MG2761 
+                 [Âng. Ref.4 F.- MG 2762]{L8} ai_el_insertmega MEGA/MG2762 
+                 [Arruela Adp. - MG 2503]{L8} ai_el_insertmega MEGA/MG2503 
+                 [Caixa em C - MG 2508]{L8} ai_el_insertmega MEGA/MG2508 
+                 [Caixa em L - MG 2509]{L8} ai_el_insertmega MEGA/MG2509 
+                 [Caixa em T - MG 2532]{L8} ai_el_insertmega MEGA/MG2532 
+                 [Caixa em X - MG 2533]{L8} ai_el_insertmega MEGA/MG2533 
+                 [Caixa Tom. - MG 2563]{L8} ai_el_insertmega MEGA/MG2563 
+                 [Ch.c/Reb.-MG 2570-8]{L8} ai_el_insertmega MEGA/MG2570-8 
+                 [Cur.I.38x38-MG 2570-3]{L8} ai_el_insertmega MEGA/MG2570-3 
+                 [Cur.H.38x38-MG 2570-6]{L8} ai_el_insertmega MEGA/MG2570-6 
+                 [C.V.E.38x38-MG 2570-5]{L8} ai_el_insertmega MEGA/MG2570-5 
+                 [C.V.I.38x38-MG 2570-4]{L8} ai_el_insertmega MEGA/MG2570-4 
+                 [Desv.38x38- MG 2570-7]{L8} ai_el_insertmega MEGA/MG2570-7 
+                 [Junta Int. L - MG 2564]{L8} ai_el_insertmega MEGA/MG2564 
+                 [Junta Int.Reta- MG 2505]{L8} ai_el_insertmega MEGA/MG2505 
+                 [Junta Int. T - MG 2565]{L8} ai_el_insertmega MEGA/MG2565 
+                 [Junta Int. X - MG 2566]{L8} ai_el_insertmega MEGA/MG2566 
+                 [Peça L Gr.-MG 2768]{L8} ai_el_insertmega MEGA/MG2768 
+                 [Peça L Média-MG 2767]{L8} ai_el_insertmega MEGA/MG2767 
+                 [Peça L Peq.-MG 2766]{L8} ai_el_insertmega MEGA/MG2766 
+                 [Peça U Gr.-MG 2769]{L8} ai_el_insertmega MEGA/MG2769 
+                 [Peça U Méd.-MG 2586]{L8} ai_el_insertmega MEGA/MG2586 
+                 [Porc.L.Mol.-MG 2524-3]{L8} ai_el_insertmega MEGA/MG2524-3 
+                 [Porc.L.Mol.-MG 2524-5]{L8} ai_el_insertmega MEGA/MG2524-5 
+                 [Porc.L.Pin.-MG 2561-3]{L8} ai_el_insertmega MEGA/MG2561-3 
+                 [Porc.L.Pin.-MG 2561-5]{L8} ai_el_insertmega MEGA/MG2561-5 
+                 [Porc.L.Ros.-MG 2525-3]{L8} ai_el_insertmega MEGA/MG2525-3 
+                 [Porc.L.Ros.-MG 2525-4]{L8} ai_el_insertmega MEGA/MG2525-4 
+                 [Saída de Topo-MG 2515]{L8} ai_el_insertmega MEGA/MG2515 
+                 [Saída Lateral-MG 2559]{L8} ai_el_insertmega MEGA/MG2559 
+                 [Saída Sup. - MG 2516]{L8} ai_el_insertmega MEGA/MG2516 
+                 [Sap.Est.Peq.-MG 2184]{L8} ai_el_insertmega MEGA/MG2184 
+                 [Sap.Quad. - MG 2194]{L8} ai_el_insertmega MEGA/MG2194 
+                 [Susp.Lum.C.-MG 2512]{L8} ai_el_insertmega MEGA/MG2512 
+                 [Susp.Lum.L.-MG 2511]{L8} ai_el_insertmega MEGA/MG2511 
+                 [Susp.Perf.- MG 2562]{L8} ai_el_insertmega MEGA/MG2562 
+                 [Tal.Ret.2 F.-MG 2764]{L8} ai_el_insertmega MEGA/MG2764 
+                 [<-Tal.Ret.4 F.-MG 2765]{L8} ai_el_insertmega MEGA/MG2765 
+               [->Eletrocalhas Perfuradas]
+                 [Divisor - MG 2520]{L8} ai_el_insertmega MEGA/MG2520 
+                 [Tamp.de Pres. - MG 850]{L8} ai_el_insertmega MEGA/MG850 
+                 [Tampa Normal - MG 2084]{L8} ai_el_insertmega MEGA/MG2084 
+                 [<-Tipo Normal - MG 2000]{L8} ai_el_insertmega MEGA/MG2000 
+               [->Conexões para Eletrocalhas Perfuradas]
+                 [Acop. Painel - MG 2063]{L8} ai_el_insertmega MEGA/MG2063 
+                 [Cotov. Reto-MG 2700]{L8} ai_el_insertmega MEGA/MG2700 
+                 [Cruzeta H.45-MG 2517]{L8} ai_el_insertmega MEGA/MG2517 
+                 [Cruzeta H.90-MG 2610]{L8} ai_el_insertmega MEGA/MG2610 
+                 [Cruzeta Reta-MG 2720]{L8} ai_el_insertmega MEGA/MG2720 
+                 [Curva Hor. - MG 2510]{L8} ai_el_insertmega MEGA/MG2510 
+                 [Curva Inv.90 - MG 2580]{L8} ai_el_insertmega MEGA/MG2580 
+                 [Curv.V.Ext.45- MG 2531]{L8} ai_el_insertmega MEGA/MG2531 
+                 [Curv.V.Ext.90- MG 2530]{L8} ai_el_insertmega MEGA/MG2530 
+                 [Curv.V.Int.45- MG 2541]{L8} ai_el_insertmega MEGA/MG2541 
+                 [Curv.V.Int.90- MG 2540]{L8} ai_el_insertmega MEGA/MG2540 
+                 [Gotejador - MG 2750]{L8} ai_el_insertmega MEGA/MG2750 
+                 [Junção Integ.- MG 2770]{L8} ai_el_insertmega MEGA/MG2770 
+                 [Junção Simp.-MG 2760]{L8} ai_el_insertmega MEGA/MG2760 
+                 [Red. Conc.- MG 2590]{L8} ai_el_insertmega MEGA/MG2590 
+                 [Red. Dir.- MG 2273]{L8} ai_el_insertmega MEGA/MG2273 
+                 [Red. Esq.- MG 2274]{L8} ai_el_insertmega MEGA/MG2274 
+                 [Saída H.-MG 2982-1]{L8} ai_el_insertmega MEGA/MG2982-1 
+                 [Saída H.-MG 2982-2]{L8} ai_el_insertmega MEGA/MG2982-2 
+                 [Saída H.-MG 2982-3]{L8} ai_el_insertmega MEGA/MG2982-3 
+                 [Saída H.-MG 2982-4]{L8} ai_el_insertmega MEGA/MG2982-4 
+                 [Saída Perf.- MG 2983]{L8} ai_el_insertmega MEGA/MG2983 
+                 [Saída V.El.-MG 2121-1]{L8} ai_el_insertmega MEGA/MG2121-1 
+                 [Saída V.El.-MG 2121-2]{L8} ai_el_insertmega MEGA/MG2121-2 
+                 [Saída V.El.-MG 2121-3]{L8} ai_el_insertmega MEGA/MG2121-3 
+                 [Tê Hor. 90 - MG 2570]{L8} ai_el_insertmega MEGA/MG2570 
+                 [Tê Reto - MG 2710]{L8} ai_el_insertmega MEGA/MG2710 
+                 [Tê Vert. Der.- MG 2670]{L8} ai_el_insertmega MEGA/MG2670 
+                 [Tê Vert.Desc.-MG 2654]{L8} ai_el_insertmega MEGA/MG2654 
+                 [Tê Vert. Sub.-MG 2660]{L8} ai_el_insertmega MEGA/MG2660 
+                 [Ter.de Fech.-MG 2600]{L8} ai_el_insertmega MEGA/MG2600 
+                 [<-Ter.de Fech.-MG 2601]{L8} ai_el_insertmega MEGA/MG2601 
+               [->Eletrocalhas Lisas]
+                 [Divisor - MG 2132]{L8} ai_el_insertmega MEGA/MG2132 
+                 [Tampa de Pres.- MG 850]{L8} ai_el_insertmega MEGA/MG850 
+                 [Tampa Normal - MG 2084]{L8} ai_el_insertmega MEGA/MG2084 
+                 [<-Tipo Normal - MG 500]{L8} ai_el_insertmega MEGA/MG500 
+               [->Conexões para Eletrocalhas Lisas]
+                 [Acop. Painel - MG 2063]{L8} ai_el_insertmega MEGA/MG2063 
+                 [Cotovelo Reto- MG 570]{L8} ai_el_insertmega MEGA/MG570 
+                 [Cruzeta Hor.45-MG 511]{L8} ai_el_insertmega MEGA/MG511 
+                 [Cruzeta Hor.90-MG 561]{L8} ai_el_insertmega MEGA/MG561 
+                 [Cruzeta Reta - MG 572]{L8} ai_el_insertmega MEGA/MG572 
+                 [Curva Horiz. - MG 510]{L8} ai_el_insertmega MEGA/MG510 
+                 [Curva Inv. 90 - MG 580]{L8} ai_el_insertmega MEGA/MG580 
+                 [Curva V.Ext.45-MG 531]{L8} ai_el_insertmega MEGA/MG531 
+                 [Curva V.Ext.90-MG 530]{L8} ai_el_insertmega MEGA/MG530 
+                 [Curva V.Int.45-MG 542]{L8} ai_el_insertmega MEGA/MG542 
+                 [Curva V.Int.90-MG 541]{L8} ai_el_insertmega MEGA/MG541 
+                 [Gotejador - MG 2750]{L8} ai_el_insertmega MEGA/MG2750 
+                 [Junção Int. - MG 2770]{L8} ai_el_insertmega MEGA/MG2770 
+                 [Junção Simp.-MG 2760]{L8} ai_el_insertmega MEGA/MG2760 
+                 [Red. Conc.- MG 590]{L8} ai_el_insertmega MEGA/MG590 
+                 [Red. Dir. - MG 591]{L8} ai_el_insertmega MEGA/MG591 
+                 [Red. Esq. - MG 592]{L8} ai_el_insertmega MEGA/MG592 
+                 [Saída H. - MG 2982-1]{L8} ai_el_insertmega MEGA/MG2982-1 
+                 [Saída H. - MG 2982-2]{L8} ai_el_insertmega MEGA/MG2982-2 
+                 [Saída H. - MG 2982-3]{L8} ai_el_insertmega MEGA/MG2982-3 
+                 [Saída H. - MG 2982-4]{L8} ai_el_insertmega MEGA/MG2982-4 
+                 [Saída Perf.- MG 2983]{L8} ai_el_insertmega MEGA/MG2983 
+                 [Saída V.El.- MG 2121-1]{L8} ai_el_insertmega MEGA/MG2121-1 
+                 [Saída V.El.- MG 2121-2]{L8} ai_el_insertmega MEGA/MG2121-2 
+                 [Saída V.El.- MG 2121-3]{L8} ai_el_insertmega MEGA/MG2121-3 
+                 [Tê Horiz.90 - MG 557]{L8} ai_el_insertmega MEGA/MG557 
+                 [Tê Reto - MG 571]{L8} ai_el_insertmega MEGA/MG571 
+                 [Tê Vert.Deriv.- MG 567]{L8} ai_el_insertmega MEGA/MG567 
+                 [Tê Vert.Desc. - MG 565]{L8} ai_el_insertmega MEGA/MG565 
+                 [Tê Vert.Sub. - MG 566]{L8} ai_el_insertmega MEGA/MG566 
+                 [Ter.de Fech.-MG 2600]{L8} ai_el_insertmega MEGA/MG2600 
+                 [<-Ter.de Fech.-MG 2601]{L8} ai_el_insertmega MEGA/MG2601 
+               [->Leitos para Cabos Elétricos]
+                 [Leito Econ. - MG 2200]{L8} ai_el_insertmega MEGA/MG2200 
+                 [Leito Médio - MG 2300]{L8} ai_el_insertmega MEGA/MG2300 
+                 [<-Leito Pesado - MG 2400]{L8} ai_el_insertmega MEGA/MG2400 
+               [->Conexões para Leitos]
+                 [Acoplamento-MG 2117]{L8} ai_el_insertmega MEGA/MG2117 
+                 [Cotov. Reto-MG 2009]{L8} ai_el_insertmega MEGA/MG2009 
+                 [Cruz. Hor.90-MG 2008]{L8} ai_el_insertmega MEGA/MG2008 
+                 [Cruzeta Reta - MG 2011]{L8} ai_el_insertmega MEGA/MG2011 
+                 [Curva de Inv.- MG 2006]{L8} ai_el_insertmega MEGA/MG2006 
+                 [Curva Hor.45 - MG 2002]{L8} ai_el_insertmega MEGA/MG2002 
+                 [Curva Hor.90 - MG 2001]{L8} ai_el_insertmega MEGA/MG2001 
+                 [Curva Ver.Art.-MG 2114]{L8} ai_el_insertmega MEGA/MG2114 
+                 [Cur.Ver.Ext.45-MG 2004]{L8} ai_el_insertmega MEGA/MG2004 
+                 [Cur.Ver.Ext.90-MG 2003]{L8} ai_el_insertmega MEGA/MG2003 
+                 [Cur.Ver.Int.45-MG 2120]{L8} ai_el_insertmega MEGA/MG2120 
+                 [Cur.Ver.Int.90-MG 2005]{L8} ai_el_insertmega MEGA/MG2005 
+                 [Divisor - MG 2132]{L8} ai_el_insertmega MEGA/MG2132 
+                 [Gotejador - MG 2130]{L8} ai_el_insertmega MEGA/MG2130 
+                 [Junção 90 - MG 2122]{L8} ai_el_insertmega MEGA/MG2122 
+                 [Junção Art.- MG 2116]{L8} ai_el_insertmega MEGA/MG2116 
+                 [Junção Simp.-MG 2115]{L8} ai_el_insertmega MEGA/MG2115 
+                 [Red. à Dir.- MG 2127]{L8} ai_el_insertmega MEGA/MG2127 
+                 [Red. à Esq.- MG 2126]{L8} ai_el_insertmega MEGA/MG2126 
+                 [Red. Conc.- MG 2112]{L8} ai_el_insertmega MEGA/MG2112 
+                 [Saída Hor. - MG 2982-1]{L8} ai_el_insertmega MEGA/MG2982-1 
+                 [Saída Hor. - MG 2982-2]{L8} ai_el_insertmega MEGA/MG2982-2 
+                 [Saída Hor. - MG 2982-3]{L8} ai_el_insertmega MEGA/MG2982-3 
+                 [Saída Hor. - MG 2982-4]{L8} ai_el_insertmega MEGA/MG2982-4 
+                 [Saída Perf. - MG 2983]{L8} ai_el_insertmega MEGA/MG2983 
+                 [Saída V.El.-MG 2121-1]{L8} ai_el_insertmega MEGA/MG2121-1 
+                 [Saída V.El.-MG 2121-2]{L8} ai_el_insertmega MEGA/MG2121-2 
+                 [Saída V.El.-MG 2121-3]{L8} ai_el_insertmega MEGA/MG2121-3 
+                 [Tampa Norm.-MG 2131]{L8} ai_el_insertmega MEGA/MG2131 
+                 [Tê Horizontal-MG 2007]{L8} ai_el_insertmega MEGA/MG2007 
+                 [Tê Reto - MG 2010]{L8} ai_el_insertmega MEGA/MG2010 
+                 [Tê Vert.Desc.-MG 2113]{L8} ai_el_insertmega MEGA/MG2113 
+                 [Tê Vert.Sub. - MG 2119]{L8} ai_el_insertmega MEGA/MG2119 
+                 [<-Term.Fech. - MG 2118]{L8} ai_el_insertmega MEGA/MG2118 
+               [->Poste Condutor]
+                 [Corp.Simp.-MG 300-1]{L8} ai_el_insertmega MEGA/MG300-1 
+                 [Corp.Dup.-MG 300-2]{L8} ai_el_insertmega MEGA/MG300-2 
+                 [Corp.Trip.-MG 300-3]{L8} ai_el_insertmega MEGA/MG300-3 
+                 [<-Corp.Quád.-MG 300-4]{L8} ai_el_insertmega MEGA/MG300-4 
+               [->Rodapé Versátil]
+                 [Rodapé Dup.- MG 30-2-V]{L8} ai_el_insertmega MEGA/MG30-2-V 
+                 [Rodapé Trip.- MG 30-3-V]{L8} ai_el_insertmega MEGA/MG30-3-V 
+                 [Tampa Integral - MG 32-V]{L8} ai_el_insertmega MEGA/MG32-V 
+                 [<-Tampa Lisa - MG 31-V]{L8} ai_el_insertmega MEGA/MG31-V 
+               [->Conexões para Rodapé Versátil]
+                 [Arr.Canto Dup.- MG 34-V]{L8} ai_el_insertmega MEGA/MG34-V 
+                 [Caix.Int.Dup.- MG 36-2-V]{L8} ai_el_insertmega MEGA/MG36-2-V 
+                 [Caix.Int.Trip.- MG 36-3-V]{L8} ai_el_insertmega MEGA/MG36-3-V 
+                 [Caixa Tomada - MG 33-V]{L8} ai_el_insertmega MEGA/MG33-V 
+                 [Cv.Con.90 Dup.-MG 37-2-V]{L8} ai_el_insertmega MEGA/MG37-2-V 
+                 [Cv.Con.90 Trip.-MG 37-3-V]{L8} ai_el_insertmega MEGA/MG37-3-V 
+                 [Tê Inter.Dup.- MG 38-2-V]{L8} ai_el_insertmega MEGA/MG38-2-V 
+                 [Tê Inter.Trip.- MG 38-3-V]{L8} ai_el_insertmega MEGA/MG38-3-V 
+                 [<-Term.Fech. - MG 35-V]{L8} ai_el_insertmega MEGA/MG35-V 
+               [->Dutos de Piso Aparente]
+                 [Duto Duplo - MG 100-2]{L8} ai_el_insertmega MEGA/MG100-2 
+                 [Duto Quád. - MG 100-4]{L8} ai_el_insertmega MEGA/MG100-4 
+                 [Duto Simples - MG 50-1]{L8} ai_el_insertmega MEGA/MG50-1 
+                 [Duto Triplo - MG 100-3]{L8} ai_el_insertmega MEGA/MG100-3 
+                 [Tampa Dupla - MG 102-2]{L8} ai_el_insertmega MEGA/MG102-2 
+                 [Tampa Tripla - MG 102-3]{L8} ai_el_insertmega MEGA/MG102-3 
+                 [<-Tampa Quád. - MG 102-4]{L8} ai_el_insertmega MEGA/MG102-4 
+               [->Conexões para Dutos de Piso Aparente]
+                 [Con.L45 Du.-MG 103-2]{L8} ai_el_insertmega MEGA/MG103-2 
+                 [Con.L45 Qu.-MG 109-2]{L8} ai_el_insertmega MEGA/MG109-2 
+                 [Con.L45 Tr.-MG 106-2]{L8} ai_el_insertmega MEGA/MG106-2 
+                 [Con.L90 Du.-MG 103-1]{L8} ai_el_insertmega MEGA/MG103-1 
+                 [Con.L90 Qu.-MG 109-1]{L8} ai_el_insertmega MEGA/MG109-1 
+                 [Con.L90 Tr.-MG 106-1]{L8} ai_el_insertmega MEGA/MG106-1 
+                 [Conex.T Dupla-MG 104]{L8} ai_el_insertmega MEGA/MG104 
+                 [Conex T Quád.-MG 110]{L8} ai_el_insertmega MEGA/MG110 
+                 [Conex.T Tripla-MG 107]{L8} ai_el_insertmega MEGA/MG107 
+                 [Conex.X Dupla-MG 105]{L8} ai_el_insertmega MEGA/MG105 
+                 [Conex.X Quád.-MG 111]{L8} ai_el_insertmega MEGA/MG111 
+                 [Conex.X Trip.-MG 108]{L8} ai_el_insertmega MEGA/MG108 
+                 [Junção Simp.-MG 113]{L8} ai_el_insertmega MEGA/MG113 
+                 [Pres.p/ Div.-MG 117]{L8} ai_el_insertmega MEGA/MG117 
+                 [Prot.Unha - MG 83]{L8} ai_el_insertmega MEGA/MG83 
+                 [Ter.Fec.Duto-MG 116-2]{L8} ai_el_insertmega MEGA/MG116-2 
+                 [Ter.Fec.Duto-MG 116-3]{L8} ai_el_insertmega MEGA/MG116-3 
+                 [Ter.Fec.Duto-MG 116-4]{L8} ai_el_insertmega MEGA/MG116-4 
+                 [Ter.Fec.Liso-MG 114-2]{L8} ai_el_insertmega MEGA/MG114-2 
+                 [Ter.Fec.Liso-MG 114-3]{L8} ai_el_insertmega MEGA/MG114-3 
+                 [Ter.Fec.Liso-MG 114-4]{L8} ai_el_insertmega MEGA/MG114-4 
+                 [Ter.Fec.Tub.-MG 115-2]{L8} ai_el_insertmega MEGA/MG115-2 
+                 [Ter.Fec.Tub.-MG 115-3]{L8} ai_el_insertmega MEGA/MG115-3 
+                 [<-Ter.Fec.Tub.-MG 115-4]{L8} ai_el_insertmega MEGA/MG115-4 
+               [->Dutos de Piso Embutido]
+                 [Duto Liso Comp.- MG 47]{L8} ai_el_insertmega MEGA/MG47 
+                 [Duto Liso Dup.- MG 50-2]{L8} ai_el_insertmega MEGA/MG50-2 
+                 [Duto Liso Quád.- MG 50-4]{L8} ai_el_insertmega MEGA/MG50-4 
+                 [Duto Liso Simp.- MG 50-1]{L8} ai_el_insertmega MEGA/MG50-1 
+                 [Duto Liso Trip.- MG 50-3]{L8} ai_el_insertmega MEGA/MG50-3 
+                 [Duto Mod.Comp.- MG 53]{L8} ai_el_insertmega MEGA/MG53 
+                 [Duto Mod.Dup.- MG 51-2]{L8} ai_el_insertmega MEGA/MG51-2 
+                 [<-Duto Mod.Simp.- MG 51-1]{L8} ai_el_insertmega MEGA/MG51-1 
+               [->Conexões para Dutos de Piso Embutido]
+                 [Acop.Painel - MG 68-1]{L8} ai_el_insertmega MEGA/MG68-1 
+                 [Acop.Painel - MG 68-2]{L8} ai_el_insertmega MEGA/MG68-2 
+                 [Acop.Painel - MG 68-3]{L8} ai_el_insertmega MEGA/MG68-3 
+                 [Acop.Painel - MG 68-4]{L8} ai_el_insertmega MEGA/MG68-4 
+                 [Adp.Saí.Dut.-MG 77-1]{L8} ai_el_insertmega MEGA/MG77-1 
+                 [Adp.Saí.Dut.-MG 77-2]{L8} ai_el_insertmega MEGA/MG77-2 
+                 [Adp.Saí.Dut.-MG 77-3]{L8} ai_el_insertmega MEGA/MG77-3 
+                 [Adp.Saí.Dut.-MG 78-1]{L8} ai_el_insertmega MEGA/MG78-1 
+                 [Adp.Saí.Dut.-MG 78-2]{L8} ai_el_insertmega MEGA/MG78-2 
+                 [Caix.Der.p/Elet.-MG 79]{L8} ai_el_insertmega MEGA/MG79 
+                 [Curv.Horiz.45 - MG 47-5]{L8} ai_el_insertmega MEGA/MG47-5 
+                 [Curv.Horiz.45 - MG 73-1]{L8} ai_el_insertmega MEGA/MG73-1 
+                 [Curv.Horiz.45 - MG 73-2]{L8} ai_el_insertmega MEGA/MG73-2 
+                 [Curv.Horiz.45 - MG 73-3]{L8} ai_el_insertmega MEGA/MG73-3 
+                 [Curv.Horiz.45 - MG 73-4]{L8} ai_el_insertmega MEGA/MG73-4 
+                 [Curv.Horiz.90 - MG 47-4]{L8} ai_el_insertmega MEGA/MG47-4 
+                 [Curv.Horiz.90 - MG 72-1]{L8} ai_el_insertmega MEGA/MG72-1 
+                 [Curv.Horiz.90 - MG 72-2]{L8} ai_el_insertmega MEGA/MG72-2 
+                 [Curv.Horiz.90 - MG 72-3]{L8} ai_el_insertmega MEGA/MG72-3 
+                 [Curv.Horiz.90 - MG 72-4]{L8} ai_el_insertmega MEGA/MG72-4 
+                 [Curv.Vert. 90 - MG 47-3]{L8} ai_el_insertmega MEGA/MG47-3 
+                 [Curv.Vert. 90 - MG 71-1]{L8} ai_el_insertmega MEGA/MG71-1 
+                 [Curv.Vert. 90 - MG 71-2]{L8} ai_el_insertmega MEGA/MG71-2 
+                 [Curv.Vert. 90 - MG 71-3]{L8} ai_el_insertmega MEGA/MG71-3 
+                 [Curv.Vert. 90 - MG 71-4]{L8} ai_el_insertmega MEGA/MG71-4 
+                 [Desvio Duplo - MG 47-2]{L8} ai_el_insertmega MEGA/MG47-2 
+                 [Desvio Duplo - MG 70-1]{L8} ai_el_insertmega MEGA/MG70-1 
+                 [Desvio Duplo - MG 70-2]{L8} ai_el_insertmega MEGA/MG70-2 
+                 [Desvio Duplo - MG 70-3]{L8} ai_el_insertmega MEGA/MG70-3 
+                 [Desvio Duplo - MG 70-4]{L8} ai_el_insertmega MEGA/MG70-4 
+                 [Desvio Simp.- MG 47-1]{L8} ai_el_insertmega MEGA/MG47-1 
+                 [Desvio Simp.- MG 69-1]{L8} ai_el_insertmega MEGA/MG69-1 
+                 [Desvio Simp.- MG 69-2]{L8} ai_el_insertmega MEGA/MG69-2 
+                 [Desvio Simp.- MG 69-3]{L8} ai_el_insertmega MEGA/MG69-3 
+                 [Desvio Simp.- MG 69-4]{L8} ai_el_insertmega MEGA/MG69-4 
+                 [Junção Simp.- MG 65-1]{L8} ai_el_insertmega MEGA/MG65-1 
+                 [Junção Simp.- MG 65-2]{L8} ai_el_insertmega MEGA/MG65-2 
+                 [Junção Simp.- MG 65-3]{L8} ai_el_insertmega MEGA/MG65-3 
+                 [Junção Simp.- MG 65-4]{L8} ai_el_insertmega MEGA/MG65-4 
+                 [Prol.Tom.Pis.-MG 82-1]{L8} ai_el_insertmega MEGA/MG82-1 
+                 [Saíd.Tub.Dut.-MG 75-1]{L8} ai_el_insertmega MEGA/MG75-1 
+                 [Saíd.Tub.Dut.-MG 75-2]{L8} ai_el_insertmega MEGA/MG75-2 
+                 [Saíd.Tub.Dut.-MG 76-1]{L8} ai_el_insertmega MEGA/MG76-1 
+                 [Saíd.Tub.Dut.-MG 76-2]{L8} ai_el_insertmega MEGA/MG76-2 
+                 [Sup.Fix.Par.- MG 74-1]{L8} ai_el_insertmega MEGA/MG74-1 
+                 [Sup.Fix.Par.- MG 74-2]{L8} ai_el_insertmega MEGA/MG74-2 
+                 [Sup.Fix.Par.- MG 74-3]{L8} ai_el_insertmega MEGA/MG74-3 
+                 [Tamp.Cx.Pis.-MG 67-1]{L8} ai_el_insertmega MEGA/MG67-1 
+                 [Tamp.Cx.Pis.-MG 67-2]{L8} ai_el_insertmega MEGA/MG67-2 
+                 [Tamp.Cx.Pis.-MG 67-3]{L8} ai_el_insertmega MEGA/MG67-3 
+                 [Tamp.Cx.Pis.-MG 67-4]{L8} ai_el_insertmega MEGA/MG67-4 
+                 [Tamp.Duto - MG 66-1]{L8} ai_el_insertmega MEGA/MG66-1 
+                 [Tamp.Duto - MG 66-2]{L8} ai_el_insertmega MEGA/MG66-2 
+                 [<-Tp.Dut.Pis.Md.2-MG 81]{L8} ai_el_insertmega MEGA/MG81 
+               [->Caixa de Piso para Fixação de Tomadas]
+                 [Cx.Comp.Dup.- MG 88-2]{L8} ai_el_insertmega MEGA/MG88-2 
+                 [Cx.Comp.Trip.-MG 88-3]{L8} ai_el_insertmega MEGA/MG88-3 
+                 [Cx.Comp.Quád.-MG 88-4]{L8} ai_el_insertmega MEGA/MG88-4 
+                 [Cx.Norm.Dup.- MG 87-2]{L8} ai_el_insertmega MEGA/MG87-2 
+                 [Cx.Norm.Trip.-MG 87-3]{L8} ai_el_insertmega MEGA/MG87-3 
+                 [Cx.Norm.Quád.-MG 87-4]{L8} ai_el_insertmega MEGA/MG87-4 
+                 [Tp.Comp.Lisa - MG 93-2]{L8} ai_el_insertmega MEGA/MG93-2 
+                 [Tp.Comp.Lisa - MG 93-3]{L8} ai_el_insertmega MEGA/MG93-3 
+                 [Tp.Comp.Lisa - MG 93-4]{L8} ai_el_insertmega MEGA/MG93-4 
+                 [Tp.Comp.Rasgo- MG 90-2]{L8} ai_el_insertmega MEGA/MG90-2 
+                 [Tp.Comp.Rasgo- MG 90-3]{L8} ai_el_insertmega MEGA/MG90-3 
+                 [Tp.Comp.Rasgo- MG 90-4]{L8} ai_el_insertmega MEGA/MG90-4 
+                 [Tp.Norm.Lisa - MG 92-2]{L8} ai_el_insertmega MEGA/MG92-2 
+                 [Tp.Norm.Lisa - MG 92-3]{L8} ai_el_insertmega MEGA/MG92-3 
+                 [Tp.Norm.Lisa - MG 92-4]{L8} ai_el_insertmega MEGA/MG92-4 
+                 [Tp.Norm.Rasgo- MG 89-2]{L8} ai_el_insertmega MEGA/MG89-2 
+                 [Tp.Norm.Rasgo- MG 89-3]{L8} ai_el_insertmega MEGA/MG89-3 
+                 [<-Tp.Norm.Rasgo- MG 89-4]{L8} ai_el_insertmega MEGA/MG89-4 
+               [->Caixa de Piso com Tampa Basculante]
+                 [Cx.Comp.Dup.- MG 88-2B]{L8} ai_el_insertmega MEGA/MG88-2B 
+                 [Cx.Comp.Trip.- MG 88-3B]{L8} ai_el_insertmega MEGA/MG88-3B 
+                 [Cx.Comp.Quád.- MG 88-4B]{L8} ai_el_insertmega MEGA/MG88-4B 
+                 [Sup.Ang.16x19.5-MG 223-R]{L8} ai_el_insertmega MEGA/MG223-R 
+                 [Sup.Ang.19x19 - MG 225-R]{L8} ai_el_insertmega MEGA/MG225-R 
+                 [Sup.Ang.24x16 - MG 224-R]{L8} ai_el_insertmega MEGA/MG224-R 
+                 [Sup.Ang.28x24 - MG 226-R]{L8} ai_el_insertmega MEGA/MG226-R 
+                 [Sup.Ang.Red. - MG 223-T]{L8} ai_el_insertmega MEGA/MG223-T 
+                 [Tp. Basc.Dup.- MG 93-2B]{L8} ai_el_insertmega MEGA/MG93-2B 
+                 [Tp. Basc.Trip.-MG 93-3B]{L8} ai_el_insertmega MEGA/MG93-3B 
+                 [<-Tp. Basc.Quád.-MG 93-4B]{L8} ai_el_insertmega MEGA/MG93-4B 
+               [->Caixa de Passagem para Piso]
+                 [Caixa TR - MG 62]{L8} ai_el_insertmega MEGA/MG62 
+                 [Caixa TQ - MG 58]{L8} ai_el_insertmega MEGA/MG58 
+                 [Caixa TQ - MG 56]{L8} ai_el_insertmega MEGA/MG56 
+                 [Caixa TQ - MG 57]{L8} ai_el_insertmega MEGA/MG57 
+                 [Caixa TQ - MG 55]{L8} ai_el_insertmega MEGA/MG55 
+                 [Caixa TQ - MG 59]{L8} ai_el_insertmega MEGA/MG59 
+                 [Caixa TQ - MG 61]{L8} ai_el_insertmega MEGA/MG61 
+                 [<-Caixa TQ - MG 60]{L8} ai_el_insertmega MEGA/MG60 
+               [->Tomada de Piso Rosqueada]
+                 [Miolo Mono.Pol.-MG 86-2]{L8} ai_el_insertmega MEGA/MG86-2 
+                 [Miolo Mono.Tel.-MG 86-3]{L8} ai_el_insertmega MEGA/MG86-3 
+                 [Mono RJ45_RJ11-MG 86-4]{L8} ai_el_insertmega MEGA/MG86-4 
+                 [Mio.Mo.Saída KS-MG 86-5]{L8} ai_el_insertmega MEGA/MG86-5 
+                 [Miolo Mono.Un.-MG 86-1]{L8} ai_el_insertmega MEGA/MG86-1 
+                 [Tampa Rosq. - MG 84-1]{L8} ai_el_insertmega MEGA/MG84-1 
+                 [<-Tampa Tp.Unha - MG 85]{L8} ai_el_insertmega MEGA/MG85 
+               [->Tipos de Placas para Tomadas]
+                 [Placa Cega - MG 217]{L8} ai_el_insertmega MEGA/MG217 
+                 [Pl.Tom.16x19.5 - MG 219]{L8} ai_el_insertmega MEGA/MG219 
+                 [Pl.Tom.19x19 - MG 225]{L8} ai_el_insertmega MEGA/MG225 
+                 [Pl.Tom.24x16 - MG 220]{L8} ai_el_insertmega MEGA/MG220 
+                 [Pl.Tm.Rd.Diâ.36-MG 218]{L8} ai_el_insertmega MEGA/MG218 
+                 [Prot.Tp.Unha - MG 83-V]{L8} ai_el_insertmega MEGA/MG83-V 
+                 [Sp.Ang.2x16x19.5-MG 223]{L8} ai_el_insertmega MEGA/MG223 
+                 [<-Tp.Plást.40x40-MG 118-1]{L8} ai_el_insertmega MEGA/MG118-1 
+               [->Abraçadeiras Metálicas]
+                 [Abr.Met.Econ. - MG 2663]{L8} ai_el_insertmega MEGA/MG2663 
+                 [Abr.Met.Gr.U - MG 2668]{L8} ai_el_insertmega MEGA/MG2668 
+                 [Abr.Met.Ômega- MG 2656]{L8} ai_el_insertmega MEGA/MG2656 
+                 [Abr.Met.Perf.- MG 2669]{L8} ai_el_insertmega MEGA/MG2669 
+                 [Abr.Met.Tp.D- MG 2652]{L8} ai_el_insertmega MEGA/MG2652 
+                 [Abr.Met.Tp.Unha-MG 2651]{L8} ai_el_insertmega MEGA/MG2651 
+                 [Abr.Met.Un.Hor.-MG 2687]{L8} ai_el_insertmega MEGA/MG2687 
+                 [<-Abr.Met.Un.Ver.-MG 2686]{L8} ai_el_insertmega MEGA/MG2686 
+               [->Duto Alimentação]
+                 [Acop. Painel - MG 68-1]{L8} ai_el_insertmega MEGA/MG68-1 
+                 [Cv.Horiz.45 - MG 73-1]{L8} ai_el_insertmega MEGA/MG73-1 
+                 [Cv.Horiz.90 - MG 72-1]{L8} ai_el_insertmega MEGA/MG72-1 
+                 [Cv.Vert. 90 - MG 71-1]{L8} ai_el_insertmega MEGA/MG71-1 
+                 [Dut.Lis.Simp.- MG 50-1]{L8} ai_el_insertmega MEGA/MG50-1 
+                 [<-Junção Simp.- MG 65-1]{L8} ai_el_insertmega MEGA/MG65-1 
+               [->Eletrocalhas]
+                 [Susp.Hor. - MG 2062]{L8} ai_el_insertmega MEGA/MG2062 
+                 [Susp.Omega - MG 2082]{L8} ai_el_insertmega MEGA/MG2082 
+                 [Susp.Simples - MG 2064]{L8} ai_el_insertmega MEGA/MG2064 
+                 [<-Susp.Vert. - MG 2061]{L8} ai_el_insertmega MEGA/MG2061 
+               [->Eletrocalhas e Leitos]
+                 [Mão Franc.Dup.-MG 2554]{L8} ai_el_insertmega MEGA/MG2554 
+                 [Mão Franc.Ref.-MG 2555]{L8} ai_el_insertmega MEGA/MG2555 
+                 [<-Mão Franc.Sim.-MG 2553]{L8} ai_el_insertmega MEGA/MG2553 
+               [->Leitos]
+                 [Grapa Fixa - MG 2125]{L8} ai_el_insertmega MEGA/MG2125 
+                 [Grapa Guia - MG 2128]{L8} ai_el_insertmega MEGA/MG2128 
+                 [Suporte C - MG 2123]{L8} ai_el_insertmega MEGA/MG2123 
+                 [Suporte Omega - MG 2129]{L8} ai_el_insertmega MEGA/MG2129 
+                 [<-Suporte Unha - MG 2124]{L8} ai_el_insertmega MEGA/MG2124 
+               [->Eletrocalhas e Leitos]
+                 [Bal.Grampo C-MG 2570-1]{L8} ai_el_insertmega MEGA/MG2570-1 
+                 [Dist.Simples - MG 2535]{L8} ai_el_insertmega MEGA/MG2535 
+                 [Grampo C - MG 2569]{L8} ai_el_insertmega MEGA/MG2569 
+                 [Prolongador - MG 2330-1]{L8} ai_el_insertmega MEGA/MG2330-1 
+                 [Prolongador - MG 2330-2]{L8} ai_el_insertmega MEGA/MG2330-2 
+                 [Sup.Cab.de Aço-MG 2552]{L8} ai_el_insertmega MEGA/MG2552 
+                 [<-Susp.Tirante - MG 2545]{L8} ai_el_insertmega MEGA/MG2545 
+               [->Tomadas em Dutos Aparentes]
+                 [Sup.Com.Dup.- MG 127-2]{L8} ai_el_insertmega MEGA/MG127-2 
+                 [Sup.Com.Trip.- MG 127-3]{L8} ai_el_insertmega MEGA/MG127-3 
+                 [Sup.Com.Quád.- MG 127-4]{L8} ai_el_insertmega MEGA/MG127-4 
+                 [Sup.Nor.Dup.- MG 126-2]{L8} ai_el_insertmega MEGA/MG126-2 
+                 [Sup.Nor.Trip.- MG 126-3]{L8} ai_el_insertmega MEGA/MG126-3 
+                 [<-Sup.Nor.Quád.- MG 126-4]{L8} ai_el_insertmega MEGA/MG126-4 
+               [->Ex.de Aplicações-Canaletas-Montagem]
+                 [<-Luminária]{L8} ai_el_insertmega MEGA/Montlumi 
+               [->Ex.de Aplicações-Canaletas-Fixação Superior]
+                 [Cabo de Aço]{L8} ai_el_insertmega MEGA/Fixcaboc 
+                 [Susp. Simples]{L8} ai_el_insertmega MEGA/Fixsimpc 
+                 [Susp. Dupla]{L8} ai_el_insertmega MEGA/Fixduplc 
+                 [Grampo C]{L8} ai_el_insertmega MEGA/Fixgramc 
+                 [<-Pino C]{L8} ai_el_insertmega MEGA/Fixpinoc 
+               [->Ex.de Aplicações-Eletrocalhas-Fixação ao Suporte]
+                 [<-Seções]{L8} ai_el_insertmega MEGA/Secoes 
+               [->Ex.de Aplicações-Eletrocalhas-Fixação Superior]
+                 [Cabo de Aço]{L8} ai_el_insertmega MEGA/Fixcaboe 
+                 [Susp. Simples]{L8} ai_el_insertmega MEGA/Fixsimpe 
+                 [Susp. Dupla]{L8} ai_el_insertmega MEGA/Fixduple 
+                 [Grampo C]{L8} ai_el_insertmega MEGA/Fixgrame 
+                 [<-Pino C]{L8} ai_el_insertmega MEGA/Fixpinoe 
+               [->Ex.de Aplicações-Eletrocalhas-Suportação]
+                 [Mão Francesa Simples]{L8} ai_el_insertmega MEGA/Mfransie 
+                 [Mão Francesa Dupla]{L8} ai_el_insertmega MEGA/Mfrandue 
+                 [Suporte Perfil 19x38]{L8} ai_el_insertmega MEGA/Sup1938e 
+                 [Suporte Perfil 38x38]{L8} ai_el_insertmega MEGA/Sup3838e 
+                 [Suspensão Horizontal]{L8} ai_el_insertmega MEGA/Suphore 
+                 [Suspensão Vertical]{L8} ai_el_insertmega MEGA/Supvere 
+                 [<-Suspensão Omega]{L8} ai_el_insertmega MEGA/Supomee 
+               [->Ex.de Aplicações-Leitos-Fixação Superior]
+                 [Cabo de Aço]{L8} ai_el_insertmega MEGA/Fixcabol 
+                 [Susp. Simples]{L8} ai_el_insertmega MEGA/Fixsimpl 
+                 [Susp. Dupla]{L8} ai_el_insertmega MEGA/Fixdupll 
+                 [Grampo C]{L8} ai_el_insertmega MEGA/Fixgraml 
+                 [<-Pino C]{L8} ai_el_insertmega MEGA/Fixpinol 
+               [->Ex.de Aplicações-Leitos-Suportação]
+                 [Mão Francesa Simples]{L8} ai_el_insertmega MEGA/Mfransil 
+                 [Mão Francesa Dupla]{L8} ai_el_insertmega MEGA/Mfrandul 
+                 [Suporte Perfil 19x38]{L8} ai_el_insertmega MEGA/Sup1938l 
+                 [Suporte Perfil 38x38]{L8} ai_el_insertmega MEGA/Sup3838l 
+                 [Suportação C]{L8} ai_el_insertmega MEGA/Suporcl 
+                 [<-<-Suportação Unha - Grapa]{L8} ai_el_insertmega MEGA/Supungrl 
+           [--]
+ID_Insert  [&Insert Block]{L1} ddinsert
+ID_ChgBlk  [&Change Block]^c^cchgblock
+           [--]
+ID_Block   [&Block ]^c^cblock
+ID_WBlock  [&Wblock]^c^cwblock
+           [--]
+ID_Attedi  [&Edit Attribute...]^C^C_ddatte
+ID_Attcpy  [C&opy Attribute   ]^c^ccopyattr
+           [--]
+ID_Attedg  [Edi&t Attribute Globally]^C^C_attedit
+           [--]
+ID_AttDef  [De&fine Attribute...]^C^C_ddattdef
+           [--]
+           [->Pap&er Space]
+ID_PSMarg    [Inserindo &Margens ]^c^cpsmarg
+ID_PSCar     [Colocando &Carimbos]^c^cpscar
+             [--]
+ID_PSWin     [<-&Vistas do Modelo]^c^c^ppswin
+           [--]
+           [->&External Reference]
+              [Xref In      ]^c^cxfin
+              [--]
+              [Xref Manager ]^c^cxref
+              [--]
+ID_XfReload   [&Reload Xrefs]^c^cxfreload
+ID_XfPrune    [<-Pr&une All ]^c^cxfprune
+
+***POP6
+           [&Draw]
+ID_Line    [&Line             ]{L1} _line
+           [--]
+           [->&Offset    ]
+ID_OffTh     [&Thought   ]^c^coffset t
+ID_OffDist   [&Distance  ]^c^coffset
+             [--]
+             [    2.5 cm   ]^c^coffset ^p(/ 25.0 (#UND))
+             [    5.0 cm   ]^c^coffset ^p(/ 50.0 (#UND))
+             [ < 10.0 cm > ]^c^coffset ^p(/ 100.0 (#UND))
+             [   15.0 cm   ]^c^coffset ^p(/ 150.0 (#UND))
+             [   20.0 cm   ]^c^coffset ^p(/ 200.0 (#UND))
+             [   25.0 cm   ]^c^coffset ^p(/ 250.0 (#UND))
+             [   30.0 cm   ]^c^coffset ^p(/ 300.0 (#UND))
+             [   50.0 cm   ]^c^coffset ^p(/ 500.0 (#UND))
+             [  100.0 cm   ]^c^coffset ^p(/ 1000.0 (#UND))
+             [  125.0 cm   ]^c^coffset ^p(/ 1250.0 (#UND))
+             [  150.0 cm   ]^c^coffset ^p(/ 1500.0 (#UND))
+             [  200.0 cm   ]^c^coffset ^p(/ 2000.0 (#UND))
+             [  250.0 cm   ]^c^coffset ^p(/ 2500.0 (#UND))
+             [  500.0 cm   ]^c^coffset ^p(/ 5000.0 (#UND))
+             [  750.0 cm   ]^c^coffset ^p(/ 7500.0 (#UND))
+             [<- 1000.0 cm ]^c^coffset ^p(/ 10000.0 (#UND))
+           [->Offset change]
+ID_OffTh     [&Thought   ]^c^coffset t
+ID_OffDist   [&Distance  ]^c^coffset
+             [--]
+             [    2.5 cm   ]^c^c^p(setq #OFFDIST (/ 25.0 (#UND))) offchg ;
+             [    5.0 cm   ]^c^c^p(setq #OFFDIST (/ 50.0 (#UND))) offchg ;
+             [ < 10.0 cm > ]^c^c^p(setq #OFFDIST (/ 100.0 (#UND))) offchg ;
+             [   15.0 cm   ]^c^c^p(setq #OFFDIST (/ 150.0 (#UND))) offchg ;
+             [   20.0 cm   ]^c^c^p(setq #OFFDIST (/ 200.0 (#UND))) offchg ;
+             [   25.0 cm   ]^c^c^p(setq #OFFDIST (/ 250.0 (#UND))) offchg ;
+             [   30.0 cm   ]^c^c^p(setq #OFFDIST (/ 300.0 (#UND))) offchg ;
+             [   50.0 cm   ]^c^c^p(setq #OFFDIST (/ 500.0 (#UND))) offchg ;
+             [  100.0 cm   ]^c^c^p(setq #OFFDIST (/ 1000.0 (#UND))) offchg ;
+             [  125.0 cm   ]^c^c^p(setq #OFFDIST (/ 1250.0 (#UND))) offchg ;
+             [  150.0 cm   ]^c^c^p(setq #OFFDIST (/ 1500.0 (#UND))) offchg ;
+             [  200.0 cm   ]^c^c^p(setq #OFFDIST (/ 2000.0 (#UND))) offchg ;
+             [  250.0 cm   ]^c^c^p(setq #OFFDIST (/ 2500.0 (#UND))) offchg ;
+             [  500.0 cm   ]^c^c^p(setq #OFFDIST (/ 5000.0 (#UND))) offchg ;
+             [  750.0 cm   ]^c^c^p(setq #OFFDIST (/ 7500.0 (#UND))) offchg ;
+             [<- 1000.0 cm ]^c^c^p(setq #OFFDIST (/ 10000.0 (#UND))) offchg ;
+           [--]
+ID_Pline   [&Polyline         ]{L1} _pline
+           [--]
+           [->&Arc   ]
+ID_Arc3pt    [3 &Points             ]{L1} _arc
+ID_Arcsce    [&Start, Center, End   ]{L1} _arc \_c
+ID_Arcsca    [S&tart, Center, Angle ]{L1} _arc \_c \_a
+ID_Arcscl    [St&art, Center, Length]{L1} _arc \_c \_l
+ID_Arcsea    [Start, End, An&gle    ]{L1} _arc \_e \_a
+ID_Arcsed    [Start, End, &Direction]{L1} _arc \_e \_d
+ID_Arcser    [Start, End, &Radius   ]{L1} _arc \_e \_r
+ID_Arccse    [&Center, Start, End   ]{L1} _arc _c
+ID_Arccsa    [C&enter, Start, Angle ]{L1} _arc _c \\_a
+ID_Arccsl    [Ce&nter, Start, Length]{L1} _arc _c \\_l
+ID_Arccon    [<-C&ontinue           ]{L1} _arc ;
+           [->&Circle]
+ID_Cirrad    [Center, &Radius       ]{L1} _circle
+ID_Cirdia    [Center, &Diameter     ]{L1} _circle \_d
+ID_Cir2pt    [&2 Points             ]{L1} _circle _2p
+ID_Cir3pt    [&3 Points             ]{L1} _circle _3p
+ID_Cirttr    [Tan, Tan, Radi&us     ]{L1} _circle _ttr
+ID_Cirttt    [<-T&an, Tan, Tan      ]{L1} _circle _3p _tan \_tan \_tan \
+             [--]
+           [->&Donut  ]
+ID_DonutDia  [&Donut (Inside Diameter=0)]{L1} _donut 0
+ID_DonutR    [<-D&onut                  ]{L1} _donut
+           [->&Ellipse]
+             [3pt       ]{L1} ai_ellipse
+             [--]
+ID_Ellips    [&Center   ]{L1} _ellipse _c
+ID_Ellcir    [Axis, &End]{L1} _ellipse
+ID_Ellarc    [<-&Arc    ]{L1} _ellipse _a
+           [--]
+           [->Poly&gon]
+ID_Polygo    [Poly&gon   ]{L1} _polygon
+ID_Solid     [<-2D S&olid]{L1} _solid
+           [--]
+ID_Point1  [Poi&nt    ]{L1} *_point
+           [--]
+ID_Bhatch  [&Hatch...   ]{L1} _hatch
+           [--]
+           [->&Text]
+             [Pequeno]{L2} (setvar "textsize" (* 1.5 (#SCL))) dtext
+             [Normal ]{L2} (setvar "textsize" (* 2.0 (#SCL))) dtext
+             [Grande ]{L2} (setvar "textsize" (* 4.0 (#SCL))) dtext
+             [--]
+             [<-Text ]{L2} dtext
+
+***POP7
+           [&Edit]
+ID_Erase   [Er&ase]^C^C_erase
+           [--]
+ID_Copyob  [&Copy   ]^C^C_copy
+ID_Move    [&Move   ]^C^C_move
+ID_Mirror  [M&irror ]^C^C_mirror)
+ID_Stretch [&Stretch]^C^C_stretch
+           [--]
+ID_ChCopy  [Copy c&hange ]^C^Cchcopy
+           [--]
+           [->Arra&y]
+ID_Arrrec    [&Rectangular]^C^C_array \  _r
+ID_Arrpol    [<-&Polar    ]^C^C_array
+           [--]
+ID_Chamfe  [C&hamfer]^C^C_chamfer
+ID_Fillet  [&Fillet ]^C^C_fillet
+           [--]
+           [Uniline ]^C^Cuniline
+           [--]
+ID_Scale   [Sca&le  ]^C^C_scale
+ID_Rotate  [&Rotate ]^C^C_rotate
+           [--]
+           [->&Break]
+ID_Bre1pt    [&1 Point       ]^C^C_break \@
+ID_Bre1ps    [1 &Point Select]^C^C_break \_f \@
+             [--]
+ID_Bre2pt    [&2 Points         ]^C^C_break
+ID_Bre2ps    [<-2 P&oints Select]^C^C_break \_f
+ID_Trim    [&Trim   ]^C^C_trim
+ID_Extend  [&Extend ]^C^C_extend
+           [--]
+ID_Explode [E&xplode]^C^C_explode
+
+***POP8
+           [&Modify]
+           [Match Properties]^C^Cmatchprop
+           [--]
+ID_Change  [&Change      ]^C^C_change
+           [--]
+ID_Pedit   [&Edit Polyline    ]^C^C_pedit
+ID_Hatedi  [Edit &Hatch...]^C^C_hatchedit
+ID_Texedi  [Edi&t Text... ]^C^C_ddedit
+           [--]
+           [Adjust Text   ]^C^C^Peditext
+           [Change Text   ]^C^C^Pchgtext
+
+***POP9
+           [&Tools]
+ID_ITxt    [->I&mporta Textos ]
+             [Pequeno]{L2} (setvar "textsize" (* 1.5 (#SCL))) imptxt
+             [Normal ]{L2} (setvar "textsize" (* 2.0 (#SCL))) imptxt
+             [Grande ]{L2} (setvar "textsize" (* 4.0 (#SCL))) imptxt
+             [--]
+             [<-I&mporta Textos]{L2} imptxt
+           [--]
+ID_Indic   [&Indicadores  ]{L2} i_indic
+           [L&egenda      ]{L2} i_legenda
+           [--]
+ID_Leader  [&Leader       ]{L2} leader1
+           [--]
+ID_Apto    [->&Apartamento]
+             [ apt 01 ]{L2} apto \01
+             [     02 ]{L2} apto \02
+             [     03 ]{L2} apto \03
+             [     04 ]{L2} apto \04
+             [     05 ]{L2} apto \05
+             [     06 ]{L2} apto \06
+             [     07 ]{L2} apto \07
+             [     08 ]{L2} apto \08
+             [     09 ]{L2} apto \09
+             [     10 ]{L2} apto \10
+             [--]
+             [<-Apto]{L2} apto
+           [--]
+           [->&Tabelas]
+ID_TBCons    [&Construtor     ]{L1} tbcons
+ID_TBText    [<-&Preenchimento]{L2} tbtext
+           [--]
+ID_Serie   [S&erie           ]{L2} serie
+
+***POP10
+           [D&isplay]
+ID_Pan     ['&Pan          ]'pan \\
+           [--]
+ID_ZoomD   ['&Zoom Dynamic ]'zoom d
+ID_ZoomVm  ['Z&oom Vmax    ]'zoom v
+ID_ZoomE   [Zoo&m Extend   ]^c^czoom e
+ID_ZoomA   [Zoom A&ll      ]^c^czoom a
+           [--]
+ID_Regen   [&Regen         ]^c^cregen
+           [--]
+ID_2Vp     [&Split View    ]^c^cdblscr
+ID_ActVp   [&Join View     ]^c^csiscr
+
+***POP11
+           [&Settings]
+ID_DwgAids [&Drawing Aids...]'ddrmodes
+           [--]
+ID_UcsIcon [Ucsicon On/Off]^c^c^p(toggle "ucsicon" 't)
+           [--]
+ID_UcsObj  [&Ucs Entity  ]^c^c$s=ucs ucs ob
+ID_UcsOrg  [U&cs Origen  ]^c^c$s=ucs ucs or
+ID_UcsZ    [Uc&s Rotation]^c^c$s=ucs ucs z
+ID_UcsW    [Ucs &World   ]^c^c$s=ucs ucs ;
+           [--]
+ID_MirrTxt [Mirrtext On/Off]^c^c^p(toggle "mirrtext" 't)
+           [--]
+ID_MinBox  [&Minimize Box]'setvar pickbox 1 'setvar aperture 1
+ID_MaxBox  [M&aximize Box]'setvar pickbox 5 'setvar aperture 5
+           [--]
+ID_DimSet  [->Dim Settings]
+             [   0.000 ]^C^CDIMDEC 3
+             [< 0.00  >]^C^CDIMDEC 2
+             [   0.0   ]^C^CDIMDEC 1
+             [   0.    ]^C^CDIMDEC 0
+             [--]
+             [<-Decimal]^C^CDIMDEC
+           [--]
+ID_Osnap   [Object snap...]^C^CDDOSNAP
+
+***POP12
+           [&Layers]
+ID_Layer   ['&Layers           ]'ddlmodes
+           [--]
+ID_PckSet  [Ati&va Camada  ]^c^cps
+ID_PckFrz  [&Congela Camada]^c^cpf
+           [--]
+ID_PckChg  [&Modifica Camada do Objeto]^c^cpch
+           [--]
+ID_PckELay [Apaga O&bjetos da Camada     ]^c^cpe
+ID_PckExpl [E&xplode Polilinhas da Camada]^c^cplexpl
+           [--]
+ID_ArqFrTh [A&rquitetura Freeze/Thaw          ]^c^c^p(setlayer "arq") regen
+ID_ForFrTh [&Formas Freeze/Thaw               ]^c^c^p(setlayer "f") regen
+ID_ElFrTh  [&Eletrica Freeze/Thaw             ]^c^c^p(setlayer "el") regen
+ID_EsFrTh  [E&sgoto Freeze/Thaw               ]^c^c^p(setlayer "es") regen
+ID_HFrTh   [&Hidraulica Freeze/Thaw           ]^c^c^p(setlayer "h") regen
+ID_IncFrTh [I&ncendio Freeze/Thaw             ]^c^c^p(setlayer "inc") regen
+ID_GasFrTh [&Gas Freeze/Thaw                  ]^c^c^p(setlayer "g") regen
+ID_TEFrTh  [&Telefone Externo Freeze/Thaw     ]^c^c^p(setlayer "te") regen
+ID_TIFrTh  [Te&lefone &Interno Freeze/Thaw    ]^c^c^p(setlayer "ti") regen
+ID_IEFrTh  [Instalacoes Es&peciais Freeze/Thaw]^c^c^p(setlayer "ie") regen
+ID_ARFrTh  [Ar Co&ndicionado Freeze/Thaw      ]^c^c^p(setlayer "ar") regen
+           [--]
+ID_FrInst  [Congela &Instalacoes   ]^c^clayer s 0 f arq-* f el-* f es-* f h-* f g-* f te-* f ti-* f ie-* f ar-* ;
+ID_ThInst  [Descongel&a Instalacoes]^c^clayer s 0 t arq-* t el-* t es-* t h-* t g-* t te-* t ti-* t ie-* t ar-* ;regen
+           [--]
+ID_FrAll   [C&ongela Tudo   ]^c^clayer s 0 f * t 0 ;
+ID_ThAll   [Descongela T&udo]^c^clayer s 0 t * ;regen
+
+***POP13
+           [Me&nus]
+ID_ArqMnu  [&Arquitetura          ]^c^c^player t arq-*  regen menu m/arqmenu
+ID_FMnu    [&Formas               ]^c^c^player t f-*  regen menu m/fmenu
+ID_ElMnu   [&Eletrica             ]^c^c^player t el-*  regen menu m/elmenu
+ID_EsMnu   [E&sgoto               ]^c^c^player t es-*  regen menu m/esmenu
+ID_HMnu    [&Hidraulica           ]^c^c^player t h-*  regen menu m/hmenu
+ID_INCMnu  [I&ncendio             ]^c^c^player t inc-*  regen menu m/incmenu
+ID_GMnu    [&Gas                  ]^c^c^player t g-*  regen menu m/gmenu
+ID_TEMnu   [&Telefone Externo     ]^c^c^player t te-*  regen menu m/temenu
+ID_TIMnu   [Te&lefone Interno     ]^c^c^player t ti-*  regen menu m/timenu
+ID_IEMnu   [&Instalacoes Especiais]^c^c^player t ie-*  regen menu m/iemenu
+ID_ACMnu   [A&r Condicionado      ]^c^c^player t ar-*  regen menu m/armenu
+
+***POP14
+           [In&quiry]
+ID_Area    [&Area        ]^c^carea
+ID_Dist    [&Distance    ]^c^cdist
+ID_List    [&List        ]^c^clist
+           [--]
+ID_ContBlk [&Conta Blocos]^c^cnumblk
+
+***POP15
+           [&Window]
+           [&Cascade          ]^C^C_wcascade
+           [Tile &Horizontally]^C^C_whtile
+           [Tile &Vertically  ]^C^C_wvtile
+
+***POP16
+           [&Help]
+ID_About   [&About IntelliCAD...]^C^C_about
+ID_Helpcts [&Contents...]'_help
+
+***TOOLBARS
+**TB_PONTOS
+            [_Toolbar("Pontos", _Left, _Show, 100, 100, 2)]
+            [_Flyout("Ponto de luz", "ico_ele_pt_ponto_luz.bmp", "ico_ele_pt_ponto_luz.bmp", _OtherIcon, AI_ELMENU.TB_PT_PONTO_LUZ)]
+            [_Button("Ponto de luz tipo spot", "ico_ele_pt_spot.bmp", "ico_ele_pt_spot.bmp")]{L1} uinsert ELE/ELE110C2
+            [_Flyout("Ponto arandela", "ico_ele_pt_arandela.bmp", "ico_ele_pt_arandela.bmp", _OtherIcon, AI_ELMENU.TB_PT_ARANDELA)]
+            [_Flyout("Tomada baixa", "ico_ele_pt_tomada_baixa.bmp", "ico_ele_pt_tomada_baixa.bmp", _OtherIcon, AI_ELMENU.TB_PT_TOMADA_BAIXA)]
+            [_Flyout("Tomada media", "ico_ele_pt_tomada_media.bmp", "ico_ele_pt_tomada_media.bmp", _OtherIcon, AI_ELMENU.TB_PT_TOMADA_MEDIA)]
+            [_Flyout("Tomada alta", "ico_ele_pt_tomada_alta.bmp", "ico_ele_pt_tomada_alta.bmp", _OtherIcon, AI_ELMENU.TB_PT_TOMADA_ALTA)]
+            [_Flyout("Luminaria de embutir", "ico_ele_pt_luminaria_embutir.bmp", "ico_ele_pt_luminaria_embutir.bmp", _OtherIcon, AI_ELMENU.TB_PT_LUMINARIA_EMBUTIR)]
+            [_Flyout("Luminaria pendente", "ico_ele_pt_luminaria_pendente.bmp", "ico_ele_pt_luminaria_pendente.bmp", _OtherIcon, AI_ELMENU.TB_PT_LUMINARIA_PENDENTE)]
+            [_Flyout("Luminario de sobrepor", "ico_ele_pt_luminaria_sobrepor.bmp", "ico_ele_pt_luminaria_sobrepor.bmp", _OtherIcon, AI_ELMENU.TB_PT_LUMINARIA_SOBREPOR)]
+            [_Flyout("Interruptor simples", "ico_ele_pt_interruptor_simples", "ico_ele_pt_interruptor_simples.bmp", _OtherIcon, AI_ELMENU.TB_PT_INTERRUPTOR_SIMPLES)]
+            [_Button("Interruptor tipo minuteria", "ico_ele_pt_interruptor_minuteria.bmp", "ico_ele_pt_interruptor_minuteria.bmp")]{L1} uinsert ELE/ELE530C2
+            [_Button("Interruptor de campainha", "ico_ele_pt_interruptor_campainha.bmp", "ico_ele_pt_interruptor_campainha.bmp")]{L1} uinsert ELE/ELE540C2
+            [_Flyout("Quadro de distribuicao", "ico_ele_pt_quadro_distribuicao.bmp", "ico_ele_pt_quadro_distribuicao.bmp", _OtherIcon, AI_ELMENU.TB_PT_QUADRO_DISTRIBUICAO)]
+            [_Flyout("Ponto de forca", "ico_ele_pt_ponto_forca_teto.bmp", "ico_ele_pt_ponto_forca_teto.bmp", _OtherIcon, AI_ELMENU.TB_PT_PONTO_FORCA)]
+            [_Flyout("Caixa de passagem", "ico_ele_pt_caixa_passagem_teto.bmp", "ico_ele_pt_caixa_passagem_teto.bmp", _OtherIcon, AI_ELMENU.TB_PT_CAIXA_PASSAGEM)]
+            [_Button("Campainha", "ico_ele_pt_campainha.bmp", "ico_ele_pt_campainha.bmp")]{L1} uinsert ELE/ELE800C2
+            [_Button("Final de tubulacao", "ico_ele_final_tubulacao.bmp", "ico_ele_final_tubulacao.bmp")]{L1} inserir ele/elea11c0
+         
+**TB_PT_PONTO_LUZ
+            [_Toolbar("Ponto de luz", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Ponto de luz", "ico_ele_pt_ponto_luz.bmp", "ico_ele_pt_ponto_luz.bmp")]{L1} uinsert ELE/ELE100C2
+            [_Button("Ponto de luz circuito vigia", "ico_ele_pt_ponto_luz_vigia.bmp", "ico_ele_pt_ponto_luz_vigia.bmp")]{L1} uinsert ELE/ELE101C2
+
+**TB_PT_ARANDELA
+            [_Toolbar("Ponto de arandela", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Ponto de arandela", "ico_ele_pt_arandela.bmp", "ico_ele_pt_arandela.bmp")]{L1} uinsert ELE/ELE120C2
+            [_Button("Ponto de arandela de emergencia", "ico_ele_pt_arandela_emergencia.bmp", "ico_ele_pt_ponto_arandela_emergencia.bmp")]{L1} uinsert ELE/ELE122C2
+
+**TB_PT_TOMADA_BAIXA
+            [_Toolbar("Tomada baixa", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Tomada baixa", "ico_ele_pt_tomada_baixa.bmp", "ico_ele_pt_tomada_baixa.bmp")]{L1} uinsert ELE/ELE611C2
+            [_Button("Tomada baixa dupla", "ico_ele_pt_tomada_baixa_dupla.bmp", "ico_ele_pt_tomada_baixa_dupla.bmp")]{L1} uinsert ELE/ELE616C2
+            [_Button("Tomanda baixa especial", "ico_ele_pt_tomada_baixa_especial.bmp", "ico_ele_pt_tomada_baixa_especial.bmp")]{L1} uinsert ELE/ELE612C2
+
+**TB_PT_TOMADA_MEDIA
+            [_Toolbar("Tomada media", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Tomada media", "ico_ele_pt_tomada_media.bmp", "ico_ele_pt_tomada_media.bmp")]{L1} uinsert ELE/ELE621C2
+            [_Button("Tomada media dupla", "ico_ele_pt_tomada_media_dupla.bmp", "ico_ele_pt_tomada_media_dupla.bmp")]{L1} uinsert ELE/ELE626C2
+            [_Button("Tomada media especial", "ico_ele_pt_tomada_media_especial.bmp", "ico_ele_pt_tomada_media_especial.bmp")]{L1} uinsert ELE/ELE622C2
+
+**TB_PT_TOMADA_ALTA
+            [_Toolbar("Tomada alta", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Tomada alta", "ico_ele_pt_tomada_alta.bmp", "ico_ele_pt_tomada_alta.bmp")]{L1} uinsert ELE/ELE631C2
+            [_Button("Tomada alta dupla", "ico_ele_pt_tomada_alta_dupla.bmp", "ico_ele_pt_tomada_alta_dupla.bmp")]{L1} uinsert ELE/ELE636C2
+            [_Button("Tomada alta especial", "ico_ele_pt_tomada_alta_especial.bmp", "ico_ele_pt_tomada_alta_especial.bmp")]{L1} uinsert ELE/ELE632C2
+
+**TB_PT_LUMINARIA_EMBUTIR
+            [_Toolbar("Luninaria de embutir", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Luminaria de embutir", "ico_ele_pt_luminaria_embutir.bmp", "ico_ele_pt_luminaria_embutir.bmp")]{L1} setlum ;;E;N uinsert ;
+            [_Button("Luminaria de embutir circuito vigia", "ico_ele_pt_luminaria_embutir_vigia.bmp", "ico_ele_pt_luminaria_embutir_cvigia.bmp")]{L1} setlum ;;E;V uinsert ;
+
+**TB_PT_LUMINARIA_PENDENTE
+            [_Toolbar("Luninaria pendente", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Luminaria pendente", "ico_ele_pt_luminaria_pendente.bmp", "ico_ele_pt_luminaria_pendente.bmp")]{L1} setlum ;;P;N uinsert ;
+            [_Button("Luminaria pendente circuito vigia", "ico_ele_pt_luminaria_pendente_vigia.bmp", "ico_ele_pt_luminaria_pendente_vigia.bmp")]{L1} setlum ;;P;V uinsert ;
+
+**TB_PT_LUMINARIA_SOBREPOR
+            [_Toolbar("Luninaria de sobrepor", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Luminaria de sobrepor", "ico_ele_pt_luminaria_sobrepor.bmp", "ico_ele_pt_luminaria_sobrepor.bmp")]{L1} setlum ;;S;N uinsert ;
+            [_Button("Luminaria de sobrepor circuito vigia", "ico_ele_pt_luminaria_sobrepor_vigia.bmp", "ico_ele_pt_luminaria_sobrepor_vigia.bmp")]{L1} setlum ;;S;V uinsert ;
+
+**TB_PT_INTERRUPTOR_SIMPLES
+            [_Toolbar("Interruptor simples", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Interruptor simples", "ico_ele_pt_interruptor_simples.bmp", "ico_ele_pt_interruptor_simples.bmp")]{L1} uinsert ELE/ELE500C2
+            [_Button("Interruptor simples e tomada", "ico_ele_pt_interruptor_simples_tomada.bmp", "ico_ele_pt_interruptor_simples_tomada.bmp")]{L1} uinsert ELE/ELE502C2
+
+**TB_PT_QUADRO_DISTRIBUICAO
+            [_Toolbar("Quadro de distribuicao", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Quadro de distribuicao", "ico_ele_pt_quadro_distribuicao.bmp", "ico_ele_pt_quadro_distribuicao.bmp")]{L1} uinsert ELE/ELE000C2
+            [_Button("Quadro de forca dos elevadores", "ico_ele_pt_quadro_forca_elevadores.bmp", "ico_ele_pt_quadro_forca_elevadores.bmp")]{L1} uinsert ELE/ELE010C2
+
+**TB_PT_PONTO_FORCA
+            [_Toolbar("Pontos de forca", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Ponto de forca no teto", "ico_ele_pt_ponto_forca_teto.bmp", "ico_ele_pt_ponto_forca_teto.bmp")]{L1} uinsert ELE/ELEA00C2
+            [_Button("Ponto de forca no piso", "ico_ele_pt_ponto_forca_piso.bmp", "ico_ele_pt_ponto_forca_piso.bmp")]{L1} uinsert ELE/ELEA10C2
+
+
+**TB_PT_CAIXA_PASSAGEM
+            [_Toolbar("Caixa de passagem", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Caixa de passagem no teto", "ico_ele_pt_caixa_passagem_teto.bmp", "ico_ele_pt_caixa_passagem_teto.bmp")]{L1} uinsert ELE/ELE700C2
+            [_Button("Caixa de passagem no piso", "ico_ele_pt_caixa_passagem_piso.bmp", "ico_ele_pt_caixa_passagem_piso.bmp")]{L1} uinsert ELE/ELE701C2
+
+**TB_ELETRICA
+            [_Toolbar("Eletrica_2", _Left, _Show, 200, 200, 4)]
+            [_Flyout("Eletroduto", "ico_ele_eletroduto_teto.bmp", "ico_ele_eletroduto_teto.bmp", _OtherIcon, AI_ELMENU.TB_ELE_ELETRODUTO)]
+            [--]
+            [_Flyout("Seta simples desce", "ico_ele_seta_simples_desce.bmp", "ico_ele_seta_simples_desce.bmp", _OtherIcon, AI_ELMENU.TB_ELE_SETAS_SIMPLES)]
+            [--]
+            [_Button("Fiacao manual", "ico_ele_fiacao_manual.bmp", "ico_ele_fiacao_manual.bmp")]{L7} $s=circuito circuito
+            [_Flyout("Quadro de cargas", "ico_ele_quadro_cargas_manual.bmp", "ico_ele_quadro_cargas_manual.bmp", _OtherIcon, AI_ELMENU.TB_ELE_QUADRO_CARGAS)]
+            [--]            
+            [_Flyout("Trocas", "ico_ele_troca_circuito.bmp", "ico_ele_troca_circuito.bmp", _OtherIcon, AI_ELMENU.TB_ELE_TROCAS)]
+            [_Flyout("Modificacao de pontos", "ico_ele_copia_pontos.bmp", "ico_ele_copia_pontos.bmp", _OtherIcon, AI_ELMENU.TB_ELE_MOD_PONTOS)]
+            [_Flyout("Fiacao", "ico_ele_apaga_fiacao.bmp", "ico_ele_apaga_fiacao.bmp", _OtherIcon, AI_ELMENU.TB_ELE_FIACAO)]
+            [_Button("Ordena interruptores", "ico_ele_ordena_interruptores.bmp", "ico_ele_ordena_interruptores.bmp")]^c^ceordem
+            [_Flyout("Modificao dos eletrodutos", "ico_ele_ajusta_origem_destino_eletrodutos.bmp", "ico_ele_ajusta_origem_destino_eletrodutos.bmp", _OtherIcon, AI_ELMENU.TB_ELE_MOD_ELETRODUTOS)]
+            [_Flyout("Quadro de cargas automatico", "ico_ele_totaliza_potencia_quadros.bmp", "ico_ele_totaliza_potencia_quadros.bmp", _OtherIcon, AI_ELMENU.TB_ELE_QUADRO_AUTO)]
+            [_Flyout("Fiacao automatica", "ico_ele_fiacao_automatica_exportar.bmp", "ico_ele_fiacao_automatica_importar.bmp", _OtherIcon, AI_ELMENU.TB_ELE_FIACAO_AUTO)]
+            
+
+**TB_ELE_ELETRODUTO
+            [_Toolbar("Eletrodutos", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Eletroduto pelo teto", "ico_ele_eletroduto_teto.bmp", "ico_ele_eletroduto_teto.bmp")]{L3} ^p(setvar "plinewid" (/ 15.0 (#UND))) pline
+            [_Button("Eletroduto pelo piso", "ico_ele_eletroduto_piso.bmp", "ico_ele_eletroduto_piso.bmp")]{L4} ^p(setvar "plinewid" (/ 15.0 (#UND))) pline
+            [_Button("Eletroduto aparente", "ico_ele_eletroduto_aparente.bmp", "ico_ele_eletroduto_aparente.bmp")]{L5} ^p(setvar "plinewid" (/ 15.0 (#UND))) pline
+
+**TB_ELE_SETAS_SIMPLES
+            [_Toolbar("Seta simples desce", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Seta simples desce", "ico_ele_seta_simples_desce.bmp", "ico_ele_seta_simples_desce.bmp")]{L2} P-DESCE
+            [_Button("Seta simples passa", "ico_ele_seta_simples_passa.bmp", "ico_ele_seta_simples_passa.bmp")]{L2} P-PASSA
+            [_Button("Seta simples sobe", "ico_ele_seta_simples_sobe.bmp", "ico_ele_seta_simples_sobe.bmp")]{L2} P-SOBE
+
+**TB_ELE_QUADRO_CARGAS
+            [_Toolbar("Quadro de cargas", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Quadro de cargas manual", "ico_ele_quadro_cargas_manual.bmp", "ico_ele_quadro_carga_manual.bmp")]{L2} eqdcm
+            [_Button("Preenchimento de quadro de cargas", "ico_ele_texto_quadro_cargas.bmp", "ico_ele_texto_quadros_carga.bmp")]{L2} tbtext
+
+
+**TB_ELE_MOD_PONTOS
+            [_Toolbar("Modificacao de pontos", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Copia pontos", "ico_ele_copia_pontos.bmp", "ico_ele_copia_pontos.bmp")]^c^cecopy
+            [_Button("Espelha pontos", "ico_ele_espelha_pontos.bmp", "ico_ele_espelha_pontos.bmp")]^c^cemirror
+            
+**TB_ELE_FIACAO
+            [_Toolbar("Fiacao", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Apaga fiacao", "ico_ele_apaga_fiacao.bmp", "ico_ele_apaga_fiacao.bmp")]^c^cedelfios
+            [_Button("Movimenta fiacao", "ico_ele_movimenta_fiacao.bmp", "ico_ele_movimenta_fiacao.bmp")]^c^cemovfios
+            [_Button("Copia fiacao", "ico_ele_copia_fiacao.bmp", "ico_ele_copia_fiacao.bmp")]^c^cecopfios
+            [_Button("Rotaciona fiacao", "ico_ele_rotaciona_fiacao.bmp", "ico_ele_rotaciona_fiacao.bmp")]^c^cerotfios
+            
+**TB_ELE_TROCAS
+            [_Toolbar("Trocas", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Troca circuito", "ico_ele_troca_circuito.bmp", "ico_ele_troca_circuito.bmp")]^c^cechcir
+            [_Button("Troca comando", "ico_ele_troca_comando.bmp", "ico_ele_troca_comando.bmp")]^c^cechcmd
+            [_Button("Troca origem", "ico_ele_troca_origem.bmp", "ico_ele_troca_origem.bmp")]^c^cechorg
+ 
+**TB_ELE_MOD_ELETRODUTOS
+            [_Toolbar("Modificacao dos eletrodutos", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Ajusta origem/destino dos eletrodutos", "ico_ele_ajusta_origem_destino_eletrodutos.bmp", "ico_ele_ajusta_origem_destino_eletrodutos.bmp")]^c^cechdt
+            [_Button("Verifica origem/destino dos eletrodutos", "ico_ele_verifica_origem_destino_eletrodutos.bmp", "ico_ele_verifica_origem_destino_eletrodutos.bmp")]^c^caci_echkdt
+            [_Button("Analisa o erro dos eletrodutos", "ico_ele_analisa_erro_eletrodutos.bmp", "ico_ele_analisa_erro_eletrodutos.bmp")]^c^ceverdt
+            [_Button("Restauracao de camadas dos eletrodutos", "ico_ele_restauracao_camadas_eletrodutos.bmp", "ico_ele_restauracao_camadas_eletrodutos.bmp")]^c^cerestdt
+
+**TB_ELE_QUADRO_AUTO
+            [_Toolbar("Quadro autamatica", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Totaliza potencia dos quadros", "ico_ele_totaliza_potencia_quadros.bmp", "ico_ele_totaliza_potencia_quadros.bmp")]^c^ceqpot
+            [_Button("Quadro de cargas automatico", "ico_ele_quadro_carga_automatico.bmp", "ico_ele_quadro_carga_automatico.bmp")]{L2} eqdca
+
+**TB_ELE_FIACAO_AUTO
+            [_Toolbar("Fiacao automatica", _Floating, _Hide, 150, 150, 4)]
+            [_Button("Exporta fiacao automatica", "ico_ele_fiacao_automatica_exportar.bmp", "ico_ele_fiacao_automatica_exportar.bmp")]^c^cefiacao
+            [_Button("Importa fiacao automatica", "ico_ele_fiacao_automatica_importar.bmp", "ico_ele_fiacao_automatica_importar.bmp")]^c^crfiacao
+
+**STANDARD_TOOLBAR
+ID_Stdtbar  [_Toolbar("Standard Toolbar", _Top, _Show, 0, 38, 1)]
+ID_New      [_Button("New", ICON_16_NEW, ICON_32_NEW)]^C^C_new
+ID_Open     [_Button("Open", ICON_16_OPEN, ICON_32_OPEN)]^C^C_open
+ID_Save     [_Button("Save", ICON_16_SAVE, ICON_32_SAVE)]^C^C_qsave
+            [--]
+ID_Print    [_Button("Print", ICON_16_PRINT, ICON_32_PRINT)]^C^C_plot
+            [--]
+ID_Cut      [_Button("Cut", ICON_16_CUT, ICON_32_CUT)]'_cutclip
+ID_Copy     [_Button("Copy", ICON_16_COPY, ICON_32_COPY)]'_copyclip
+ID_Paste    [_Button("Paste", ICON_16_PASTE, ICON_32_PASTE)]'_pasteclip
+            [--]
+ID_Undo     [_Button("Undo", ICON_16_UNDO, ICON_32_UNDO)]_u
+ID_Redo     [_Button("Redo", ICON_16_REDO, ICON_32_REDO)]^C^C_redo
+            [--]
+ID_Layers   [_Button("Layers", ICON_16_LAYERS, ICON_32_LAYERS)]'_ddlmodes
+ID_Linety   [_Button("Linetype", ICON_16_LINETY, ICON_32_LINETY)]'_ddltype
+            [--]
+ID_Ucsw     [_Button("World UCS", ICON_16_UCS, ICON_32_UCS)]^C^C_ucs _w
+            [--]
+ID_TbRedraw [_Button("Redraw", ICON_16_REDRAW, ICON_32_REDRAW)]'_redraw
+            [--]
+ID_Pan      [_Button("Pan", ICON_16_PAN, ICON_24_PAN)]'_pan
+            [--]
+ID_Zoowin   [_Button("Zoom Window", ICON_16_ZOOWIN, ICON_32_ZOOWIN)]'_zoom;_w
+ID_Zoopre   [_Button("Zoom Previous", ICON_16_ZOOPRE, ICON_32_ZOOPRE)]'_zoom;_p
+ID_TbZoom   [_Flyout("Zoom", ICON_16_ZOOM, ICON_32_ZOOM, _OtherIcon, AI_ARQMENU.TB_ZOOM)]
+            [--]
+ID_TbInq    [_Flyout("Inquiry", ICON_16_LIST, ICON_32_LIST, _OtherIcon, AI_ARQMENU.TB_INQUIRY)]
+            [--]
+ID_Help     [_Button("Help", ICON_16_HELP, ICON_32_HELP)]'_?
+
+**TB_ZOOM
+ID_TbZoom   [_Toolbar("Zoom", _Floating, _Hide, 100, 150, 1)]
+ID_Zooall   [_Button("Zoom All", ICON_16_ZOOALL, ICON_32_ZOOALL)]^C^C_zoom;_all
+ID_Zoocen   [_Button("Zoom Center", ICON_16_ZOOCEN, ICON_32_ZOOCEN)]'_zoom;_c
+ID_Zoolef   [_Button("Zoom Left", ICON_16_ZOOLEF, ICON_32_ZOOLEF)]'_zoom;_l
+ID_Zooext   [_Button("Zoom Extents", ICON_16_ZOOEXT, ICON_32_ZOOEXT)]^C^C_zoom;_e
+
+**TB_INQUIRY
+ID_TbInq    [_Toolbar("Inquiry", _Floating, _Hide, 10, 340, 1)]
+ID_List     [_Button("List", ICON_16_LIST, ICON_32_LIST)]^C^C_list
+ID_Dist     [_Button("Distance", ICON_16_DIST, ICON_32_DIST)]'_dist
+ID_Area     [_Button("Area", ICON_16_AREA, ICON_32_AREA)]^C^C_area
+
+**TB_OBJECT_SNAP
+ID_TbOsnap  [_Toolbar("Object Snap", _Right, _Show, 1, 101, 10)]
+ID_Osnend   [_Button("Snap to Endpoint", ICON_16_OSNEND, ICON_32_OSNEND)]_endp
+ID_Osnmid   [_Button("Snap to Midpoint", ICON_16_OSNMID, ICON_32_OSNMID)]_mid
+ID_Osnint   [_Button("Snap to Intersection", ICON_16_OSNINT, ICON_32_OSNINT)]_int
+ID_Osnper   [_Button("Snap to Perpendicular", ICON_16_OSNPER, ICON_32_OSNPER)]_per
+ID_Osnnea   [_Button("Snap to Nearest", ICON_16_OSNNEA, ICON_32_OSNNEA)]_nea
+            [--]
+ID_Osncen   [_Button("Snap to Center", ICON_16_OSNCEN, ICON_32_OSNCEN)]_cen
+ID_Osnqua   [_Button("Snap to Quadrant", ICON_16_OSNQUA, ICON_32_OSNQUA)]_qua
+ID_Osntan   [_Button("Snap to Tangent", ICON_16_OSNTAN, ICON_32_OSNTAN)]_tan
+            [--]
+ID_Osnnod   [_Button("Snap to Node", ICON_16_OSNNOD, ICON_32_OSNNOD)]_nod
+            [--]
+ID_Osnins   [_Button("Snap to Insertion", ICON_16_OSNINS, ICON_32_OSNINS)]_ins
+            [--]
+ID_Osnnon   [_Button("Snap to None", ICON_16_OSNNON, ICON_32_OSNNON)]_non
+            [--]
+ID_Osndd    [_Button("Running Object Snap", ICON_16_OSNAP, ICON_32_OSNAP)]'_ddosnap
+
+**OBJECT_SELECTION
+            [_Toolbar("Object Selection", _Right, _Show, 200, 200, 10)]
+            [_Button("Window", "ico_ss_window.bmp", "ico_ss_window.bmp")]_w
+            [_Button("Crossing", "ico_ss_crossing.bmp", "ico_ss_crossing.bmp")]_c
+            [_Button("Window Polygon", "ico_ss_wpolygon.bmp", "ico_ss_wpolygon.bmp")]_wp
+            [_Button("Crossing Polygon", "ico_ss_cpolygon.bmp", "ico_ss_cpolygon.bmp")]_cp
+            [_Button("Fence", "ico_ss_fence.bmp", "ico_ss_fence.bmp")]_f
+            [_Button("Last", "ico_ss_last.bmp", "ico_ss_last.bmp")]_l
+            [--]
+            [_Button("Undo", "ico_ss_undo.bmp", "ico_ss_undo.bmp")]_u
+            [--]
+            [_Button("Add", "ico_ss_add.bmp", "ico_ss_add.bmp")]_a
+            [_Button("Remove", "ico_ss_remove.bmp", "ico_ss_remove.bmp")]_r
+
+**TB_DRAW
+ID_TbDraw   [_Toolbar("Draw", _Top, _Show, 1, 101, 10)]
+ID_Line     [_Button("Line", ICON_16_LINE, ICON_32_LINE)]{L1} _line
+            [--]
+ID_Pline    [_Button("Polyline", ICON_16_PLINE, ICON_32_PLINE)]{L1} _pline
+ID_Spline   [_Button("Spline", ICON_16_SPLINE, ICON_32_SPLINE)]{L1} _spline
+            [--]
+ID_TbArc    [_Flyout("Arc", ICON_16_ARC3PT, ICON_32_ARC3PT, _OtherIcon, AI_ARQMENU.TB_ARC)]
+ID_TbCir    [_Flyout("Circle", ICON_16_CIRCLE, ICON_32_CIRCLE, _OtherIcon, AI_ARQMENU.TB_CIRCLE)]
+ID_TbEll    [_Flyout("Ellipse", ICON_16_ELLIPS, ICON_32_ELLIPS, _OtherIcon, AI_ARQMENU.TB_ELLIPSE)]
+            [--]
+            [_Button("Elipse", "ico_elipse.bmp", "ico_elipse.bmp")]{L1} ai_ellipse
+            [--]
+ID_Rectan   [_Button("Rectangle", ICON_16_RECTAN, ICON_32_RECTAN)]{L1} rectang
+ID_Polygo   [_Button("Polygon", ICON_16_POLYGO, ICON_32_POLYGO)]{L1} _polygon
+ID_TbPgon   [_Flyout("Polygon", ICON_16_POLYGO, ICON_32_POLYGO, _OtherIcon, AI_ARQMENU.TB_POLYGON)]
+            [--]
+ID_Point    [_Button("Point", ICON_16_POINT, ICON_32_POINT)]*{L1} _point
+ID_Divide   [_Button("Divide", ICON_16_DIVIDE, ICON_32_DIVIDE)]{L1} _divide
+ID_Measure  [_Button("Measure", ICON_16_MEASUR, ICON_32_MEASUR)]{L1} _measure
+            [--]
+ID_Dinser   [_Button("Insert Block", ICON_16_DINSER, ICON_32_DINSER)]{L1} _ddinsert
+ID_Block    [_Button("Block", ICON_16_BLOCK, ICON_32_BLOCK)]{L1} _block
+            [--]
+ID_hatch    [_Button("Hatch", ICON_16_BHATCH, ICON_32_BHATCH)]{L1} _hatch
+ID_Dtext    [_Button("Dtext", ICON_16_MTEXT, ICON_32_MTEXT)]{L2} _dtext
+			[--]
+ID_DimLin   [_Button("Linear Dimension", ICON_16_DIMLIN, ICON_32_DIMLIN)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimlinear
+ID_DimAli   [_Button("Aligned Dimension", ICON_16_DIMALI, ICON_32_DIMALI)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimaligned
+ID_DimBas   [_Button("Baseline Dimension", ICON_16_DIMBAS, ICON_32_DIMBAS)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimbaseline
+ID_DimCon   [_Button("Continue Dimension", ICON_16_DIMCON, ICON_32_DIMCON)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimcontinue
+			[--]
+ID_DimCen   [_Flyout("Dimensioning 1", ICON_16_DIMCEN, ICON_32_DIMCEN, _OtherIcon, AI_ARQMENU.TB_DIM1)]
+ID_DimAng   [_Flyout("Dimensioning 2", ICON_16_DIMANG, ICON_32_DIMANG, _OtherIcon, AI_ARQMENU.TB_DIM2)]
+
+**TB_ARC
+ID_Tbarc    [_Toolbar("Arc", _Floating, _Hide, 10, 160, 1)]
+ID_Arc3pt   [_Button("Arc 3 Points", ICON_16_ARC3PT, ICON_32_ARC3PT)]{L1} _arc
+ID_Arcsce   [_Button("Arc Start Center End", ICON_16_ARCSCE, ICON_32_ARCSCE)]{L1} _arc \_c
+ID_Arcsca   [_Button("Arc Start Center Angle", ICON_16_ARCSCA, ICON_32_ARCSCA)]{L1} _arc \_c \_a
+ID_Arcscl   [_Button("Arc Start Center Length", ICON_16_ARCSCL, ICON_32_ARCSCL)]{L1} _arc \_c \_l
+ID_Arcsea   [_Button("Arc Start End Angle", ICON_16_ARCSEA, ICON_32_ARCSEA)]{L1} _arc \_e \_a
+ID_Arcsed   [_Button("Arc Start End Direction", ICON_16_ARCSED, ICON_32_ARCSED)]{L1} _arc \_e \_d
+ID_Arcser   [_Button("Arc Start End Radius", ICON_16_ARCSER, ICON_32_ARCSER)]{L1} _arc \_e \_r
+ID_Arccse   [_Button("Arc Center Start End", ICON_16_ARCCSE, ICON_32_ARCCSE)]{L1} _arc _c
+ID_Arccsa   [_Button("Arc Center Start Angle", ICON_16_ARCCSA, ICON_32_ARCCSA)]{L1} _arc _c \\_a
+ID_Arccsl   [_Button("Arc Center Start Length", ICON_16_ARCCSL, ICON_32_ARCCSL)]{L1} _arc _c \\_l
+
+**TB_CIRCLE
+ID_Tbcir    [_Toolbar("Circle", _Floating, _Hide, 10, 180, 1)]
+ID_Cirrad   [_Button("Circle Center Radius", ICON_16_CIRRAD, ICON_32_CIRRAD)]{L1} _circle
+ID_Cirdia   [_Button("Circle Center Diameter", ICON_16_CIRDIA, ICON_32_CIRDIA)]{L1} _circle \_d
+ID_Cir2pt   [_Button("Circle 2 Point", ICON_16_CIR2PT, ICON_32_CIR2PT)]{L1} _circle _2p
+ID_Cir3pt   [_Button("Circle 3 Point", ICON_16_CIR3PT, ICON_32_CIR3PT)]{L1} _circle _3p
+ID_Cirttr   [_Button("Circle Tan Tan Radius", ICON_16_CIRTTR, ICON_32_CIRTTR)]{L1} _circle _ttr
+ID_Donut    [_Button("Donut", ICON_16_DONUT, ICON_32_DONUT)]{L1} _donut
+
+**TB_ELLIPSE
+ID_Tbell    [_Toolbar("Ellipse", _Floating, _Hide, 10, 200, 1)]
+ID_Ellips   [_Button("Ellipse Center", ICON_16_ELLCEN, ICON_32_ELLCEN)]{L1} _ellipse;_c
+ID_Ellcir   [_Button("Ellipse Axis End", ICON_16_ELLAE, ICON_32_ELLAE)]{L1} _ellipse   
+ID_Ellarc   [_Button("Ellipse Arc", ICON_16_ELLARC, ICON_32_ELLARC)]{L1} _ellipse;_a
+
+**TB_POLYGON
+ID_Tbpgon   [_Toolbar("Polygon", _Floating, _Hide, 10, 220, 1)]
+ID_Solid    [_Button("2D Solid", ICON_16_SOLID, ICON_32_SOLID)]{L1} _solid
+ID_Bpoly    [_Button("Boundary", ICON_16_BPOLY, ICON_32_BPOLY)]{L1} _boundary
+
+**TB_MODIFY
+ID_TbModify  [_Toolbar("Modify", _Top, _Show, 1, 101, 10)]
+ID_Erase     [_Button("Erase", ICON_16_ERASE, ICON_32_ERASE)]^C^C$s=erase _erase
+             [--]
+ID_Move      [_Button("Move", ICON_16_MOVE, ICON_32_MOVE)]^C^C_move
+ID_Copyob    [_Button("Copy Object", ICON_16_COPYOB, ICON_32_COPYOB)]^C^C_copy
+ID_Mirror    [_Button("Mirror", ICON_16_MIRROR, ICON_32_MIRROR)]^C^C_mirror
+             [--]
+ID_Offset    [_Button("Offset", ICON_16_OFFSET, ICON_32_OFFSET)]^C^C_offset
+             [--]
+ID_Stretch   [_Button("Stretch", ICON_16_STRETC, ICON_32_STRETC)]^C^C_stretch c
+ID_Scale     [_Button("Scale", ICON_16_SCALE, ICON_32_SCALE)]^C^C_scale
+ID_Length    [_Button("Lengthen", ICON_16_LENGTH, ICON_32_LENGTH)]^C^C_lengthen
+             [--]
+ID_Array     [_Button("Array", ICON_16_ARRREC, ICON_32_ARRREC)]^C^C_array
+             [--]
+ID_Rotate    [_Button("Rotate", ICON_16_ROTATE, ICON_32_ROTATE)]^C^C_rotate
+             [--]
+ID_Trim      [_Button("Trim", ICON_16_TRIM, ICON_32_TRIM)]^C^C_trim
+ID_Extend    [_Button("Extend", ICON_16_EXTEND, ICON_32_EXTEND)]^C^C_extend
+ID_Break     [_Button("Break", ICON_16_BRE2PT, ICON_32_BRE2PT)]^C^C_break
+             [--]
+ID_Chamfe    [_Button("Chamfer", ICON_16_CHAMFE, ICON_32_CHAMFE)]^C^C_chamfer
+ID_Fillet    [_Button("Fillet", ICON_16_FILLET, ICON_32_FILLET)]^C^C_fillet
+             [--]
+             [_Button("Uniline", "ico_uniline.bmp", "ico_uniline.bmp")]^C^Cuniline
+             [--]
+ID_Pedit     [_Button("Edit Polyline", ICON_16_PEDIT, ICON_32_PEDIT)]^C^C_pedit
+             [--]
+ID_TexEdi    [_Button("Edit Text", ICON_16_TEXEDI, ICON_32_TEXEDI)]^C^C_ddedit
+ID_AttEdi    [_Button("Edit Attribute", ICON_16_ATTEDI, ICON_32_ATTEDI)]^C^C_ddatte
+             [--]
+ID_Change    [_Button("Change", ICON_16_CHANGE, ICON_32_CHANGE)]^C^C_change
+ID_Ddmodi    [_Button("Change Properties", ICON_16_MODIFY, ICON_32_MODIFY)]^C^Cddmodify
+             [--]
+ID_Explode   [_Button("Explode", ICON_16_EXPLOD, ICON_32_EXPLOD)]^C^C_explode
+
+**TB_DIM1
+ID_TbDims1   [_Toolbar("Dimensioning 1", _Floating, _Hide, 100, 100, 1)]
+ID_DimCen    [_Button("Center Mark", ICON_16_DIMCEN, ICON_32_DIMCEN)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimcenter
+ID_DimRad    [_Button("Radius Dimension", ICON_16_DIMRAD, ICON_32_DIMRAD)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimradius
+ID_DimDia    [_Button("Diameter Dimension", ICON_16_DIMDIA, ICON_32_DIMDIA)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimdiameter
+
+**TB_DIM2
+ID_TbDims2   [_Toolbar("Dimensioning 2", _Floating, _Hide, 150, 150, 1)]
+ID_DimAng    [_Button("Angular Dimension", ICON_16_DIMANG, ICON_32_DIMANG)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimangular
+ID_DimOrd    [_Button("Ordinate Dimension", ICON_16_DIMORD, ICON_32_DIMORD)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimordinate
+ID_DimLea    [_Button("Leader", ICON_16_DIMLEA, ICON_32_DIMLEA)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _leader
+
+***HELPSTRINGS
+ID_New       [Creates a new drawing file]
+ID_Open      [Opens an existing drawing file]
+ID_Close     [Closes the drawing file]
+ID_Save      [Saves the drawing with the current file name or a specified name]
+ID_Saveas    [Saves an unnamed drawing with a file name or renames the current drawing]
+ID_SavR12    [Saves the current drawing in AutoCAD Release 12 format]
+ID_Print     [Prints a drawing to a plotter, printer, or file]
+ID_Import    [Imports a file into a drawing]
+ID_Export    [Exports a drawing to a different file format]
+ID_Ioopts    [Controls options for importing and exporting]
+ID_Wmfopt    [Sets options for WMFIN]
+ID_Psqual    [Controls the rendering quality of PostScript images]
+ID_Psdisp    [Controls the appearance of a PostScript image as it's dragged using PSIN]
+ID_Psprol    [Names the prologue section read from ACAD.psf when PSOUT is used]
+ID_Mngt      [Lists managerial functions]
+ID_Files     [List, Delete, Copy, Unlock or Rename drawing files]
+ID_Audit     [Examines the integrity of a drawing]
+ID_Recov     [Repairs a damaged drawing]
+ID_Exit      [Exits AutoCAD]
+ID_Undo      [Reverses the most recent operation]
+ID_Redo      [Reverses the previous UNDO or U command]
+ID_Cut       [Removes objects and places them on the Clipboard]
+ID_Copy      [Copies objects to the Clipboard]
+ID_Copylnk   [Copies the current view to the Clipboard]
+ID_Paste     [Inserts data from the Clipboard]
+ID_Pastesp   [Inserts data from the Clipboard and controls the format of the data]
+ID_Ddmodi    [Controls object properties]
+ID_Links     [Manages OLE links]
+ID_Insobj    [Inserts a linked or embedded object]
+ID_TbRedraw  [Refreshes the display of the current viewport]
+ID_Redraw    [Refreshes the display of the current viewport]
+ID_Redall    [Refreshes the display of all viewports]
+ID_TbZoom    [Increases or decreases the apparent size of objects in the current viewport]
+ID_Zooin     [Increases the apparent size of objects in the current viewport]
+ID_Zooout    [Decreases the apparent size of objects in the current viewport]
+ID_Zoowin    [Zooms to display an area specified by a rectangular window]
+ID_Zooall    [Zooms to display the entire drawing in the current viewport]
+ID_Zoopre    [Zooms to display the previous view] 
+ID_Zoosca    [Zooms the display using a specified scale factor] 
+ID_Zoodyn    [Zooms to display the generated portion of the drawing]
+ID_Zoocen    [Displays a window specified by a center point and height]
+ID_Zoolef    [Displays a window specified by the lower-left corner and height]
+ID_Zoolim    [Zooms to display the objects within the drawing limits]
+ID_Zooext    [Zooms to display the drawing extents]
+ID_Zoovma    [Zooms out as far as possible on the current screen]
+ID_TbPan     [Moves the view of the drawing in the current viewport]
+ID_TbPan     [Moves the view of the drawing in the current viewport]
+ID_Panpic    [Moves the view of the drawing by the specified distance]
+ID_Panlef    [Moves the view of the drawing to the left]
+ID_Panrig    [Moves the view of the drawing to the right]
+ID_Panup     [Moves the view of the drawing up]
+ID_Pandow    [Moves the view of the drawing down]
+ID_Panupl    [Moves the view of the drawing up and to the left]
+ID_Panupr    [Moves the view of the drawing up and to the right]
+ID_Pandol    [Moves the view of the drawing down and to the left]
+ID_Pandor    [Moves the view of the drawing down and to the right]
+ID_Namview   [Creates and restores named views]
+ID_3DViewp   [Displays preset 3D viewpoint options]
+ID_Plan      [Displays the plan view of a User Coordinate System]
+ID_Planw     [Displays the plan view of the World Coordinate System]
+ID_Planu     [Displays the plan view of a previously saved UCS]
+ID_Vietop    [Sets the view point to top]
+ID_Viebot    [Sets the view point to bottom]
+ID_Vielef    [Sets the view point to left]
+ID_Vierig    [Sets the view point to right]
+ID_Viefro    [Sets the view point to front]
+ID_Viebac    [Sets the view point to back]
+ID_Vieswi    [Sets the view point to southwest isometric]
+ID_Viesei    [Sets the view point to southeast isometric]
+ID_Vienei    [Sets the view point to northeast isometric]
+ID_Vienwi    [Sets the view point to northwest isometric]
+ID_3DVpt     [Sets the direction for a 3D visualization of the drawing]
+ID_3DVptr    [Specifies a viewpoint]
+ID_3DVptt    [Displays a compass and tripod for defining a view direction]
+ID_3DVptv    [Specifies a direction as if looking back at the origin (0,0,0)]
+ID_3DDv      [Defines parallel projection or perspective views]
+ID_Vietms    [Switches to tiled model space]
+ID_Viefms    [Switches to floating model space]
+ID_Vieps     [Switches to paper space]
+ID_TVp       [Provides tiled viewport options]
+ID_TVpl      [Displays layout options for tiled viewports]
+ID_TVp1      [Returns the drawing to a single viewport view]
+ID_TVp2      [Divides the current viewport in half]
+ID_TVp3      [Divides the current viewport into three viewports]
+ID_TVp4      [Divides the current viewport into four viewports of equal size]
+ID_TVpr      [Restores a previously saved viewport configuration]
+ID_TVpd      [Deletes a named viewport configuration]
+ID_TVpj      [Combines two adjacent viewports into one larger viewport]
+ID_TVps      [Saves the current viewport using a specified name]
+ID_FVp       [Provides floating viewport options]
+ID_FVp1      [Creates one viewport that fills the available display area]
+ID_FVp2      [Divides the specified area into two viewports]
+ID_FVp3      [Divides the specified area into three viewports]
+ID_FVp4      [Divides the specified area into four viewports]
+ID_FVpr      [Restores viewport configurations to individual viewports in paper space]
+ID_FVpon     [Turns on a viewport]
+ID_FVpoff    [Turns off a viewport]
+ID_FVph      [Suppresses hidden lines within a viewport during plotting from paper space]
+ID_FVsetup   [Sets up the specifications of a drawing]
+ID_Ucsp      [Selects a preset User Coordinate System]
+ID_Dducs     [Manages User Coordinate Systems]
+ID_Ucsset    [Provides User Coordinate System options]
+ID_Ucsw      [Sets the UCS to the World Coordinate System]
+ID_Ucsori    [Defines a new UCS by shifting the origin]
+ID_Ucszav    [Defines a UCS using a positive Z axis extrusion method]
+ID_Ucs3pt    [Specifies the new UCS origin and the direction of the X and Y axes]
+ID_Ucsobj    [Defines a new coordinate system based on a selected object]
+ID_Ucsvie    [Establishes a new coordinate system with the XY plane parallel to the screen]
+ID_Ucsxar    [Rotates the current UCS about the X axis]
+ID_Ucsyar    [Rotates the current UCS about the Y axis]
+ID_Ucszar    [Rotates the current UCS about the Z axis]
+ID_Ucspre    [Restores the previous UCS]
+ID_Ucsres    [Restores a saved UCS so it becomes the current UCS]
+ID_Ucssav    [Saves the current UCS to a specified name]
+ID_Ucsdel    [Removes the specified UCS from the list of saved coordinate systems]
+ID_Ucslis    [Lists the defined UCS names]
+ID_Objcre    [Sets properties for new objects]
+ID_Layers    [Manages layers]
+ID_Vlc       [Freezes layers in specific viewports]
+ID_Vlcf      [Freezes a layer or set of layers in one or more viewports]
+ID_Vlct      [Thaws layers in specific viewports]
+ID_Vlcr      [Sets the visibility of layers in specified viewports to their default setting]
+ID_Vlcn      [Creates new layers that are frozen in all viewports]
+ID_Vlcd      [Sets a default visibility-per-viewport for layers]
+ID_Vlcl      [Displays the names of frozen layers in a viewport]
+ID_Color     [Sets the color for newly drawn objects]
+ID_Linety    [Loads and sets linetypes]
+ID_Mstyle    [Manages multiline styles]
+ID_TexSty    [Creates named text styles]
+ID_DimSty    [Creates and modifies dimension styles]
+ID_Shape     [Inserts a shape]
+ID_Units     [Controls coordinate and angle display formats and determines precision]
+ID_Limits    [Sets and controls the drawing boundaries]
+ID_Time      [Displays the date and time statistics of a drawing]
+ID_Status    [Displays drawing statistics, modes, and extents]
+ID_Rename    [Changes the names of objects]
+ID_Purge     [Removes unused objects from the drawing database]
+ID_Purla     [Removes unused layers from the drawing database]
+ID_Purlt     [Removes unused linetypes from the drawing database]
+ID_Purmls    [Removes unused multiline styles from the drawing database]
+ID_Purts     [Removes unused text styles from the drawing database]
+ID_Purds     [Removes unused dimension styles from the drawing database]
+ID_Purs      [Removes unused shapes from the drawing database]
+ID_Purblk    [Removes unused blocks from the drawing database]
+ID_Purall    [Removes all unused objects from the drawing database]
+ID_Dwgaids   [Sets drawing aids]
+ID_Osndd     [Sets running Object Snap mode and changes the target box size]
+ID_Cordis    [Changes the coordinate mode]
+ID_Ddselec   [Sets Object Selection mode settings]
+ID_Ddgrips   [Enables grips and sets their colors]
+ID_Rpref     [Sets rendering preferences]
+ID_Ucs       [Saves, restores, renames, deletes, and lists user coordinate systems]
+ID_Ucsi      [Controls visibility and placement of the UCS icon in viewports]
+ID_Ucsor     [Forces the icon to appear at the origin of the coordinate system]
+ID_Ucsf      [Generates a plan view when the UCS changes]
+ID_Disopt    [Lists display options]
+ID_Dosolf    [Specifies whether solids are filled]
+ID_Dosplfr   [Controls display of spline-fit polylines]
+ID_Doattds   [Globally controls the visibility of attributes]
+ID_Doattdn   [Keeps the current visibility of each attribute]
+ID_Doattdo   [Makes all attributes visible]
+ID_Doattdf   [Makes all attributes invisible]
+ID_Doddpt    [Specifies the display mode and size of point objects]
+ID_Doft      [Specifies that TrueType and Type 1 PostScript fonts appear as filled text]
+ID_Doot      [Specifies that TrueType and Type 1 PostScript fonts appear as outlines]
+ID_Dotf      [Controls whether text frames appear in place of text]
+ID_Dotq      [Sets the resolution of TrueType and Type 1 PostScript fonts]
+ID_Lintyps   [Lists linetype and linetype scale options]
+ID_Ltsgls    [Sets the global linetype scale factor]
+ID_Ltpss     [Sets paper space linetype scaling]
+ID_Ltgen     [Sets the linetype pattern generation around the vertices of the polyline]
+ID_Prefs     [Customizes the AutoCAD settings]
+ID_Config    [Reconfigures AutoCAD]
+ID_Rconfi    [Reconfigures the rendering setup]
+ID_Tablet    [Lists tablet options]
+ID_Tabon     [Turns Tablet mode on]
+ID_Taboff    [Turns Tablet mode off]
+ID_Tabcal    [Calibrates the digitizer with the drawing's coordinate system]
+ID_Tabcfg    [Designates or realigns the tablet menu areas]
+ID_Savtim    [Sets the automatic save interval]
+ID_Sysvar    [Lists system variables and sets their values]
+ID_Sysvarl   [Lists system variables and their values]
+ID_Sysvars   [Sets system variable values]
+ID_Appld     [Loads AutoLISP, ADS, and Arx applications]
+ID_Script    [Executes a sequence of commands from a script]
+ID_Tpal      [Opens and closes toolbars]
+ID_TbDraw    [Displays the Draw toolbar]
+ID_TbModify  [Displays the Modify toolbar]
+ID_TbDims    [Displays the Dimensions toolbar]
+ID_TbSolids  [Displays the Solids toolbar]
+ID_TbSurfac  [Displays the Surfaces toolbar]
+ID_TbXref    [Displays the External Reference toolbar]
+ID_TbRender  [Displays the Render toolbar]
+ID_TbExtdb   [Displays the External Database toolbar]
+ID_TbObjpro  [Displays the Object Properties toolbar]
+ID_TbAttrib  [Displays the Attribute toolbar]
+ID_TbMisc    [Displays the Miscellaneous toolbar]
+ID_TbSelect  [Displays the Object Selection toolbar]
+ID_Group     [Creates a named selection set of objects]
+ID_TbOsnap   [Displays the Object Snap toolbar]
+ID_TbPoiFil  [Displays the Point Filters toolbar]
+ID_TbUcs     [Displays the UCS toolbar]
+ID_TbView    [Displays the View toolbar]
+ID_Stdtbar   [Displays the Standard toolbar]
+ID_TbClall   [Closes all toolbars]
+ID_Aerial    [Opens the Aerial View window]
+ID_TxtWin    [Opens the AutoCAD Text window]
+ID_Slides    [Creates or displays slide files]
+ID_Sldvie    [Displays a raster image slide file in the current viewport]
+ID_Sldsav    [Creates a raster image slide file of the current viewport]
+ID_Images    [Creates or saves GIF, TGA, and TIFF files]
+ID_Imgvie    [Displays a GIF, TGA, or TIFF image]
+ID_Imgsav    [Saves a rendered image to a GIF, TGA, or TIFF file]
+ID_Spell     [Checks the spelling of text]
+ID_Cal       [Evaluates mathematical and geometric expressions]
+ID_Cusmnu    [Customizes menus]
+ID_Custb     [Customizes toolbars]
+ID_Reinit    [Reinitializes the input/output ports, digitizer, display, and program parameters file]
+ID_Compile   [Compiles shape files and PostScript font files]
+ID_Help      [Displays on-line help]
+ID_Helpcts   [Displays the table of contents for on-line help]
+ID_Helpsrc   [Displays the Search dialog box]
+ID_Helphow   [Describes how to use Windows on-line help]
+ID_Whatnew   [Describes new features in AutoCAD Release 13]
+ID_Qtour     [Starts Quick Tour]
+ID_Lrnacad   [Starts Learning AutoCAD on-line tutorial]
+ID_About     [Displays information about AutoCAD]
+ID_Selwin    [Selects all objects completely within a defined window]
+ID_Selcro    [Selects objects within and crossing a defined window]
+ID_Selgro    [Selects objects within a specified group]
+ID_Selpre    [Selects the most recent selection set]
+ID_Sellas    [Selects the most recently created visible object]
+ID_Selall    [Selects all objects on thawed layers]
+ID_Selwp     [Selects objects within a defined polygon]
+ID_Selcp     [Selects objects within and crossing a defined polygon]
+ID_Selfen    [Selects all objects crossing a selection fence]
+ID_Seladd    [Switches to Add mode]
+ID_Selrem    [Switches to Remove mode]
+ID_Filter    [Creates lists to select objects based on properties]
+ID_Osnfro    [Snaps to a temporary reference point]
+ID_Osnend    [Snaps to the closest endpoint of an arc or a line]
+ID_Osnmid    [Snaps to the midpoint of an arc or a line]
+ID_Osnint    [Snaps to the intersection of a line, an arc, or a circle]
+ID_Osnapp    [Snaps to the apparent intersection of two objects]
+ID_Osncen    [Snaps to the center of an arc or a circle]
+ID_Osnqua    [Snaps to a quadrant point of an arc or a circle]
+ID_Osnper    [Snaps to a point perpendicular to an arc, a line, or a circle]
+ID_Osntan    [Snaps to the tangent of an arc or a circle]
+ID_Osnnod    [Snaps to a point object]
+ID_Osnins    [Snaps to the insertion point of text, a block, a shape, or an attribute]
+ID_Osnnea    [Snaps to the nearest point of an arc, a circle, a line, or a point]
+ID_Osnqui    [Snaps to the first snap point found]
+ID_Osnnon    [Turns off Object Snap mode]
+ID_Ptfx      [Specifies a .X point filter]
+ID_Ptfy      [Specifies a .Y point filter]
+ID_Ptfz      [Specifies a .Z point filter]
+ID_Ptfxy     [Specifies a .XY point filter]
+ID_Ptfxz     [Specifies a .XZ point filter]
+ID_Ptfyz     [Specifies a .YZ point filter]
+ID_Dview     [Defines parallel projection or perspective views]
+ID_LType     [Creates, loads, and sets linetypes]
+ID_Mlstyle   [Defines a style for multiple parallel lines]
+ID_Dchpro    [Changes the color, layer, linetype, and thickness of an object]
+ID_List      [Displays database information for selected objects]
+ID_Id        [Displays the coordinates of a location]
+ID_Dist      [Measures the distance and angle between two points]
+ID_Area      [Calculates the area and perimeter of objects or of defined areas]
+ID_Masspr    [Calculates and displays the mass properties of regions or solids]
+ID_Line      [Creates straight line segments]
+ID_Xline     [Creates an infinite line]
+ID_Ray       [Creates a semi-infinite line]
+ID_Pline     [Creates two-dimensional polylines]
+ID_Poly3d    [Creates a polyline of straight line segments]
+ID_Mline     [Creates multiple parallel lines]
+ID_Spline    [Creates a quadratic or cubic spline (NURBS)]
+ID_Arc3pt    [Creates an arc using three points]
+ID_Arcsce    [Creates an arc using the start point, center, and end point]
+ID_Arcsca    [Creates an arc using the start point, center, and included angle]
+ID_Arcscl    [Creates an arc using the start point, center, and length of chord]
+ID_Arcsea    [Creates an arc using the start point, end point, and included angle]
+ID_Arcsed    [Creates an arc using the start point, end point, and starting direction]
+ID_Arcser    [Creates an arc using the start point, end point, and radius]
+ID_Arccse    [Creates an arc using the center, start point, and end point]
+ID_Arccsa    [Creates an arc using the center, start point, and included angle]
+ID_Arccsl    [Creates an arc using the center, start point, and length of chord]
+ID_Arccon    [Creates an arc tangent to the last line or arc drawn]
+ID_Cirrad    [Creates a circle using a specified radius]
+ID_Cirdia    [Creates a circles using a specified diameter]
+ID_Cir2pt    [Creates a circle using two endpoints of the diameter]
+ID_Cir3pt    [Creates a circle using three points on the circumference]
+ID_Cirttr    [Creates a circle tangent to two objects with a specified radius]
+ID_Donut     [Draws filled circles and rings]
+ID_Ellips    [Creates an ellipse using a specified center point]
+ID_Ellcir    [Creates an ellipse using a specified axis]
+ID_Ellarc    [Creates an elliptical arc]
+ID_Rectan    [Draws a rectangular polyline]
+ID_Polygo    [Creates an equilateral closed polyline]
+ID_Solid     [Creates solid-filled polygons]
+ID_Region    [Creates a region object from a selection set of existing objects]
+ID_Bpoly     [Creates a region or polyline of a closed boundary]
+ID_Point     [Creates a point object]
+ID_Divide    [Places evenly spaced point objects or blocks along the length or perimeter of an object]
+ID_Measure   [Places point objects or blocks at measured intervals on an object]
+ID_Dinser    [Inserts a block or another drawing]
+ID_Block     [Creates a block definition from a set of objects]
+ID_TbBlock   [Creates a block definition from a set of objects]
+ID_Bhatch    [Fills an enclosed area with an associative hatch pattern]
+ID_Psfill    [Fills a two-dimensional polyline outline with a PostScript pattern]
+ID_Mtext     [Creates paragraph text]
+ID_Dtext     [Displays text on screen as it is entered]
+ID_Text      [Creates a single line of text]
+ID_Move      [Displaces objects a specified distance in a specified direction]
+ID_Explode   [Breaks a compound object into its component objects]
+ID_Erase     [Removes objects from a drawing]
+ID_Copyob    [Duplicates objects]
+ID_Offset    [Creates concentric circles, parallel lines, and parallel curves]
+ID_Mirror    [Creates a mirror image copy of objects]
+ID_Mir3d     [Creates a mirror image copy of objects about a plane]
+ID_Arrrec    [Creates a rectangular array]
+ID_Arrpol    [Creates a polar array]
+ID_Arr3dr    [Creates a rectangular 3D array]
+ID_Arr3dp    [Creates a polar 3D array]
+ID_Rotate    [Moves objects about a base point]
+ID_Rot3d     [Moves objects about a three-dimensional axis]
+ID_Align     [Moves and rotates objects to align with other objects]
+ID_Stretch   [Moves or stretches objects]
+ID_Scale     [Enlarges or reduces objects equally in the X, Y, and Z directions]
+ID_Length    [Lengthens an object]
+ID_Change    [Changes the properties of existing objects]
+ID_Trim      [Trims objects at a cutting edge defined by other objects]
+ID_Extend    [Extends an object to meet another object]
+ID_Bre1pt    [Breaks the selected object at the selection point]
+ID_Bre1ps    [Breaks the selected object at a specified point]
+ID_Bre2pt    [Breaks the selected object between the selection point and a specified point]
+ID_Bre2ps    [Breaks the selected object between two specified points]
+ID_Pedit     [Edits polylines and three-dimensional polygon meshes]
+ID_Mledit    [Edits multiple parallel lines]
+ID_Spledi    [Edits a spline object]
+ID_TexEdi    [Edits attribute definitions, text, and mtext objects]
+ID_Hatedi    [Modifies an existing associative hatch block]
+ID_Chamfe    [Bevels the edges of objects]
+ID_Fillet    [Rounds and fillets the edges of objects]
+ID_DimLin    [Creates linear dimensions]
+ID_DimAli    [Creates an aligned linear dimension]
+ID_TbDimRad  [Creates radial dimensions for circles and arcs]
+ID_DimAng    [Creates an angular dimension]
+ID_TbDimOrd  [Creates ordinate point dimensions]
+ID_DimBas    [Continues a dimension from the baseline of the previous or selected dimension]
+ID_DimCon    [Continues a dimension from the second extension line of the previous or a selected dimension]
+ID_DimCen    [Creates the center mark or the center lines of circles and arcs]
+ID_DimLea    [Creates a line that connects annotation to a feature]
+ID_DimTol    [Creates geometric tolerances]
+ID_TbDimText [Moves and rotates dimension text]
+ID_DimRad    [Creates radius dimensions for circles and arcs]
+ID_DimDia    [Creates diameter dimensions for circles and arcs]
+ID_DimOrd    [Creates ordinate point dimensions]
+ID_DimOrx    [Measures the X coordinate of a feature]
+ID_DimOry    [Measures the Y coordinate of a feature]
+ID_DimHom    [Moves dimension text back to its default position]
+ID_DimTro    [Rotates dimension text]
+ID_DimTle    [Left justifies dimension text]
+ID_DimTce    [Center justifies dimension text]
+ID_DimTri    [Right justifies dimension text]  
+ID_DimObl    [Modifies oblique angle of dimension]
+ID_Sphere    [Creates a 3D solid sphere]
+ID_Torus     [Creates a donut-shaped solid]
+ID_Extrud    [Creates unique solid primitives by extruding existing 2D objects]
+ID_Revolv    [Creates a solid by revolving a 2D object about an axis]
+ID_Slice     [Slices a set of solids with a plane]
+ID_Sectio    [Creates a region using the intersection of a plane and solids]
+ID_Interf    [Creates a composite solid from the common volume where a set of solids interfere]
+ID_Amecon    [Converts AME solid models to AutoCAD solid objects]
+ID_Union     [Creates a composite region or solid]
+ID_Subtra    [Subtracts the area or volume of one set of regions or solids from another set]
+ID_Inters    [Creates composite solids or regions from the intersection of solids or regions]
+ID_Boxcen    [Creates a box using a specified center point]
+ID_Boxcor    [Defines the first corner of a box]
+ID_Cylell    [Creates a cylinder with an elliptical base]
+ID_Cylcen    [Defines the center of the circular base of a cylinder]
+ID_Conell    [Creates a cone with an elliptical base]
+ID_Concen    [Defines the center of the circular base of a cone]
+ID_Wedcen    [Creates a wedge using a specified center point]
+ID_Wedcor    [Defines the first corner of a wedge]
+ID_SurBox    [Creates a 3D box wire frame]
+ID_SurWed    [Creates a right angle wedge-shaped polygon wire frame]
+ID_SurPyr    [Creates a pyramid or a tetrahedron]
+ID_SurCon    [Creates a cone-shaped wire frame]
+ID_SurSph    [Creates a spherical polygon mesh]
+ID_SurDom    [Creates the upper half of a spherical polygon mesh]
+ID_SurDis    [Creates the lower half of a spherical polygon mesh]
+ID_SurTor    [Creates a toroidal polygon mesh]
+ID_3dface    [Creates a 3D face]
+ID_Edge      [Changes the visibility of 3D face edges]
+ID_Revsur    [Creates a rotated surface about a selected axis]
+ID_Tabsur    [Creates a tabulated surface from a path curve and direction vector]
+ID_Rulesu    [Creates a ruled surface between two curves]
+ID_Edgesu    [Creates a three-dimensional polygon mesh]
+ID_3dmesh    [Creates a free-form polygon mesh]
+ID_XreAtt    [Attaches an xref]
+ID_XreOve    [Overlays an xref]
+ID_XreRel    [Reloads one or more xrefs]
+ID_XreDet    [Detaches xrefs]
+ID_XreCli    [Inserts and clips an xref]
+ID_XrePat    [Displays and edits the path name associated with an xref]
+ID_XreLis    [Lists the xref path name and the number of attached xrefs]
+ID_TbBind    [Binds dependent symbols of an xref to the drawing]
+ID_Bind      [Binds all external references to the current drawing]
+ID_BinBlo    [Binds blocks of an xref to the drawing]
+ID_BinLay    [Binds layers of an xref to the drawing]
+ID_BinLin    [Binds linetypes of an xref to the drawing]
+ID_BinTex    [Binds text styles of an xref to the drawing]
+ID_BinDim    [Binds dimension styles of an xref to the drawing]
+ID_AttDef    [Creates an attribute definition]
+ID_AttRed    [Redefines a block and updates associated attributes]
+ID_AttEdi    [Edits the variable attributes of a block]
+ID_AttEdg    [Changes attribute information independent of its block definition]
+ID_Hide      [Regenerates a three-dimensional model with hidden lines suppressed]
+ID_Shade     [Displays a flat-shaded image of the drawing in the current viewport]
+ID_Render    [Creates a realistically shaded image of a three-dimensional wire frame or solid model]
+ID_Scene     [Manages scenes]
+ID_Light     [Manages lights and lighting effects]
+ID_Rmat      [Manages rendering materials]
+ID_Matlib    [Imports and exports materials to and from a library of materials]
+ID_Stats     [Displays rendering statistics]
+ID_Aseadm    [Performs administrative functions for external database commands]
+ID_Aserow    [Displays and edits table data and creates links and selection sets]
+ID_Aselin    [Manipulates links between objects and an external database]
+ID_Asesel    [Creates a selection set from rows linked to textual selection sets and graphic selection sets]
+ID_Aseexp    [Exports link information for selected objects]    
+ID_Asesql    [Executes Structured Query Language (SQL)]
+ID_Minser    [Inserts multiple instances of a block in a rectangular array]
+ID_Oops      [Restores erased objects]
+ID_Sketch    [Creates a series of freehand line segments]
+ID_Trace     [Creates solid lines]
+ID_Tbarc     [Displays the Arc toolbar]
+ID_TbBox     [Displays the Box toolbar]
+ID_TbBreak   [Displays the Break toolbar]
+ID_Tbcir     [Displays the Circle toolbar]
+ID_TbCone    [Displays the Cone toolbar]
+ID_TbCopy    [Displays the Copy toolbar]
+ID_TbCylind  [Displays the Cylinder toolbar]
+ID_Tbell     [Displays the Ellipse toolbar]
+ID_TbExplode [Displays the Explode toolbar]
+ID_TbFeatur  [Displays the Chamfer and Fillet toolbar]
+ID_Tbhatch   [Displays the Hatch toolbar]
+ID_TbInq     [Displays the Inquiry toolbar]
+ID_TbLine    [Displays the Line toolbar]
+ID_TbPoint   [Displays the Point toolbar]
+ID_Tbpgon    [Displays the Polygon toolbar]
+ID_Tbpline   [Displays the Polyline toolbar]
+ID_TbResize  [Displays the Resize toolbar]
+ID_TbRotate  [Displays the Rotate toolbar]
+ID_TbSelect  [Displays the Select Objects toolbar]
+ID_TbSpace   [Switches between paper space and model space]
+ID_TbSpledi  [Displays the Special Edit toolbar]
+ID_Tbtext    [Displays the Text toolbar]
+ID_TbToolwi  [Displays the Tool Windows toolbar]
+ID_TbTrim    [Displays the Trim and Extend toolbar]
+ID_TbWedge   [Displays the Wedge toolbar]
+ID_Picks1    [Selecting a single group member selects all members]
+ID_Picks2    [Selecting hatching also selects the hatch boundary]
+
+***ACCELERATORS
+[CONTROL+"L"]^O
+[CONTROL+"R"]^V
+ID_Undo   [CONTROL+"Z"]
+ID_Cut    [CONTROL+"X"]
+ID_Copy   [CONTROL+"C"]
+ID_Paste  [CONTROL+"V"]
+ID_Open   [CONTROL+"O"]
+ID_Print  [CONTROL+"P"]
+ID_New    [CONTROL+"N"]
+ID_Save   [CONTROL+"S"]
+

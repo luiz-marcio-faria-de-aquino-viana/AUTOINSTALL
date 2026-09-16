@@ -1,0 +1,1144 @@
+
+//
+// INCMENU.mnd
+// Copyright (C) 1992-2000 by Luiz Marcio F A Viana, 1/2/2000
+//
+
+{L0}=^C^C^P(progn (slaylight "0")           (princ))
+{L1}=^C^C^P(progn (slaylight "INC-PONTOS")  (princ))
+{L2}=^C^C^P(progn (slaylight "INC-TEXTOS")  (princ))
+{L3}=^C^C^P(progn (slaylight "INC-TB_SPK")  (princ))
+{L4}=^C^C^P(progn (slaylight "INC-TB_INC")  (princ))
+{L6}=^C^C^P(progn (slaylight "INC-COLUNAS") (princ))
+
+***MENUGROUP=AI_INCMENU
+
+***BUTTONS1
+;
+$p0=*
+
+***BUTTONS2
+$p0=*
+
+***AUX1
+;
+$p0=*
+
+***AUX2
+$p0=*
+
+***POP0
+[Osnap]
+[*CANCEL*]^C^C^C
+[--]
+['Redraw]'REDRAW
+[--]
+[Endpoint             ]_endp
+[Midpoint             ]_mid
+[Intersection         ]_int
+[Perpendicular        ]_per
+[Nearest              ]_nea
+[--]
+[Center               ]_center
+[Quadrant             ]_qua
+[Tangent              ]_tan
+[Node                 ]_nod
+[Insertion            ]_ins
+[None                 ]_non
+[--]
+[Paralela]^p(paralela)
+[45d]^p(45gr)
+[--]
+[.X].X
+[.Y].Y
+[--]
+[U   ]^C^C^CU
+[Redo]^C^C^CREDO
+[--]
+[Object snap...]^C^CDDOSNAP
+
+***POP1
+           [&File]
+ID_New     [&New...\tCtrl+N  ]^C^C_new
+ID_Open    [&Open...\tCtrl+O ]^C^C_open
+ID_Save    [&Save\tCtrl+S    ]^C^C_qsave
+ID_Saveas  [S&ave As...      ]^C^C_saveas
+           [--]
+ID_Import  [&Import...]^C^Cdxfin
+ID_Export  [&Export...]^C^Cdxfout
+           [--]
+           [->&Configuracao]
+ID_Setup     [&Setup...]^c^cddsetup
+             [--]
+ID_Lay       [&Re-inicializacao Camadas  ]^c^cscript layer
+ID_SVar      [R&e-inicializacao Variaveis]^c^cscript setvar
+             [--]
+ID_Sname     [A&justa Nomes]^C^Csname
+             [--]
+ID_Project   [<-E&tapa Projeto]^c^c$s=etpproj ap_etpproj
+           [--]
+ID_Print   [&Imprimir...\tCtrl+P]^C^C_plot
+ID_FPloter [E&nviar Impressao...]^c^cfploter
+           [--]
+ID_Plotq   [&Fila de Impressao...]^c^c(aci_xrun "pltservr" "/q=plotq_0")
+           [--]
+ID_Exit    [E&xit]^C^C_quit
+
+***POP2
+           [&Edit]
+ID_Cut     [Cu&t\tCtrl+X     ]'_cutclip
+ID_Copy    [&Copy\tCtrl+C    ]'_copyclip
+ID_Copylnk [Copy &View       ]^C^C_copylink
+ID_Paste   [&Paste\tCtrl+V   ]'_pasteclip
+ID_Pastesp [Paste &Special...]_pastespec
+           [--]
+ID_Links   [&Links...        ]^C^C_olelinks
+ID_Insobj  [&Insert Object...]^C^C_insertobj
+
+***POP3
+            [&Pontos]
+            [Prumada                ]{L1} ^pdonut 0 ^p(/ 30.0 (#UND))
+            [--]
+            [Registro de agua fria  ]{L1} inserir INC/INC04c00
+            [--]
+            [Mangueira de incendio  ]{L1} inserir INC/INC03c00
+            [--]
+            [Bucha de reducao]{L1} inserir INC/INC01c00
+            [Uniao de tubos  ]{L1} insert3 INC/INC05c00
+            [Fim de tubo     ]{L1} insert3 INC/INC02c00
+
+
+***POP4
+           [Incendio]
+           [Colunas]{L6} ^pdonut 0 ^p(/ 50.0 (#UND))
+           [--]
+           [->Setas Simples]
+             [Desce  ]{L2} P-DESCE
+             [Passa  ]{L2} P-PASSA
+             [<-Sobe ]{L2} P-SOBE
+           [->Setas com Indicador]
+             [Desce  ]{L2} t-desce
+             [Passa  ]{L2} t-passa
+             [<-Sobe ]{L2} t-sobe
+           [--]
+           [Tubulacao de Sprinkler]{L3} pline \w ^p(/ 15.0 (#UND)) ;
+           [Tubulacao de Incendio ]{L4} pline \w ^p(/ 15.0 (#UND)) ;
+
+***POP5
+           [&Blocks]
+ID_Carimbo [&Carimbo]^c^ccarimbo
+           [--]
+ID_Detlh   [&Detalhes Tipicos]^c^cddgdet
+           [--]
+ID_Insert  [&Insert Block]{L1} ddinsert
+ID_ChgBlk  [&Change Block]^c^cchgblock
+           [--]
+ID_Block   [&Block ]^c^cblock
+ID_WBlock  [&Wblock]^c^cwblock
+           [--]
+ID_Attedi  [&Edit Attribute...]^C^C_ddatte
+ID_Attcpy  [C&opy Attribute   ]^c^ccopyattr
+           [--]
+ID_Attedg  [Edi&t Attribute Globally]^C^C_attedit
+           [--]
+ID_AttDef  [De&fine Attribute...]^C^C_ddattdef
+           [--]
+           [->Pap&er Space]
+ID_PSMarg    [Inserindo &Margens ]^c^cpsmarg
+ID_PSCar     [Colocando &Carimbos]^c^cpscar
+             [--]
+ID_PSWin     [<-&Vistas do Modelo]^c^c^ppswin
+           [--]
+           [->&External Reference]
+              [Xref In      ]^c^cxfin
+              [--]
+              [Xref Manager ]^c^cxref
+              [--]
+ID_XfReload   [&Reload Xrefs]^c^cxfreload
+ID_XfPrune    [<-Pr&une All ]^c^cxfprune
+
+***POP6
+           [&Draw]
+ID_Line    [&Line             ]{L1} _line
+           [--]
+           [->&Offset    ]
+ID_OffTh     [&Thought   ]^c^coffset t
+ID_OffDist   [&Distance  ]^c^coffset
+             [--]
+             [    2.5 cm   ]^c^coffset ^p(/ 25.0 (#UND))
+             [    5.0 cm   ]^c^coffset ^p(/ 50.0 (#UND))
+             [ < 10.0 cm > ]^c^coffset ^p(/ 100.0 (#UND))
+             [   15.0 cm   ]^c^coffset ^p(/ 150.0 (#UND))
+             [   20.0 cm   ]^c^coffset ^p(/ 200.0 (#UND))
+             [   25.0 cm   ]^c^coffset ^p(/ 250.0 (#UND))
+             [   30.0 cm   ]^c^coffset ^p(/ 300.0 (#UND))
+             [   50.0 cm   ]^c^coffset ^p(/ 500.0 (#UND))
+             [  100.0 cm   ]^c^coffset ^p(/ 1000.0 (#UND))
+             [  125.0 cm   ]^c^coffset ^p(/ 1250.0 (#UND))
+             [  150.0 cm   ]^c^coffset ^p(/ 1500.0 (#UND))
+             [  200.0 cm   ]^c^coffset ^p(/ 2000.0 (#UND))
+             [  250.0 cm   ]^c^coffset ^p(/ 2500.0 (#UND))
+             [  500.0 cm   ]^c^coffset ^p(/ 5000.0 (#UND))
+             [  750.0 cm   ]^c^coffset ^p(/ 7500.0 (#UND))
+             [<- 1000.0 cm ]^c^coffset ^p(/ 10000.0 (#UND))
+           [->Offset change]
+ID_OffTh     [&Thought   ]^c^coffset t
+ID_OffDist   [&Distance  ]^c^coffset
+             [--]
+             [    2.5 cm   ]^c^c^p(setq #OFFDIST (/ 25.0 (#UND))) offchg ;
+             [    5.0 cm   ]^c^c^p(setq #OFFDIST (/ 50.0 (#UND))) offchg ;
+             [ < 10.0 cm > ]^c^c^p(setq #OFFDIST (/ 100.0 (#UND))) offchg ;
+             [   15.0 cm   ]^c^c^p(setq #OFFDIST (/ 150.0 (#UND))) offchg ;
+             [   20.0 cm   ]^c^c^p(setq #OFFDIST (/ 200.0 (#UND))) offchg ;
+             [   25.0 cm   ]^c^c^p(setq #OFFDIST (/ 250.0 (#UND))) offchg ;
+             [   30.0 cm   ]^c^c^p(setq #OFFDIST (/ 300.0 (#UND))) offchg ;
+             [   50.0 cm   ]^c^c^p(setq #OFFDIST (/ 500.0 (#UND))) offchg ;
+             [  100.0 cm   ]^c^c^p(setq #OFFDIST (/ 1000.0 (#UND))) offchg ;
+             [  125.0 cm   ]^c^c^p(setq #OFFDIST (/ 1250.0 (#UND))) offchg ;
+             [  150.0 cm   ]^c^c^p(setq #OFFDIST (/ 1500.0 (#UND))) offchg ;
+             [  200.0 cm   ]^c^c^p(setq #OFFDIST (/ 2000.0 (#UND))) offchg ;
+             [  250.0 cm   ]^c^c^p(setq #OFFDIST (/ 2500.0 (#UND))) offchg ;
+             [  500.0 cm   ]^c^c^p(setq #OFFDIST (/ 5000.0 (#UND))) offchg ;
+             [  750.0 cm   ]^c^c^p(setq #OFFDIST (/ 7500.0 (#UND))) offchg ;
+             [<- 1000.0 cm ]^c^c^p(setq #OFFDIST (/ 10000.0 (#UND))) offchg ;
+           [--]
+ID_Pline   [&Polyline         ]{L1} _pline
+           [--]
+           [->&Arc   ]
+ID_Arc3pt    [3 &Points             ]{L1} _arc
+ID_Arcsce    [&Start, Center, End   ]{L1} _arc \_c
+ID_Arcsca    [S&tart, Center, Angle ]{L1} _arc \_c \_a
+ID_Arcscl    [St&art, Center, Length]{L1} _arc \_c \_l
+ID_Arcsea    [Start, End, An&gle    ]{L1} _arc \_e \_a
+ID_Arcsed    [Start, End, &Direction]{L1} _arc \_e \_d
+ID_Arcser    [Start, End, &Radius   ]{L1} _arc \_e \_r
+ID_Arccse    [&Center, Start, End   ]{L1} _arc _c
+ID_Arccsa    [C&enter, Start, Angle ]{L1} _arc _c \\_a
+ID_Arccsl    [Ce&nter, Start, Length]{L1} _arc _c \\_l
+ID_Arccon    [<-C&ontinue           ]{L1} _arc ;
+           [->&Circle]
+ID_Cirrad    [Center, &Radius       ]{L1} _circle
+ID_Cirdia    [Center, &Diameter     ]{L1} _circle \_d
+ID_Cir2pt    [&2 Points             ]{L1} _circle _2p
+ID_Cir3pt    [&3 Points             ]{L1} _circle _3p
+ID_Cirttr    [Tan, Tan, Radi&us     ]{L1} _circle _ttr
+ID_Cirttt    [<-T&an, Tan, Tan      ]{L1} _circle _3p _tan \_tan \_tan \
+             [--]
+           [->&Donut  ]
+ID_DonutDia  [&Donut (Inside Diameter=0)]{L1} _donut 0
+ID_DonutR    [<-D&onut                  ]{L1} _donut
+           [->&Ellipse]
+             [3pt       ]{L1} ai_ellipse
+             [--]
+ID_Ellips    [&Center   ]{L1} _ellipse _c
+ID_Ellcir    [Axis, &End]{L1} _ellipse
+ID_Ellarc    [<-&Arc    ]{L1} _ellipse _a
+           [--]
+           [->Poly&gon]
+ID_Polygo    [Poly&gon   ]{L1} _polygon
+ID_Solid     [<-2D S&olid]{L1} _solid
+           [--]
+ID_Point1  [Poi&nt    ]{L1} *_point
+           [--]
+ID_Bhatch  [&Hatch...   ]{L1} _hatch
+           [--]
+           [->&Text]
+             [Pequeno]{L2} (setvar "textsize" (* 1.5 (#SCL))) dtext
+             [Normal ]{L2} (setvar "textsize" (* 2.0 (#SCL))) dtext
+             [Grande ]{L2} (setvar "textsize" (* 4.0 (#SCL))) dtext
+             [--]
+             [<-Text ]{L2} dtext
+
+***POP7
+           [&Edit]
+ID_Erase   [Er&ase]^C^C_erase
+           [--]
+ID_Copyob  [&Copy   ]^C^C_copy
+ID_Move    [&Move   ]^C^C_move
+ID_Mirror  [M&irror ]^C^C_mirror)
+ID_Stretch [&Stretch]^C^C_stretch
+           [--]
+ID_ChCopy  [Copy c&hange ]^C^Cchcopy
+           [--]
+           [->Arra&y]
+ID_Arrrec    [&Rectangular]^C^C_array \  _r
+ID_Arrpol    [<-&Polar    ]^C^C_array
+           [--]
+ID_Chamfe  [C&hamfer]^C^C_chamfer
+ID_Fillet  [&Fillet ]^C^C_fillet
+           [--]
+           [Uniline ]^C^Cuniline
+           [--]
+ID_Scale   [Sca&le  ]^C^C_scale
+ID_Rotate  [&Rotate ]^C^C_rotate
+           [--]
+           [->&Break]
+ID_Bre1pt    [&1 Point       ]^C^C_break \@
+ID_Bre1ps    [1 &Point Select]^C^C_break \_f \@
+             [--]
+ID_Bre2pt    [&2 Points         ]^C^C_break
+ID_Bre2ps    [<-2 P&oints Select]^C^C_break \_f
+ID_Trim    [&Trim   ]^C^C_trim
+ID_Extend  [&Extend ]^C^C_extend
+           [--]
+ID_Explode [E&xplode]^C^C_explode
+
+***POP8
+           [&Modify]
+           [Match Properties]^C^Cmatchprop
+           [--]
+ID_Change  [&Change      ]^C^C_change
+           [--]
+ID_Pedit   [&Edit Polyline    ]^C^C_pedit
+ID_Hatedi  [Edit &Hatch...]^C^C_hatchedit
+ID_Texedi  [Edi&t Text... ]^C^C_ddedit
+           [--]
+           [Adjust Text   ]^C^C^Peditext
+           [Change Text   ]^C^C^Pchgtext
+
+***POP9
+           [&Tools]
+ID_ITxt    [->I&mporta Textos ]
+             [Pequeno]{L2} (setvar "textsize" (* 1.5 (#SCL))) imptxt
+             [Normal ]{L2} (setvar "textsize" (* 2.0 (#SCL))) imptxt
+             [Grande ]{L2} (setvar "textsize" (* 4.0 (#SCL))) imptxt
+             [--]
+             [<-I&mporta Textos]{L2} imptxt
+           [--]
+ID_Indic   [&Indicadores  ]{L2} i_indic
+           [L&egenda      ]{L2} i_legenda
+           [--]
+ID_Leader  [&Leader       ]{L2} leader1
+           [--]
+ID_Apto    [->&Apartamento]
+             [ apt 01 ]{L2} apto \01
+             [     02 ]{L2} apto \02
+             [     03 ]{L2} apto \03
+             [     04 ]{L2} apto \04
+             [     05 ]{L2} apto \05
+             [     06 ]{L2} apto \06
+             [     07 ]{L2} apto \07
+             [     08 ]{L2} apto \08
+             [     09 ]{L2} apto \09
+             [     10 ]{L2} apto \10
+             [--]
+             [<-Apto]{L2} apto
+           [--]
+           [->&Tabelas]
+ID_TBCons    [&Construtor     ]{L1} tbcons
+ID_TBText    [<-&Preenchimento]{L2} tbtext
+           [--]
+ID_Serie   [S&erie           ]{L2} serie
+
+***POP10
+           [D&isplay]
+ID_Pan     ['&Pan          ]'pan \\
+           [--]
+ID_ZoomD   ['&Zoom Dynamic ]'zoom d
+ID_ZoomVm  ['Z&oom Vmax    ]'zoom v
+ID_ZoomE   [Zoo&m Extend   ]^c^czoom e
+ID_ZoomA   [Zoom A&ll      ]^c^czoom a
+           [--]
+ID_Regen   [&Regen         ]^c^cregen
+           [--]
+ID_2Vp     [&Split View    ]^c^cdblscr
+ID_ActVp   [&Join View     ]^c^csiscr
+
+***POP11
+           [&Settings]
+ID_DwgAids [&Drawing Aids...]'ddrmodes
+           [--]
+ID_UcsIcon [Ucsicon On/Off]^c^c^p(ai_toggle_ucsicon)
+           [--]
+ID_UcsObj  [&Ucs Entity  ]^c^c$s=ucs ucs ob
+ID_UcsOrg  [U&cs Origen  ]^c^c$s=ucs ucs or
+ID_UcsZ    [Uc&s Rotation]^c^c$s=ucs ucs z
+ID_UcsW    [Ucs &World   ]^c^c$s=ucs ucs ;
+           [--]
+ID_MirrTxt [Mirrtext On/Off]^c^c^p(toggle "mirrtext" 't)
+           [--]
+ID_MinBox  [&Minimize Box]'setvar pickbox 1 'setvar aperture 1
+ID_MaxBox  [M&aximize Box]'setvar pickbox 5 'setvar aperture 5
+           [--]
+ID_DimSet  [->Dim Settings]
+             [   0.000 ]^C^CDIMDEC 3
+             [< 0.00  >]^C^CDIMDEC 2
+             [   0.0   ]^C^CDIMDEC 1
+             [   0.    ]^C^CDIMDEC 0
+             [--]
+             [<-Decimal]^C^CDIMDEC
+           [--]
+ID_Osnap   [Object snap...]^C^CDDOSNAP
+
+***POP12
+           [&Layers]
+ID_Layer   ['&Layers           ]'ddlmodes
+           [--]
+ID_PckSet  [Ati&va Camada  ]^c^cps
+ID_PckFrz  [&Congela Camada]^c^cpf
+           [--]
+ID_PckChg  [&Modifica Camada do Objeto]^c^cpch
+           [--]
+ID_PckELay [Apaga O&bjetos da Camada     ]^c^cpe
+ID_PckExpl [E&xplode Polilinhas da Camada]^c^cplexpl
+           [--]
+ID_ArqFrTh [A&rquitetura Freeze/Thaw          ]^c^c^p(setlayer "arq") regen
+ID_ForFrTh [&Formas Freeze/Thaw               ]^c^c^p(setlayer "f") regen
+ID_ElFrTh  [&Eletrica Freeze/Thaw             ]^c^c^p(setlayer "el") regen
+ID_EsFrTh  [E&sgoto Freeze/Thaw               ]^c^c^p(setlayer "es") regen
+ID_HFrTh   [&Hidraulica Freeze/Thaw           ]^c^c^p(setlayer "h") regen
+ID_IncFrTh [I&ncendio Freeze/Thaw             ]^c^c^p(setlayer "inc") regen
+ID_GasFrTh [&Gas Freeze/Thaw                  ]^c^c^p(setlayer "g") regen
+ID_TEFrTh  [&Telefone Externo Freeze/Thaw     ]^c^c^p(setlayer "te") regen
+ID_TIFrTh  [Te&lefone &Interno Freeze/Thaw    ]^c^c^p(setlayer "ti") regen
+ID_IEFrTh  [Instalacoes Es&peciais Freeze/Thaw]^c^c^p(setlayer "ie") regen
+ID_ARFrTh  [Ar Co&ndicionado Freeze/Thaw      ]^c^c^p(setlayer "ar") regen
+           [--]
+ID_FrInst  [Congela &Instalacoes   ]^c^clayer s 0 f arq-* f el-* f es-* f h-* f g-* f te-* f ti-* f ie-* f ar-* ;
+ID_ThInst  [Descongel&a Instalacoes]^c^clayer s 0 t arq-* t el-* t es-* t h-* t g-* t te-* t ti-* t ie-* t ar-* ;regen
+           [--]
+ID_FrAll   [C&ongela Tudo   ]^c^clayer s 0 f * t 0 ;
+ID_ThAll   [Descongela T&udo]^c^clayer s 0 t * ;regen
+
+***POP13
+           [Me&nus]
+ID_ArqMnu  [&Arquitetura          ]^c^c^player t arq-*  regen menu m/arqmenu
+ID_FMnu    [&Formas               ]^c^c^player t f-*  regen menu m/fmenu
+ID_ElMnu   [&Eletrica             ]^c^c^player t el-*  regen menu m/elmenu
+ID_EsMnu   [E&sgoto               ]^c^c^player t es-*  regen menu m/esmenu
+ID_HMnu    [&Hidraulica           ]^c^c^player t h-*  regen menu m/hmenu
+ID_INCMnu  [I&ncendio             ]^c^c^player t inc-*  regen menu m/incmenu
+ID_GMnu    [&Gas                  ]^c^c^player t g-*  regen menu m/gmenu
+ID_TEMnu   [&Telefone Externo     ]^c^c^player t te-*  regen menu m/temenu
+ID_TIMnu   [Te&lefone Interno     ]^c^c^player t ti-*  regen menu m/timenu
+ID_IEMnu   [&Instalacoes Especiais]^c^c^player t ie-*  regen menu m/iemenu
+ID_ACMnu   [A&r Condicionado      ]^c^c^player t ar-*  regen menu m/armenu
+
+***POP14
+           [In&quiry]
+ID_Area    [&Area        ]^c^carea
+ID_Dist    [&Distance    ]^c^cdist
+ID_List    [&List        ]^c^clist
+           [--]
+ID_ContBlk [&Conta Blocos]^c^cnumblk
+
+***POP15
+           [&Window]
+           [&Cascade          ]^C^C_wcascade
+           [Tile &Horizontally]^C^C_whtile
+           [Tile &Vertically  ]^C^C_wvtile
+
+***POP16
+           [&Help]
+ID_About   [&About IntelliCAD...]^C^C_about
+ID_Helpcts [&Contents...]'_help
+
+***TOOLBARS
+**TB_PONTOS
+            [_Toolbar("Pontos", _Left, _Show, 100, 100, 2)]
+            [_Button("Registro de agua fria", "ico_inc_registro_agua_fria.bmp", "ico_inc_registro_agua_fria.bmp")]{L1} inserir INC/INC04c00
+            [_Button("Mangueira de Incendio", "ico_inc_mangueira_incendio.bmp", "ico_inc_mangueira_incendio.bmp")]{L1} inserir INC/INC03c00
+            [_Button("Bucha de reducao", "ico_inc_bucha_reducao.bmp", "ico_inc_bucha_reducao.bmp")]{L1} inserir INC/INC01c00
+            [_Button("Final de tubulacao", "ico_inc_final_tubulacao.bmp", "ico_inc_final_tubulacao.bmp")]{L1} insert3 INC/INC02c00
+            [_Flyout("Extintor de CO2", "ico_inc_extintor_co2.bmp", "ico_inc_extintor_co2.bmp", _OtherIcon, AI_incMENU.TB_inc_EXTINTORES)]
+            [_Button("Sprinkler", "ico_inc_sprinkler.bmp", "ico_inc_sprinkler.bmp")]{L1} inser0 inc/inc09c00 \\
+
+**TB_INCENDIO
+            [_Toolbar("Incendio", _Left, _Show, 100, 100, 2)]
+            [_Button("Colunas", "ico_inc_colunas.bmp", "ico_inc_colunas.bmp")]{L6} ^pdonut 0 ^p(/ 50.0 (#UND))
+            [_Flyout("Seta simples desce", "ico_inc_seta_simples_desce.bmp", "ico_inc_seta_simples_desce.bmp", _OtherIcon, AI_INCMENU.TB_INC_SETAS_SIMPLES)]
+            [_Flyout("Seta com indicador desce", "ico_inc_seta_indicador_desce.bmp", "ico_inc_seta_indicador_desce.bmp", _OtherIcon, AI_INCMENU.TB_INC_SETAS_COM_INDICADOR)]
+            [_Button("Tubulacao de sprinkler", "ico_inc_tubulacao_sprinkler.bmp", "ico_inc_tubulacao_sprinkler.bmp")]{L3} pline \w ^p(/ 15.0 (#UND)) ;
+            [_Button("Tubulacao de incendio", "ico_inc_tubulacao_incendio.bmp", "ico_inc_tubulacao_incendio.bmp")]{L4} pline \w ^p(/ 15.0 (#UND)) ;
+
+
+**TB_INC_SETAS_SIMPLES
+            [_Toolbar("Seta simples desce", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Seta simples desce", "ico_inc_seta_simples_desce.bmp", "ico_inc_seta_simples_desce.bmp")]{L2} P-DESCE
+            [_Button("Seta simples passa", "ico_inc_seta_simples_passa.bmp", "ico_inc_seta_simples_passa.bmp")]{L2} P-PASSA
+            [_Button("Seta simples sobe", "ico_inc_seta_simples_sobe.bmp", "ico_inc_seta_simples_sobe.bmp")]{L2} P-SOBE
+
+**TB_INC_SETAS_COM_INDICADOR
+            [_Toolbar("Setas com indicador desce", _Floating, _Hide, 100, 150, 1)]
+            [_Button("Setas com indicador desce", "ico_inc_seta_indicador_desce.bmp", "ico_inc_seta_indicador_desce.bmp")]{L2} t-desce
+            [_Button("Setas com indicador passa", "ico_inc_seta_indicador_passa.bmp", "ico_inc_seta_indicador_passa.bmp")]{L2} t-passa{L2} t-desce
+            [_Button("Setas com indicador sobe", "ico_inc_seta_indicador_sobe.bmp", "ico_inc_seta_indicador_sobe.bmp")]{L2} t-sobe
+
+
+
+
+**TB_inc_EXTINTORES
+            [_Toolbar("Extintores", _Left, _Hide, 100, 100, 2)]
+            [_Button("Extintor de CO2", "ico_inc_extintor_co2.bmp", "ico_inc_extintor_co2.bmp")]{L1} inser0 inc/inc07c00 \\
+            [_Button("Extintor de H2O", "ico_inc_extintor_h2o.bmp", "ico_inc_extintor_h2o.bmp")]{L1} inser0 inc/inc06c00 \\
+            [_Button("Extintor de PQS", "ico_inc_extintor_pqs.bmp", "ico_inc_extintor_pqs.bmp")]{L1} inser0 inc/inc08c00 \\
+
+**STANDARD_TOOLBAR
+ID_Stdtbar  [_Toolbar("Standard Toolbar", _Top, _Show, 0, 38, 1)]
+ID_New      [_Button("New", ICON_16_NEW, ICON_32_NEW)]^C^C_new
+ID_Open     [_Button("Open", ICON_16_OPEN, ICON_32_OPEN)]^C^C_open
+ID_Save     [_Button("Save", ICON_16_SAVE, ICON_32_SAVE)]^C^C_qsave
+            [--]
+ID_Print    [_Button("Print", ICON_16_PRINT, ICON_32_PRINT)]^C^C_plot
+            [--]
+ID_Cut      [_Button("Cut", ICON_16_CUT, ICON_32_CUT)]'_cutclip
+ID_Copy     [_Button("Copy", ICON_16_COPY, ICON_32_COPY)]'_copyclip
+ID_Paste    [_Button("Paste", ICON_16_PASTE, ICON_32_PASTE)]'_pasteclip
+            [--]
+ID_Undo     [_Button("Undo", ICON_16_UNDO, ICON_32_UNDO)]_u
+ID_Redo     [_Button("Redo", ICON_16_REDO, ICON_32_REDO)]^C^C_redo
+            [--]
+ID_Layers   [_Button("Layers", ICON_16_LAYERS, ICON_32_LAYERS)]'_ddlmodes
+ID_Linety   [_Button("Linetype", ICON_16_LINETY, ICON_32_LINETY)]'_ddltype
+            [--]
+ID_Ucsw     [_Button("World UCS", ICON_16_UCS, ICON_32_UCS)]^C^C_ucs _w
+            [--]
+ID_TbRedraw [_Button("Redraw", ICON_16_REDRAW, ICON_32_REDRAW)]'_redraw
+            [--]
+ID_Pan      [_Button("Pan", ICON_16_PAN, ICON_24_PAN)]'_pan
+            [--]
+ID_Zoowin   [_Button("Zoom Window", ICON_16_ZOOWIN, ICON_32_ZOOWIN)]'_zoom;_w
+ID_Zoopre   [_Button("Zoom Previous", ICON_16_ZOOPRE, ICON_32_ZOOPRE)]'_zoom;_p
+ID_TbZoom   [_Flyout("Zoom", ICON_16_ZOOM, ICON_32_ZOOM, _OtherIcon, AI_ARQMENU.TB_ZOOM)]
+            [--]
+ID_TbInq    [_Flyout("Inquiry", ICON_16_LIST, ICON_32_LIST, _OtherIcon, AI_ARQMENU.TB_INQUIRY)]
+            [--]
+ID_Help     [_Button("Help", ICON_16_HELP, ICON_32_HELP)]'_?
+
+**TB_ZOOM
+ID_TbZoom   [_Toolbar("Zoom", _Floating, _Hide, 100, 150, 1)]
+ID_Zooall   [_Button("Zoom All", ICON_16_ZOOALL, ICON_32_ZOOALL)]^C^C_zoom;_all
+ID_Zoocen   [_Button("Zoom Center", ICON_16_ZOOCEN, ICON_32_ZOOCEN)]'_zoom;_c
+ID_Zoolef   [_Button("Zoom Left", ICON_16_ZOOLEF, ICON_32_ZOOLEF)]'_zoom;_l
+ID_Zooext   [_Button("Zoom Extents", ICON_16_ZOOEXT, ICON_32_ZOOEXT)]^C^C_zoom;_e
+
+**TB_INQUIRY
+ID_TbInq    [_Toolbar("Inquiry", _Floating, _Hide, 10, 340, 1)]
+ID_List     [_Button("List", ICON_16_LIST, ICON_32_LIST)]^C^C_list
+ID_Dist     [_Button("Distance", ICON_16_DIST, ICON_32_DIST)]'_dist
+ID_Area     [_Button("Area", ICON_16_AREA, ICON_32_AREA)]^C^C_area
+
+**TB_OBJECT_SNAP
+ID_TbOsnap  [_Toolbar("Object Snap", _Right, _Show, 1, 101, 10)]
+ID_Osnend   [_Button("Snap to Endpoint", ICON_16_OSNEND, ICON_32_OSNEND)]_endp
+ID_Osnmid   [_Button("Snap to Midpoint", ICON_16_OSNMID, ICON_32_OSNMID)]_mid
+ID_Osnint   [_Button("Snap to Intersection", ICON_16_OSNINT, ICON_32_OSNINT)]_int
+ID_Osnper   [_Button("Snap to Perpendicular", ICON_16_OSNPER, ICON_32_OSNPER)]_per
+ID_Osnnea   [_Button("Snap to Nearest", ICON_16_OSNNEA, ICON_32_OSNNEA)]_nea
+            [--]
+ID_Osncen   [_Button("Snap to Center", ICON_16_OSNCEN, ICON_32_OSNCEN)]_cen
+ID_Osnqua   [_Button("Snap to Quadrant", ICON_16_OSNQUA, ICON_32_OSNQUA)]_qua
+ID_Osntan   [_Button("Snap to Tangent", ICON_16_OSNTAN, ICON_32_OSNTAN)]_tan
+            [--]
+ID_Osnnod   [_Button("Snap to Node", ICON_16_OSNNOD, ICON_32_OSNNOD)]_nod
+            [--]
+ID_Osnins   [_Button("Snap to Insertion", ICON_16_OSNINS, ICON_32_OSNINS)]_ins
+            [--]
+ID_Osnnon   [_Button("Snap to None", ICON_16_OSNNON, ICON_32_OSNNON)]_non
+            [--]
+ID_Osndd    [_Button("Running Object Snap", ICON_16_OSNAP, ICON_32_OSNAP)]'_ddosnap
+
+**TB_OBJECT_SELECTION
+            [_Toolbar("Object Selection", _Right, _Show, 200, 200, 10)]
+            [_Button("Window", "ico_ss_window.bmp", "ico_ss_window.bmp")]_w
+            [_Button("Crossing", "ico_ss_crossing.bmp", "ico_ss_crossing.bmp")]_c
+            [_Button("WPolygon", "ico_ss_wpolygon.bmp", "ico_ss_wpolygon.bmp")]_wp
+            [_Button("CPolygon", "ico_ss_cpolygon.bmp", "ico_ss_cpolygon.bmp")]_cp
+            [_Button("Fence", "ico_ss_fence.bmp", "ico_ss_fence.bmp")]_f
+            [_Button("Last", "ico_ss_last.bmp", "ico_ss_last.bmp")]_l
+            [--]
+            [_Button("Undo", "ico_ss_undo.bmp", "ico_ss_undo.bmp")]_u
+            [--]
+            [_Button("Add", "ico_ss_add.bmp", "ico_ss_add.bmp")]_a
+            [_Button("Remove", "ico_ss_remove.bmp", "ico_ss_remove.bmp")]_r
+
+**TB_DRAW
+ID_TbDraw   [_Toolbar("Draw", _Top, _Show, 1, 101, 10)]
+ID_Line     [_Button("Line", ICON_16_LINE, ICON_32_LINE)]{L1} _line
+            [--]
+ID_Pline    [_Button("Polyline", ICON_16_PLINE, ICON_32_PLINE)]{L1} _pline
+ID_Spline   [_Button("Spline", ICON_16_SPLINE, ICON_32_SPLINE)]{L1} _spline
+            [--]
+ID_TbArc    [_Flyout("Arc", ICON_16_ARC3PT, ICON_32_ARC3PT, _OtherIcon, AI_ARQMENU.TB_ARC)]
+ID_TbCir    [_Flyout("Circle", ICON_16_CIRCLE, ICON_32_CIRCLE, _OtherIcon, AI_ARQMENU.TB_CIRCLE)]
+ID_TbEll    [_Flyout("Ellipse", ICON_16_ELLIPS, ICON_32_ELLIPS, _OtherIcon, AI_ARQMENU.TB_ELLIPSE)]
+            [--]
+ID_Rectan   [_Button("Rectangle", ICON_16_RECTAN, ICON_32_RECTAN)]{L1} rectang
+ID_Polygo   [_Button("Polygon", ICON_16_POLYGO, ICON_32_POLYGO)]{L1} _polygon
+ID_TbPgon   [_Flyout("Polygon", ICON_16_POLYGO, ICON_32_POLYGO, _OtherIcon, AI_ARQMENU.TB_POLYGON)]
+            [--]
+ID_Point    [_Button("Point", ICON_16_POINT, ICON_32_POINT)]*{L1} _point
+ID_Divide   [_Button("Divide", ICON_16_DIVIDE, ICON_32_DIVIDE)]{L1} _divide
+ID_Measure  [_Button("Measure", ICON_16_MEASUR, ICON_32_MEASUR)]{L1} _measure
+            [--]
+ID_Dinser   [_Button("Insert Block", ICON_16_DINSER, ICON_32_DINSER)]{L1} _ddinsert
+ID_Block    [_Button("Block", ICON_16_BLOCK, ICON_32_BLOCK)]{L1} _block
+            [--]
+ID_hatch    [_Button("Hatch", ICON_16_BHATCH, ICON_32_BHATCH)]{L1} _hatch
+ID_Dtext    [_Button("Dtext", ICON_16_MTEXT, ICON_32_MTEXT)]{L2} _dtext
+			[--]
+ID_DimLin   [_Button("Linear Dimension", ICON_16_DIMLIN, ICON_32_DIMLIN)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimlinear
+ID_DimAli   [_Button("Aligned Dimension", ICON_16_DIMALI, ICON_32_DIMALI)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimaligned
+ID_DimBas   [_Button("Baseline Dimension", ICON_16_DIMBAS, ICON_32_DIMBAS)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimbaseline
+ID_DimCon   [_Button("Continue Dimension", ICON_16_DIMCON, ICON_32_DIMCON)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimcontinue
+			[--]
+ID_DimCen   [_Flyout("Dimensioning 1", ICON_16_DIMCEN, ICON_32_DIMCEN, _OtherIcon, AI_ARQMENU.TB_DIM1)]
+ID_DimAng   [_Flyout("Dimensioning 2", ICON_16_DIMANG, ICON_32_DIMANG, _OtherIcon, AI_ARQMENU.TB_DIM2)]
+
+**TB_ARC
+ID_Tbarc    [_Toolbar("Arc", _Floating, _Hide, 10, 160, 1)]
+ID_Arc3pt   [_Button("Arc 3 Points", ICON_16_ARC3PT, ICON_32_ARC3PT)]{L1} _arc
+ID_Arcsce   [_Button("Arc Start Center End", ICON_16_ARCSCE, ICON_32_ARCSCE)]{L1} _arc \_c
+ID_Arcsca   [_Button("Arc Start Center Angle", ICON_16_ARCSCA, ICON_32_ARCSCA)]{L1} _arc \_c \_a
+ID_Arcscl   [_Button("Arc Start Center Length", ICON_16_ARCSCL, ICON_32_ARCSCL)]{L1} _arc \_c \_l
+ID_Arcsea   [_Button("Arc Start End Angle", ICON_16_ARCSEA, ICON_32_ARCSEA)]{L1} _arc \_e \_a
+ID_Arcsed   [_Button("Arc Start End Direction", ICON_16_ARCSED, ICON_32_ARCSED)]{L1} _arc \_e \_d
+ID_Arcser   [_Button("Arc Start End Radius", ICON_16_ARCSER, ICON_32_ARCSER)]{L1} _arc \_e \_r
+ID_Arccse   [_Button("Arc Center Start End", ICON_16_ARCCSE, ICON_32_ARCCSE)]{L1} _arc _c
+ID_Arccsa   [_Button("Arc Center Start Angle", ICON_16_ARCCSA, ICON_32_ARCCSA)]{L1} _arc _c \\_a
+ID_Arccsl   [_Button("Arc Center Start Length", ICON_16_ARCCSL, ICON_32_ARCCSL)]{L1} _arc _c \\_l
+
+**TB_CIRCLE
+ID_Tbcir    [_Toolbar("Circle", _Floating, _Hide, 10, 180, 1)]
+ID_Cirrad   [_Button("Circle Center Radius", ICON_16_CIRRAD, ICON_32_CIRRAD)]{L1} _circle
+ID_Cirdia   [_Button("Circle Center Diameter", ICON_16_CIRDIA, ICON_32_CIRDIA)]{L1} _circle \_d
+ID_Cir2pt   [_Button("Circle 2 Point", ICON_16_CIR2PT, ICON_32_CIR2PT)]{L1} _circle _2p
+ID_Cir3pt   [_Button("Circle 3 Point", ICON_16_CIR3PT, ICON_32_CIR3PT)]{L1} _circle _3p
+ID_Cirttr   [_Button("Circle Tan Tan Radius", ICON_16_CIRTTR, ICON_32_CIRTTR)]{L1} _circle _ttr
+ID_Donut    [_Button("Donut", ICON_16_DONUT, ICON_32_DONUT)]{L1} _donut
+
+**TB_ELLIPSE
+ID_Tbell    [_Toolbar("Ellipse", _Floating, _Hide, 10, 200, 1)]
+ID_Ellips   [_Button("Ellipse Center", ICON_16_ELLCEN, ICON_32_ELLCEN)]{L1} _ellipse;_c
+ID_Ellcir   [_Button("Ellipse Axis End", ICON_16_ELLAE, ICON_32_ELLAE)]{L1} _ellipse   
+ID_Ellarc   [_Button("Ellipse Arc", ICON_16_ELLARC, ICON_32_ELLARC)]{L1} _ellipse;_a
+
+**TB_POLYGON
+ID_Tbpgon   [_Toolbar("Polygon", _Floating, _Hide, 10, 220, 1)]
+ID_Solid    [_Button("2D Solid", ICON_16_SOLID, ICON_32_SOLID)]{L1} _solid
+ID_Bpoly    [_Button("Boundary", ICON_16_BPOLY, ICON_32_BPOLY)]{L1} _boundary
+
+**TB_MODIFY
+ID_TbModify  [_Toolbar("Modify", _Top, _Show, 1, 101, 10)]
+ID_Erase     [_Button("Erase", ICON_16_ERASE, ICON_32_ERASE)]^C^C$s=erase _erase
+             [--]
+ID_Move      [_Button("Move", ICON_16_MOVE, ICON_32_MOVE)]^C^C_move
+ID_Copyob    [_Button("Copy Object", ICON_16_COPYOB, ICON_32_COPYOB)]^C^C_copy
+ID_Mirror    [_Button("Mirror", ICON_16_MIRROR, ICON_32_MIRROR)]^C^C_mirror
+             [--]
+ID_Offset    [_Button("Offset", ICON_16_OFFSET, ICON_32_OFFSET)]^C^C_offset
+             [--]
+ID_Stretch   [_Button("Stretch", ICON_16_STRETC, ICON_32_STRETC)]^C^C_stretch c
+ID_Scale     [_Button("Scale", ICON_16_SCALE, ICON_32_SCALE)]^C^C_scale
+ID_Length    [_Button("Lengthen", ICON_16_LENGTH, ICON_32_LENGTH)]^C^C_lengthen
+             [--]
+ID_Array     [_Button("Array", ICON_16_ARRREC, ICON_32_ARRREC)]^C^C_array
+             [--]
+ID_Rotate    [_Button("Rotate", ICON_16_ROTATE, ICON_32_ROTATE)]^C^C_rotate
+             [--]
+ID_Trim      [_Button("Trim", ICON_16_TRIM, ICON_32_TRIM)]^C^C_trim
+ID_Extend    [_Button("Extend", ICON_16_EXTEND, ICON_32_EXTEND)]^C^C_extend
+ID_Break     [_Button("Break", ICON_16_BRE2PT, ICON_32_BRE2PT)]^C^C_break
+             [--]
+ID_Chamfe    [_Button("Chamfer", ICON_16_CHAMFE, ICON_32_CHAMFE)]^C^C_chamfer
+ID_Fillet    [_Button("Fillet", ICON_16_FILLET, ICON_32_FILLET)]^C^C_fillet
+             [--]
+             [_Button("Uniline", "ico_uniline.bmp", "ico_uniline.bmp")]^C^Cuniline
+             [--]
+ID_Pedit     [_Button("Edit Polyline", ICON_16_PEDIT, ICON_32_PEDIT)]^C^C_pedit
+             [--]
+ID_TexEdi    [_Button("Edit Text", ICON_16_TEXEDI, ICON_32_TEXEDI)]^C^C_ddedit
+ID_AttEdi    [_Button("Edit Attribute", ICON_16_ATTEDI, ICON_32_ATTEDI)]^C^C_ddatte
+             [--]
+ID_Change    [_Button("Change", ICON_16_CHANGE, ICON_32_CHANGE)]^C^C_change
+ID_Ddmodi    [_Button("Change Properties", ICON_16_MODIFY, ICON_32_MODIFY)]^C^Cddmodify
+             [--]
+ID_Explode   [_Button("Explode", ICON_16_EXPLOD, ICON_32_EXPLOD)]^C^C_explode
+
+**TB_DIM1
+ID_TbDims1   [_Toolbar("Dimensioning 1", _Floating, _Hide, 100, 100, 1)]
+ID_DimCen    [_Button("Center Mark", ICON_16_DIMCEN, ICON_32_DIMCEN)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimcenter
+ID_DimRad    [_Button("Radius Dimension", ICON_16_DIMRAD, ICON_32_DIMRAD)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimradius
+ID_DimDia    [_Button("Diameter Dimension", ICON_16_DIMDIA, ICON_32_DIMDIA)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimdiameter
+
+**TB_DIM2
+ID_TbDims2   [_Toolbar("Dimensioning 2", _Floating, _Hide, 150, 150, 1)]
+ID_DimAng    [_Button("Angular Dimension", ICON_16_DIMANG, ICON_32_DIMANG)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimangular
+ID_DimOrd    [_Button("Ordinate Dimension", ICON_16_DIMORD, ICON_32_DIMORD)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _dimordinate
+ID_DimLea    [_Button("Leader", ICON_16_DIMLEA, ICON_32_DIMLEA)]^C^C^P(progn (slay "ARQ-TEXTOS") (princ)) _leader
+
+***HELPSTRINGS
+ID_New       [Creates a new drawing file]
+ID_Open      [Opens an existing drawing file]
+ID_Close     [Closes the drawing file]
+ID_Save      [Saves the drawing with the current file name or a specified name]
+ID_Saveas    [Saves an unnamed drawing with a file name or renames the current drawing]
+ID_SavR12    [Saves the current drawing in AutoCAD Release 12 format]
+ID_Print     [Prints a drawing to a plotter, printer, or file]
+ID_Import    [Imports a file into a drawing]
+ID_Export    [Exports a drawing to a different file format]
+ID_Ioopts    [Controls options for importing and exporting]
+ID_Wmfopt    [Sets options for WMFIN]
+ID_Psqual    [Controls the rendering quality of PostScript images]
+ID_Psdisp    [Controls the appearance of a PostScript image as it's dragged using PSIN]
+ID_Psprol    [Names the prologue section read from ACAD.psf when PSOUT is used]
+ID_Mngt      [Lists managerial functions]
+ID_Files     [List, Delete, Copy, Unlock or Rename drawing files]
+ID_Audit     [Examines the integrity of a drawing]
+ID_Recov     [Repairs a damaged drawing]
+ID_Exit      [Exits AutoCAD]
+ID_Undo      [Reverses the most recent operation]
+ID_Redo      [Reverses the previous UNDO or U command]
+ID_Cut       [Removes objects and places them on the Clipboard]
+ID_Copy      [Copies objects to the Clipboard]
+ID_Copylnk   [Copies the current view to the Clipboard]
+ID_Paste     [Inserts data from the Clipboard]
+ID_Pastesp   [Inserts data from the Clipboard and controls the format of the data]
+ID_Ddmodi    [Controls object properties]
+ID_Links     [Manages OLE links]
+ID_Insobj    [Inserts a linked or embedded object]
+ID_TbRedraw  [Refreshes the display of the current viewport]
+ID_Redraw    [Refreshes the display of the current viewport]
+ID_Redall    [Refreshes the display of all viewports]
+ID_TbZoom    [Increases or decreases the apparent size of objects in the current viewport]
+ID_Zooin     [Increases the apparent size of objects in the current viewport]
+ID_Zooout    [Decreases the apparent size of objects in the current viewport]
+ID_Zoowin    [Zooms to display an area specified by a rectangular window]
+ID_Zooall    [Zooms to display the entire drawing in the current viewport]
+ID_Zoopre    [Zooms to display the previous view] 
+ID_Zoosca    [Zooms the display using a specified scale factor] 
+ID_Zoodyn    [Zooms to display the generated portion of the drawing]
+ID_Zoocen    [Displays a window specified by a center point and height]
+ID_Zoolef    [Displays a window specified by the lower-left corner and height]
+ID_Zoolim    [Zooms to display the objects within the drawing limits]
+ID_Zooext    [Zooms to display the drawing extents]
+ID_Zoovma    [Zooms out as far as possible on the current screen]
+ID_TbPan     [Moves the view of the drawing in the current viewport]
+ID_TbPan     [Moves the view of the drawing in the current viewport]
+ID_Panpic    [Moves the view of the drawing by the specified distance]
+ID_Panlef    [Moves the view of the drawing to the left]
+ID_Panrig    [Moves the view of the drawing to the right]
+ID_Panup     [Moves the view of the drawing up]
+ID_Pandow    [Moves the view of the drawing down]
+ID_Panupl    [Moves the view of the drawing up and to the left]
+ID_Panupr    [Moves the view of the drawing up and to the right]
+ID_Pandol    [Moves the view of the drawing down and to the left]
+ID_Pandor    [Moves the view of the drawing down and to the right]
+ID_Namview   [Creates and restores named views]
+ID_3DViewp   [Displays preset 3D viewpoint options]
+ID_Plan      [Displays the plan view of a User Coordinate System]
+ID_Planw     [Displays the plan view of the World Coordinate System]
+ID_Planu     [Displays the plan view of a previously saved UCS]
+ID_Vietop    [Sets the view point to top]
+ID_Viebot    [Sets the view point to bottom]
+ID_Vielef    [Sets the view point to left]
+ID_Vierig    [Sets the view point to right]
+ID_Viefro    [Sets the view point to front]
+ID_Viebac    [Sets the view point to back]
+ID_Vieswi    [Sets the view point to southwest isometric]
+ID_Viesei    [Sets the view point to southeast isometric]
+ID_Vienei    [Sets the view point to northeast isometric]
+ID_Vienwi    [Sets the view point to northwest isometric]
+ID_3DVpt     [Sets the direction for a 3D visualization of the drawing]
+ID_3DVptr    [Specifies a viewpoint]
+ID_3DVptt    [Displays a compass and tripod for defining a view direction]
+ID_3DVptv    [Specifies a direction as if looking back at the origin (0,0,0)]
+ID_3DDv      [Defines parallel projection or perspective views]
+ID_Vietms    [Switches to tiled model space]
+ID_Viefms    [Switches to floating model space]
+ID_Vieps     [Switches to paper space]
+ID_TVp       [Provides tiled viewport options]
+ID_TVpl      [Displays layout options for tiled viewports]
+ID_TVp1      [Returns the drawing to a single viewport view]
+ID_TVp2      [Divides the current viewport in half]
+ID_TVp3      [Divides the current viewport into three viewports]
+ID_TVp4      [Divides the current viewport into four viewports of equal size]
+ID_TVpr      [Restores a previously saved viewport configuration]
+ID_TVpd      [Deletes a named viewport configuration]
+ID_TVpj      [Combines two adjacent viewports into one larger viewport]
+ID_TVps      [Saves the current viewport using a specified name]
+ID_FVp       [Provides floating viewport options]
+ID_FVp1      [Creates one viewport that fills the available display area]
+ID_FVp2      [Divides the specified area into two viewports]
+ID_FVp3      [Divides the specified area into three viewports]
+ID_FVp4      [Divides the specified area into four viewports]
+ID_FVpr      [Restores viewport configurations to individual viewports in paper space]
+ID_FVpon     [Turns on a viewport]
+ID_FVpoff    [Turns off a viewport]
+ID_FVph      [Suppresses hidden lines within a viewport during plotting from paper space]
+ID_FVsetup   [Sets up the specifications of a drawing]
+ID_Ucsp      [Selects a preset User Coordinate System]
+ID_Dducs     [Manages User Coordinate Systems]
+ID_Ucsset    [Provides User Coordinate System options]
+ID_Ucsw      [Sets the UCS to the World Coordinate System]
+ID_Ucsori    [Defines a new UCS by shifting the origin]
+ID_Ucszav    [Defines a UCS using a positive Z axis extrusion method]
+ID_Ucs3pt    [Specifies the new UCS origin and the direction of the X and Y axes]
+ID_Ucsobj    [Defines a new coordinate system based on a selected object]
+ID_Ucsvie    [Establishes a new coordinate system with the XY plane parallel to the screen]
+ID_Ucsxar    [Rotates the current UCS about the X axis]
+ID_Ucsyar    [Rotates the current UCS about the Y axis]
+ID_Ucszar    [Rotates the current UCS about the Z axis]
+ID_Ucspre    [Restores the previous UCS]
+ID_Ucsres    [Restores a saved UCS so it becomes the current UCS]
+ID_Ucssav    [Saves the current UCS to a specified name]
+ID_Ucsdel    [Removes the specified UCS from the list of saved coordinate systems]
+ID_Ucslis    [Lists the defined UCS names]
+ID_Objcre    [Sets properties for new objects]
+ID_Layers    [Manages layers]
+ID_Vlc       [Freezes layers in specific viewports]
+ID_Vlcf      [Freezes a layer or set of layers in one or more viewports]
+ID_Vlct      [Thaws layers in specific viewports]
+ID_Vlcr      [Sets the visibility of layers in specified viewports to their default setting]
+ID_Vlcn      [Creates new layers that are frozen in all viewports]
+ID_Vlcd      [Sets a default visibility-per-viewport for layers]
+ID_Vlcl      [Displays the names of frozen layers in a viewport]
+ID_Color     [Sets the color for newly drawn objects]
+ID_Linety    [Loads and sets linetypes]
+ID_Mstyle    [Manages multiline styles]
+ID_TexSty    [Creates named text styles]
+ID_DimSty    [Creates and modifies dimension styles]
+ID_Shape     [Inserts a shape]
+ID_Units     [Controls coordinate and angle display formats and determines precision]
+ID_Limits    [Sets and controls the drawing boundaries]
+ID_Time      [Displays the date and time statistics of a drawing]
+ID_Status    [Displays drawing statistics, modes, and extents]
+ID_Rename    [Changes the names of objects]
+ID_Purge     [Removes unused objects from the drawing database]
+ID_Purla     [Removes unused layers from the drawing database]
+ID_Purlt     [Removes unused linetypes from the drawing database]
+ID_Purmls    [Removes unused multiline styles from the drawing database]
+ID_Purts     [Removes unused text styles from the drawing database]
+ID_Purds     [Removes unused dimension styles from the drawing database]
+ID_Purs      [Removes unused shapes from the drawing database]
+ID_Purblk    [Removes unused blocks from the drawing database]
+ID_Purall    [Removes all unused objects from the drawing database]
+ID_Dwgaids   [Sets drawing aids]
+ID_Osndd     [Sets running Object Snap mode and changes the target box size]
+ID_Cordis    [Changes the coordinate mode]
+ID_Ddselec   [Sets Object Selection mode settings]
+ID_Ddgrips   [Enables grips and sets their colors]
+ID_Rpref     [Sets rendering preferences]
+ID_Ucs       [Saves, restores, renames, deletes, and lists user coordinate systems]
+ID_Ucsi      [Controls visibility and placement of the UCS icon in viewports]
+ID_Ucsor     [Forces the icon to appear at the origin of the coordinate system]
+ID_Ucsf      [Generates a plan view when the UCS changes]
+ID_Disopt    [Lists display options]
+ID_Dosolf    [Specifies whether solids are filled]
+ID_Dosplfr   [Controls display of spline-fit polylines]
+ID_Doattds   [Globally controls the visibility of attributes]
+ID_Doattdn   [Keeps the current visibility of each attribute]
+ID_Doattdo   [Makes all attributes visible]
+ID_Doattdf   [Makes all attributes invisible]
+ID_Doddpt    [Specifies the display mode and size of point objects]
+ID_Doft      [Specifies that TrueType and Type 1 PostScript fonts appear as filled text]
+ID_Doot      [Specifies that TrueType and Type 1 PostScript fonts appear as outlines]
+ID_Dotf      [Controls whether text frames appear in place of text]
+ID_Dotq      [Sets the resolution of TrueType and Type 1 PostScript fonts]
+ID_Lintyps   [Lists linetype and linetype scale options]
+ID_Ltsgls    [Sets the global linetype scale factor]
+ID_Ltpss     [Sets paper space linetype scaling]
+ID_Ltgen     [Sets the linetype pattern generation around the vertices of the polyline]
+ID_Prefs     [Customizes the AutoCAD settings]
+ID_Config    [Reconfigures AutoCAD]
+ID_Rconfi    [Reconfigures the rendering setup]
+ID_Tablet    [Lists tablet options]
+ID_Tabon     [Turns Tablet mode on]
+ID_Taboff    [Turns Tablet mode off]
+ID_Tabcal    [Calibrates the digitizer with the drawing's coordinate system]
+ID_Tabcfg    [Designates or realigns the tablet menu areas]
+ID_Savtim    [Sets the automatic save interval]
+ID_Sysvar    [Lists system variables and sets their values]
+ID_Sysvarl   [Lists system variables and their values]
+ID_Sysvars   [Sets system variable values]
+ID_Appld     [Loads AutoLISP, ADS, and Arx applications]
+ID_Script    [Executes a sequence of commands from a script]
+ID_Tpal      [Opens and closes toolbars]
+ID_TbDraw    [Displays the Draw toolbar]
+ID_TbModify  [Displays the Modify toolbar]
+ID_TbDims    [Displays the Dimensions toolbar]
+ID_TbSolids  [Displays the Solids toolbar]
+ID_TbSurfac  [Displays the Surfaces toolbar]
+ID_TbXref    [Displays the External Reference toolbar]
+ID_TbRender  [Displays the Render toolbar]
+ID_TbExtdb   [Displays the External Database toolbar]
+ID_TbObjpro  [Displays the Object Properties toolbar]
+ID_TbAttrib  [Displays the Attribute toolbar]
+ID_TbMisc    [Displays the Miscellaneous toolbar]
+ID_TbSelect  [Displays the Object Selection toolbar]
+ID_Group     [Creates a named selection set of objects]
+ID_TbOsnap   [Displays the Object Snap toolbar]
+ID_TbPoiFil  [Displays the Point Filters toolbar]
+ID_TbUcs     [Displays the UCS toolbar]
+ID_TbView    [Displays the View toolbar]
+ID_Stdtbar   [Displays the Standard toolbar]
+ID_TbClall   [Closes all toolbars]
+ID_Aerial    [Opens the Aerial View window]
+ID_TxtWin    [Opens the AutoCAD Text window]
+ID_Slides    [Creates or displays slide files]
+ID_Sldvie    [Displays a raster image slide file in the current viewport]
+ID_Sldsav    [Creates a raster image slide file of the current viewport]
+ID_Images    [Creates or saves GIF, TGA, and TIFF files]
+ID_Imgvie    [Displays a GIF, TGA, or TIFF image]
+ID_Imgsav    [Saves a rendered image to a GIF, TGA, or TIFF file]
+ID_Spell     [Checks the spelling of text]
+ID_Cal       [Evaluates mathematical and geometric expressions]
+ID_Cusmnu    [Customizes menus]
+ID_Custb     [Customizes toolbars]
+ID_Reinit    [Reinitializes the input/output ports, digitizer, display, and program parameters file]
+ID_Compile   [Compiles shape files and PostScript font files]
+ID_Help      [Displays on-line help]
+ID_Helpcts   [Displays the table of contents for on-line help]
+ID_Helpsrc   [Displays the Search dialog box]
+ID_Helphow   [Describes how to use Windows on-line help]
+ID_Whatnew   [Describes new features in AutoCAD Release 13]
+ID_Qtour     [Starts Quick Tour]
+ID_Lrnacad   [Starts Learning AutoCAD on-line tutorial]
+ID_About     [Displays information about AutoCAD]
+ID_Selwin    [Selects all objects completely within a defined window]
+ID_Selcro    [Selects objects within and crossing a defined window]
+ID_Selgro    [Selects objects within a specified group]
+ID_Selpre    [Selects the most recent selection set]
+ID_Sellas    [Selects the most recently created visible object]
+ID_Selall    [Selects all objects on thawed layers]
+ID_Selwp     [Selects objects within a defined polygon]
+ID_Selcp     [Selects objects within and crossing a defined polygon]
+ID_Selfen    [Selects all objects crossing a selection fence]
+ID_Seladd    [Switches to Add mode]
+ID_Selrem    [Switches to Remove mode]
+ID_Filter    [Creates lists to select objects based on properties]
+ID_Osnfro    [Snaps to a temporary reference point]
+ID_Osnend    [Snaps to the closest endpoint of an arc or a line]
+ID_Osnmid    [Snaps to the midpoint of an arc or a line]
+ID_Osnint    [Snaps to the intersection of a line, an arc, or a circle]
+ID_Osnapp    [Snaps to the apparent intersection of two objects]
+ID_Osncen    [Snaps to the center of an arc or a circle]
+ID_Osnqua    [Snaps to a quadrant point of an arc or a circle]
+ID_Osnper    [Snaps to a point perpendicular to an arc, a line, or a circle]
+ID_Osntan    [Snaps to the tangent of an arc or a circle]
+ID_Osnnod    [Snaps to a point object]
+ID_Osnins    [Snaps to the insertion point of text, a block, a shape, or an attribute]
+ID_Osnnea    [Snaps to the nearest point of an arc, a circle, a line, or a point]
+ID_Osnqui    [Snaps to the first snap point found]
+ID_Osnnon    [Turns off Object Snap mode]
+ID_Ptfx      [Specifies a .X point filter]
+ID_Ptfy      [Specifies a .Y point filter]
+ID_Ptfz      [Specifies a .Z point filter]
+ID_Ptfxy     [Specifies a .XY point filter]
+ID_Ptfxz     [Specifies a .XZ point filter]
+ID_Ptfyz     [Specifies a .YZ point filter]
+ID_Dview     [Defines parallel projection or perspective views]
+ID_LType     [Creates, loads, and sets linetypes]
+ID_Mlstyle   [Defines a style for multiple parallel lines]
+ID_Dchpro    [Changes the color, layer, linetype, and thickness of an object]
+ID_List      [Displays database information for selected objects]
+ID_Id        [Displays the coordinates of a location]
+ID_Dist      [Measures the distance and angle between two points]
+ID_Area      [Calculates the area and perimeter of objects or of defined areas]
+ID_Masspr    [Calculates and displays the mass properties of regions or solids]
+ID_Line      [Creates straight line segments]
+ID_Xline     [Creates an infinite line]
+ID_Ray       [Creates a semi-infinite line]
+ID_Pline     [Creates two-dimensional polylines]
+ID_Poly3d    [Creates a polyline of straight line segments]
+ID_Mline     [Creates multiple parallel lines]
+ID_Spline    [Creates a quadratic or cubic spline (NURBS)]
+ID_Arc3pt    [Creates an arc using three points]
+ID_Arcsce    [Creates an arc using the start point, center, and end point]
+ID_Arcsca    [Creates an arc using the start point, center, and included angle]
+ID_Arcscl    [Creates an arc using the start point, center, and length of chord]
+ID_Arcsea    [Creates an arc using the start point, end point, and included angle]
+ID_Arcsed    [Creates an arc using the start point, end point, and starting direction]
+ID_Arcser    [Creates an arc using the start point, end point, and radius]
+ID_Arccse    [Creates an arc using the center, start point, and end point]
+ID_Arccsa    [Creates an arc using the center, start point, and included angle]
+ID_Arccsl    [Creates an arc using the center, start point, and length of chord]
+ID_Arccon    [Creates an arc tangent to the last line or arc drawn]
+ID_Cirrad    [Creates a circle using a specified radius]
+ID_Cirdia    [Creates a circles using a specified diameter]
+ID_Cir2pt    [Creates a circle using two endpoints of the diameter]
+ID_Cir3pt    [Creates a circle using three points on the circumference]
+ID_Cirttr    [Creates a circle tangent to two objects with a specified radius]
+ID_Donut     [Draws filled circles and rings]
+ID_Ellips    [Creates an ellipse using a specified center point]
+ID_Ellcir    [Creates an ellipse using a specified axis]
+ID_Ellarc    [Creates an elliptical arc]
+ID_Rectan    [Draws a rectangular polyline]
+ID_Polygo    [Creates an equilateral closed polyline]
+ID_Solid     [Creates solid-filled polygons]
+ID_Region    [Creates a region object from a selection set of existing objects]
+ID_Bpoly     [Creates a region or polyline of a closed boundary]
+ID_Point     [Creates a point object]
+ID_Divide    [Places evenly spaced point objects or blocks along the length or perimeter of an object]
+ID_Measure   [Places point objects or blocks at measured intervals on an object]
+ID_Dinser    [Inserts a block or another drawing]
+ID_Block     [Creates a block definition from a set of objects]
+ID_TbBlock   [Creates a block definition from a set of objects]
+ID_Bhatch    [Fills an enclosed area with an associative hatch pattern]
+ID_Psfill    [Fills a two-dimensional polyline outline with a PostScript pattern]
+ID_Mtext     [Creates paragraph text]
+ID_Dtext     [Displays text on screen as it is entered]
+ID_Text      [Creates a single line of text]
+ID_Move      [Displaces objects a specified distance in a specified direction]
+ID_Explode   [Breaks a compound object into its component objects]
+ID_Erase     [Removes objects from a drawing]
+ID_Copyob    [Duplicates objects]
+ID_Offset    [Creates concentric circles, parallel lines, and parallel curves]
+ID_Mirror    [Creates a mirror image copy of objects]
+ID_Mir3d     [Creates a mirror image copy of objects about a plane]
+ID_Arrrec    [Creates a rectangular array]
+ID_Arrpol    [Creates a polar array]
+ID_Arr3dr    [Creates a rectangular 3D array]
+ID_Arr3dp    [Creates a polar 3D array]
+ID_Rotate    [Moves objects about a base point]
+ID_Rot3d     [Moves objects about a three-dimensional axis]
+ID_Align     [Moves and rotates objects to align with other objects]
+ID_Stretch   [Moves or stretches objects]
+ID_Scale     [Enlarges or reduces objects equally in the X, Y, and Z directions]
+ID_Length    [Lengthens an object]
+ID_Change    [Changes the properties of existing objects]
+ID_Trim      [Trims objects at a cutting edge defined by other objects]
+ID_Extend    [Extends an object to meet another object]
+ID_Bre1pt    [Breaks the selected object at the selection point]
+ID_Bre1ps    [Breaks the selected object at a specified point]
+ID_Bre2pt    [Breaks the selected object between the selection point and a specified point]
+ID_Bre2ps    [Breaks the selected object between two specified points]
+ID_Pedit     [Edits polylines and three-dimensional polygon meshes]
+ID_Mledit    [Edits multiple parallel lines]
+ID_Spledi    [Edits a spline object]
+ID_TexEdi    [Edits attribute definitions, text, and mtext objects]
+ID_Hatedi    [Modifies an existing associative hatch block]
+ID_Chamfe    [Bevels the edges of objects]
+ID_Fillet    [Rounds and fillets the edges of objects]
+ID_DimLin    [Creates linear dimensions]
+ID_DimAli    [Creates an aligned linear dimension]
+ID_TbDimRad  [Creates radial dimensions for circles and arcs]
+ID_DimAng    [Creates an angular dimension]
+ID_TbDimOrd  [Creates ordinate point dimensions]
+ID_DimBas    [Continues a dimension from the baseline of the previous or selected dimension]
+ID_DimCon    [Continues a dimension from the second extension line of the previous or a selected dimension]
+ID_DimCen    [Creates the center mark or the center lines of circles and arcs]
+ID_DimLea    [Creates a line that connects annotation to a feature]
+ID_DimTol    [Creates geometric tolerances]
+ID_TbDimText [Moves and rotates dimension text]
+ID_DimRad    [Creates radius dimensions for circles and arcs]
+ID_DimDia    [Creates diameter dimensions for circles and arcs]
+ID_DimOrd    [Creates ordinate point dimensions]
+ID_DimOrx    [Measures the X coordinate of a feature]
+ID_DimOry    [Measures the Y coordinate of a feature]
+ID_DimHom    [Moves dimension text back to its default position]
+ID_DimTro    [Rotates dimension text]
+ID_DimTle    [Left justifies dimension text]
+ID_DimTce    [Center justifies dimension text]
+ID_DimTri    [Right justifies dimension text]  
+ID_DimObl    [Modifies oblique angle of dimension]
+ID_Sphere    [Creates a 3D solid sphere]
+ID_Torus     [Creates a donut-shaped solid]
+ID_Extrud    [Creates unique solid primitives by extruding existing 2D objects]
+ID_Revolv    [Creates a solid by revolving a 2D object about an axis]
+ID_Slice     [Slices a set of solids with a plane]
+ID_Sectio    [Creates a region using the intersection of a plane and solids]
+ID_Interf    [Creates a composite solid from the common volume where a set of solids interfere]
+ID_Amecon    [Converts AME solid models to AutoCAD solid objects]
+ID_Union     [Creates a composite region or solid]
+ID_Subtra    [Subtracts the area or volume of one set of regions or solids from another set]
+ID_Inters    [Creates composite solids or regions from the intersection of solids or regions]
+ID_Boxcen    [Creates a box using a specified center point]
+ID_Boxcor    [Defines the first corner of a box]
+ID_Cylell    [Creates a cylinder with an elliptical base]
+ID_Cylcen    [Defines the center of the circular base of a cylinder]
+ID_Conell    [Creates a cone with an elliptical base]
+ID_Concen    [Defines the center of the circular base of a cone]
+ID_Wedcen    [Creates a wedge using a specified center point]
+ID_Wedcor    [Defines the first corner of a wedge]
+ID_SurBox    [Creates a 3D box wire frame]
+ID_SurWed    [Creates a right angle wedge-shaped polygon wire frame]
+ID_SurPyr    [Creates a pyramid or a tetrahedron]
+ID_SurCon    [Creates a cone-shaped wire frame]
+ID_SurSph    [Creates a spherical polygon mesh]
+ID_SurDom    [Creates the upper half of a spherical polygon mesh]
+ID_SurDis    [Creates the lower half of a spherical polygon mesh]
+ID_SurTor    [Creates a toroidal polygon mesh]
+ID_3dface    [Creates a 3D face]
+ID_Edge      [Changes the visibility of 3D face edges]
+ID_Revsur    [Creates a rotated surface about a selected axis]
+ID_Tabsur    [Creates a tabulated surface from a path curve and direction vector]
+ID_Rulesu    [Creates a ruled surface between two curves]
+ID_Edgesu    [Creates a three-dimensional polygon mesh]
+ID_3dmesh    [Creates a free-form polygon mesh]
+ID_XreAtt    [Attaches an xref]
+ID_XreOve    [Overlays an xref]
+ID_XreRel    [Reloads one or more xrefs]
+ID_XreDet    [Detaches xrefs]
+ID_XreCli    [Inserts and clips an xref]
+ID_XrePat    [Displays and edits the path name associated with an xref]
+ID_XreLis    [Lists the xref path name and the number of attached xrefs]
+ID_TbBind    [Binds dependent symbols of an xref to the drawing]
+ID_Bind      [Binds all external references to the current drawing]
+ID_BinBlo    [Binds blocks of an xref to the drawing]
+ID_BinLay    [Binds layers of an xref to the drawing]
+ID_BinLin    [Binds linetypes of an xref to the drawing]
+ID_BinTex    [Binds text styles of an xref to the drawing]
+ID_BinDim    [Binds dimension styles of an xref to the drawing]
+ID_AttDef    [Creates an attribute definition]
+ID_AttRed    [Redefines a block and updates associated attributes]
+ID_AttEdi    [Edits the variable attributes of a block]
+ID_AttEdg    [Changes attribute information independent of its block definition]
+ID_Hide      [Regenerates a three-dimensional model with hidden lines suppressed]
+ID_Shade     [Displays a flat-shaded image of the drawing in the current viewport]
+ID_Render    [Creates a realistically shaded image of a three-dimensional wire frame or solid model]
+ID_Scene     [Manages scenes]
+ID_Light     [Manages lights and lighting effects]
+ID_Rmat      [Manages rendering materials]
+ID_Matlib    [Imports and exports materials to and from a library of materials]
+ID_Stats     [Displays rendering statistics]
+ID_Aseadm    [Performs administrative functions for external database commands]
+ID_Aserow    [Displays and edits table data and creates links and selection sets]
+ID_Aselin    [Manipulates links between objects and an external database]
+ID_Asesel    [Creates a selection set from rows linked to textual selection sets and graphic selection sets]
+ID_Aseexp    [Exports link information for selected objects]    
+ID_Asesql    [Executes Structured Query Language (SQL)]
+ID_Minser    [Inserts multiple instances of a block in a rectangular array]
+ID_Oops      [Restores erased objects]
+ID_Sketch    [Creates a series of freehand line segments]
+ID_Trace     [Creates solid lines]
+ID_Tbarc     [Displays the Arc toolbar]
+ID_TbBox     [Displays the Box toolbar]
+ID_TbBreak   [Displays the Break toolbar]
+ID_Tbcir     [Displays the Circle toolbar]
+ID_TbCone    [Displays the Cone toolbar]
+ID_TbCopy    [Displays the Copy toolbar]
+ID_TbCylind  [Displays the Cylinder toolbar]
+ID_Tbell     [Displays the Ellipse toolbar]
+ID_TbExplode [Displays the Explode toolbar]
+ID_TbFeatur  [Displays the Chamfer and Fillet toolbar]
+ID_Tbhatch   [Displays the Hatch toolbar]
+ID_TbInq     [Displays the Inquiry toolbar]
+ID_TbLine    [Displays the Line toolbar]
+ID_TbPoint   [Displays the Point toolbar]
+ID_Tbpgon    [Displays the Polygon toolbar]
+ID_Tbpline   [Displays the Polyline toolbar]
+ID_TbResize  [Displays the Resize toolbar]
+ID_TbRotate  [Displays the Rotate toolbar]
+ID_TbSelect  [Displays the Select Objects toolbar]
+ID_TbSpace   [Switches between paper space and model space]
+ID_TbSpledi  [Displays the Special Edit toolbar]
+ID_Tbtext    [Displays the Text toolbar]
+ID_TbToolwi  [Displays the Tool Windows toolbar]
+ID_TbTrim    [Displays the Trim and Extend toolbar]
+ID_TbWedge   [Displays the Wedge toolbar]
+ID_Picks1    [Selecting a single group member selects all members]
+ID_Picks2    [Selecting hatching also selects the hatch boundary]
+
+***ACCELERATORS
+[CONTROL+"L"]^O
+[CONTROL+"R"]^V
+ID_Undo   [CONTROL+"Z"]
+ID_Cut    [CONTROL+"X"]
+ID_Copy   [CONTROL+"C"]
+ID_Paste  [CONTROL+"V"]
+ID_Open   [CONTROL+"O"]
+ID_Print  [CONTROL+"P"]
+ID_New    [CONTROL+"N"]
+ID_Save   [CONTROL+"S"]
+
