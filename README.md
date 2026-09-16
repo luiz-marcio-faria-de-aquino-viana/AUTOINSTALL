@@ -1,10 +1,8 @@
-# AI_AUTOINSTALL
+# AI_AUTOINSTALL - PORTUGUES
 
 O AI AutoINSTALL é um conjunto de ferramentas que facilitam a elaboração de projetos de arquitetura, instalações elétricas, hidrossanitárias, gás, incêndio, telefonia e instalações especiais, sendo um aplicativo que estende as funcionalidades do AutoCAD, IntelliCAD e GstarCAD para facilitar a criação de projetos.
 
 Com o AI AutoINSTALL é possível efetuar os traçados de tubulações de forma otimizada, efetuar cálculos de dimensionamento de caixas de inspeção, inserir fiação elétrica automaticamente, dimensionar quadros de distribuição, inserir bibliotecas de detalhes nos desenhos em AutoCAD, etc.
-
-# HISTORIAS
 
 Entre 1989 até o final de 1990, o software AI AutoINSTALL era composto por varias funcoes AutoLISP isoladas que eram desenvolvidas por mim e organizadas em um menu personalizado para instalações Elétricas, Hidraulicas, Esgoto, Gás, Telefonia Interna, Telefonia Externa, Instalações Especiais, e Ar Condicionado.
 
@@ -25,6 +23,30 @@ Desta forma, comecei o desenvolvimento do algoritmo FIAÇÃO e após a confirmar
 Entre 1996 e 2000, o algoritmo FIAÇÃO foi sendo aprimorado com a utilização em todos os projetos da empresa AQ Projetos de Instalações LTDA, que na época participava de mais de 80 obras anualmente.
 
 Este volume grande obras, gerou muitos casos de uso e me permitiu resolver muitos BUGs no aloritmo, que não seria possível resolver durante a etapa de desenvolvimento.
+
+# AI_AUTOINSTALL - ENGLISH
+
+AI AutoINSTALL is a suite of tools designed to streamline the drafting of architectural, electrical, plumbing/sanitary, gas, fire protection, telephony, and special systems projects. It functions as an application that extends the capabilities of AutoCAD, IntelliCAD, and GstarCAD to facilitate the design process.
+
+With AI AutoINSTALL, users can optimize piping layouts, calculate inspection chamber dimensions, automatically insert electrical wiring, size distribution boards, insert detail libraries into AutoCAD drawings, and more.
+
+Between 1989 and late 1990, AI AutoINSTALL consisted of various standalone AutoLISP functions I developed and organized into a custom menu covering electrical, plumbing, sewage, gas, internal and external telephony, special systems, and air conditioning installations.
+
+AI AutoINSTALL was used by me and the team at AQ Projetos de Instalações Ltda to optimize the drafting of building systems projects.
+
+My first AutoLISP routine was created to streamline the drafting of electrical distribution boards and was later expanded to import electrical sizing data from CSV files.
+
+Between 1990 and 1991, I provided services to the DOCM (Navy Directorate of Civil Works), located in the Barão de Ladário Building in downtown Rio de Janeiro. I joined as a Midshipman to develop specific solutions for electrical and air conditioning projects.
+
+A few weeks before joining the Brazilian Navy, I created the framework for the first version of the software, AI AutoINSTALL v1.0, which was completed in late 1991.
+
+During this period, information regarding the electrical conductors passing through each conduit had to be entered manually. However, by the end of 1993, having studied data structures and graph theory extensively, I began analyzing the problem of routing electrical conductors within a building.
+
+Consequently, I initiated the development of the FIAÇÃO algorithm. After confirming through experiments that the distribution of electrical conductors in a project could be processed automatically and efficiently, I created several complementary AutoLISP applications, designed a custom menu for electrical installations featuring automatic wiring processing, and prepared electrical symbol blocks with attributes representing electrical points—such as the source panel name, circuit number, control identifier, design load, and phase system.
+
+Between 1996 and 2000, the FIAÇÃO algorithm was refined through its use in every project undertaken by AQ Projetos de Instalações LTDA, a company involved in over 80 projects annually at the time.
+
+This high volume of projects generated numerous use cases, allowing me to resolve bugs in the algorithm that could not have been addressed during the initial development phase.
 
 # VERSOES
 
