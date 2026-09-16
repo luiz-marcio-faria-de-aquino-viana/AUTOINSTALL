@@ -1,0 +1,11 @@
+ARQUIVO		DESCRICAO					FUNCOES
+===============	=============================================== ================
+kes00c0		rotina de desenho de bujao			c:ai_es_bujao
+===============	===============================================	================
+kes01c0		rotina de desenho de tubo operculado		c:ai_es_to
+===============	===============================================	================
+kes02c0		rotina para obtencao do ponto de entrada no	45dc:ai_es_to
+		ralo sifonado a 45d
+===============	===============================================	================
+kes03c0		rotina de dimensionamento de caixas de inspecao	c:ciinsert / ci:ciproxima / ci:cidimensiona
+===============	===============================================	================
