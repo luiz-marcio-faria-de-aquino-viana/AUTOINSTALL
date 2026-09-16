@@ -1,0 +1,161 @@
+ARQUIVO  DESCRICAO                                                                 ROTINAS
+======== ========================================================================= =========================================
+K00C     Rotina para indicacao do apartamento                                      C:APTO
+K01C     Rotina para desenho de coluna de esgoto por dois pontos                   C:C2P
+K02C     Rotina para colocacao do carimbo                                          C:CARIMBO
+K03C     Rotina de edicao de textos do acadr11                                     C:CHGTEXT
+K04C     Rotina para desenho da fiacao eletrica                                    C:CIRCUITO
+K05C(*)  Rotina para criacao de detalhes padronizados                              C:MKDET (obsoleto)
+K06C(*)  Rotina de impressao dinamica                                              C:DPRINTER (obsoleto)
+K07C     Rotina de padronizacao das alturas dos textos                             C:EDTEXT
+K08C     Rotina p/insercao dos blocos CSE/CGE/CRE                                  C:CX
+K09C     Rotina p/desenho de furo na laje                                          C:FLAJE
+K0AC     Rotina p/desenho de furo na viga                                          C:FVIGA
+K0BC     Rotina de insercao de blocos por um ponto em escala                       C:INSERIR
+K0CC     Rotina de insercao de blocos em escala (p/dois pontos)                    C:INSERT2
+K0DC     Rotina de insercao de blocos admensionais (vistas)                        C:INSERT3
+K0EC     Rotina para desenho de janelas                                            C:JANELA
+K0FC     Rotina para desenho de de indicadores                                     C:LEADER1
+K10C     Rotina para desenho de seta indicadora de prumada que desce               C:P-DESCE
+K11C     Rotina para desenho de seta indicadora de prumada que passa               C:P-PASSA
+K12C     Rotina para desenho de seta indicadora de prumada que sobe                C:P-SOBE
+K13C     Rotina para tracado de parede                                             C:PAREDE
+K14C     Rotina para desenho de pilar retangular                                   C:PILAR
+K15C     Rotina de plotagem                                                        C:PLOTER
+K16C     Rotina para desenho de portas                                             C:PORTA / C:PORTA2X / C:PCORRER
+K17C(*)  Rotina de impressao                                                       C:PRINTER (obsoleto)
+K18C(*)  Rotina de desenho de quadro de quarga                                     C:QD (obsoleto)
+K19C(*)  Rotina para preenchimento de tabelas                                      C:QDTEXTO (obsoleto)
+K1AC     Rotina para desenho de pilar redondo                                      C:REDONDO
+K1BC     Rotina de configuracao do desenho                                         C:SETUP
+K1CC     Rotina para ativar e desativar camadas                                    C:SETLAYER
+K1DC     Rotina p/seta indicadora de coluna que desce                              C:T-DESCE
+K1EC     Rotina p/seta indicadora de coluna que passa                              C:T-PASSA
+K1FC     Rotina p/seta indicadora de coluna que sobe                               C:T-SOBE
+K20C     Conjunto de rotina utilitarias de uso geral                               UTIL
+K21C     Rotina para cortar paredes que se cruzam em T ou X                        C:CUTWALL
+K22C     Rotina de convercao da configuracao de camadas entre AI1.0 p/ 2.1         C:TRANSLATE
+K23C     Rotina p/desenho da seta indicativa de previsao p/aparelho a gas          C:GBOX
+K24C     Rotina p/desenho da caixa de distribuicao de TE                           C:CXD
+K25C     Rotina de correcao da especura das tubulacoes AI1.0 p/ AI2.1              C:CORRETOR
+K26C     Rotina de logon do sistema                                                LOGON
+K27C     Rotina de logoff do sistema                                               LOGOFF
+K28C     Rotina de visualizacao das modificacoes realizadas no arquivo             C:VLOG
+K29C     Rotina p/desenho da maquina de ar condicionado com uma saida              C:MQ1S
+K2AC     Rotina p/desenho da maquina de ar condicionado com duas saidas            C:MQ2S
+K2BC     Rotina p/desenho da torre de ar condicionado                              C:TORRE
+K2CC     Rotina p/desenho de dutos de ar condicionado                              C:DUTOS
+K2DC     Rotina p/desenho da transformacao de dutos de ar condicionado             C:TRANSF
+K2EC     Rotina que copia entidades trocando de camada                             C:CHCOPY
+K2FC     Conjunto de rotinas para manipulacao de atributos                         ATTRIB
+K30C     Rotina de insercao dos blocos de eletrica                                 C:UINSERT
+K31C     Rotinas para copiar e espelhar os objetos eletricos inserido no desenho   C:ECOPY / C:EMIRROR
+K32C     Rotina p/extrair informacoes do desenho para processar a fiacao           C:ESAVE
+K33C     Rotinas de processamento da fiacao eletrica                               C:FIACAO
+K34C     Rotinas para edicao das informacoes dos objetos eletricos                 C:ECHORG / C:ECHCIR / C:ECHCMD
+K35C     Rotina de desenho do quadro de cargas com dimensionamento simplificado    C:EQDCA/C:EQDCM
+K36C     Rotinas de depuracao de programas                                         DBG / MON
+K37C(*)  Rotina de insercao de detalhes padronizados                               C:LDDET (obsoleto)
+K38C(*)  Rotina para alteracao de detalhes padronizados                            C:CHDET (obsoleto)
+K39C     Rotina para importar arquivos de texto                                    C:IMPTXT
+K3AC     Rotina de impressao continua                                              C:PRINTC
+K3BC     Rotina de impressao dinamica                                              C:DPRINT
+K3CC     Rotina p/desenho de seta indicativa de equipamento                        C:INDIC
+K3DC(*)  Rotina de manipulacao de infos via desenho                                INFO
+K3EC     Rotinas para manipulacao de camadas                                       C:PS / C:PF / C:PCH
+K3FC     Rotina para criacao de uma serie numerica                                 C:SERIE
+K40C     Rotina para impressao dinamica em multiplas paginas                       C:MPRINT
+K41C     Rotina de fax dinamica                                                    C:DFAX
+K42C     Rotina para transmissao de arquivo de fax a fila                          C:FAX
+K43C(*)  Rotina de verificacao de status dos fax                                   C:FAXLOG (obsoleto)
+K44C(*)  Rotina para separacao dos desenhos por instalacoes                        C:SPLIT (obsoleto)
+K45C     Rotina p/ calc de dimensionamento de eletrodutos                          C:CALCDT
+K46C     Rotina para desenho da planta baixa de arquitetura a partir de uma malha  C:MALHA
+K47C     Conjunto de rotinas para controle de exclusao mutua nos arquivos da rede  LOCKF
+K48C     Rotina que gera relatorio de custo de desenho                             C:CUSTO
+K49C     Rotina para eliminar entidades de mesmo tipo na mesma camada              C:PE
+K4AC     Rotina de calculo de iluminacao (metodo pratico)                          C:ILUM
+K4BC     Rotinas para manipulacao do paperspace                                    C:PSMARG / C:PSWIN / C:PSCAR
+K4CC     Rotina para insercao de luminarias                                        C:INSLUM
+K4DC     Rotina para explodir todas as polilinhas de uma mesma camada              C:PLEXPL
+K4EC     Rotina que recria a estrutura de camadas padrao                           C:MKLAY
+K4FC     Rotina para eliminar caracteres indeterminados nos textos                 C:FT
+K50C(*)  Rotina para separacao dos arquivos para uso com xref                      C:XFSPLIT (obsoleto)
+K51C(*)  Rotina de carga dos arquivos xrefs relacionados com o desenho             C:XFLOAD
+K52C(*)  Rotina de recarga dos arquivos xrefs relacionados com o desenho           C:XFRELOAD
+K53C(*)  Rotina para inserir um novo xref ao desenho                               C:XFIN
+K54C(*)  Rotina para eliminacao de um xref do desenho                              C:XFOUT
+K55C(*)  Rotina para corrigir cargas de arquivos xrefs que nao foram concluidas    C:XFFIX
+K56C(*)  Rotina para visualizar quem fez uma determinada modificacao num desenho   C:VMODIF
+K57C(*)  Rotina que uni duas linhas coincidentes em uma unica linha                C:UNILINE (obsoleto)
+K58C     Rotina que realiza o offset de um objeto trocando a camada                C:OFFCHG
+K59C     Rotina que divide a tela com vports                                       C:DBLSCR / C:SISCR
+K5AC(**) Rotina para extender uma entidade ate um objeto de um bloco               C:BEXTEND (incompleta)
+K5BC     Rotinas p/manipular objetos p/calculo de iluminacao                       IL
+K5CC     Rotina p/ dimensionamento de calha                                        C:CCALHA
+K5DC     Rotina para desenho de indicadores com legenda                            C:I_INDIC / C:I_LEGENDA
+K5EC     Rotina p/ dimensionamento de caixa de passagem                            C:CCAIXA
+K5FC     Rotina que renomeia os nomes dos simbolos com mais de 20 caracteres       C:SNAME
+K60C(*)  Rotina de descarrega dos arquivos xrefs relacionados ao desenho           C:XFUNLOAD
+K61C(*)  Rotina para eliminacao de todos os xrefs relacionados ao desenho          C:XFPRUNE
+K62C(*)  Rotina de ajuste dos caminhos dos arquivos xrefs nao resolvidos           C:XFPATH
+K63C(*)  Rotina que uni dois segmentos de polilinhas                               C:UNIPLINE (obsoleto)
+K64C     Rotina que uni qualque combinacao de linhas e polilinhas                  C:UNILINE
+K65C     Rotina para atualizacao da tabela de revisoes e atributos da margem       UPDREV / UPDDAT
+K66C     Rotina de levantamento do numero de ocorrencias de um bloco no desenho    C:NUMBLK
+K67C(*)  Rotina de auto-carregamento das funcoes                                   AUTOLOAD (obsoleto)
+K68C     Rotina p/ insercao de tubos ponta e bolsa                                 C:ESGTB
+K69C     Rotina p/ insercao de conexoes de esgoto                                  C:ESGIN
+K6AC     Rotina de insercao de pontos para luminarias                              C:UINSLUM
+K6BC     Rotina para desenho de eletrodutos em instalacoes eletricas               C:EDT
+K6CC     Funcoes utilitarias manipulacao de Extended Entity Data                   EED
+K6DC     Rotina que transforma um grupo de entidades em uma calha                  C:EMKCLH
+K6EC     Rotina que transformacao um grupo de entidades em um objeto eletrico      C:EMKOBJ
+K6FC     Rotina que copia os valores dos atributos de um bloco a outros            C:COPYATTR
+K70C(*)  Rotina p/ desenho parametrizado da barra de neutro                        C:BARRANE
+K71C(**) Rotina p/ insercao de blocos de esgoto c/quebra da linha                  C:BRKINS
+K72C(**) Rotina p/ desenho do diagrama unifilar                                    C:DIAGELET
+K73C     Rotina p/ tracado da tubulacao hidraulica                                 C:HTUB
+K74C(**) Rotina p/ levantamento de material                                        C:LISMAT
+K75C     Rotina p/ criacao das vistas isometricas do desenho                       C:ISOBLK
+K76C     Rotina de verificacao de erro na insercao dos eletrodutos de eletrica     C:EVERDT / C:RESTDT
+K77C     Rotinas p/ ajuste dos arquivos de eletrica (fiacao)                       C:EADJUST
+K78C     Rotinas p/ insercao de blocos com elevacao                                C:HINSERT
+K79C     Rotina p/ criacao para criar detalhes da planta baixa                     C:DETBLK
+K7AC     Rotina p/ insercao de colunas de esgoto                                   C:CD / C:CTD / C:CTTD
+K7BC     Rotina que modifica a etapa do projeto                                    C:CHGMARGEM
+K7CC     Rotina de plotagem automatica                                             C:AUTOPLOT
+K7DC     Rotina para trocar um conjunto de blocos por um outro selecionado         C:CHGBLOCK
+K7EC     Ajusta origem e destino para um eletroduto                                C:ECHDT
+K7FC     Totaliza a potencia dos quadros                                           C:EQPOT
+K80C     Rotina p/ transformacao de entidades em objeto eletrico                   C:EINSOBJ
+K81C     Conjunto de rotinas que redefinem os comandos de gravacao                 C:SAVE / C:QSAVE / C:END / C:QUIT
+K82C     Conjunto de rotinas para desenho de ambientes                             C:AMBIENTE_1P / C:AMBIENTE_2P / C:AMBIENTE_3P
+K83C     Rotina para transmissao de um arquivo para a fila de plotagem             C:FPLOTER
+K84C     Rotina para desenho de bonecas                                            C:BONECA
+K85C     Rotina de gerenciamento de detalhes padronizados                          C:DDGDET
+K86C     Conjunto de funcoes para manipulacao de arquivos de dados                 fread/fwrite
+K87C     Rotinas para apagar, copiar e mover fiacao                                C:EDELFIOS / C:ECOPFIOS / C:EMOVFIOS / C:ROTFIOS
+K88C(**) Rotina de listagem dos objetos eletricos                                  C:ELIST
+K89C     Rotina para trocar a ordem de processamento dos interruptores three-way   C:EORDEM
+K8AC     Rotinas de recompilacao dos menus                                         C:MR / C:MRA
+K8BC     Rotina para desenho de retangulos                                         C:RECTANG
+K8CC     Rotina de modificacao das propriedades dos objetos                        C:AI_PROPCHK
+K8DC     Rotina para preenchimento de tabelas                                      C:TBTEXT
+K8EC     Rotina para construir tabelas                                             C:TBCONS
+K8FC     Rotina para modificar a cor das entidades dos blocos                      C:COLBLK
+K90C     Rotina de edicao que mistura o comando de copia e rotacao em um unico     C:COPYROT
+K91C     Rotina que explode todos os blocos visiveis ou invisiveis de uma camada   C:BLEXPL
+K92C     Rotina que permite a substituicao de solidos por hachuras                 C:SOL2HAT
+K93C     Rotina de manipulacao de xref                                             C:XFLOAD / C:XFUNLOAD / C:XFRELOAD / C:XFPRUNE / C:XFPATH / C:XFSPLIT / C:XFIN / C:XFOUT / C:XFFIX
+K94C     Rotinas para manipulacao de arquivos de configuracao                      READCFGFILE
+K95C     Rotina de verificacao da consistencia nas ligacao dos eletrodutos         C:ACI_ECHKDT
+K96C     Rotina para insercao de pontos com rotacao (=0)                           C:INSER0
+K97C     Rotina para desenho de elipse fornecendo a largura e metade da altura     C:AI_ELLIPSE
+:
+:
+:
+K9BC     Rotina para tracado de eletrocalha                                        C:ELETROCALHA
+K9CC     Rotina para padronizacao dos detalhes (automatico/semi-automatico)        C:DETAJUSTA / C:DETTROCACAMADA
+K9DC     Rotina para converter uma SPLINE em PLYNE                                 C:SP2PL
+K9EC     Rotina para impressao automatica do arquivo de detalhes                   C:PLOTDET

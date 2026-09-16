@@ -1,0 +1,36 @@
+
+/*
+/* KES03C0.dcl
+/* Copyright (C) 2016 by Luiz Marcio F A Viana, 29/08/2016
+*/
+
+ddciinsert : dialog {
+  label = "Caixa de Inspecao" ;
+  :column {
+    :row {
+      : edit_box {
+        key = "IDC_UH" ;
+        label = "Unidades Hunter (U.H.):" ;
+        edit_width = 10;
+      }
+      : button {
+        key = "BTN_UH";
+        label = "...";
+      }
+    }
+    spacer_1;
+    : edit_box {
+      key = "IDC_PROFUNDIDADE" ;
+      label = "Profundidade da caixa (m):" ;
+      edit_width = 10;
+    }
+    spacer_1;
+    : edit_box {
+      key = "IDC_DECLIVIDADE" ;
+      label = "Declividade proximo trecho (%):" ;
+      edit_width = 10;
+    }
+  }
+  ok_cancel;
+  errtile;
+}

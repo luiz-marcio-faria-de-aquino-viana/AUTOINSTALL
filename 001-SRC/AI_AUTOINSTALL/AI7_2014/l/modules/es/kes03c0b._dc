@@ -1,0 +1,282 @@
+
+/*
+/* KES03C0B.dcl
+/* Copyright (C) 2016 by Luiz Marcio F A Viana, 05/09/2016
+*/
+
+ddciinsert : dialog {
+  label = "Calculo das Unidades de Hunter" ;
+  :column {
+    :row {
+      : text {
+        label = "Vaso com valvula de descarga:" ;
+      }
+      : edit_box {
+        key = "IDC_UH1" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD1" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL1" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Vaso com caixa acoplada:" ;
+      }
+      : edit_box {
+        key = "IDC_UH2" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD2" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL2" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Chuveiro:" ;
+      }
+      : edit_box {
+        key = "IDC_UH3" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD3" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL3" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Lavatorio:" ;
+      }
+      : edit_box {
+        key = "IDC_UH4" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD4" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL4" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Bide:" ;
+      }
+      : edit_box {
+        key = "IDC_UH5" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD5" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL5" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Banheira:" ;
+      }
+      : edit_box {
+        key = "IDC_UH6" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD6" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL6" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Bebedouro:" ;
+      }
+      : edit_box {
+        key = "IDC_UH7" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD7" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL7" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Pia:" ;
+      }
+      : edit_box {
+        key = "IDC_UH8" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD8" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL8" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Lavadoura de pratos:" ;
+      }
+      : edit_box {
+        key = "IDC_UH9" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD9" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL9" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Tanque:" ;
+      }
+      : edit_box {
+        key = "IDC_UH10" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD10" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL10" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Maquina de lavar roupas:" ;
+      }
+      : edit_box {
+        key = "IDC_UH11" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD11" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL11" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Ralo saida 40mm:" ;
+      }
+      : edit_box {
+        key = "IDC_UH12" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD12" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL12" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Ralo saida 50mm:" ;
+      }
+      : edit_box {
+        key = "IDC_UH13" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD13" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL13" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Ralo saida 75mm:" ;
+      }
+      : edit_box {
+        key = "IDC_UH14" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD14" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL14" ;
+        edit_width = 10;
+      }
+    }
+    spacer_1;
+    :row {
+      : text {
+        label = "Outros:" ;
+      }
+      : edit_box {
+        key = "IDC_UH15" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_QTD15" ;
+        edit_width = 10;
+      }
+      : edit_box {
+        key = "IDC_TOTAL15" ;
+        edit_width = 10;
+      }
+    }
+  }
+  ok_cancel;
+  errtile;
+}
