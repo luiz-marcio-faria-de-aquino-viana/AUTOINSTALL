@@ -1,0 +1,57 @@
+
+1) Prefixos dos comandos:
+
+	BASE	---------------	AI_		(ex: ai_plot, ai_autoplot, ai_fax, ...)
+
+	ARQ	---------------	AI_ARQ_		(ex: ai_arq_parede, ai_arq_malha, ...)
+
+	F	--------------- AI_F_		(ex: ai_f_pilar, ai_f_fviga, ...)
+
+	EL	--------------- AI_EL_		(ex: ai_el_eletroduto, ai_el_fiacao, ...)
+
+	ES	--------------- AI_ES_		(ex: ai_es_bujao, ai_es_to, ...)
+
+	H	--------------- AI_H_		(ex: ai_h_tubo, ...)
+
+	G	--------------- AI_G_		(ex: ai_g_box, ...)
+
+	TE	--------------- AI_TE_		(ex: ai_te_cx, ...)
+
+	TI	--------------- AI_TI_		(ex: ai_ti_cx, ...)
+
+	IE	---------------	AI_IE_		(ex: ...)
+
+	AR	---------------	AI_AR_		(ex: ai_ar_duto, ai_ar_transf, ...)
+
+	EX	---------------	AI_EX_		(ex: ai_ex_vent, ...)
+
+	INC	---------------	AI_INC_		(ex: ...)
+
+
+2) Nomenclatura dos arquivos
+
+	k xxx yy c z .lsp
+           |  |    |
+           |  |    +--------- numero da revisao
+           |  |
+           |  +-------------- identificador do arquivo
+           |
+           +----------------- sigla da instalacao
+
+
+	ex:	k00c0	-	Rotina basica, codigo '00' e revisao '0'
+		kes2ac5	-	Rotina de esgoto, codigo '2a' e revisao '5'
+		kinccc0	-	Rotina de incendio, codigo '00' e revisao '0'
+
+3) Arquivo de descricao das rotinas
+
+	k xxx .txt
+           |
+           +----------------- sigla da instalacao
+
+
+	ex:	kbase.txt -	Lista de arquivos de rotinas basicas
+		karq.txt  -	Lista de arquivos de rotinas de arquitetura
+		kes.txt   -	Lista de arquivos de rotinas de esgoto
+
+
