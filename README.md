@@ -1,8 +1,56 @@
-# AUTOINSTALL
+# AI_AUTOINSTALL
 
-O AUTOINSTALL (Nickname: AI) é um conjunto de ferramentas que facilitam a elaboração de projetos de arquitetura, instalações elétricas, hidrossanitárias, gás, incêndio, telefonia e instalações especiais. O AI é um aplicativo que estende as funcionalidades do AutoCAD, IntelliCAD e GstarCAD para facilitar a criação de projetos.
+O AI AutoINSTALL é um conjunto de ferramentas que facilitam a elaboração de projetos de arquitetura, instalações elétricas, hidrossanitárias, gás, incêndio, telefonia e instalações especiais, sendo um aplicativo que estende as funcionalidades do AutoCAD, IntelliCAD e GstarCAD para facilitar a criação de projetos.
 
-Com o AI é possível efetuar os traçados de tubulações de forma otimizada, efetuar cálculos de dimensionamento de caixas de inspeção, inserir fiação elétrica automaticamente, dimensionar quadros de distribuição, inserir bibliotecas de detalhes nos desenhos em AutoCAD, etc.
+Com o AI AutoINSTALL é possível efetuar os traçados de tubulações de forma otimizada, efetuar cálculos de dimensionamento de caixas de inspeção, inserir fiação elétrica automaticamente, dimensionar quadros de distribuição, inserir bibliotecas de detalhes nos desenhos em AutoCAD, etc.
+
+# HISTORIAS
+
+Entre 1989 até o final de 1990, o software AI AutoINSTALL era composto por varias funcoes AutoLISP isoladas que eram desenvolvidas por mim e organizadas em um menu personalizado para instalações Elétricas, Hidraulicas, Esgoto, Gás, Telefonia Interna, Telefonia Externa, Instalações Especiais, e Ar Condicionado.
+
+O AI AutoINSTALL era usado por mim e pela equipe da AQ Projetos de Instalaçoes Ltda para Otimizar a Elaboração de Projetos de Instalações Prediais.
+
+Minha primeira rotina AutoLISP, foi elaborada para otimizar o desenho dos quadros elétricos e foi posteriormente estendida para importar o dimensionamento elétrico a partir de arquivos CSV.
+
+Entre 1990 e 1991, prestei serviço no DOCM - Diretoria de Obras Civis da Marinha, localizado no Edifício Barão de Ladário no Centro do Rio de Janeiro, onde ingressei como Guarda Marinha para desenvolver soluções específicas para Projetos Elétricos e de Ar Condicionado.
+
+Algumas semanas antes de ingressar na Marinha do Brasil, elaborei o arcabouco da primeira versão do software AI AutoINSTALL v1.0, que foi concluida no final de 1991.
+
+Neste período a informação sobre os condutores elétricos que passam por cada eletroduto era informada manualmente.
+
+Porém, no final do ano de 1993 havia estudado muito sobre estrutura de dados e grafos, e comecei a analisar o problema de roteamento dos condutores elétricos em uma edificação.
+
+Desta forma, comecei o desenvolvimento do algoritmo FIAÇÃO e após a confirmar através de experimentos de que era possível processar de forma automática e eficiênte a distribuição dos condutores elétricos em um empreendimento, criei diversos aplicativos complementares em AutoLISP, elaborei um menu personalizado para Instalações Elétricas com Processamento Automático da FIAÇÃO Elétrica, e preparei os blocos de simbologia elétrica com atributos que representam pontos elétricos, tais como: Nome do quadro origem, número do circuito, identificador do comando, carga considerada, e o sistema de fases. 
+
+Entre 1996 e 2000, o algoritmo FIAÇÃO foi sendo aprimorado com a utilização em todos os projetos da empresa AQ Projetos de Instalações LTDA, que na época participava de mais de 80 obras anualmente.
+
+Este volume grande obras, gerou muitos casos de uso e me permitiu resolver muitos BUGs no aloritmo, que não seria possível resolver durante a etapa de desenvolvimento.
+
+# VERSOES
+
+(1) AI2_30-AUTOCAD_R11-v2.30.202609151810-lmarcio (AutoCAD Release 11 DOS from 1989 until 1997).
+- First Version of AI v1.0 was Developed for DOCM - Diretoria de Obras Civis da Marinha and AQ Projetos de Instalações Ltda in 1989-1990.
+
+(2) AI3_01-INTELLICAD-v3.01.202609151810-lmarcio (IntelliCAD Open Source Version from 1997 until 2007).
+- This version was developed for IntelliCAD Open Source Software between 1997 and 2001, and I solve some BUGs in IntelliCAD at that time.
+
+(3) AI4-INTELLICAD-v4.00.202609151810-lmarcio (IntelliCAD Open Source Version from 1997 until 2007).
+- This version was developed for IntelliCAD Open Source Software between 1997 and 2001, and I solve some BUGs in IntelliCAD at that time.
+
+(4) AI7-VCAD_RCTASK-v7.00.202609151810-lmarcio (VCAD RCTASK Version from 2007 and in production).
+- This version was developed for RCTASK VCAD Release 10 from 2007 and in production at AQ Projetos de Instalacoes Ltda.
+
+(5) AI7_2007-AUTOCAD_2007-v7.00.202609151810-lmarcio (AutoCAD 2007)
+- This version was developed for AutoCAD 2007.
+
+(6) AI7_2014-AUTOCAD_2014-v7.00.202609151810-lmarcio (AutoCAD 2014)
+- This version was developed for AutoCAD 2014 and presented at Autodesk University Brazil from 2014 until 2017.
+
+(7) AI7_2014-AUTOCAD_2017-v7.00.202609151810-lmarcio (AutoCAD 2017)
+- This version was developed for AutoCAD 2017 and presented at Autodesk University Brazil from 2014 until 2017.
+
+(8) AI8-GSTARCAD_2021-v8.00.202609151810-lmarcio (GstarCAD 2021)
+- This version was developed for GstarCAD 2021 to replace the old version for RCTASK VCAD Release 10.
 
 # DEFINICAO DOS COMANDOS
 
