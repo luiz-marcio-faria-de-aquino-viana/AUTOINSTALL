@@ -4,25 +4,27 @@ O AI AutoINSTALL é um conjunto de ferramentas que facilitam a elaboração de p
 
 Com o AI AutoINSTALL é possível efetuar os traçados de tubulações de forma otimizada, efetuar cálculos de dimensionamento de caixas de inspeção, inserir fiação elétrica automaticamente, dimensionar quadros de distribuição, inserir bibliotecas de detalhes nos desenhos em AutoCAD, etc.
 
-Entre 1989 até o final de 1990, o software AI AutoINSTALL era composto por varias funcoes AutoLISP isoladas que eram desenvolvidas por mim e organizadas em um menu personalizado para instalações Elétricas, Hidraulicas, Esgoto, Gás, Telefonia Interna, Telefonia Externa, Instalações Especiais, e Ar Condicionado.
+Entre 1988 até o final de 1991, o software AI AutoINSTALL era composto por varias funcoes AutoLISP isoladas que eram desenvolvidas por mim e organizadas em um menu personalizado para instalações Elétricas, Hidraulicas, Esgoto, Gás, Telefonia Interna, Telefonia Externa, Instalações Especiais, e Ar Condicionado.
 
 O AI AutoINSTALL era usado por mim e pela equipe da AQ Projetos de Instalaçoes Ltda para Otimizar a Elaboração de Projetos de Instalações Prediais.
 
-Minha primeira rotina AutoLISP, foi elaborada para otimizar o desenho dos quadros elétricos e foi posteriormente estendida para importar o dimensionamento elétrico a partir de arquivos CSV.
+Minha primeira rotina AutoLISP foi elaborada para otimizar o desenho da planta de quadros de cargas nos projetos elétricos.
 
-Entre 1990 e 1991, prestei serviço no DOCM - Diretoria de Obras Civis da Marinha, localizado no Edifício Barão de Ladário no Centro do Rio de Janeiro, onde ingressei como Guarda Marinha para desenvolver soluções específicas para Projetos Elétricos e de Ar Condicionado.
+Esta rotina foi posteriormente estendida para permitir a importação dos dados de dimensionamento elétrico a partir de arquivos CSV gerados por planilhas eletrônicas.
 
-Algumas semanas antes de ingressar na Marinha do Brasil, elaborei o arcabouco da primeira versão do software AI AutoINSTALL v1.0, que foi concluida no final de 1991.
+Entre 1991 e 1992, prestei serviço militar no DOCM - Diretoria de Obras Civis da Marinha do Brasil, que está localizado no Edifício Barão de Ladário no Centro do Rio de Janeiro. Ingressei na Marinha do Brasil como Guarda Marinha aos 21 anos com objetivo de desenvolver soluções específicas para Elaboração de Projetos Elétricos e de Ar Condicionado.
 
-Neste período a informação sobre os condutores elétricos que passam por cada eletroduto era informada manualmente.
+Algumas semanas antes de ingressar na Marinha do Brasil, elaborei o arcabouco da primeira versão do software AI AutoINSTALL v1.0, que foi concluida no final de 1992.
+
+Neste período, a informação sobre os condutores elétricos (fase, neutro, terra e retorno) que passam pelos eletrodutos era informada manualmente.
 
 Porém, no final do ano de 1993 havia estudado muito sobre estrutura de dados e grafos, e comecei a analisar o problema de roteamento dos condutores elétricos em uma edificação.
 
-Desta forma, comecei o desenvolvimento do algoritmo FIAÇÃO e após a confirmar através de experimentos de que era possível processar de forma automática e eficiênte a distribuição dos condutores elétricos em um empreendimento, criei diversos aplicativos complementares em AutoLISP, elaborei um menu personalizado para Instalações Elétricas com Processamento Automático da FIAÇÃO Elétrica, e preparei os blocos de simbologia elétrica com atributos que representam pontos elétricos, tais como: Nome do quadro origem, número do circuito, identificador do comando, carga considerada, e o sistema de fases. 
+Desta forma, comecei o desenvolvimento do algoritmo FIAÇÃO e após a confirmar através de experimentos de que era possível processar de forma automática e eficiênte a distribuição dos condutores elétricos em um empreendimento, criei diversos aplicativos complementares em AutoLISP, e preparei os blocos de simbologia elétrica com atributos que representam pontos elétricos: Nome do quadro origem, número do circuito, identificador do comando, carga considerada, e sistema de fases. Elaborei também um menu personalizado para Projetos de Instalações Elétricas, integrando os aplicativos em AutoLISP com o algoritmo de processamento automático da FIAÇÃO elétrica.
 
-Entre 1996 e 2000, o algoritmo FIAÇÃO foi sendo aprimorado com a utilização em todos os projetos da empresa AQ Projetos de Instalações LTDA, que na época participava de mais de 80 obras anualmente.
+Entre 1996 e 2000, o algoritmo FIAÇÃO foi sendo aprimorado com a sua utilização em diversos projetos da empresa AQ Projetos de Instalações LTDA, que na época participava de mais de 80 obras anualmente.
 
-Este volume grande obras, gerou muitos casos de uso e me permitiu resolver muitos BUGs no aloritmo, que não seria possível resolver durante a etapa de desenvolvimento.
+Este volume grande obras, gerou muitos casos de uso e me permitiu resolver muitos BUGs no aloritmo, que não seria possível resolver durante a etapa de desenvolvimento tradicional sem muitos casos de uso.
 
 # AI_AUTOINSTALL - ENGLISH
 
