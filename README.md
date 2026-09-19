@@ -56,29 +56,29 @@ This high volume of projects generated numerous use cases, allowing me to solve 
 
 # VERSOES
 
-(1) AI2_30-AUTOCAD_R11-v2.30.202609151810-lmarcio (AutoCAD Release 11 DOS from 1989 until 1997).
-- First Version of AI v1.0 was Developed for DOCM - Diretoria de Obras Civis da Marinha and AQ Projetos de Instalações Ltda in 1989-1990.
+(1) AI2_30-AUTOCAD_R11-v2.30.202609151810-lmarcio (AutoCAD Release 11 DOS for DOCM - Diretoria de Obras Civis da Marinha from 1989 until 1997).
+- First release was developed for DOCM - Diretoria de Obras Civis da Marinha and AQ Projetos de Instalações Ltda between 1989 and 1991.
 
-(2) AI3_01-INTELLICAD-v3.01.202609151810-lmarcio (IntelliCAD Open Source Version from 1997 until 2007).
-- This version was developed for IntelliCAD Open Source Software between 1997 and 2001, and I solve some BUGs in IntelliCAD at that time.
+(2) AI3_01-INTELLICAD-v3.01.202609151810-lmarcio (IntelliCAD Open Source 1997 for AQ Projetos de Instalações Ltda).
+- First release was developed for IntelliCAD Open Source Software between 1997 and 2001. I made some changes on IntelliCAD source code to implement this release.
 
-(3) AI4-INTELLICAD-v4.00.202609151810-lmarcio (IntelliCAD Open Source Version from 1997 until 2007).
-- This version was developed for IntelliCAD Open Source Software between 1997 and 2001, and I solve some BUGs in IntelliCAD at that time.
+(3) AI4-INTELLICAD-v4.00.202609151810-lmarcio (IntelliCAD Open Source 1997 for AQ Projetos de Instalações Ltda).
+- This release was developed for IntelliCAD Open Source Software between 1997 and 2001. I made some changes on IntelliCAD source code to implement this release.
 
-(4) AI7-VCAD_RCTASK-v7.00.202609151810-lmarcio (VCAD RCTASK Version from 2007 and in production).
-- This version was developed for RCTASK VCAD Release 10 from 2007 and in production at AQ Projetos de Instalacoes Ltda.
+(4) AI7-VCAD_RCTASK-v7.00.202609151810-lmarcio (VCAD RCTASK Version 2007 and 2010 for AQ Projetos de Instalações Ltda - In Production Today).
+- This release was developed for VCAD RCTASK Release 2007 and 2010. It's contain some patches offer by RCTASK Support Team to solve BUGs in VCAD's AutoLISP Interpreter.
+  
+(5) AI7_2007-AUTOCAD_2007-v7.00.202609151810-lmarcio (AutoCAD 2007 for AQ Projetos de Instalações Ltda).
+- This release was developed for AutoCAD 2007 to be used by AQ Projetos de Instalações Ltda.
 
-(5) AI7_2007-AUTOCAD_2007-v7.00.202609151810-lmarcio (AutoCAD 2007)
-- This version was developed for AutoCAD 2007.
+(6) AI7_2014-AUTOCAD_2014-v7.00.202609151810-lmarcio (AutoCAD 2014 for AQ Projetos de Instalações Ltda).
+- This release was developed for AutoCAD 2014 to be used by AQ Projetos de Instalações Ltda, and was presented at Autodesk University Brazil 2015 and 2016, when I was Sponsor in the Conference.
 
-(6) AI7_2014-AUTOCAD_2014-v7.00.202609151810-lmarcio (AutoCAD 2014)
-- This version was developed for AutoCAD 2014 and presented at Autodesk University Brazil from 2014 until 2017.
+(7) AI7_2014-AUTOCAD_2017-v7.00.202609151810-lmarcio (AutoCAD 2017 for AQ Projetos de Instalações Ltda - In Production Today).
+- This release was developed for AutoCAD 2017 to be used by AQ Projetos de Instalações Ltda, and stil been used in production.
 
-(7) AI7_2014-AUTOCAD_2017-v7.00.202609151810-lmarcio (AutoCAD 2017)
-- This version was developed for AutoCAD 2017 and presented at Autodesk University Brazil from 2014 until 2017.
-
-(8) AI8-GSTARCAD_2021-v8.00.202609151810-lmarcio (GstarCAD 2021)
-- This version was developed for GstarCAD 2021 to replace the old version for RCTASK VCAD Release 10.
+(8) AI8-GSTARCAD_2021-v8.00.202609151810-lmarcio (GstarCAD 2021 for AQ Projetos de Instalações Ltda - Implemented for Platform Avaliation).
+- This release was developed for GstarCAD 2021 to replace the old version of VCAD RCTASK Release 2010 which is in use at AQ Projetos de Instalações Ltda.
 
 # DEFINICAO DOS COMANDOS
 
